@@ -1,34 +1,49 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
-  <groupId>moo</groupId>
+  <groupId>com.moo.ttp</groupId>
   <artifactId>ttp</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
-
+  <version>1.0-SNAPSHOT</version>
   <name>ttp</name>
   <url>http://maven.apache.org</url>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-
   <dependencies>
-  
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
-    
-	<dependency>
-	    <groupId>com.google.code.gson</groupId>
-	    <artifactId>gson</artifactId>
-	    <version>2.3.1</version>
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.3.1</version>
+    </dependency>
+    <dependency>
+		<groupId>org.uma.jmetal</groupId>
+		<artifactId>jmetal-core</artifactId>
+		<version>5.0-Beta-34</version>
 	</dependency>
-
-    
+	<dependency>
+		<groupId>org.uma.jmetal</groupId>
+		<artifactId>jmetal-exec</artifactId>
+		<version>5.0-Beta-34</version>
+	</dependency>
+	<dependency>
+		<groupId>org.uma.jmetal</groupId>
+		<artifactId>jmetal-problem</artifactId>
+		<version>5.0-Beta-34</version>
+	</dependency>
+	<dependency>
+		<groupId>org.uma.jmetal</groupId>
+		<artifactId>jmetal-algorithm</artifactId>
+		<version>5.0-Beta-34</version>
+	</dependency>
+	<dependency>
+		<groupId>org.moeaframework</groupId>
+		<artifactId>moeaframework</artifactId>
+		<version>2.5</version>
+	</dependency>
+	
   </dependencies>
 </project>
