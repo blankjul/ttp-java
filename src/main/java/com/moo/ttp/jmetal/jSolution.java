@@ -108,4 +108,6 @@ public class jSolution implements jISolution {
 		result = 31 * result + attributes.hashCode();
 		return result;
 	}
+	
+
 }

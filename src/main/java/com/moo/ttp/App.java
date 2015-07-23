@@ -44,7 +44,6 @@ public class App
 		NSGAII<jISolution> nsga = new NSGAII<jISolution>(new jProblem(ttp), 25000, 100,
 			      new jCrossover(), new jMutation(),
 			      new BinaryTournamentSelection<jISolution>(), new SequentialSolutionListEvaluator<jISolution>());
-		
 		nsga.run();
 		
 		for (jISolution solution : nsga.getResult()) {

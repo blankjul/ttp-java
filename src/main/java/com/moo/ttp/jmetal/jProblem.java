@@ -8,10 +8,13 @@ import com.moo.ttp.util.Pair;
 public class jProblem extends AbstractGenericProblem<jISolution> implements jIProblem {
 
 	public TravellingThiefProblem ttp = null;
-
+	
+	
 	
 	public jProblem(TravellingThiefProblem ttp) {
 		this.ttp = ttp;
+		this.setNumberOfObjectives(2);
+		this.setNumberOfVariables(1);
 	}
 
 	public void evaluate(jISolution solution) {
@@ -23,6 +26,11 @@ public class jProblem extends AbstractGenericProblem<jISolution> implements jIPr
 
 	public jISolution createSolution() {
 		return new jSolution(ttp.numOfCities(), ttp.numOfItems());
+	}
+	
+	@Override
+	public String toString() {
+		return ttp.toString();
 	}
 
 }

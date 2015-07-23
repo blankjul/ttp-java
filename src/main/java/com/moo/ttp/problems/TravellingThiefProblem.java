@@ -124,5 +124,10 @@ public class TravellingThiefProblem {
 	public void setDroppingRate(double droppingRate) {
 		this.droppingRate = droppingRate;
 	}
+	
+	@Override
+	public String toString() {
+		return "ttp-" + map.getSize() + "-" + (items.size() / map.getSize());
+	}
 
 }
