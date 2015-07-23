@@ -39,7 +39,7 @@ public class JsonBuilder {
 			runs.add(new JsonPrimitive(i));
 		}
 		res.add("runs", runs);
-		
+		res.add("date", new JsonPrimitive((System.currentTimeMillis() / 1000L)));
 		res.add("algorithms", createStringJson(s.configureAlgorithmList(s.problems.get(0))));
 		res.add("indicators", createStringJson(Arrays.asList(Experiment.INDICATORS)));
 		return res;
