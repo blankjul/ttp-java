@@ -1,8 +1,10 @@
 library(rjson)
 
+#setwd("/home/julesy/Workspace/ttp-java")
+
 plots <- list()
-dir <- "/home/julesy/Workspace/ttp-java/experiment/"
-exp <- fromJSON( , '/home/julesy/Workspace/ttp-java/experiment/experiment.json')
+dir <- "experiment/"
+exp <- fromJSON(,paste(dir, "experiment.json", sep=""))
 
 limits <- list()
 
@@ -12,7 +14,7 @@ for(p in exp$problems) {
   i <- 1
   for(a in exp$algorithms) {
     for(e in exp$runs) {
-      file <- paste("/home/julesy/Workspace/ttp-java/experiment/", p, "_",a,"_", e, ".pf", sep = "")
+      file <- paste(dir, p, "_",a,"_", e, ".pf", sep = "")
       front <- fromJSON(,file)
       l[[p]][[i]] <- front
       i <- i + 1
@@ -35,7 +37,7 @@ scatter <- function(p, a, e, xlimit, ylimit) {
   front <- fromJSON( ,   path_front)
   
   ref <- fromJSON( ,  paste(dir, p, ".pf", sep = ""))
-  svg(paste("/home/julesy/Workspace/ttp-java/experiment/", p, "_", a ,"_", e, ".svg", sep = ""))
+  svg(paste(dir, p, "_", a ,"_", e, ".svg", sep = ""))
   plot(ref[[1]], ref[[2]], xlim=xlimit, ylim=ylimit, pch=1, xlab = "time", ylab="profit", main=paste(p, "_",a,"_", e, sep = ""))
   par(new = TRUE)
   plot(front[[1]], front[[2]], xlim=xlimit, ylim=ylimit, axes = FALSE, pch=4, xlab = "", ylab = "")
@@ -54,7 +56,7 @@ for(p in exp$problems) {
 for(indicator in exp$indicators) {
   for(p in exp$problems) {
     entry <- lapply(exp$algorithms, function(a) fromJSON(,paste( dir, p, "_",a, ".", indicator, sep = "")))
-    svg(paste("/home/julesy/Workspace/ttp-java/experiment/", p, "_", indicator, ".svg", sep = ""))
+    svg(paste(dir, p, "_", indicator, ".svg", sep = ""))
     boxplot(entry, names=exp$algorithms, main=paste(p, indicator))
     dev.off()
   }
