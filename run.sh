@@ -1,8 +1,12 @@
 rm -rf experiment
 
-git reset --hard HEAD
-git clean -f
-git pull
+
+if (( "$#" == 1 )) 
+then
+    git reset --hard HEAD
+    git clean -f
+    git pull
+fi
 
 mkdir experiment
 
