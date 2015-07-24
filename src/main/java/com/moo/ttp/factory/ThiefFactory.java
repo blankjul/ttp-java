@@ -36,6 +36,7 @@ public class ThiefFactory {
 		
 		s.setItems(items);
 		s.setMaxWeight((int) (sumWeights * MAX_WEIGHT_PERC));
+		s.setProfitCalculator("com.moo.ttp.problems.travellingthiefproblem.IndividualProfitCalculator");
 		return new TravellingThiefProblem(s);
 	}
 

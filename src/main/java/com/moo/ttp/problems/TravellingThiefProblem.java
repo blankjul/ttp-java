@@ -24,6 +24,11 @@ public class TravellingThiefProblem {
 	public int numOfItems() {
 		return settings.getItems().size();
 	}
+	
+	@Override
+	public String toString() {
+		return settings.toString();
+	}
 
 	
 	public static Pair<Double,Integer> calculateTime(TravellingThiefProblemSettings settings, Integer[] pi, Boolean[] b, 

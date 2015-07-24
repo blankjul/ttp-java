@@ -73,6 +73,10 @@ public class TravellingThiefProblemSettings {
 		this.items = items;
 	}
 	
+	@Override
+	public String toString() {
+		return String.format("%s-%s", map.getSize(), items.size() / map.getSize());
+	}
 
 	
 	

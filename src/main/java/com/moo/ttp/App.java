@@ -33,7 +33,7 @@ public class App
 	
 	public static void main(String[] args) throws JMException {
 		
-		TravellingThiefProblem ttp = ThiefFactory.create(20, 5);
+		TravellingThiefProblem ttp = example();
         
 		NSGAIII a = new NSGAIII(new jProblem(ttp), 250000, 100, 12);
 		a.run();
