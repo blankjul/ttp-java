@@ -14,7 +14,10 @@ public class jSolution implements jISolution {
 
 	public jSolution(jSolution s) {
 		objectives = new double[s.getNumberOfObjectives()];
-		vars = s.getVariableValue(0);
+		for (int i = 0; i < objectives.length; i++) {
+			objectives[i] = s.getObjective(i);
+		}
+		vars = (jVariable) s.getVariableValue(0).deepCopy();
 	}
 
 	public jSolution(int numOfCities, int numOfItems) {

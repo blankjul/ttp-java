@@ -6,6 +6,7 @@ import org.uma.jmetal.algorithm.multiobjective.nsgaii.NSGAII;
 import org.uma.jmetal.operator.impl.selection.BinaryTournamentSelection;
 import org.uma.jmetal.util.evaluator.impl.SequentialSolutionListEvaluator;
 
+import com.moo.ttp.algorithms.MOEAD;
 import com.moo.ttp.jmetal.jCrossover;
 import com.moo.ttp.jmetal.jISolution;
 import com.moo.ttp.jmetal.jMutation;
@@ -41,6 +42,13 @@ public class App
 		
 		TravellingThiefProblem ttp = example();
         
+		MOEAD moad = new MOEAD(new jProblem(ttp), 250000);
+		moad.run();
+		for (jISolution solution : moad.getResult()) {
+			System.out.println(solution);
+		}
+		
+		/*
 		NSGAII<jISolution> nsga = new NSGAII<jISolution>(new jProblem(ttp), 25000, 100,
 			      new jCrossover(), new jMutation(),
 			      new BinaryTournamentSelection<jISolution>(), new SequentialSolutionListEvaluator<jISolution>());
@@ -49,6 +57,7 @@ public class App
 		for (jISolution solution : nsga.getResult()) {
 			System.out.println(solution);
 		}
+		*/
 
 
 	}

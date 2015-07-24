@@ -26,8 +26,8 @@ public class Study {
 	}
 
 	public static String OUTPUT_DIR = "./experiment";
-	public final static int MAX_EVALUATIONS = 25000;
-	public final int NUM_OF_RUNS = 10;
+	public final static int MAX_EVALUATIONS = 2500000;
+	public final int NUM_OF_RUNS = 5;
 	public Gson gson = new Gson();
 	public List<Problem<jISolution>> problems;
 	public List<Algorithm<List<jISolution>>> algorithms;
@@ -99,7 +99,7 @@ public class Study {
 		List<Problem<jISolution>> problems = new ArrayList<Problem<jISolution>>();
 		//problems.add(new jProblem(App.example()));
 		problems.add(new jProblem(ThiefFactory.create(20, 1)));
-		problems.add(new jProblem(ThiefFactory.create(20, 5)));
+		//problems.add(new jProblem(ThiefFactory.create(20, 5)));
 		
 		
 		return problems;
@@ -107,6 +107,7 @@ public class Study {
 
 	public List<Algorithm<List<jISolution>>> configureAlgorithmList(Problem<jISolution> p) {
 		List<Algorithm<List<jISolution>>> algorithms = new ArrayList<Algorithm<List<jISolution>>>();
+		algorithms.add(new com.moo.ttp.algorithms.MOEAD(p, MAX_EVALUATIONS));
 		algorithms.add(new com.moo.ttp.algorithms.NSGAII(p, MAX_EVALUATIONS, 100));
 		algorithms.add(new com.moo.ttp.algorithms.NSGAIII(p, MAX_EVALUATIONS, 100, 12));
 		algorithms.add(new com.moo.ttp.algorithms.RandomSearch(p, MAX_EVALUATIONS));
