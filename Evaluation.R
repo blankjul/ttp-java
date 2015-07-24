@@ -57,7 +57,9 @@ for(indicator in exp$indicators) {
   for(p in exp$problems) {
     entry <- lapply(exp$algorithms, function(a) fromJSON(,paste( dir, p, "_",a, ".", indicator, sep = "")))
     svg(paste(dir, p, "_", indicator, ".svg", sep = ""))
-    boxplot(entry, names=exp$algorithms, main=paste(p, indicator))
+    op <- par(mar = c(5, 10, 4, 2) + 0.1)
+    boxplot(entry, names=exp$algorithms, main=paste(p, indicator, sep = "-"), horizontal = TRUE, las = 1, cex.axis = 0.7)
+    par(op)
     dev.off()
   }
 }

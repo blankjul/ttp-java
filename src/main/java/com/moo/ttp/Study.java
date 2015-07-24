@@ -20,13 +20,13 @@ import com.moo.ttp.util.Util;
 public class Study {
 
 	public static void main(String[] args) {
-		if (args.length == 1) Study.OUTPUT_DIR = args[0];
+		if (args.length == 1) Study.MAX_EVALUATIONS = Integer.valueOf(args[0]);
 		Study s = new Study();
 		s.run();
 	}
 
 	public static String OUTPUT_DIR = "./experiment";
-	public final static int MAX_EVALUATIONS = 2500000;
+	public static int MAX_EVALUATIONS = 2500;
 	public final int NUM_OF_RUNS = 5;
 	public Gson gson = new Gson();
 	public List<Problem<jISolution>> problems;
