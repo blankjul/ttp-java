@@ -3,6 +3,9 @@ package com.moo.ttp.model;
 public class Map {
 	
 	private double[][] distances;
+	
+	private double min = Double.MAX_VALUE;
+	private double max = Double.MIN_VALUE;
 
 	public Map(int n) {
 		super();
@@ -13,16 +16,26 @@ public class Map {
 		return distances[i][j];
 	}
 	
-	public void set(int i, int j, double value) {
+	public Map set(int i, int j, double value) {
+		if (value < min) min = value;
+		if (value > max) max = value;
 		distances[i][j] = value;
 		distances[j][i] = value;
+		return this;
 	}
 	
 	public int getSize() {
 		return distances.length;
 	}
+
+	public double getMin() {
+		return min;
+	}
+
+	public double getMax() {
+		return max;
+	}
 	
-	
-	
+
 
 }

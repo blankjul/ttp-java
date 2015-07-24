@@ -25,7 +25,7 @@ public class jProblem extends AbstractGenericProblem<jISolution> implements jIPr
 	}
 
 	public jISolution createSolution() {
-		return new jSolution(ttp.numOfCities(), ttp.numOfItems());
+		return new jSolution(ttp);
 	}
 	
 	@Override

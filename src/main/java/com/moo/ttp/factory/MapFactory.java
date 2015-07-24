@@ -16,7 +16,7 @@ public class MapFactory {
 		}
 		
 		Map m = new Map(n);
-		for (int i = 1; i < cities.size(); i++) {
+		for (int i = 0; i < cities.size(); i++) {
 			for (int j = i; j < cities.size(); j++) {
 				double disX = (cities.get(i).getX() - cities.get(j).getX()) * (cities.get(i).getX() - cities.get(j).getX());
 				double disY = (cities.get(i).getY() - cities.get(j).getY()) * (cities.get(i).getY() - cities.get(j).getY());

@@ -5,9 +5,6 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedList;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-
 public class Util {
 	
 	public static <T> void swap(T[] obj, int a, int b) {
@@ -34,13 +31,14 @@ public class Util {
 	}
 	
 	public static Boolean[] createRandomPickingPlan(int n) {
+		double pickingProb = Rnd.rndDouble();
 		Boolean[] b = new Boolean[n];
 		for (int i = 0; i < b.length; i++) {
-			b[i] = Rnd.rndDouble() < 0.5;
+			b[i] = Rnd.rndDouble() < pickingProb;
 		}
 		return b;
 	}
-
+	
 	public static <T> void write(String path, T obj) {
 		System.out.println("Writing " + path);
 		try {
@@ -53,22 +51,6 @@ public class Util {
 		}
 	}
 	
-	public static JsonArray toJson(double[][] d) {
-		JsonArray result = new JsonArray();
-		
-		JsonArray[] arrays = new JsonArray[d[0].length];
-		for (int i = 0; i < arrays.length; i++) {
-			arrays[i] = new JsonArray();
-		}
-		
-		for (int i = 0; i < d.length; i++) {
-			for (int j = 0; j < d[0].length; j++) {
-				arrays[j].add(new Gson().toJsonTree(d[i][j]));
-			}
-		}
-		for (int i = 0; i < arrays.length; i++) {
-			result.add(arrays[i]);
-		}
-		return result;
-	}
+	
+	
 }

@@ -31,6 +31,9 @@ public class jCrossover implements CrossoverOperator<jISolution> {
 		offspring.get(0).setVariableValue(0, new jVariable(tour.first, b.first));
 		offspring.get(1).setVariableValue(0, new jVariable(tour.second, b.second));
 		
+		offspring.get(0).removeConstraintViolations();
+		offspring.get(1).removeConstraintViolations();
+		
 		return offspring;
 	}
 

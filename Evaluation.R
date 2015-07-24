@@ -15,6 +15,7 @@ for(p in exp$problems) {
   for(a in exp$algorithms) {
     for(e in exp$runs) {
       file <- paste(dir, p, "_",a,"_", e, ".pf", sep = "")
+      print(file);
       front <- fromJSON(,file)
       l[[p]][[i]] <- front
       i <- i + 1
@@ -26,7 +27,7 @@ for(p in exp$problems) {
 }
 
 
-
+#tmp = sapply(l[['ttp-20-10']], function(x) x[[2]]);
 
 last <- function(x) { return( x[length(x)] ) }
 

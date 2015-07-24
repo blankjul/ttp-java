@@ -6,24 +6,49 @@ import java.util.Map;
 
 import org.uma.jmetal.solution.Solution;
 
+import com.moo.ttp.operators.RepairPickingPlan;
+import com.moo.ttp.problems.TravellingThiefProblem;
+
 public class jSolution implements jISolution {
 
-	public Map<Object, Object> attributes = new HashMap<Object, Object>();
-	public double[] objectives = null;
-	public jVariable vars = null;
+	/// Variable for saving attributes -> jMetal
+	protected Map<Object, Object> attributes = new HashMap<Object, Object>();
+	
+	/// objective values for each solution
+	protected double[] objectives = null;
+	
+	/// variable that are the input
+	protected jVariable variables = null;
+	
+	/// the travelling thief problem which determines the constrains for this solution
+	protected TravellingThiefProblem ttp = null; 
+	
 
+	/**
+	 * Copy constructor for the solutions
+	 * @param s jSoluation to be copied.
+	 */
 	public jSolution(jSolution s) {
-		objectives = new double[s.getNumberOfObjectives()];
-		for (int i = 0; i < objectives.length; i++) {
-			objectives[i] = s.getObjective(i);
-		}
-		vars = (jVariable) s.getVariableValue(0).deepCopy();
+		objectives = s.objectives.clone();
+		variables = (jVariable) s.getVariableValue(0).deepCopy();
+		this.ttp = s.ttp;
 	}
 
-	public jSolution(int numOfCities, int numOfItems) {
+	/**
+	 * Create a new solution according to the given problem
+	 * @param ttp that defines the length of pi and b
+	 */
+	public jSolution(TravellingThiefProblem ttp) {
+		this.ttp = ttp;
 		objectives = new double[2];
-		vars = new jVariable(numOfCities, numOfItems);
+		variables = new jVariable(ttp.numOfCities(), ttp.numOfItems());
 	}
+	
+
+	public void removeConstraintViolations() {
+		RepairPickingPlan.repair(ttp, variables.b);
+	}
+
 
 	public void setObjective(int index, double value) {
 		objectives[index] = value;
@@ -34,15 +59,15 @@ public class jSolution implements jISolution {
 	}
 
 	public jVariable getVariableValue(int index) {
-		return vars;
+		return variables;
 	}
 
 	public void setVariableValue(int index, jVariable value) {
-		vars = value;
+		variables = value;
 	}
 
 	public String getVariableValueString(int index) {
-		return vars.toString();
+		return variables.toString();
 	}
 
 	public int getNumberOfVariables() {
@@ -81,11 +106,10 @@ public class jSolution implements jISolution {
 	
 	@Override
 	public String toString() {
-		return vars.toString() + " -> " + Arrays.toString(objectives);
+		return variables.toString() + " -> " + Arrays.toString(objectives);
 	}
 	
 	
-
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)
@@ -99,7 +123,7 @@ public class jSolution implements jISolution {
 			return false;
 		if (!Arrays.equals(objectives, that.objectives))
 			return false;
-		if (!vars.equals(that.vars))
+		if (!variables.equals(that.variables))
 			return false;
 		return true;
 	}
@@ -107,10 +131,13 @@ public class jSolution implements jISolution {
 	@Override
 	public int hashCode() {
 		int result = Arrays.hashCode(objectives);
-		result = 31 * result + vars.hashCode();
+		result = 31 * result + variables.hashCode();
 		result = 31 * result + attributes.hashCode();
 		return result;
 	}
+
+	
+	
 	
 
 }

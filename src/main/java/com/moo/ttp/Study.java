@@ -26,7 +26,7 @@ public class Study {
 	}
 
 	public static String OUTPUT_DIR = "./experiment";
-	public static int MAX_EVALUATIONS = 2500;
+	public static int MAX_EVALUATIONS = 25000;
 	public final int NUM_OF_RUNS = 5;
 	public Gson gson = new Gson();
 	public List<Problem<jISolution>> problems;
@@ -41,6 +41,7 @@ public class Study {
 	}
 
 	public void run() {
+		
 		
 		new File("./experiment").mkdirs();
 
@@ -99,7 +100,7 @@ public class Study {
 		List<Problem<jISolution>> problems = new ArrayList<Problem<jISolution>>();
 		//problems.add(new jProblem(App.example()));
 		problems.add(new jProblem(ThiefFactory.create(20, 1)));
-		//problems.add(new jProblem(ThiefFactory.create(20, 5)));
+		problems.add(new jProblem(ThiefFactory.create(20, 10)));
 		
 		
 		return problems;

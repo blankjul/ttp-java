@@ -39,6 +39,7 @@ public class jMutation implements MutationOperator<jISolution> {
 
 	public jISolution execute(jISolution solution) {
 		this.doMutation(solution);
+		solution.removeConstraintViolations();
 		return solution;
 	} 
 	

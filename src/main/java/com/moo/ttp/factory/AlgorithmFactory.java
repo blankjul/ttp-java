@@ -18,7 +18,7 @@ public class AlgorithmFactory {
 
 
 
-	public static Algorithm<List<jISolution>> create(String algorithm, TravellingThiefProblem ttp, int maxEvaluations) throws jmetal.util.JMException {
+	public static Algorithm<List<jISolution>> create(String algorithm, TravellingThiefProblem ttp, int maxEvaluations) {
 		if (algorithm.equals("NSGAII")) {
 			return new NSGAII<jISolution>(new jProblem(ttp), maxEvaluations, 100,
 				      new jCrossover(), new jMutation(),

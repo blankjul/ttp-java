@@ -56,7 +56,7 @@ public class OperatorTest extends TestCase {
 	public void testPMXCrossoverSimilarParentsNoErrir() {
 		p1 = new Integer[] {1,2,3,4,5};
 		p2 = new Integer[] {2,1,3,4,5};
-		Pair<Integer[],Integer[]> result = PMXCrossover.crossover(p1, p2, 3);
+		PMXCrossover.crossover(p1, p2, 3);
 	}
 
 	

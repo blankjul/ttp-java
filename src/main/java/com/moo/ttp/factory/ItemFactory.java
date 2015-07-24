@@ -29,6 +29,8 @@ public class ItemFactory {
         	break;
 
 		}
+		if (profit < 1) profit = 1;
+		if (profit > maxValue) profit = maxValue;
 		Item i = new Item(profit, weight);
 		return i;
 	}
@@ -41,7 +43,6 @@ public class ItemFactory {
 			items.add(i);
 		}
 		return items;
-		
 	}
 	
 	

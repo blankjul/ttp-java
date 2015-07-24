@@ -1,133 +1,96 @@
 package com.moo.ttp.problems;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
-import com.moo.ttp.model.Item;
-import com.moo.ttp.model.Map;
+import com.moo.ttp.model.DroppingItem;
+import com.moo.ttp.model.ItemCollection;
+import com.moo.ttp.problems.travellingthiefproblem.ProfitCalculator;
+import com.moo.ttp.problems.travellingthiefproblem.ProfitCalculatorFactory;
+import com.moo.ttp.problems.travellingthiefproblem.TravellingThiefProblemSettings;
 import com.moo.ttp.util.Pair;
 
 public class TravellingThiefProblem {
 
-	private Map map;
-	private int maxWeight;
-	private ArrayList<Item> items;
+	TravellingThiefProblemSettings settings = null;
 
-	private HashMap<Integer, ArrayList<Integer>> hash;
-
-	private double minSpeed = 0.1d;
-	private double maxSpeed = 1.0d;
-	private double droppingConstant = 10;
-	private double droppingRate = 0.9;
-
-	public TravellingThiefProblem(Map map) {
-		this(map, -1);
-	}
-
-	public TravellingThiefProblem(Map map, int maxWeight) {
-		super();
-		this.map = map;
-		this.maxWeight = maxWeight;
-		this.items = new ArrayList<Item>();
-		this.hash = new HashMap<Integer, ArrayList<Integer>>();
-	}
-
-	public void addItem(int city, Item i) {
-		items.add(i);
-		if (hash.containsKey(city)) {
-			hash.get(city).add(items.size() - 1);
-		} else {
-			hash.put(city, new ArrayList<Integer>(Arrays.asList(items.size() - 1)));
-		}
+	public TravellingThiefProblem(TravellingThiefProblemSettings settings) {
+		this.settings = settings;
 	}
 
 	public int numOfCities() {
-		return map.getSize();
+		return settings.getMap().getSize();
 	}
 
 	public int numOfItems() {
-		return items.size();
+		return settings.getItems().size();
 	}
 
-	public Pair<Double, Double> evaluate(Integer[] pi, Boolean[] pickingPlan) {
-
-		HashMap<Integer, Double> pickingTimes = new HashMap<Integer, Double>();
-
-		double currentTime = 0;
-		double currentSpeed = maxSpeed;
-		double currentWeight = 0;
-
+	
+	public static Pair<Double,Integer> calculateTime(TravellingThiefProblemSettings settings, Integer[] pi, Boolean[] b, 
+			HashMap<Integer, Double> pickingTimes) {
+		ItemCollection<DroppingItem> items = settings.getItems();
+		
+		double time = 0;
+		double speed = settings.getMaxSpeed();
+		int weight = 0;
 		// iterate over all possible cities
 		for (int i = 0; i < pi.length; i++) {
-
-			// look for all items at this city -> if there are one
-			if (hash.containsKey(pi[i])) {
-				for (Integer index : hash.get(pi[i])) {
-					// if we pick the item change the weight
-					if (pickingPlan[index]) {
-						currentWeight += items.get(index).getWeight();
-						currentSpeed = Math.max(minSpeed, maxSpeed - currentWeight * (maxSpeed - minSpeed) / maxWeight);
-						pickingTimes.put(index, currentTime);
-					}
+			
+			// for each item index this city
+			for (Integer index : items.getItemsFromCityByIndex(pi[i])) {
+				
+				// if we pick this item
+				if (b[index]) {
+					
+					// update the current weight
+					weight += items.get(index).getWeight();
+					
+					double speedDiff = settings.getMaxSpeed() - settings.getMinSpeed();
+					speed = settings.getMaxSpeed() - weight * speedDiff / settings.getMaxWeight();
+					
+					// if we are lower than minimum it is just the minimum
+					// if this is the case the weight is larger than the maxWeight!
+					speed = Math.max(speed, settings.getMinSpeed());
+					
+					// save the picking time!
+					if (pickingTimes != null) pickingTimes.put(index, time);
+					
 				}
 			}
-			currentTime += (map.get(pi[i], pi[(i + 1) % pi.length]) / currentSpeed);
+			
+			// do not forget the way from the last city to the first!
+			time += (settings.getMap().get(pi[i], pi[(i + 1) % pi.length]) / speed);
+			
 		}
-
-		double currentProfit = 0d;
-		if (currentWeight <= maxWeight) {
-			for (Integer index : pickingTimes.keySet()) {
-				currentProfit += items.get(index).getProfit() * Math.pow(droppingRate, (currentTime - pickingTimes.get(index)) / droppingConstant);
-			}
-		}
-		return Pair.create(currentTime, currentProfit);
-
-	}
-
-	public int getMaxWeight() {
-		return maxWeight;
-	}
-
-	public void setMaxWeight(int maxWeight) {
-		this.maxWeight = maxWeight;
-	}
-
-	public double getMinSpeed() {
-		return minSpeed;
-	}
-
-	public void setMinSpeed(double minSpeed) {
-		this.minSpeed = minSpeed;
-	}
-
-	public double getMaxSpeed() {
-		return maxSpeed;
-	}
-
-	public void setMaxSpeed(double maxSpeed) {
-		this.maxSpeed = maxSpeed;
-	}
-
-	public double getDroppingConstant() {
-		return droppingConstant;
-	}
-
-	public void setDroppingConstant(double droppingConstant) {
-		this.droppingConstant = droppingConstant;
-	}
-
-	public double getDroppingRate() {
-		return droppingRate;
-	}
-
-	public void setDroppingRate(double droppingRate) {
-		this.droppingRate = droppingRate;
+		return Pair.create( time, weight);
 	}
 	
-	@Override
-	public String toString() {
-		return "ttp-" + map.getSize() + "-" + (items.size() / map.getSize());
+	
+
+	public Pair<Double, Double> evaluate(Integer[] pi, Boolean[] b) {
+
+		HashMap<Integer, Double> pickingTimes = new HashMap<Integer, Double>();
+		
+		// calculate the salesman time
+		Pair<Double,Integer> res = calculateTime(settings, pi, b, pickingTimes);
+		double time = res.first;
+		double weight = res.second;
+
+		// calculate the time of each item on the tour!
+		for (Integer index : pickingTimes.keySet()) {
+			pickingTimes.put(index, time - pickingTimes.get(index));
+		}
+		
+		// create a profit calculator
+		double profit = 0;
+		ProfitCalculator pc = ProfitCalculatorFactory.create(settings.getProfitCalculator());
+		if (weight <= settings.getMaxWeight()) profit = pc.calculate(settings.getItems().getItems(), pickingTimes);
+		
+		if (profit < 0)
+			throw new RuntimeException("Profit has to be larger than 0! But it is " + profit);
+		
+		return Pair.create(time, profit);
+
 	}
 
 }
