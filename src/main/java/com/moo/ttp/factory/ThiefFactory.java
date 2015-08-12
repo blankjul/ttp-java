@@ -3,8 +3,8 @@ package com.moo.ttp.factory;
 import com.moo.ttp.model.DroppingItem;
 import com.moo.ttp.model.Item;
 import com.moo.ttp.model.ItemCollection;
-import com.moo.ttp.problems.TravellingThiefProblem;
-import com.moo.ttp.problems.travellingthiefproblem.TravellingThiefProblemSettings;
+import com.moo.ttp.problems.ttp.TravellingThiefProblem;
+import com.moo.ttp.problems.ttp.TravellingThiefProblemSettings;
 
 public class ThiefFactory {
 
@@ -36,7 +36,6 @@ public class ThiefFactory {
 		
 		s.setItems(items);
 		s.setMaxWeight((int) (sumWeights * MAX_WEIGHT_PERC));
-		s.setProfitCalculator("com.moo.ttp.problems.travellingthiefproblem.IndividualProfitCalculator");
 		return new TravellingThiefProblem(s);
 	}
 

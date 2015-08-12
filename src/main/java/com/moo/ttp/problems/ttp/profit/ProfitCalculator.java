@@ -1,4 +1,4 @@
-package com.moo.ttp.problems.travellingthiefproblem;
+package com.moo.ttp.problems.ttp.profit;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +16,7 @@ public interface ProfitCalculator {
 	 * @param pickingTimes
 	 * @return
 	 */
-	public <T extends Item>  double calculate(List<T> items, HashMap<Integer, Double> pickingTimes);
+	public <T extends Item>  double run(List<T> items, HashMap<Integer, Double> pickingTimes);
 
 	
 }

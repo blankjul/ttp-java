@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.moo.ttp.factory.ThiefFactory;
-import com.moo.ttp.problems.TravellingThiefProblem;
+import com.moo.ttp.problems.ttp.TravellingThiefProblem;
 
 
 

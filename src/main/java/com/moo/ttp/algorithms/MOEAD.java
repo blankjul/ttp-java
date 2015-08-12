@@ -26,10 +26,10 @@ public class MOEAD extends org.uma.jmetal.algorithm.multiobjective.moead.Abstrac
 		this.maxEvaluations = maxEvaluations;
 		this.mutationOperator = new jMutation();
 		this.crossoverOperator = new jCrossover();
-		this.functionType = MOEAD.FunctionType.PBI;
+		this.functionType = MOEAD.FunctionType.TCHE;
 		this.dataDirectory = "";
 		this.neighborhoodSelectionProbability = 0.1;
-		this.maximumNumberOfReplacedSolutions = 5;
+		this.maximumNumberOfReplacedSolutions = 100;
 		this.neighborSize = 20;
 
 		randomGenerator = JMetalRandom.getInstance();
@@ -38,7 +38,6 @@ public class MOEAD extends org.uma.jmetal.algorithm.multiobjective.moead.Abstrac
 		neighborhood = new int[populationSize][neighborSize];
 		idealPoint = new double[problem.getNumberOfObjectives()];
 		lambda = new double[populationSize][problem.getNumberOfObjectives()];
-
 	}
 
 	public String toString() {
@@ -153,7 +152,7 @@ public class MOEAD extends org.uma.jmetal.algorithm.multiobjective.moead.Abstrac
 		}
 	}
 
-	protected double fitnessFunction(jISolution individual, double[] lambda) throws JMetalException {
+	protected double fitnessFunction(final jISolution individual, final double[] lambda) throws JMetalException {
 		double fitness;
 
 		if (MOEAD.FunctionType.TCHE.equals(functionType)) {

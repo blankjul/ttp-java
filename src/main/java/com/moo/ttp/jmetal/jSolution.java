@@ -7,7 +7,7 @@ import java.util.Map;
 import org.uma.jmetal.solution.Solution;
 
 import com.moo.ttp.operators.RepairPickingPlan;
-import com.moo.ttp.problems.TravellingThiefProblem;
+import com.moo.ttp.problems.ttp.TravellingThiefProblem;
 
 public class jSolution implements jISolution {
 

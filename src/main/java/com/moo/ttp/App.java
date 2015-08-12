@@ -9,8 +9,8 @@ import com.moo.ttp.jmetal.jProblem;
 import com.moo.ttp.model.DroppingItem;
 import com.moo.ttp.model.ItemCollection;
 import com.moo.ttp.model.Map;
-import com.moo.ttp.problems.TravellingThiefProblem;
-import com.moo.ttp.problems.travellingthiefproblem.TravellingThiefProblemSettings;
+import com.moo.ttp.problems.ttp.TravellingThiefProblem;
+import com.moo.ttp.problems.ttp.TravellingThiefProblemSettings;
 
 
 public class App 
@@ -27,7 +27,7 @@ public class App
         items.add(2, new DroppingItem(3, 3));
         items.add(3, new DroppingItem(2, 2));
         TravellingThiefProblemSettings s = new TravellingThiefProblemSettings(m, items, 3);
-        s.setProfitCalculator("com.moo.ttp.problems.travellingthiefproblem.ExponentialProfitCalculator");
+        s.setProfitCalculator("com.moo.ttp.problems.ttp.profit.ExponentialProfitCalculator");
         return new TravellingThiefProblem(s);
 	}
 	

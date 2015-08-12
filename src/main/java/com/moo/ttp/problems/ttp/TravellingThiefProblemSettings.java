@@ -1,4 +1,4 @@
-package com.moo.ttp.problems.travellingthiefproblem;
+package com.moo.ttp.problems.ttp;
 
 import com.moo.ttp.model.DroppingItem;
 import com.moo.ttp.model.ItemCollection;
@@ -7,8 +7,11 @@ import com.moo.ttp.model.Map;
 public class TravellingThiefProblemSettings {
 	
 	//! string for factoring a profit calculator
-	protected String profitCalculator = "com.moo.ttp.problems.travellingthiefproblem.ExponentialProfitCalculator";
+	protected String profitCalculator = "com.moo.ttp.problems.ttp.profit.IndividualProfitCalculator";
 	
+	//! string for factoring a profit calculator
+    protected String timeCalculator = "com.moo.ttp.problems.ttp.time.StandardTimeCalculator";
+		
 	//! map where the salesman could visit cities
 	protected Map map = null;
 	
@@ -24,7 +27,7 @@ public class TravellingThiefProblemSettings {
 	//! items and hash for storing the items and the mapping to the cities!
 	protected ItemCollection<DroppingItem> items;
 	
-
+	
 	public TravellingThiefProblemSettings() {
 		super();
 	}
@@ -41,6 +44,12 @@ public class TravellingThiefProblemSettings {
 	}
 	public void setProfitCalculator(String profitCalculator) {
 		this.profitCalculator = profitCalculator;
+	}
+	public String getTimeCalculator() {
+		return timeCalculator;
+	}
+	public void setTimeCalculator(String timeCalculator) {
+		this.timeCalculator = timeCalculator;
 	}
 	public Map getMap() {
 		return map;

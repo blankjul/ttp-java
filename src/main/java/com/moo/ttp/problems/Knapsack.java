@@ -1,6 +1,7 @@
 package com.moo.ttp.problems;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
 
 import com.moo.ttp.model.Item;
@@ -52,11 +53,11 @@ public class Knapsack implements Problem<Boolean[], Integer> {
 			return getProfit(items, b);
 	}
 
-	public static Integer getWeight(ArrayList<Item> items, Boolean[] b) {
+	public static <T extends Item> Integer getWeight(List<T> items, Boolean[] b) {
 		return getSumItemAttribute(items, b, i -> i.getWeight());
 	}
 
-	public static Integer getProfit(ArrayList<Item> items, Boolean[] b) {
+	public static <T extends Item> Integer getProfit(List<T> items, Boolean[] b) {
 		return getSumItemAttribute(items, b, i -> i.getProfit());
 	}
 
@@ -71,7 +72,7 @@ public class Knapsack implements Problem<Boolean[], Integer> {
 	 *            lambda expression
 	 * @return resulting weight
 	 */
-	public static Integer getSumItemAttribute(ArrayList<Item> items, Boolean[] b, Function<Item, Integer> func) {
+	public static <T extends Item> Integer getSumItemAttribute(List<T> items, Boolean[] b, Function<T, Integer> func) {
 		int weight = 0;
 		for (int j = 0; j < b.length; j++) {
 			if (b[j]) weight += func.apply(items.get(j));

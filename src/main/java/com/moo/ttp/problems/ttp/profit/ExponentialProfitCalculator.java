@@ -1,4 +1,4 @@
-package com.moo.ttp.problems.travellingthiefproblem;
+package com.moo.ttp.problems.ttp.profit;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +15,7 @@ public class ExponentialProfitCalculator implements ProfitCalculator{
 	protected double droppingConstant = 10;
 
 	@Override
-	public <T extends Item> double calculate(List<T> items, HashMap<Integer, Double> pickingTimes) {
+	public <T extends Item> double run(List<T> items, HashMap<Integer, Double> pickingTimes) {
 		double profit = 0;
 		for (Integer index : pickingTimes.keySet()) {
 			double itemValue = 0;

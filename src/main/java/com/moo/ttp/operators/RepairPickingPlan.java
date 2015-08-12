@@ -4,26 +4,24 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.moo.ttp.problems.TravellingThiefProblem;
+import com.moo.ttp.model.DroppingItem;
+import com.moo.ttp.problems.Knapsack;
+import com.moo.ttp.problems.ttp.TravellingThiefProblem;
 
 public class RepairPickingPlan {
 
 	public static void repair(TravellingThiefProblem ttp, Boolean[] b) {
 		
-		// get the current weight
-		
-		/*
-		int weight = ttp.getWeightWithoutDropping(b);
+		List<DroppingItem> items = ttp.getSettings().getItems().getItems();
+		int weight = Knapsack.getWeight(items, b);
 
 		List<Integer> indices = collectItems(b, true);
 		Collections.shuffle(indices);
 		for (int index : indices) {
 			b[index] = false;
-			weight -= ttp.getItems().get(index).getWeight();
-			if (weight <= ttp.getMaxWeight()) break;
+			weight -= items.get(index).getWeight();
+			if (weight <= ttp.getSettings().getMaxWeight()) break;
 		}
-		*/
-
 	}
 	
 	private static List<Integer> collectItems(Boolean[] b, boolean value) {
@@ -33,5 +31,6 @@ public class RepairPickingPlan {
 		}
 		return indices;
 	}
+	
 	
 }
