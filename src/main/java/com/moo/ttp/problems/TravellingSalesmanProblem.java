@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 import com.moo.ttp.model.Map;
-import com.moo.ttp.model.Problem;
 
 /**
  * This class defines the TravellingSalesmanProblem which aims to minimize the

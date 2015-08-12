@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.moo.ttp.model.DroppingItem;
+import com.moo.ttp.model.Item;
 import com.moo.ttp.model.ItemCollection;
 import com.moo.ttp.model.Map;
 import com.moo.ttp.problems.ttp.TravellingThiefProblem;
@@ -20,13 +20,13 @@ public class TravellingThiefProblemTest {
 	@Before
     public void setUp() {
 		Map m = new Map(4).set(0,1,5).set(0,2,6).set(0,3,6).set(1,2,5).set(1,3,6).set(2,3,4);
-        ItemCollection<DroppingItem> items = new ItemCollection<DroppingItem>();
-        items.add(2, new DroppingItem(10, 3));
-        items.add(2, new DroppingItem(4, 1));
-        items.add(2, new DroppingItem(4, 1));
-        items.add(1, new DroppingItem(2, 2));
-        items.add(2, new DroppingItem(3, 3));
-        items.add(3, new DroppingItem(2, 2));
+        ItemCollection<Item> items = new ItemCollection<Item>();
+        items.add(2, new Item(10, 3));
+        items.add(2, new Item(4, 1));
+        items.add(2, new Item(4, 1));
+        items.add(1, new Item(2, 2));
+        items.add(2, new Item(3, 3));
+        items.add(3, new Item(2, 2));
         TravellingThiefProblemSettings s = new TravellingThiefProblemSettings(m, items, 3);
         s.setProfitCalculator("com.moo.ttp.problems.ttp.profit.ExponentialProfitCalculator");
         ttp = new TravellingThiefProblem(s);

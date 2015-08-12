@@ -11,10 +11,13 @@ public class ItemFactory {
 	public enum TYPE {UNCORRELATED, WEAKLY_CORRELATED, STRONGLY_CORRELATED};
 	
 	
-	public static Item create(TYPE t, int maxValue) {
+	public static Item create(TYPE t, int maxValue, Double maxTourTime) {
+		
+		// fix the weight value
 		int weight = Rnd.rndInt(0, maxValue);
 		int profit = 0;
 		
+		// calculate the profit value
 		switch (t) {
         case UNCORRELATED: 
         	profit = Rnd.rndInt(0, maxValue);
@@ -31,15 +34,22 @@ public class ItemFactory {
 		}
 		if (profit < 1) profit = 1;
 		if (profit > maxValue) profit = maxValue;
-		Item i = new Item(profit, weight);
+		
+		// set the dropping of the item
+		double dropping = 0;
+		if (maxTourTime != null) dropping = profit / maxTourTime;
+		else dropping = Rnd.rndDouble(0.2, 0.8);
+		
+		Item i = new Item(profit, weight, dropping);
 		return i;
 	}
+	
 	
 	
 	public static Collection<Item> create(TYPE t, int n, int maxValue) {
 		ArrayList<Item> items = new  ArrayList<Item>(n);
 		while (items.size() < n) {
-			Item i = create(t, maxValue);
+			Item i = create(t, maxValue, null);
 			items.add(i);
 		}
 		return items;
@@ -47,44 +57,5 @@ public class ItemFactory {
 	
 	
 	
-	/*
-	 * 
-	 * 
-	 *   auto funcRandomRange = [] (int min, int max) { return min + rand() % (max - min); };
-
-        while (items.size() < numberOfItems) {
-
-            // calculate the weight in between the bounds
-            double weight = (rand() % bounds) + 1;
-            double value;
-            int abs;
-
-
-            switch (type) {
-                // just calculate another value in the bounds
-                case KnapsackType::UNCORRELATED: value = (rand() % bounds) + 1;
-                    break;
-                // make sure that the difference of weight and value are only 10% of the whole range.
-                case KnapsackType::WEAKLY_CORRELATED:
-                    abs = bounds * 0.1;
-                    if (abs == 0) abs = 1;
-                    value = weight + funcRandomRange(0, 2 * abs) - abs;
-                    break;
-                // same as weakly but only 1% is no allowed
-                case KnapsackType::STRONGLY_CORRELATED:
-                    abs = bounds * 0.01;
-                    if (abs == 0) abs = 1;
-                    value = weight + funcRandomRange(0, 2 * abs) - abs;
-                    break;
-            }
-
-            // stay in the range of the bounds!
-            if (value < 0 || value > bounds) continue;
-
-            sum += weight;
-            ItemPtr iPtr = make_shared<Item>(value, weight);
-            items.push_back(iPtr);
-	 * 
-	 */
 
 }

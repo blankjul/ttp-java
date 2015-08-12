@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.moo.ttp.model.DroppingItem;
+import com.moo.ttp.model.Item;
 import com.moo.ttp.problems.Knapsack;
 import com.moo.ttp.problems.ttp.TravellingThiefProblem;
 
@@ -12,7 +12,7 @@ public class RepairPickingPlan {
 
 	public static void repair(TravellingThiefProblem ttp, Boolean[] b) {
 		
-		List<DroppingItem> items = ttp.getSettings().getItems().getItems();
+		List<Item> items = ttp.getSettings().getItems().getItems();
 		int weight = Knapsack.getWeight(items, b);
 
 		List<Integer> indices = collectItems(b, true);

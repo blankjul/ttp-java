@@ -1,6 +1,6 @@
 package com.moo.ttp.problems.ttp;
 
-import com.moo.ttp.model.DroppingItem;
+import com.moo.ttp.model.Item;
 import com.moo.ttp.model.ItemCollection;
 import com.moo.ttp.model.Map;
 
@@ -25,14 +25,14 @@ public class TravellingThiefProblemSettings {
 	protected double maxSpeed = 1.0d;
 	
 	//! items and hash for storing the items and the mapping to the cities!
-	protected ItemCollection<DroppingItem> items;
+	protected ItemCollection<Item> items;
 	
 	
 	public TravellingThiefProblemSettings() {
 		super();
 	}
 	
-	public TravellingThiefProblemSettings(Map map, ItemCollection<DroppingItem> items, int maxWeight) {
+	public TravellingThiefProblemSettings(Map map, ItemCollection<Item> items, int maxWeight) {
 		super();
 		this.map = map;
 		this.items = items;
@@ -75,10 +75,10 @@ public class TravellingThiefProblemSettings {
 	public void setMaxSpeed(double maxSpeed) {
 		this.maxSpeed = maxSpeed;
 	}
-	public ItemCollection<DroppingItem> getItems() {
+	public ItemCollection<Item> getItems() {
 		return items;
 	}
-	public void setItems(ItemCollection<DroppingItem> items) {
+	public void setItems(ItemCollection<Item> items) {
 		this.items = items;
 	}
 	

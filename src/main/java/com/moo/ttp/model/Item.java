@@ -12,6 +12,9 @@ public class Item {
 	//! profit of the item
 	protected int profit;
 	
+	//! dropping of the item over time
+	protected double dropping;
+	
 
 	/**
 	 * Create an item with predefined values.
@@ -23,6 +26,16 @@ public class Item {
 	}
 	
 
+	/**
+	 * Create an item with profit,weight and dropping.
+	 */
+	public Item(int profit, int weight, double dropping) {
+		this(profit, weight);
+		this.dropping = dropping;
+	}
+	
+	
+
 	public int getWeight() {
 		return weight;
 	}
@@ -30,6 +43,13 @@ public class Item {
 	public int getProfit() {
 		return profit;
 	}
+
+
+	public double getDropping() {
+		return dropping;
+	}
+	
+	
 	
 
 

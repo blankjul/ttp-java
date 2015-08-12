@@ -2,7 +2,6 @@ package com.moo.ttp.problems.ttp.time;
 
 import java.util.HashMap;
 
-import com.moo.ttp.model.DroppingItem;
 import com.moo.ttp.model.Item;
 import com.moo.ttp.model.ItemCollection;
 import com.moo.ttp.problems.ttp.TravellingThiefProblem;
@@ -23,7 +22,7 @@ public class StandardTimeCalculator implements TimeCalculator {
 	public <T extends Item> void run(TravellingThiefProblem ttp, Integer[] pi, Boolean[] b) {
 		
 		TravellingThiefProblemSettings settings = ttp.getSettings();
-		ItemCollection<DroppingItem> items = settings.getItems();
+		ItemCollection<Item> items = settings.getItems();
 
 		time = 0;
 		weight = 0;

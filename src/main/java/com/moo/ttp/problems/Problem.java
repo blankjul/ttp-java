@@ -1,4 +1,4 @@
-package com.moo.ttp.model;
+package com.moo.ttp.problems;
 
 /**
  * This interface defines the values of a problem

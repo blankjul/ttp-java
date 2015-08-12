@@ -26,7 +26,7 @@ public class jSolution implements jISolution {
 
 	/**
 	 * Copy constructor for the solutions
-	 * @param s jSoluation to be copied.
+	 * @param s jSolution to be copied.
 	 */
 	public jSolution(jSolution s) {
 		objectives = s.objectives.clone();

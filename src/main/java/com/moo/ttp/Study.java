@@ -11,6 +11,7 @@ import org.uma.jmetal.util.archive.impl.NonDominatedSolutionListArchive;
 
 import com.google.gson.Gson;
 import com.moo.ttp.experiment.Experiment;
+import com.moo.ttp.factory.ItemFactory;
 import com.moo.ttp.factory.ThiefFactory;
 import com.moo.ttp.jmetal.jISolution;
 import com.moo.ttp.jmetal.jProblem;
@@ -98,11 +99,8 @@ public class Study {
 
 	public List<Problem<jISolution>> configureProblemList() {
 		List<Problem<jISolution>> problems = new ArrayList<Problem<jISolution>>();
-		//problems.add(new jProblem(App.example()));
-		problems.add(new jProblem(ThiefFactory.create(20, 1)));
-		problems.add(new jProblem(ThiefFactory.create(20, 10)));
-		
-		
+		problems.add(new jProblem(ThiefFactory.create(20, 1, ItemFactory.TYPE.WEAKLY_CORRELATED, 0.6)));
+		problems.add(new jProblem(ThiefFactory.create(20, 10, ItemFactory.TYPE.WEAKLY_CORRELATED, 0.6)));
 		return problems;
 	}
 

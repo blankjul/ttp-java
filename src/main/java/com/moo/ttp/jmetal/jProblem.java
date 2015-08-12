@@ -10,7 +10,6 @@ public class jProblem extends AbstractGenericProblem<jISolution> implements jIPr
 	public TravellingThiefProblem ttp = null;
 	
 	
-	
 	public jProblem(TravellingThiefProblem ttp) {
 		this.ttp = ttp;
 		this.setNumberOfObjectives(2);

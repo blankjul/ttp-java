@@ -19,8 +19,8 @@ public class jCrossover implements CrossoverOperator<jISolution> {
 	public List<jISolution> doCrossover(jISolution parent1, jISolution parent2)  {
 		
 	    List<jISolution> offspring = new ArrayList<jISolution>(2);
-	    offspring.add((jISolution) parent1.copy()) ;
-	    offspring.add((jISolution) parent2.copy()) ;
+	    offspring.add((jISolution) parent1.copy());
+	    offspring.add((jISolution) parent2.copy());
 		
 		jVariable p1 = (jVariable) parent1.getVariableValue(0);
 		jVariable p2 = (jVariable) parent2.getVariableValue(0);

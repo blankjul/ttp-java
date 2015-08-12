@@ -1,12 +1,13 @@
 package com.moo.ttp.operators;
 
-import junit.framework.TestCase;
-
 import org.junit.Before;
 import org.junit.Test;
 
+import com.moo.ttp.factory.ItemFactory;
 import com.moo.ttp.factory.ThiefFactory;
 import com.moo.ttp.problems.ttp.TravellingThiefProblem;
+
+import junit.framework.TestCase;
 
 
 
@@ -16,7 +17,7 @@ public class RepairTest extends TestCase {
 	
 	@Before
     public void setUp() {
-		ttp = ThiefFactory.create(10, 1);
+		ttp = ThiefFactory.create(10, 1, ItemFactory.TYPE.WEAKLY_CORRELATED, 0.6);
 		
     }
 	
