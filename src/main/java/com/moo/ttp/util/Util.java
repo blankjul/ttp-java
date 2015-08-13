@@ -20,16 +20,7 @@ public class Util {
 	    return -1;
 	}
 	
-	public static Integer[] createRandomTour(int n) {
-		LinkedList<Integer> indices = new LinkedList<Integer>();
-		for (int i = 1; i < n; i++) indices.add(i);
-		Collections.shuffle(indices);
-		indices.addFirst(0);
-		Integer[] pi = new Integer[indices.size()];
-		for (int j = 0; j < pi.length; j++) pi[j] = indices.get(j);
-		return pi;
-	}
-	
+
 	public static Boolean[] createRandomPickingPlan(int n) {
 		double pickingProb = Rnd.rndDouble();
 		Boolean[] b = new Boolean[n];

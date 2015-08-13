@@ -12,9 +12,8 @@ public class jMutation implements MutationOperator<jISolution> {
 
 	public void doMutation(jISolution solution) {
 			jVariable vars = (jVariable) solution.getVariableValue(0);
-			SwapMutation.mutate(vars.pi);
+			SwapMutation.mutate(vars.tour.encode());
 			BitFlip.mutate(vars.b);
-
 	} 
 
 

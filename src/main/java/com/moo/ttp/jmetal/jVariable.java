@@ -2,32 +2,33 @@ package com.moo.ttp.jmetal;
 
 import java.util.Arrays;
 
+import com.moo.ttp.model.tour.Tour;
 import com.moo.ttp.util.Util;
 
 public class jVariable {
 
-	public Integer[] pi;
+	public Tour tour;
 	public Boolean[] b;
 
 	public jVariable(int numOfCities, int numOfItems) {
-		this.pi = Util.createRandomTour(numOfCities);
+		this.tour = tour.random(numOfCities);
 		this.b = Util.createRandomPickingPlan(numOfItems);
 	}
 
-	public jVariable(Integer[] pi, Boolean[] b) {
+	public jVariable(Tour tour, Boolean[] b) {
 		super();
-		this.pi = pi;
+		this.tour = tour;
 		this.b = b;
 	}
 
 	public jVariable deepCopy() {
-		return new jVariable(pi.clone(), b.clone());
+		return new jVariable(tour.copy(), b.clone());
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(Arrays.toString(pi));
+		sb.append(tour.encode().toString());
 		int[] bInt = new int[b.length];
 		for (int i = 0; i < bInt.length; i++) {
 			if (b[i])
@@ -48,7 +49,7 @@ public class jVariable {
 
 		jVariable that = (jVariable) o;
 
-		if (!pi.equals(that.pi))
+		if (!tour.equals(that.tour))
 			return false;
 		if (!b.equals(that.b))
 			return false;
@@ -57,7 +58,7 @@ public class jVariable {
 
 	@Override
 	public int hashCode() {
-		int result = Arrays.hashCode(pi);
+	    int result = Arrays.hashCode(tour.encode().toArray());
 		result = 31 * result + b.hashCode();
 		return result;
 	}

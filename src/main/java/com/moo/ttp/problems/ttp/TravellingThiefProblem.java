@@ -1,5 +1,6 @@
 package com.moo.ttp.problems.ttp;
 
+import com.moo.ttp.model.tour.Tour;
 import com.moo.ttp.problems.ttp.profit.ProfitCalculator;
 import com.moo.ttp.problems.ttp.time.TimeCalculator;
 import com.moo.ttp.util.Factory;
@@ -33,9 +34,10 @@ public class TravellingThiefProblem {
 	}
 
 
-	public Pair<Double, Double> evaluate(Integer[] pi, Boolean[] b) {
+	public Pair<Double, Double> evaluate(Tour t, Boolean[] b) {
 
-		tc.run(this, pi, b);
+		// TODO: This is just a dirty hack. run should use the list for evaluation!
+		tc.run(this, (Integer[]) t.encode().toArray(), b);
 		
 		if (tc.getWeight() > settings.getMaxWeight()) return Pair.create(tc.getTime(), 0d);
 		double profit = pc.run(settings.getItems().getItems(), tc.getItemTimes());

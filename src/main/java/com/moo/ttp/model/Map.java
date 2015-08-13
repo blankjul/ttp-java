@@ -1,12 +1,28 @@
 package com.moo.ttp.model;
 
+/**
+ * This class represents a map with a predefined number of cities.
+ * It is a symmetrical map where where the [i][j] value will always be the same
+ * as the [j][i] value.
+ * 
+ * Also the class provides to get the minimal and the maximal distance all the time!
+ *
+ */
 public class Map {
 	
+	//! distance matrix
 	private double[][] distances;
 	
+	//! minimal distance 
 	private double min = Double.MAX_VALUE;
+	
+	//! maximal distance
 	private double max = Double.MIN_VALUE;
 
+	/**
+	 * Construct where all distance are zero.
+	 * @param n
+	 */
 	public Map(int n) {
 		super();
 		this.distances = new double[n][n];
@@ -17,8 +33,14 @@ public class Map {
 	}
 	
 	public Map set(int i, int j, double value) {
+		// the values on the diagonal are not allowed to change
+		if (i==j) return this;
+		
+		// set the maximal and minimal value
 		if (value < min) min = value;
 		if (value > max) max = value;
+		
+		// set the values at the matrix
 		distances[i][j] = value;
 		distances[j][i] = value;
 		return this;

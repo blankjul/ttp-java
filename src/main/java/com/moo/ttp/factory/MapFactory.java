@@ -6,8 +6,21 @@ import java.util.ArrayList;
 import com.moo.ttp.model.Map;
 import com.moo.ttp.util.Rnd;
 
+/**
+ * This class is used to create a Map which only contains a cost matrix.
+ * There is a Map with different points (2D with X and Y values) and the euclidean distance
+ * between this points is used as a edge cost value.
+ *
+ */
 public class MapFactory {
 	
+	
+	/**
+	 * Create a map.
+	 * @param n cities
+	 * @param maxValue value of this grid (maxValue for either X and Y)
+	 * @return Map with a cost matrix
+	 */
 	public static Map create(int n, int maxValue) {
 		
 		ArrayList<Point> cities = new  ArrayList<Point>(n);

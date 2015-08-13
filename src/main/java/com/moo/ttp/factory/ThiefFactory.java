@@ -5,6 +5,10 @@ import com.moo.ttp.model.ItemCollection;
 import com.moo.ttp.problems.ttp.TravellingThiefProblem;
 import com.moo.ttp.problems.ttp.TravellingThiefProblemSettings;
 
+/**
+ * This factory creates a map and items that could be collected at each city.
+ *
+ */
 public class ThiefFactory {
 
 	public static int MAP_BOUNDS = 1000;

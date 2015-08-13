@@ -6,6 +6,13 @@ import java.util.Collection;
 import com.moo.ttp.model.Item;
 import com.moo.ttp.util.Rnd;
 
+/**
+ * This class is the item factory which allows to create different item types.
+ * There are UNCORRELATED, WEAKLY_CORRELATED, STRONGLY_CORRELATED which determine the 
+ * depends between the profit and the weight of each item.
+ * 
+ *
+ */
 public class ItemFactory {
 	
 	public enum TYPE {UNCORRELATED, WEAKLY_CORRELATED, STRONGLY_CORRELATED};

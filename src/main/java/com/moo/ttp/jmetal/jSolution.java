@@ -20,7 +20,7 @@ public class jSolution implements jISolution {
 	/// variable that are the input
 	protected jVariable variables = null;
 	
-	/// the travelling thief problem which determines the constrains for this solution
+	/// the traveling thief problem which determines the constrains for this solution
 	protected TravellingThiefProblem ttp = null; 
 	
 

@@ -18,7 +18,7 @@ public class jProblem extends AbstractGenericProblem<jISolution> implements jIPr
 
 	public void evaluate(jISolution solution) {
 		jVariable var = (jVariable) solution.getVariableValue(0);
-		Pair<Double, Double> result = ttp.evaluate(var.pi, var.b);
+		Pair<Double, Double> result = ttp.evaluate(var.tour, var.b);
 		solution.setObjective(0, result.first);
 		solution.setObjective(1, -result.second);
 	}

@@ -8,6 +8,7 @@ import org.junit.Test;
 import com.moo.ttp.model.Item;
 import com.moo.ttp.model.ItemCollection;
 import com.moo.ttp.model.Map;
+import com.moo.ttp.model.tour.StandardTour;
 import com.moo.ttp.problems.ttp.TravellingThiefProblem;
 import com.moo.ttp.problems.ttp.TravellingThiefProblemSettings;
 import com.moo.ttp.util.Pair;
@@ -35,28 +36,28 @@ public class TravellingThiefProblemTest {
 	
 	@Test
 	public void testEvaluateFunctionG3() {
-		Pair<Double,Double> p = ttp.evaluate(new Integer[] {0,1,2,3}, new Boolean[] {false, false, false, false, false, false});
+		Pair<Double,Double> p = ttp.evaluate(new StandardTour(new Integer[] {0,1,2,3}), new Boolean[] {false, false, false, false, false, false});
 		assertEquals(20.0, p.first, 0.01);
 		assertEquals(0.0, p.second, 0.01);
 	}
 	
 	@Test
 	public void testEvaluateFunctionG2() {
-		Pair<Double,Double> p = ttp.evaluate(new Integer[] {0,1,3,2}, new Boolean[] {false, true, false, false, false, false});
+		Pair<Double,Double> p = ttp.evaluate(new StandardTour(new Integer[] {0,1,3,2}), new Boolean[] {false, true, false, false, false, false});
 		assertEquals(23.57, p.first, 0.01);
 		assertEquals(3.65, p.second, 0.01);
 	}
 	
 	@Test
 	public void testEvaluateFunctionG1() {
-		Pair<Double,Double> p = ttp.evaluate(new Integer[] {0,1,3,2}, new Boolean[] {false, true, true, false, false, false});
+		Pair<Double,Double> p = ttp.evaluate(new StandardTour(new Integer[] {0,1,3,2}), new Boolean[] {false, true, true, false, false, false});
 		assertEquals(30.0, p.first, 0.01);
 		assertEquals(6.83, p.second, 0.01);
 	}
 	
 	@Test
 	public void testEvaluateFunctionOverload() {
-		Pair<Double,Double> p = ttp.evaluate(new Integer[] {0,1,3,2}, new Boolean[] {true, true, true, false, true, true});
+		Pair<Double,Double> p = ttp.evaluate(new StandardTour(new Integer[] {0,1,3,2}), new Boolean[] {true, true, true, false, true, true});
 		assertEquals(0.0, p.second, 0.01);
 	}
 	
