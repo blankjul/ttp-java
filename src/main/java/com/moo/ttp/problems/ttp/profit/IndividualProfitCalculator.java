@@ -3,7 +3,7 @@ package com.moo.ttp.problems.ttp.profit;
 import java.util.HashMap;
 import java.util.List;
 
-import com.moo.ttp.model.Item;
+import com.moo.ttp.model.item.Item;
 /**
  * The IndividualProfitCalculator calculates the profit by using a dropping rate for each item!
  */

@@ -3,7 +3,7 @@ package com.moo.ttp.problems.ttp.profit;
 import java.util.HashMap;
 import java.util.List;
 
-import com.moo.ttp.model.Item;
+import com.moo.ttp.model.item.Item;
 
 /**
  * The ProfitCalculator provides an interface for calculating the profit on a given map.

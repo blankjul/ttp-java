@@ -2,41 +2,37 @@ package com.moo.ttp.jmetal;
 
 import java.util.Arrays;
 
-import com.moo.ttp.model.tour.Tour;
-import com.moo.ttp.util.Util;
+import com.moo.ttp.model.packing.BooleanPackingList;
+import com.moo.ttp.model.packing.IPackingList;
+import com.moo.ttp.model.tour.ITour;
+import com.moo.ttp.model.tour.StandardTour;
+
 
 public class jVariable {
 
-	public Tour tour;
-	public Boolean[] b;
+	public ITour tour;
+	public IPackingList b;
 
 	public jVariable(int numOfCities, int numOfItems) {
-		this.tour = tour.random(numOfCities);
-		this.b = Util.createRandomPickingPlan(numOfItems);
+		this.tour = new StandardTour(null).random(numOfCities);
+		this.b = new BooleanPackingList(null).random(numOfItems);
 	}
 
-	public jVariable(Tour tour, Boolean[] b) {
+	public jVariable(ITour tour, IPackingList b) {
 		super();
 		this.tour = tour;
 		this.b = b;
 	}
 
 	public jVariable deepCopy() {
-		return new jVariable(tour.copy(), b.clone());
+		return new jVariable(tour.copy(), b.copy());
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(tour.encode().toString());
-		int[] bInt = new int[b.length];
-		for (int i = 0; i < bInt.length; i++) {
-			if (b[i])
-				bInt[i] = 1;
-			else
-				bInt[i] = 0;
-		}
-		sb.append(Arrays.toString(bInt));
+		sb.append(b.encode().toString());
 		return sb.toString();
 	}
 

@@ -12,11 +12,9 @@ import java.util.List;
  * The encoding is nothing else than returning the array directly.
  *
  */
-public class StandardTour implements Tour {
+public class StandardTour extends ATour<List<Integer>> {
 
-	// ! the tour that should be driven by the salesman
-	protected List<Integer> pi;
-
+	
 	/**
 	 * Create a Tour using a permutation vector
 	 * 
@@ -25,14 +23,14 @@ public class StandardTour implements Tour {
 	 */
 	public StandardTour(List<Integer> list) {
 		super();
-		this.pi = list;
+		this.obj = list;
 	}
 
 	/**
 	 * Create a random tour with n cities. The first city is always the city 0!
 	 */
 	@Override
-	public StandardTour random(int numOfCities) {
+	public ATour<List<Integer>> random(int numOfCities) {
 		LinkedList<Integer> indices = new LinkedList<Integer>();
 		for (int i = 1; i < numOfCities; i++) {
 			indices.add(i);
@@ -42,20 +40,19 @@ public class StandardTour implements Tour {
 		return new StandardTour(new ArrayList<>(indices));
 	}
 
+	
 	@Override
 	public StandardTour copy() {
-		return new StandardTour(new ArrayList<Integer>());
+		return new StandardTour(new ArrayList<Integer>(obj));
 	}
 
-	@Override
-	public Object get() {
-		return pi;
-	}
 
 	@Override
 	public List<Integer> encode() {
-		return pi;
+		return obj;
 	}
+
+
 
 
 }

@@ -5,6 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.moo.ttp.model.item.Item;
+import com.moo.ttp.model.item.ItemCollection;
+
 
 
 public class ItemCollectionTest  {

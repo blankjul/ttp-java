@@ -1,4 +1,4 @@
-package com.moo.ttp.model;
+package com.moo.ttp.model.item;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import com.moo.ttp.model.Item;
+import com.moo.ttp.model.item.Item;
 
 /**
  * This class represents the knapsack problem.

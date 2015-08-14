@@ -1,8 +1,8 @@
 package com.moo.ttp.problems.ttp;
 
-import com.moo.ttp.model.Item;
-import com.moo.ttp.model.ItemCollection;
 import com.moo.ttp.model.Map;
+import com.moo.ttp.model.item.Item;
+import com.moo.ttp.model.item.ItemCollection;
 
 public class TravellingThiefProblemSettings {
 	

@@ -1,4 +1,4 @@
-package com.moo.ttp.model;
+package com.moo.ttp.model.item;
 
 /**
  * This class represents an item that could be picked by the salesman or

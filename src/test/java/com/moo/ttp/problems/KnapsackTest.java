@@ -8,7 +8,7 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.moo.ttp.model.Item;
+import com.moo.ttp.model.item.Item;
 
 public class KnapsackTest {
 

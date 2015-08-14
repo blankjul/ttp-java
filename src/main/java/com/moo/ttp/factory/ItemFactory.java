@@ -3,7 +3,7 @@ package com.moo.ttp.factory;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.moo.ttp.model.Item;
+import com.moo.ttp.model.item.Item;
 import com.moo.ttp.util.Rnd;
 
 /**

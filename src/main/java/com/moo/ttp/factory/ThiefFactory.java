@@ -1,7 +1,7 @@
 package com.moo.ttp.factory;
 
-import com.moo.ttp.model.Item;
-import com.moo.ttp.model.ItemCollection;
+import com.moo.ttp.model.item.Item;
+import com.moo.ttp.model.item.ItemCollection;
 import com.moo.ttp.problems.ttp.TravellingThiefProblem;
 import com.moo.ttp.problems.ttp.TravellingThiefProblemSettings;
 

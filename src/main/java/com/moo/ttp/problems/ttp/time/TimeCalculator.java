@@ -2,7 +2,7 @@ package com.moo.ttp.problems.ttp.time;
 
 import java.util.HashMap;
 
-import com.moo.ttp.model.Item;
+import com.moo.ttp.model.item.Item;
 import com.moo.ttp.problems.ttp.TravellingThiefProblem;
 
 /**
