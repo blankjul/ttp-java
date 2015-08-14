@@ -14,6 +14,7 @@ import com.moo.operators.crossover.OrderedCrossover;
 import com.moo.operators.crossover.PMXCrossover;
 import com.moo.operators.crossover.SinglePointCrossover;
 import com.moo.operators.mutation.BitFlipMutation;
+import com.moo.operators.mutation.RestrictedPolynomialMutation;
 import com.moo.operators.mutation.SwapMutation;
 import com.moo.ttp.experiment.Experiment;
 import com.moo.ttp.factory.ItemFactory;
@@ -24,6 +25,7 @@ import com.moo.ttp.jmetal.jMutation;
 import com.moo.ttp.jmetal.jProblem;
 import com.moo.ttp.json.JsonBuilder;
 import com.moo.ttp.model.packing.BooleanPackingList;
+import com.moo.ttp.model.tour.PositionDecodedTour;
 import com.moo.ttp.model.tour.StandardTour;
 import com.moo.ttp.util.Util;
 
@@ -129,6 +131,11 @@ public class Study {
 				new StandardTour(null), new BooleanPackingList(null), 
 				new jCrossover(new OrderedCrossover<Integer>(),  new SinglePointCrossover<Boolean>()),
 				new jMutation(new SwapMutation<>(), new BitFlipMutation()), "NSGAII-ST[OX-SWAP]-BP[SPC-BFA]"));
+		
+		algorithms.add(new com.moo.algorithms.NSGAII(p, MAX_EVALUATIONS, 100, 
+				new PositionDecodedTour(null), new BooleanPackingList(null), 
+				new jCrossover(new SinglePointCrossover<Integer>(),  new SinglePointCrossover<Boolean>()),
+				new jMutation(new RestrictedPolynomialMutation(), new BitFlipMutation()), "NSGAII-PDT[SPC-SWAP]-BP[SPC-BFA]"));
 		
 		return algorithms;
 	}

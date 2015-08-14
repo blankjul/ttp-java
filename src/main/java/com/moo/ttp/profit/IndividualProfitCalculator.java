@@ -15,7 +15,7 @@ public class IndividualProfitCalculator implements ProfitCalculator{
 		for (Integer index : pickingTimes.keySet()) {
 			Item d = (Item) items.get(index);
 			double profitEndOfTour = d.getProfit() - d.getDropping() * pickingTimes.get(index);
-			if (profitEndOfTour > 0)profit += profitEndOfTour;
+			if (profitEndOfTour > 0) profit += profitEndOfTour;
 		}
 		return profit;
 	}

@@ -7,10 +7,10 @@ import com.moo.ttp.model.item.ItemCollection;
 public class TravellingThiefProblemSettings {
 	
 	//! string for factoring a profit calculator
-	protected String profitCalculator = "com.moo.ttp.problems.ttp.profit.IndividualProfitCalculator";
+	protected String profitCalculator = "com.moo.ttp.profit.IndividualProfitCalculator";
 	
 	//! string for factoring a profit calculator
-    protected String timeCalculator = "com.moo.ttp.problems.ttp.time.StandardTimeCalculator";
+    protected String timeCalculator = "com.moo.ttp.time.StandardTimeCalculator";
 		
 	//! map where the salesman could visit cities
 	protected Map map = null;

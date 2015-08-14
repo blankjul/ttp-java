@@ -36,7 +36,7 @@ public class TravellingThiefProblemTest {
         items.add(2, new Item(3, 3));
         items.add(3, new Item(2, 2));
         TravellingThiefProblemSettings s = new TravellingThiefProblemSettings(m, items, 3);
-        s.setProfitCalculator("com.moo.ttp.problems.ttp.profit.ExponentialProfitCalculator");
+        s.setProfitCalculator("com.moo.ttp.profit.ExponentialProfitCalculator");
         ttp = new TravellingThiefProblem(s);
     }
 	

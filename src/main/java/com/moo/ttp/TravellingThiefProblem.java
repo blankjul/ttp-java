@@ -56,7 +56,10 @@ public class TravellingThiefProblem {
 		
 		tc.run(this, pi, var);
 		
-		if (tc.getWeight() > settings.getMaxWeight()) return Pair.create(tc.getTime(), 0d);
+		if (tc.getWeight() > settings.getMaxWeight()) {
+			return Pair.create(tc.getTime(), 0d);
+		}
+		
 		double profit = pc.run(settings.getItems().getItems(), tc.getItemTimes());
 		
 		if (profit < 0) throw new RuntimeException("Profit has to be larger than 0! But it is " + profit);
