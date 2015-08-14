@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.uma.jmetal.solution.Solution;
 
-import com.moo.ttp.operators.RepairPickingPlan;
 import com.moo.ttp.problems.ttp.TravellingThiefProblem;
 
 public class jSolution implements jISolution {
@@ -44,11 +43,6 @@ public class jSolution implements jISolution {
 		variables = new jVariable(ttp.numOfCities(), ttp.numOfItems());
 	}
 	
-
-	public void removeConstraintViolations() {
-		RepairPickingPlan.repair(ttp, variables.b);
-	}
-
 
 	public void setObjective(int index, double value) {
 		objectives[index] = value;

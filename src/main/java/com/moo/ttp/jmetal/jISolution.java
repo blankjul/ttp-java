@@ -8,10 +8,5 @@ import org.uma.jmetal.solution.Solution;
  *
  */
 public interface jISolution extends Solution<jVariable> {
-	
-	/** 
-	 * Removes for the given solution the constraint violations
-	 */
-	public void removeConstraintViolations();
-	
+
 }

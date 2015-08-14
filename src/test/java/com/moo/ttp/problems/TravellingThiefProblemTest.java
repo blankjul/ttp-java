@@ -2,6 +2,9 @@ package com.moo.ttp.problems;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,28 +39,28 @@ public class TravellingThiefProblemTest {
 	
 	@Test
 	public void testEvaluateFunctionG3() {
-		Pair<Double,Double> p = ttp.evaluate(new StandardTour(new Integer[] {0,1,2,3}), new Boolean[] {false, false, false, false, false, false});
+		Pair<Double,Double> p = ttp.evaluate(new StandardTour(new ArrayList<Integer>(Arrays.asList(0,1,2,3))), new Boolean[] {false, false, false, false, false, false});
 		assertEquals(20.0, p.first, 0.01);
 		assertEquals(0.0, p.second, 0.01);
 	}
 	
 	@Test
 	public void testEvaluateFunctionG2() {
-		Pair<Double,Double> p = ttp.evaluate(new StandardTour(new Integer[] {0,1,3,2}), new Boolean[] {false, true, false, false, false, false});
+		Pair<Double,Double> p = ttp.evaluate(new StandardTour(new ArrayList<Integer>(Arrays.asList(0,1,3,2))), new Boolean[] {false, true, false, false, false, false});
 		assertEquals(23.57, p.first, 0.01);
 		assertEquals(3.65, p.second, 0.01);
 	}
 	
 	@Test
 	public void testEvaluateFunctionG1() {
-		Pair<Double,Double> p = ttp.evaluate(new StandardTour(new Integer[] {0,1,3,2}), new Boolean[] {false, true, true, false, false, false});
+		Pair<Double,Double> p = ttp.evaluate(new StandardTour(new ArrayList<Integer>(Arrays.asList(0,1,3,2))), new Boolean[] {false, true, true, false, false, false});
 		assertEquals(30.0, p.first, 0.01);
 		assertEquals(6.83, p.second, 0.01);
 	}
 	
 	@Test
 	public void testEvaluateFunctionOverload() {
-		Pair<Double,Double> p = ttp.evaluate(new StandardTour(new Integer[] {0,1,3,2}), new Boolean[] {true, true, true, false, true, true});
+		Pair<Double,Double> p = ttp.evaluate(new StandardTour(new ArrayList<Integer>(Arrays.asList(0,1,3,2))), new Boolean[] {true, true, true, false, true, true});
 		assertEquals(0.0, p.second, 0.01);
 	}
 	

@@ -4,6 +4,7 @@ package com.moo.ttp.operators.mutation;
 import java.util.List;
 
 import com.moo.ttp.util.Rnd;
+import com.moo.ttp.util.Util;
 
 /**
  * This is a SwapMutation which allows to define the range of the mutation. It
@@ -64,9 +65,7 @@ public class SwapMutation<T> extends AbstractMutation<List<T>>{
 		int b = Rnd.rndInt(minIndex, maxIndex);
 		
 		// swap this two!
-		T tmp = obj.get(a);
-		obj.set(a, obj.get(b));
-		obj.set(b, tmp);
+		Util.swap(obj, a, b);
 		
 	}
 	

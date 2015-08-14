@@ -3,6 +3,7 @@ package com.moo.ttp.model.tour;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * The StandardTour provides an implementation of a tour that saves directly the
@@ -14,20 +15,19 @@ import java.util.LinkedList;
 public class StandardTour implements Tour {
 
 	// ! the tour that should be driven by the salesman
-	protected ArrayList<Integer> pi;
+	protected List<Integer> pi;
 
 	/**
 	 * Create a Tour using a permutation vector
 	 * 
-	 * @param pi
+	 * @param list
 	 *            tour represented by permutation vector
 	 */
-	public StandardTour(ArrayList<Integer> pi) {
+	public StandardTour(List<Integer> list) {
 		super();
-		this.pi = pi;
+		this.pi = list;
 	}
 
-	
 	/**
 	 * Create a random tour with n cities. The first city is always the city 0!
 	 */
@@ -42,13 +42,10 @@ public class StandardTour implements Tour {
 		return new StandardTour(new ArrayList<>(indices));
 	}
 
-
-
 	@Override
 	public StandardTour copy() {
 		return new StandardTour(new ArrayList<Integer>());
 	}
-
 
 	@Override
 	public Object get() {
@@ -56,10 +53,9 @@ public class StandardTour implements Tour {
 	}
 
 	@Override
-	public ArrayList<Integer> encode() {
+	public List<Integer> encode() {
 		return pi;
 	}
 
-	
 
 }

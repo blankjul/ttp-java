@@ -9,12 +9,11 @@ import org.uma.jmetal.operator.CrossoverOperator;
 import org.uma.jmetal.util.JMetalException;
 
 import com.moo.ttp.model.tour.StandardTour;
-import com.moo.ttp.operators.OnePointCrossover;
-import com.moo.ttp.operators.PMXCrossover;
-import com.moo.ttp.util.Pair;
+import com.moo.ttp.operators.crossover.AbstractCrossover;
+import com.moo.ttp.operators.crossover.PMXCrossover;
+import com.moo.ttp.operators.crossover.SinglePointCrossover;
 
 public class jCrossover implements CrossoverOperator<jISolution> {
-
 
 
 	public List<jISolution> doCrossover(jISolution parent1, jISolution parent2)  {
@@ -26,14 +25,12 @@ public class jCrossover implements CrossoverOperator<jISolution> {
 		jVariable p1 = (jVariable) parent1.getVariableValue(0);
 		jVariable p2 = (jVariable) parent2.getVariableValue(0);
 		
-		Pair<Integer[], Integer[]> tour = PMXCrossover.crossover(p1.tour.getEncoded(), p2.tour.getEncoded());
-		Pair<Boolean[], Boolean[]> b = OnePointCrossover.crossover(p1.b, p2.b);
+		List<List<Integer>> tour = new PMXCrossover<Integer>().crossover(p1.tour.encode(), p2.tour.encode());
+		List<List<Boolean>> b = new SinglePointCrossover<Boolean>().crossover(p1.b, p2.b);
 		
-		offspring.get(0).setVariableValue(0, new jVariable(new StandardTour(tour.first), b.first));
-		offspring.get(1).setVariableValue(0, new jVariable(new StandardTour(tour.second), b.second));
+		offspring.get(0).setVariableValue(0, new jVariable(p1.tour.create(tour.get(0)), b.first));
+		offspring.get(1).setVariableValue(0, new jVariable(p1.tour.create(tour.get(1)), b.second));
 		
-		offspring.get(0).removeConstraintViolations();
-		offspring.get(1).removeConstraintViolations();
 		
 		return offspring;
 	}

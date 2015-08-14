@@ -19,6 +19,14 @@ public interface Tour extends ICopyable<Tour> {
 	
 	
 	/**
+	 * Set the internal representation
+	 * @param obj internal representation
+	 * @return instance using object
+	 */
+	public void set(Object obj);
+	
+	
+	/**
 	 * Encode the given tour from the implemented structure.
 	 *  e.g. [0,2,1,4,3]
 	 * @return an array without any duplicates and has all the cities.
@@ -34,8 +42,6 @@ public interface Tour extends ICopyable<Tour> {
 	public Tour random(int numOfCities);
 	
 	
-	
 
-	
 	
 }

@@ -2,13 +2,20 @@
 
 package com.moo.ttp.jmetal;
 
+import java.util.List;
+
 import org.uma.jmetal.operator.MutationOperator;
 
-import com.moo.ttp.operators.BitFlip;
-import com.moo.ttp.operators.SwapMutation;
+import com.moo.ttp.operators.crossover.AbstractCrossover;
+import com.moo.ttp.operators.mutation.AbstractMutation;
+import com.moo.ttp.operators.mutation.SwapMutation;
 
 public class jMutation implements MutationOperator<jISolution> {
 
+	
+	protected AbstractCrossover<T> c;
+	
+	protected AbstractMutation<T> m;
 
 	public void doMutation(jISolution solution) {
 			jVariable vars = (jVariable) solution.getVariableValue(0);
@@ -19,7 +26,6 @@ public class jMutation implements MutationOperator<jISolution> {
 
 	public jISolution execute(jISolution solution) {
 		this.doMutation(solution);
-		solution.removeConstraintViolations();
 		return solution;
 	} 
 	

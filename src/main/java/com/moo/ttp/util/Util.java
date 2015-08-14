@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Util {
 	
@@ -12,6 +13,14 @@ public class Util {
 		obj[a] = obj[b];
 		obj[b] = tmp;
 	}
+	
+	public static <T> void swap(List<T> obj, int a, int b) {
+		// swap this two!
+		T tmp = obj.get(a);
+		obj.set(a, obj.get(b));
+		obj.set(b, tmp);
+	}
+	
 	
 	public static <T> int find(T[] array, T value) {
 	    for(int i=0; i<array.length; i++) {
