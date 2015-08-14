@@ -9,6 +9,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.moo.ttp.TravellingThiefProblem;
+import com.moo.ttp.TravellingThiefProblemSettings;
 import com.moo.ttp.model.Map;
 import com.moo.ttp.model.item.Item;
 import com.moo.ttp.model.item.ItemCollection;
@@ -16,8 +18,6 @@ import com.moo.ttp.model.packing.APackingList;
 import com.moo.ttp.model.packing.BooleanPackingList;
 import com.moo.ttp.model.tour.ATour;
 import com.moo.ttp.model.tour.StandardTour;
-import com.moo.ttp.problems.ttp.TravellingThiefProblem;
-import com.moo.ttp.problems.ttp.TravellingThiefProblemSettings;
 import com.moo.ttp.util.Pair;
 
 

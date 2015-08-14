@@ -2,7 +2,7 @@ package com.moo.ttp.jmetal;
 
 import org.uma.jmetal.problem.impl.AbstractGenericProblem;
 
-import com.moo.ttp.problems.ttp.TravellingThiefProblem;
+import com.moo.ttp.TravellingThiefProblem;
 import com.moo.ttp.util.Pair;
 
 public class jProblem extends AbstractGenericProblem<jISolution> implements jIProblem {

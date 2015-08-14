@@ -1,11 +1,11 @@
-package com.moo.ttp.problems.ttp.time;
+package com.moo.ttp.time;
 
 import java.util.HashMap;
 
+import com.moo.ttp.TravellingThiefProblem;
+import com.moo.ttp.TravellingThiefProblemSettings;
 import com.moo.ttp.model.item.Item;
 import com.moo.ttp.model.item.ItemCollection;
-import com.moo.ttp.problems.ttp.TravellingThiefProblem;
-import com.moo.ttp.problems.ttp.TravellingThiefProblemSettings;
 
 public class StandardTimeCalculator implements TimeCalculator {
 

@@ -8,11 +8,26 @@ import java.util.List;
 import org.uma.jmetal.operator.CrossoverOperator;
 import org.uma.jmetal.util.JMetalException;
 
-import com.moo.ttp.operators.crossover.PMXCrossover;
-import com.moo.ttp.operators.crossover.SinglePointCrossover;
+import com.moo.operators.crossover.AbstractCrossover;
+import com.moo.operators.crossover.PMXCrossover;
+import com.moo.operators.crossover.SinglePointCrossover;
 
 public class jCrossover implements CrossoverOperator<jISolution> {
 
+
+	AbstractCrossover<List<Integer>> ctour = new PMXCrossover<Integer>();
+	AbstractCrossover<List<Boolean>> cpacking = new SinglePointCrossover<Boolean>();
+	
+
+	public jCrossover() {
+		super();
+	}
+
+	public jCrossover(AbstractCrossover<List<Integer>> ctour, AbstractCrossover<List<Boolean>> cpacking) {
+		super();
+		this.ctour = ctour;
+		this.cpacking = cpacking;
+	}
 
 	public List<jISolution> doCrossover(jISolution parent1, jISolution parent2)  {
 		
@@ -23,8 +38,8 @@ public class jCrossover implements CrossoverOperator<jISolution> {
 		jVariable p1 = (jVariable) parent1.getVariableValue(0);
 		jVariable p2 = (jVariable) parent2.getVariableValue(0);
 		
-		List<List<Integer>> tour = new PMXCrossover<Integer>().crossover(p1.tour.get(), p2.tour.get());
-		List<List<Boolean>> plan = new SinglePointCrossover<Boolean>().crossover(p1.b.get(), p2.b.get());
+		List<List<Integer>> tour = ctour.crossover(p1.tour.get(), p2.tour.get());
+		List<List<Boolean>> plan = cpacking.crossover(p1.b.get(), p2.b.get());
 		
 		offspring.get(0).getVariableValue(0).tour.set(tour.get(0));
 		offspring.get(1).getVariableValue(0).tour.set(tour.get(1));

@@ -2,14 +2,12 @@ package com.moo.ttp;
 
 import javax.management.JMException;
 
-import com.moo.ttp.algorithms.NSGAIII;
+import com.moo.algorithms.NSGAIII;
 import com.moo.ttp.jmetal.jISolution;
 import com.moo.ttp.jmetal.jProblem;
 import com.moo.ttp.model.Map;
 import com.moo.ttp.model.item.Item;
 import com.moo.ttp.model.item.ItemCollection;
-import com.moo.ttp.problems.ttp.TravellingThiefProblem;
-import com.moo.ttp.problems.ttp.TravellingThiefProblemSettings;
 
 
 public class App 

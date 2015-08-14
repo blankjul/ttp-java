@@ -1,9 +1,9 @@
-package com.moo.ttp.problems.ttp.time;
+package com.moo.ttp.time;
 
 import java.util.HashMap;
 
+import com.moo.ttp.TravellingThiefProblem;
 import com.moo.ttp.model.item.Item;
-import com.moo.ttp.problems.ttp.TravellingThiefProblem;
 
 /**
  * The TimeCalculator provides an interface for calculating the time of a given tour.

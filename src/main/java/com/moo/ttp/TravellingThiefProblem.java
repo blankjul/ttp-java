@@ -1,13 +1,11 @@
-package com.moo.ttp.problems.ttp;
+package com.moo.ttp;
 
 import java.util.List;
 
-import com.moo.ttp.model.packing.APackingList;
 import com.moo.ttp.model.packing.IPackingList;
-import com.moo.ttp.model.tour.ATour;
 import com.moo.ttp.model.tour.ITour;
-import com.moo.ttp.problems.ttp.profit.ProfitCalculator;
-import com.moo.ttp.problems.ttp.time.TimeCalculator;
+import com.moo.ttp.profit.ProfitCalculator;
+import com.moo.ttp.time.TimeCalculator;
 import com.moo.ttp.util.Factory;
 import com.moo.ttp.util.Pair;
 

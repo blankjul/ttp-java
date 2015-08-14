@@ -1,4 +1,4 @@
-package com.moo.ttp.operators.crossover;
+package com.moo.operators.crossover;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +17,15 @@ import com.moo.ttp.util.Rnd;
  */
 public class SinglePointCrossover<T> extends PointCrossover<List<T>> {
 
+
+
+	public SinglePointCrossover() {
+		super();
+	}
+
+	public SinglePointCrossover(Integer point) {
+		super(point);
+	}
 
 	@Override
 	protected List<List<T>> crossover_(List<T> a, List<T> b) {

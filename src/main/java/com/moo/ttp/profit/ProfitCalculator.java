@@ -1,4 +1,4 @@
-package com.moo.ttp.problems.ttp.profit;
+package com.moo.ttp.profit;
 
 import java.util.HashMap;
 import java.util.List;

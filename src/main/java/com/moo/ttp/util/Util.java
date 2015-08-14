@@ -2,8 +2,6 @@ package com.moo.ttp.util;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Util {

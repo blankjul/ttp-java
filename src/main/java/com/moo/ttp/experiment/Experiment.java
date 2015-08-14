@@ -9,6 +9,7 @@ import org.uma.jmetal.algorithm.Algorithm;
 import org.uma.jmetal.problem.Problem;
 import org.uma.jmetal.qualityindicator.impl.Epsilon;
 import org.uma.jmetal.qualityindicator.impl.ErrorRatio;
+import org.uma.jmetal.qualityindicator.impl.Hypervolume;
 
 import com.moo.ttp.jmetal.jISolution;
 import com.moo.ttp.util.Pair;
@@ -17,13 +18,12 @@ public class Experiment {
 
 	Map<Pair<Problem<jISolution>, Algorithm<List<jISolution>>>, List<List<jISolution>>> fronts;
 	Map<Problem<jISolution>, List<jISolution>> ref;
-	
-	public static final String[] INDICATORS = new String[] {"eps", "error"};
-	
+
+	public static final String[] INDICATORS = new String[] { "hv", "eps", "error" };
 
 	public Experiment() {
 		super();
-		fronts = new HashMap<Pair<Problem<jISolution>,Algorithm<List<jISolution>>>, List<List<jISolution>>>();
+		fronts = new HashMap<Pair<Problem<jISolution>, Algorithm<List<jISolution>>>, List<List<jISolution>>>();
 		ref = new HashMap<Problem<jISolution>, List<jISolution>>();
 	}
 
@@ -75,6 +75,14 @@ public class Experiment {
 			error[i] = err.execute(fronts.get(i), getReferenceFront(p));
 		}
 		h.put("error", error);
+
+		// add the error values
+		Hypervolume hyper = new Hypervolume();
+		double[] hv = new double[fronts.size()];
+		for (int i = 0; i < hv.length; i++) {
+			hv[i] = hyper.execute(fronts.get(i), getReferenceFront(p));
+		}
+		h.put("hv", hv);
 
 		return h;
 

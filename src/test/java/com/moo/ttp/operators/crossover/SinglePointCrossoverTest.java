@@ -9,9 +9,11 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.moo.operators.crossover.SinglePointCrossover;
+
 public class SinglePointCrossoverTest {
 
-	SinglePointCrossover<Integer> c = new SinglePointCrossover<Integer>();
+	SinglePointCrossover<Integer> c = new SinglePointCrossover<Integer>(1);
 
 	private List<Integer> a;
 	private List<Integer> b;

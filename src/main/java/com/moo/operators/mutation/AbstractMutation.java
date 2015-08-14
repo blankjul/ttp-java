@@ -1,4 +1,4 @@
-package com.moo.ttp.operators.mutation;
+package com.moo.operators.mutation;
 
 /**
  * This is an abstract Mutation of an object. This class which inherits from this one

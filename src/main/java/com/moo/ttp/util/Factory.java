@@ -17,6 +17,7 @@ public class Factory {
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static <T> T create(Class<T> c, String fullType)  {
 		try {
 			return (T) Class.forName(fullType).newInstance();

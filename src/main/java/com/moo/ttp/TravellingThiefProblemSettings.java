@@ -1,4 +1,4 @@
-package com.moo.ttp.problems.ttp;
+package com.moo.ttp;
 
 import com.moo.ttp.model.Map;
 import com.moo.ttp.model.item.Item;

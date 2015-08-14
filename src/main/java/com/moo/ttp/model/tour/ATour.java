@@ -18,6 +18,4 @@ public abstract class ATour<T> extends AVariable<ATour<T>, T, List<Integer>> imp
 		super(obj);
 	}
 
-	
-
 }

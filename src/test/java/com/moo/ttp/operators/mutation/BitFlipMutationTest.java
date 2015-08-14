@@ -9,6 +9,8 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.moo.operators.mutation.BitFlipMutation;
+
 public class BitFlipMutationTest {
 	
 	BitFlipMutation bitMutation = new BitFlipMutation();

@@ -12,17 +12,25 @@ public class jVariable {
 
 	public ITour tour;
 	public IPackingList b;
+	
+	public jVariable(int numOfCities, int numOfItems, ITour tour, IPackingList b) {
+		this.tour = tour.random(numOfCities);
+		this.b = b.random(numOfItems);
+	}
+
 
 	public jVariable(int numOfCities, int numOfItems) {
 		this.tour = new StandardTour(null).random(numOfCities);
 		this.b = new BooleanPackingList(null).random(numOfItems);
 	}
 
-	public jVariable(ITour tour, IPackingList b) {
-		super();
+
+
+	public jVariable(ITour tour, IPackingList pack) {
 		this.tour = tour;
-		this.b = b;
+		this.b = pack;
 	}
+
 
 	public jVariable deepCopy() {
 		return new jVariable(tour.copy(), b.copy());

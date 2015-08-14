@@ -1,4 +1,4 @@
-package com.moo.ttp.algorithms;
+package com.moo.algorithms;
 
 import java.util.ArrayList;
 import java.util.List;

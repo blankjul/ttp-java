@@ -1,4 +1,4 @@
-package com.moo.ttp.problems;
+package com.moo.problems;
 
 import java.util.Collection;
 import java.util.HashSet;

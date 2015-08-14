@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.uma.jmetal.solution.Solution;
 
-import com.moo.ttp.problems.ttp.TravellingThiefProblem;
+import com.moo.ttp.TravellingThiefProblem;
 
 public class jSolution implements jISolution {
 
@@ -19,8 +19,6 @@ public class jSolution implements jISolution {
 	/// variable that are the input
 	protected jVariable variables = null;
 	
-	/// the traveling thief problem which determines the constrains for this solution
-	protected TravellingThiefProblem ttp = null; 
 	
 
 	/**
@@ -30,7 +28,6 @@ public class jSolution implements jISolution {
 	public jSolution(jSolution s) {
 		objectives = s.objectives.clone();
 		variables = (jVariable) s.getVariableValue(0).deepCopy();
-		this.ttp = s.ttp;
 	}
 
 	/**
@@ -38,9 +35,17 @@ public class jSolution implements jISolution {
 	 * @param ttp that defines the length of pi and b
 	 */
 	public jSolution(TravellingThiefProblem ttp) {
-		this.ttp = ttp;
 		objectives = new double[2];
 		variables = new jVariable(ttp.numOfCities(), ttp.numOfItems());
+	}
+	
+	/**
+	 * Create a new solution according to the given problem
+	 * @param ttp that defines the length of pi and b
+	 */
+	public jSolution(jVariable var) {
+		objectives = new double[2];
+		variables = var;
 	}
 	
 

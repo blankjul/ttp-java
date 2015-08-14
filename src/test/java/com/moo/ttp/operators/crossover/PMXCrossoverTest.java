@@ -9,6 +9,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.moo.operators.crossover.PMXCrossover;
+
 public class PMXCrossoverTest {
 
 	PMXCrossover<Integer> c = new PMXCrossover<Integer>(3);
