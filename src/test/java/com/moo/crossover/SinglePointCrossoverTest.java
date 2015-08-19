@@ -1,4 +1,4 @@
-package com.moo.ttp.operators.crossover;
+package com.moo.crossover;
 
 import static org.junit.Assert.*;
 

@@ -1,6 +1,7 @@
 package com.moo.operators.crossover;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.moo.ttp.util.Rnd;
@@ -47,7 +48,7 @@ public class SinglePointCrossover<T> extends PointCrossover<List<T>> {
 		result.add(c1);
 		result.add(c2);
 
-		return result;
+		return new ArrayList<>( Arrays.asList(c1, c2));
 
 	}
 

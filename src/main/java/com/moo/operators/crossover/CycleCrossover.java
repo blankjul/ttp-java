@@ -18,6 +18,7 @@
 package com.moo.operators.crossover;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -94,12 +95,7 @@ public class CycleCrossover<T> extends AbstractCrossover<List<T>> {
 			indices.clear();
 		}
 
-		// create the results
-		List<List<T>> result = new ArrayList<>();
-		result.add(child1Rep);
-		result.add(child2Rep);
-
-		return result;
+		return new ArrayList<>( Arrays.asList(child1Rep, child2Rep));
 
 	}
 

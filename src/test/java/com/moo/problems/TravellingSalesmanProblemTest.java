@@ -1,4 +1,4 @@
-package com.moo.ttp.problems;
+package com.moo.problems;
 
 import static org.junit.Assert.*;
 

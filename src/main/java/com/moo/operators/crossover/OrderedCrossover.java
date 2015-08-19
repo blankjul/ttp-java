@@ -18,6 +18,7 @@
 package com.moo.operators.crossover;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -32,15 +33,11 @@ public class OrderedCrossover<T> extends AbstractCrossover<List<T>> {
 
 
 	@Override
-	protected List<List<T>> crossover_(List<T> p1, List<T> p2) {
+	protected List<List<T>> crossover_(List<T> parent1Rep, List<T> parent2Rep) {
 
-		final int length = p1.size();
-		
-		
-        // array representations of the parents
-        final List<T> parent1Rep = p1;
-        final List<T> parent2Rep = p2;
-        
+		final int length = parent1Rep.size();
+  
+  
         // and of the children
         final List<T> child1 = new ArrayList<T>(length);
         final List<T> child2 = new ArrayList<T>(length);
@@ -90,12 +87,7 @@ public class OrderedCrossover<T> extends AbstractCrossover<List<T>> {
         Collections.rotate(child1, lb);
         Collections.rotate(child2, lb);
 
-		// create the results
-		List<List<T>> result = new ArrayList<>();
-		result.add(child1);
-		result.add(child2);
-		return result;
-
+		return new ArrayList<>( Arrays.asList(child1, child2));
 
 	}
 

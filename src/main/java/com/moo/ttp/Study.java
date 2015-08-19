@@ -120,22 +120,22 @@ public class Study {
 		algorithms.add(new com.moo.algorithms.NSGAII(p, MAX_EVALUATIONS, 100, 
 				new StandardTour(null), new BooleanPackingList(null), 
 				new jCrossover(new PMXCrossover<Integer>(),  new SinglePointCrossover<Boolean>()),
-				new jMutation(new SwapMutation<>(), new BitFlipMutation()), "NSGAII-ST[PMX-SWAP]-BP[SPC-BF]"));
+				new jMutation(new SwapMutation<>(), new BitFlipMutation()), "NSGAII-ST[PMX-SWAP]-BP[SPC-BFM]"));
 		
 		algorithms.add(new com.moo.algorithms.NSGAII(p, MAX_EVALUATIONS, 100, 
 				new StandardTour(null), new BooleanPackingList(null), 
 				new jCrossover(new CycleCrossover<Integer>(),  new SinglePointCrossover<Boolean>()),
-				new jMutation(new SwapMutation<>(), new BitFlipMutation()), "NSGAII-ST[CX-SWAP]-BP[SPC-BFA]"));
+				new jMutation(new SwapMutation<>(), new BitFlipMutation()), "NSGAII-ST[CX-SWAP]-BP[SPC-BFM]"));
 		
 		algorithms.add(new com.moo.algorithms.NSGAII(p, MAX_EVALUATIONS, 100, 
 				new StandardTour(null), new BooleanPackingList(null), 
 				new jCrossover(new OrderedCrossover<Integer>(),  new SinglePointCrossover<Boolean>()),
-				new jMutation(new SwapMutation<>(), new BitFlipMutation()), "NSGAII-ST[OX-SWAP]-BP[SPC-BFA]"));
+				new jMutation(new SwapMutation<>(), new BitFlipMutation()), "NSGAII-ST[OX-SWAP]-BP[SPC-BFM]"));
 		
 		algorithms.add(new com.moo.algorithms.NSGAII(p, MAX_EVALUATIONS, 100, 
 				new PositionDecodedTour(null), new BooleanPackingList(null), 
 				new jCrossover(new SinglePointCrossover<Integer>(),  new SinglePointCrossover<Boolean>()),
-				new jMutation(new RestrictedPolynomialMutation(), new BitFlipMutation()), "NSGAII-PDT[SPC-SWAP]-BP[SPC-BFA]"));
+				new jMutation(new RestrictedPolynomialMutation(), new BitFlipMutation()), "NSGAII-PDT[SPC-RPM]-BP[SPC-BFM]"));
 		
 		return algorithms;
 	}

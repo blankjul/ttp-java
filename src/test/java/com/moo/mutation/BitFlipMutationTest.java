@@ -1,4 +1,4 @@
-package com.moo.ttp.operators.mutation;
+package com.moo.mutation;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;

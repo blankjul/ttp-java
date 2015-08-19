@@ -1,6 +1,7 @@
 package com.moo.operators.crossover;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.moo.ttp.util.Rnd;
@@ -46,12 +47,7 @@ public class PMXCrossover<T> extends PointCrossover<List<T>> {
 		if (point == null || point >= a.size())
 			point = Rnd.rndInt(1, a.size() - 2);
 
-		// create the results
-		List<List<T>> result = new ArrayList<>();
-		result.add(crossover_(a, b, point));
-		result.add(crossover_(b, a, point));
-
-		return result;
+		return new ArrayList<>( Arrays.asList(crossover_(a, b, point), crossover_(b, a, point)));
 
 	}
 
