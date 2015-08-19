@@ -24,70 +24,47 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.math3.genetics.GeneticAlgorithm;
-import org.apache.commons.math3.random.RandomGenerator;
-import org.apache.commons.math3.util.FastMath;
+import com.moo.ttp.util.Pair;
 
 
 public class OrderedCrossover<T> extends AbstractCrossover<List<T>> {
 
 
-	@Override
-	protected List<List<T>> crossover_(List<T> parent1Rep, List<T> parent2Rep) {
-
-		final int length = parent1Rep.size();
-  
-  
-        // and of the children
-        final List<T> child1 = new ArrayList<T>(length);
-        final List<T> child2 = new ArrayList<T>(length);
-        // sets of already inserted items for quick access
-        final Set<T> child1Set = new HashSet<T>(length);
-        final Set<T> child2Set = new HashSet<T>(length);
-
-        final RandomGenerator random = GeneticAlgorithm.getRandomGenerator();
-        // choose random points, making sure that lb < ub.
-        int a = random.nextInt(length);
-        int b;
-        do {
-            b = random.nextInt(length);
-        } while (a == b);
-        // determine the lower and upper bounds
-        final int lb = FastMath.min(a, b);
-        final int ub = FastMath.max(a, b);
-
-        // add the subLists that are between lb and ub
-        child1.addAll(parent1Rep.subList(lb, ub + 1));
-        child1Set.addAll(child1);
-        child2.addAll(parent2Rep.subList(lb, ub + 1));
-        child2Set.addAll(child2);
-
-        // iterate over every item in the parents
+	
+	protected List<T> crossover_(List<T> a, List<T> b, int lb, int ub) {
+		
+		// create structures for the child
+		final int length = a.size();
+		final List<T> child = new ArrayList<T>(length);
+		final Set<T> hash = new HashSet<T>(length);
+		
+		// add connected values of the first parent -> from lb to ub
+		child.addAll(a.subList(lb, ub + 1));
+		hash.addAll(child);
+		
+	     // iterate over every item from the parent starting right from ub
         for (int i = 1; i <= length; i++) {
             final int idx = (ub + i) % length;
-
-            // retrieve the current item in each parent
-            final T item1 = parent1Rep.get(idx);
-            final T item2 = parent2Rep.get(idx);
+            final T item = b.get(idx);
 
             // if the first child already contains the item in the second parent add it
-            if (!child1Set.contains(item2)) {
-                child1.add(item2);
-                child1Set.add(item2);
-            }
-
-            // if the second child already contains the item in the first parent add it
-            if (!child2Set.contains(item1)) {
-                child2.add(item1);
-                child2Set.add(item1);
+            if (!hash.contains(item)) {
+                child.add(item);
+                hash.add(item);
             }
         }
+        
+        Collections.rotate(child, lb);
+		return child;
+	}
+	
+	
+	@Override
+	protected List<List<T>> crossover_(List<T> a, List<T> b) {
+        Pair<Integer, Integer> bounds = CrossoverUtil.getSection(a.size());
 
-        // rotate so that the original slice is in the same place as in the parents.
-        Collections.rotate(child1, lb);
-        Collections.rotate(child2, lb);
-
-		return new ArrayList<>( Arrays.asList(child1, child2));
+		return new ArrayList<>( Arrays.asList(crossover_(a, b, bounds.first, bounds.second), 
+				crossover_(b, a, bounds.first, bounds.second)));
 
 	}
 

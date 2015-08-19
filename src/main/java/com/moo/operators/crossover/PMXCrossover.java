@@ -1,55 +1,74 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.moo.operators.crossover;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import com.moo.ttp.util.Rnd;
-import com.moo.ttp.util.Util;
+import com.moo.ttp.util.Pair;
 
-/**
- * This class provides the PMX Crossover which is in long form
- * Partial-mapped Crossover where the offspring will also be a permutation vector.
- *
- * @param <T>
- */
-public class PMXCrossover<T> extends PointCrossover<List<T>> {
+
+public class PMXCrossover<T> extends AbstractCrossover<List<T>> {
+
 
 	
-	public PMXCrossover() {
-		super();
-	}
-	
-	public PMXCrossover(int point) {
-		super(point);
-	}
-
-
-	private List<T> crossover_(List<T> p1, List<T> p2, int point) {
-		// clone the whole List
-		ArrayList<T> c = new ArrayList<T>(p1);
-
-		// until the split point perform a swap operation
-		for (int i = 0; i < point; i++) {
-			int index = c.indexOf(p2.get(i));
-			if (index == -1) throw new RuntimeException("PMX Crossover is only allowed on permuation objects!");
-			Util.swap(c, i, index);
+	protected List<T> crossover_(List<T> a, List<T> b, int lb, int ub) {
+		
+		// create structures for the child
+		final int length = a.size();
+		final List<T> child = new ArrayList<T>(a);
+		final Map<T, T> map = new HashMap<T, T>(length);
+		
+		// create the partial mapping
+		for (int i = lb; i <= ub; i++) map.put(a.get(i), b.get(i));
+		
+		for (int i = 0; i < length; i++) {
+        	if (i >= lb && i <= ub) continue;
+        	child.set(i, null);
 		}
 		
-		return c;
+	     // iterate over every item from the parent starting right from ub
+        for (int i = ub + 1; i < length + lb; i++) {
+        	
+        	// resolve the partial mapping
+        	final int idx = i % length;
+        	T item = b.get(idx);    
+        	
+        	while (map.containsKey(item)) {
+        		item = map.get(item);
+        	} 
+        	child.set(idx, item);
+        }
+        
+		return child;
 	}
 	
 	
 	@Override
 	protected List<List<T>> crossover_(List<T> a, List<T> b) {
+        Pair<Integer, Integer> bounds = CrossoverUtil.getSection(a.size());
 
-		// if no point is set choose it random
-		if (point == null || point >= a.size())
-			point = Rnd.rndInt(1, a.size() - 2);
-
-		return new ArrayList<>( Arrays.asList(crossover_(a, b, point), crossover_(b, a, point)));
+		return new ArrayList<>( Arrays.asList(crossover_(a, b, bounds.first, bounds.second), 
+				crossover_(b, a, bounds.first, bounds.second)));
 
 	}
-
 
 }

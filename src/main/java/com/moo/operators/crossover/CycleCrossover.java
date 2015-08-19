@@ -23,7 +23,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.math3.genetics.GeneticAlgorithm;
+import com.moo.ttp.util.Rnd;
 
 /**
  * This is the single point crossover where a list with any type could but cut
@@ -36,10 +36,16 @@ import org.apache.commons.math3.genetics.GeneticAlgorithm;
  */
 public class CycleCrossover<T> extends AbstractCrossover<List<T>> {
 
-	protected boolean randomStart = true;
-
+	
+	
 	@Override
 	protected List<List<T>> crossover_(List<T> a, List<T> b) {
+		return crossover_(a, b, Rnd.rndInt(0, a.size() - 1));
+	}
+
+
+	
+	protected List<List<T>> crossover_(List<T> a, List<T> b, int idx) {
 
 		int length = a.size();
 
@@ -54,7 +60,6 @@ public class CycleCrossover<T> extends AbstractCrossover<List<T>> {
 		final List<Integer> indices = new ArrayList<Integer>(length);
 
 		// determine the starting index
-		int idx = randomStart ? GeneticAlgorithm.getRandomGenerator().nextInt(length) : 0;
 		int cycle = 1;
 
 		while (visitedIndices.size() < length) {
