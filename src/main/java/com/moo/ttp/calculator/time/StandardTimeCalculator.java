@@ -1,6 +1,7 @@
-package com.moo.ttp.time;
+package com.moo.ttp.calculator.time;
 
 import java.util.HashMap;
+import java.util.List;
 
 import com.moo.ttp.TravellingThiefProblem;
 import com.moo.ttp.TravellingThiefProblemSettings;
@@ -19,7 +20,7 @@ public class StandardTimeCalculator implements TimeCalculator {
 	
 	
 	@Override
-	public <T extends Item> void run(TravellingThiefProblem ttp, Integer[] pi, Boolean[] b) {
+	public <T extends Item> void run(TravellingThiefProblem ttp, List<Integer> pi, List<Boolean> b) {
 		
 		TravellingThiefProblemSettings settings = ttp.getSettings();
 		ItemCollection<Item> items = settings.getItems();
@@ -30,13 +31,13 @@ public class StandardTimeCalculator implements TimeCalculator {
 		
 		double speed = settings.getMaxSpeed();
 		// iterate over all possible cities
-		for (int i = 0; i < pi.length; i++) {
+		for (int i = 0; i < pi.size(); i++) {
 
 			// for each item index this city
-			for (Integer index : items.getItemsFromCityByIndex(pi[i])) {
+			for (Integer index : items.getItemsFromCityByIndex(pi.get(i))) {
 
 				// if we pick this item
-				if (b[index]) {
+				if (b.get(index)) {
 
 					// update the current weight
 					weight += items.get(index).getWeight();
@@ -57,7 +58,7 @@ public class StandardTimeCalculator implements TimeCalculator {
 			}
 
 			// do not forget the way from the last city to the first!
-			time += (settings.getMap().get(pi[i], pi[(i + 1) % pi.length]) / speed);
+			time += (settings.getMap().get(pi.get(i), pi.get((i + 1) % pi.size()) ) / speed);
 
 		}
 		

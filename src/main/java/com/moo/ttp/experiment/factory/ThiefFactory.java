@@ -1,4 +1,4 @@
-package com.moo.ttp.factory;
+package com.moo.ttp.experiment.factory;
 
 import com.moo.ttp.TravellingThiefProblem;
 import com.moo.ttp.TravellingThiefProblemSettings;

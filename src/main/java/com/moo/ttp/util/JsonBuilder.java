@@ -1,4 +1,4 @@
-package com.moo.ttp.json;
+package com.moo.ttp.util;
 
 import java.util.Arrays;
 import java.util.List;

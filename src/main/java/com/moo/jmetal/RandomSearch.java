@@ -1,4 +1,4 @@
-package com.moo.algorithms;
+package com.moo.jmetal;
 
 import org.uma.jmetal.problem.Problem;
 

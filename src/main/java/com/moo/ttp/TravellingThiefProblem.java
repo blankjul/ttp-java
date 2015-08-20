@@ -1,11 +1,9 @@
 package com.moo.ttp;
 
-import java.util.List;
-
+import com.moo.ttp.calculator.profit.ProfitCalculator;
+import com.moo.ttp.calculator.time.TimeCalculator;
 import com.moo.ttp.model.packing.IPackingList;
 import com.moo.ttp.model.tour.ITour;
-import com.moo.ttp.profit.ProfitCalculator;
-import com.moo.ttp.time.TimeCalculator;
 import com.moo.ttp.util.Factory;
 import com.moo.ttp.util.Pair;
 
@@ -39,22 +37,8 @@ public class TravellingThiefProblem {
 
 	public Pair<Double, Double> evaluate(ITour t,IPackingList b) {
 
-		// TODO: This is just a dirty hack. run should use the list for evaluation!
-		
-		List<Integer> encoded = t.encode();
-		Integer[] pi = new Integer[encoded.size()];
-		for (int i = 0; i < pi.length; i++) {
-			pi[i] = encoded.get(i);
-		}
-		
-		List<Boolean> plan = b.encode();
-		Boolean[] var = new Boolean[plan.size()];
-		for (int i = 0; i < var.length; i++) {
-			var[i] = plan.get(i);
-		}
-		
-		
-		tc.run(this, pi, var);
+
+		tc.run(this, t.encode(), b.encode());
 		
 		if (tc.getWeight() > settings.getMaxWeight()) {
 			return Pair.create(tc.getTime(), 0d);

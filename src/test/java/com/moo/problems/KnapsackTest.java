@@ -24,22 +24,22 @@ public class KnapsackTest {
 
 	@Test
 	public void testGetWeightFunction() {
-		assertEquals(6, (int) Knapsack.getWeight(l, new Boolean[] { true, true, true }));
+		assertEquals(6, (int) Knapsack.getWeight(l, new ArrayList<Boolean>(Arrays.asList(true, true, true))));
 	}
 
 	@Test
 	public void testEvaluateFunctionIsNonZero() {
-		assertEquals(3, (int) k.evaluate(new Boolean[] { true, true, false }));
+		assertEquals(3, (int) k.evaluate( new ArrayList<Boolean>(Arrays.asList(true, true, false))));
 	}
 
 	@Test
 	public void testEvaluateFunctionIsZero() {
-		assertEquals(0, (int) k.evaluate(new Boolean[] { true, true, true }));
+		assertEquals(0, (int) k.evaluate( new ArrayList<Boolean>(Arrays.asList(true, true, true))));
 	}
 
 	@Test (expected=RuntimeException.class) 
 	public void testWrongSizeOfTour() throws RuntimeException {
-		k.evaluate(new Boolean[] { true, true });
+		k.evaluate( new ArrayList<Boolean>(Arrays.asList(true, true)));
 	}
 	
 	

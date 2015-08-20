@@ -1,4 +1,4 @@
-package com.moo.algorithms;
+package com.moo.jmetal;
 
 import java.util.ArrayList;
 import java.util.List;

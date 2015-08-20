@@ -2,7 +2,7 @@ package com.moo.ttp;
 
 import javax.management.JMException;
 
-import com.moo.algorithms.NSGAIII;
+import com.moo.jmetal.NSGAIII;
 import com.moo.ttp.jmetal.jISolution;
 import com.moo.ttp.jmetal.jProblem;
 import com.moo.ttp.model.Map;

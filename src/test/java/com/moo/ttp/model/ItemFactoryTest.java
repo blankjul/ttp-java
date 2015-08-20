@@ -6,7 +6,7 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
-import com.moo.ttp.factory.ItemFactory;
+import com.moo.ttp.experiment.factory.ItemFactory;
 import com.moo.ttp.model.item.Item;
 
 

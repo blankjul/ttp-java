@@ -1,4 +1,4 @@
-package com.moo.ttp.factory;
+package com.moo.ttp.experiment.factory;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
+import com.moo.model.Problem;
 import com.moo.ttp.model.item.Item;
 
 /**
@@ -13,7 +14,7 @@ import com.moo.ttp.model.item.Item;
  * fits into the knapsack.
  *
  */
-public class Knapsack implements Problem<Boolean[], Integer> {
+public class Knapsack implements Problem<List<Boolean>, Integer> {
 
 	// ! maximal weight of the knapsack
 	private int maxWeight;
@@ -42,9 +43,9 @@ public class Knapsack implements Problem<Boolean[], Integer> {
 	 *            that defines which items to pick
 	 * @return the profit of the knapsack
 	 */
-	public Integer evaluate(Boolean[] b) {
-		if (b.length != items.size())
-			throw new RuntimeException("Sizes of the varialbes are different " + b.length + " != " + items.size());
+	public Integer evaluate(List<Boolean> b) {
+		if (b.size() != items.size())
+			throw new RuntimeException("Sizes of the varialbes are different " + b.size() + " != " + items.size());
 		int weight = getWeight(items, b);
 		if (weight > maxWeight)
 			return 0;
@@ -52,11 +53,11 @@ public class Knapsack implements Problem<Boolean[], Integer> {
 			return getProfit(items, b);
 	}
 
-	public static <T extends Item> Integer getWeight(List<T> items, Boolean[] b) {
+	public static <T extends Item> Integer getWeight(List<T> items, List<Boolean> b) {
 		return getSumItemAttribute(items, b, i -> i.getWeight());
 	}
 
-	public static <T extends Item> Integer getProfit(List<T> items, Boolean[] b) {
+	public static <T extends Item> Integer getProfit(List<T> items, List<Boolean> b) {
 		return getSumItemAttribute(items, b, i -> i.getProfit());
 	}
 
@@ -71,10 +72,10 @@ public class Knapsack implements Problem<Boolean[], Integer> {
 	 *            lambda expression
 	 * @return resulting weight
 	 */
-	public static <T extends Item> Integer getSumItemAttribute(List<T> items, Boolean[] b, Function<T, Integer> func) {
+	public static <T extends Item> Integer getSumItemAttribute(List<T> items, List<Boolean> b, Function<T, Integer> func) {
 		int weight = 0;
-		for (int j = 0; j < b.length; j++) {
-			if (b[j]) weight += func.apply(items.get(j));
+		for (int j = 0; j < b.size(); j++) {
+			if (b.get(j)) weight += func.apply(items.get(j));
 		}
 		return weight;
 	}
