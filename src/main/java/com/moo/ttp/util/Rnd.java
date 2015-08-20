@@ -11,6 +11,10 @@ public class Rnd {
 	
 	static Random r = new Random();
 	
+	public static int rndInt(int max) {
+		return r.nextInt(max);
+	}
+	
 	public static int rndInt(int min, int max) {
 		return r.nextInt(max - min + 1) + min;
 	}

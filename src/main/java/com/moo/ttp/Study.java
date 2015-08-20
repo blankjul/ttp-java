@@ -9,7 +9,9 @@ import org.uma.jmetal.algorithm.Algorithm;
 import org.uma.jmetal.util.archive.impl.NonDominatedSolutionListArchive;
 
 import com.google.gson.Gson;
+import com.moo.operators.crossover.BooleanSimilarityCrossover;
 import com.moo.operators.crossover.CycleCrossover;
+import com.moo.operators.crossover.EdgeRecombinationCrossover;
 import com.moo.operators.crossover.OrderedCrossover;
 import com.moo.operators.crossover.PMXCrossover;
 import com.moo.operators.crossover.SinglePointCrossover;
@@ -39,7 +41,7 @@ public class Study {
 
 	public static String OUTPUT_DIR = "./experiment";
 	public static int MAX_EVALUATIONS = 250000;
-	public final int NUM_OF_RUNS = 100;
+	public final int NUM_OF_RUNS = 10;
 	public Gson gson = new Gson();
 	public List<jProblem> problems;
 	public List<Algorithm<List<jISolution>>> algorithms;
@@ -110,13 +112,16 @@ public class Study {
 
 	public List<jProblem> configureProblemList() {
 		List<jProblem> problems = new ArrayList<jProblem>();
-		problems.add(new jProblem(ThiefFactory.create(20, 1, ItemFactory.TYPE.WEAKLY_CORRELATED, 0.6)));
-		//problems.add(new jProblem(ThiefFactory.create(20, 10, ItemFactory.TYPE.WEAKLY_CORRELATED, 0.6)));
+
+		problems.add(new jProblem(ThiefFactory.create(20, 1, ItemFactory.TYPE.WEAKLY_CORRELATED, 0.5)));
+		
+	
 		return problems;
 	}
 
 	public List<Algorithm<List<jISolution>>> configureAlgorithmList(jProblem p) {
 		List<Algorithm<List<jISolution>>> algorithms = new ArrayList<Algorithm<List<jISolution>>>();
+		
 		algorithms.add(new com.moo.algorithms.NSGAII(p, MAX_EVALUATIONS, 100, 
 				new StandardTour(null), new BooleanPackingList(null), 
 				new jCrossover(new PMXCrossover<Integer>(),  new SinglePointCrossover<Boolean>()),
@@ -132,10 +137,44 @@ public class Study {
 				new jCrossover(new OrderedCrossover<Integer>(),  new SinglePointCrossover<Boolean>()),
 				new jMutation(new SwapMutation<>(), new BitFlipMutation()), "NSGAII-ST[OX-SWAP]-BP[SPC-BFM]"));
 		
+		
+		algorithms.add(new com.moo.algorithms.NSGAII(p, MAX_EVALUATIONS, 100, 
+				new StandardTour(null), new BooleanPackingList(null), 
+				new jCrossover(new EdgeRecombinationCrossover<Integer>(),  new SinglePointCrossover<Boolean>()),
+				new jMutation(new SwapMutation<>(), new BitFlipMutation()), "NSGAII-ST[ERC-SWAP]-BP[SPC-BFM]"));
+		
+		
 		algorithms.add(new com.moo.algorithms.NSGAII(p, MAX_EVALUATIONS, 100, 
 				new PositionDecodedTour(null), new BooleanPackingList(null), 
 				new jCrossover(new SinglePointCrossover<Integer>(),  new SinglePointCrossover<Boolean>()),
 				new jMutation(new RestrictedPolynomialMutation(), new BitFlipMutation()), "NSGAII-PDT[SPC-RPM]-BP[SPC-BFM]"));
+		
+		
+		algorithms.add(new com.moo.algorithms.NSGAII(p, MAX_EVALUATIONS, 100, 
+				new StandardTour(null), new BooleanPackingList(null), 
+				new jCrossover(new PMXCrossover<Integer>(),  new BooleanSimilarityCrossover()),
+				new jMutation(new SwapMutation<>(), new BitFlipMutation()), "NSGAII-ST[PMX-SWAP]-BP[BSC-BFM]"));
+		
+		algorithms.add(new com.moo.algorithms.NSGAII(p, MAX_EVALUATIONS, 100, 
+				new StandardTour(null), new BooleanPackingList(null), 
+				new jCrossover(new CycleCrossover<Integer>(),  new BooleanSimilarityCrossover()),
+				new jMutation(new SwapMutation<>(), new BitFlipMutation()), "NSGAII-ST[CX-SWAP]-BP[BSC-BFM]"));
+		
+		algorithms.add(new com.moo.algorithms.NSGAII(p, MAX_EVALUATIONS, 100, 
+				new StandardTour(null), new BooleanPackingList(null), 
+				new jCrossover(new OrderedCrossover<Integer>(),  new BooleanSimilarityCrossover()),
+				new jMutation(new SwapMutation<>(), new BitFlipMutation()), "NSGAII-ST[OX-SWAP]-BP[BSC-BFM]"));
+		
+		algorithms.add(new com.moo.algorithms.NSGAII(p, MAX_EVALUATIONS, 100, 
+				new StandardTour(null), new BooleanPackingList(null), 
+				new jCrossover(new EdgeRecombinationCrossover<Integer>(),  new BooleanSimilarityCrossover()),
+				new jMutation(new SwapMutation<>(), new BitFlipMutation()), "NSGAII-ST[ERC-SWAP]-BP[BSC-BFM]"));
+		
+		algorithms.add(new com.moo.algorithms.NSGAII(p, MAX_EVALUATIONS, 100, 
+				new PositionDecodedTour(null), new BooleanPackingList(null), 
+				new jCrossover(new SinglePointCrossover<Integer>(),  new BooleanSimilarityCrossover()),
+				new jMutation(new RestrictedPolynomialMutation(), new BitFlipMutation()), "NSGAII-PDT[SPC-RPM]-BP[BSC-BFM]"));
+		
 		
 		return algorithms;
 	}

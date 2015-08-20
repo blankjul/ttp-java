@@ -3,6 +3,7 @@ package com.moo.problems;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 import com.moo.ttp.model.Map;
 
@@ -31,26 +32,29 @@ public class TravellingSalesmanProblem implements Problem<Integer[], Integer> {
 	/**
 	 * Check if the tour is to short or to long for sure
 	 */
-	public static void checkTourSize(Map map, Integer[] pi) {
-		if (pi.length != map.getSize())
-			throw new RuntimeException(String.format("Map has %s cities but input only %s!", map.getSize(), pi.length));
+	public static void checkTourSize(int size, Integer[] pi) {
+		if (pi.length != size)
+			throw new RuntimeException(String.format("Map has %s cities but input only %s!", size, pi.length));
 
 	}
 	
 	/**
 	 * Check if the tour has no duplicates and contains all the needed indices
 	 */
-	public static void checkTourValidtiy(Map map, Integer[] pi) {
+	
+	public static void checkTourValidtiy(List<Integer> pi) {
 		HashSet<Integer> hash = new HashSet<Integer>();
-		Integer duplicate = Util.getDuplicate(hash, new ArrayList<Integer>(Arrays.asList(pi)));
+		Integer duplicate = Util.getDuplicate(hash, pi);
 		if (duplicate != null) {
 			throw new RuntimeException(String.format("Tour is not a real permuation: city %s is visited twice!", duplicate));
 		}
-		for (int i = 0; i < pi.length; i++) {
+		for (int i = 0; i < pi.size(); i++) {
 			if (!hash.contains(i)) 
 				throw new RuntimeException(String.format("Tour is not valid because city %s is not visited!", i));
 		}
 	}
+	
+
 	
 
 	/**
@@ -63,8 +67,8 @@ public class TravellingSalesmanProblem implements Problem<Integer[], Integer> {
 	public Integer evaluate(Integer[] pi) {
 
 		// check if the input is correct
-		checkTourSize(map, pi);
-		checkTourValidtiy(map, pi);
+		checkTourSize(map.getSize(), pi);
+		checkTourValidtiy(new ArrayList<Integer>(Arrays.asList(pi)));
 		
 		int length = 0;
 		for (int i = 0; i < pi.length - 1; i++) {
