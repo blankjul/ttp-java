@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import com.moo.model.Problem;
 import com.moo.ttp.model.item.Item;
 
 /**
@@ -14,7 +13,7 @@ import com.moo.ttp.model.item.Item;
  * fits into the knapsack.
  *
  */
-public class Knapsack implements Problem<List<Boolean>, Integer> {
+public class Knapsack  {
 
 	// ! maximal weight of the knapsack
 	private int maxWeight;

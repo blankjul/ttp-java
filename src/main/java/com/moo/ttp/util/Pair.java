@@ -22,8 +22,8 @@ package com.moo.ttp.util;
  * objects.
  */
 public class Pair<F, S> {
-    public final F first;
-    public final S second;
+    public F first;
+    public S second;
 
     /**
      * Constructor for a Pair. If either are null then equals() and hashCode() will throw

@@ -15,7 +15,7 @@ public class PositionDecodedTourTest {
 	@Test
 	public void testRandomCreation() {
 		for (int i = 0; i < 100; i++) {
-			ArrayList<Integer> list = (ArrayList<Integer>) new PositionDecodedTour(null).random(4).get();
+			ArrayList<Integer> list = (ArrayList<Integer>) new PositionDecodedTourFactory(4).create().get();
 			assertTrue(list.get(0) == 0);
 			assertTrue(list.get(1) <= 1);
 			assertTrue(list.get(2) <= 2);

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.moo.ttp.util.Rnd;
-
 /**
  * The StandardTour provides an implementation of a tour that saves directly the
  * permutation array.
@@ -13,7 +11,7 @@ import com.moo.ttp.util.Rnd;
  * The encoding is nothing else than returning the array directly.
  *
  */
-public class PositionDecodedTour extends ATour<List<Integer>> {
+public class PositionDecodedTour extends Tour<List<Integer>> {
 
 	
 	/**
@@ -23,21 +21,9 @@ public class PositionDecodedTour extends ATour<List<Integer>> {
 	 *            tour represented by permutation vector
 	 */
 	public PositionDecodedTour(List<Integer> list) {
-		super();
-		this.obj = list;
+		super(list);
 	}
 
-	/**
-	 * Create a random tour with n cities. The first city is always the city 0!
-	 */
-	@Override
-	public ATour<List<Integer>> random(int numOfCities) {
-		LinkedList<Integer> indices = new LinkedList<Integer>();
-		for (int i = 0; i < numOfCities; i++) {
-			indices.add(Rnd.rndInt(0, i));
-		}
-		return new PositionDecodedTour(new ArrayList<>(indices));
-	}
 
 	
 	@Override

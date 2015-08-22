@@ -9,15 +9,6 @@ import org.uma.jmetal.algorithm.Algorithm;
 import org.uma.jmetal.util.archive.impl.NonDominatedSolutionListArchive;
 
 import com.google.gson.Gson;
-import com.moo.operators.crossover.BooleanSimilarityCrossover;
-import com.moo.operators.crossover.CycleCrossover;
-import com.moo.operators.crossover.EdgeRecombinationCrossover;
-import com.moo.operators.crossover.OrderedCrossover;
-import com.moo.operators.crossover.PMXCrossover;
-import com.moo.operators.crossover.SinglePointCrossover;
-import com.moo.operators.mutation.BitFlipMutation;
-import com.moo.operators.mutation.RestrictedPolynomialMutation;
-import com.moo.operators.mutation.SwapMutation;
 import com.moo.ttp.experiment.Experiment;
 import com.moo.ttp.experiment.factory.ItemFactory;
 import com.moo.ttp.experiment.factory.ThiefFactory;
@@ -30,6 +21,15 @@ import com.moo.ttp.model.tour.PositionDecodedTour;
 import com.moo.ttp.model.tour.StandardTour;
 import com.moo.ttp.util.JsonBuilder;
 import com.moo.ttp.util.Util;
+import com.msu.moo.operators.crossover.BooleanSimilarityCrossover;
+import com.msu.moo.operators.crossover.SinglePointCrossover;
+import com.msu.moo.operators.crossover.permutation.CycleCrossover;
+import com.msu.moo.operators.crossover.permutation.EdgeRecombinationCrossover;
+import com.msu.moo.operators.crossover.permutation.OrderedCrossover;
+import com.msu.moo.operators.crossover.permutation.PMXCrossover;
+import com.msu.moo.operators.mutation.BitFlipMutation;
+import com.msu.moo.operators.mutation.RestrictedPolynomialMutation;
+import com.msu.moo.operators.mutation.SwapMutation;
 
 public class Study {
 
@@ -122,55 +122,55 @@ public class Study {
 	public List<Algorithm<List<jISolution>>> configureAlgorithmList(jProblem p) {
 		List<Algorithm<List<jISolution>>> algorithms = new ArrayList<Algorithm<List<jISolution>>>();
 		
-		algorithms.add(new com.moo.jmetal.NSGAII(p, MAX_EVALUATIONS, 100, 
+		algorithms.add(new com.moo.ttp.jmetal.NSGAII(p, MAX_EVALUATIONS, 100, 
 				new StandardTour(null), new BooleanPackingList(null), 
 				new jCrossover(new PMXCrossover<Integer>(),  new SinglePointCrossover<Boolean>()),
 				new jMutation(new SwapMutation<>(), new BitFlipMutation()), "NSGAII-ST[PMX-SWAP]-BP[SPC-BFM]"));
 		
-		algorithms.add(new com.moo.jmetal.NSGAII(p, MAX_EVALUATIONS, 100, 
+		algorithms.add(new com.moo.ttp.jmetal.NSGAII(p, MAX_EVALUATIONS, 100, 
 				new StandardTour(null), new BooleanPackingList(null), 
 				new jCrossover(new CycleCrossover<Integer>(),  new SinglePointCrossover<Boolean>()),
 				new jMutation(new SwapMutation<>(), new BitFlipMutation()), "NSGAII-ST[CX-SWAP]-BP[SPC-BFM]"));
 		
-		algorithms.add(new com.moo.jmetal.NSGAII(p, MAX_EVALUATIONS, 100, 
+		algorithms.add(new com.moo.ttp.jmetal.NSGAII(p, MAX_EVALUATIONS, 100, 
 				new StandardTour(null), new BooleanPackingList(null), 
 				new jCrossover(new OrderedCrossover<Integer>(),  new SinglePointCrossover<Boolean>()),
 				new jMutation(new SwapMutation<>(), new BitFlipMutation()), "NSGAII-ST[OX-SWAP]-BP[SPC-BFM]"));
 		
 		
-		algorithms.add(new com.moo.jmetal.NSGAII(p, MAX_EVALUATIONS, 100, 
+		algorithms.add(new com.moo.ttp.jmetal.NSGAII(p, MAX_EVALUATIONS, 100, 
 				new StandardTour(null), new BooleanPackingList(null), 
 				new jCrossover(new EdgeRecombinationCrossover<Integer>(),  new SinglePointCrossover<Boolean>()),
 				new jMutation(new SwapMutation<>(), new BitFlipMutation()), "NSGAII-ST[ERC-SWAP]-BP[SPC-BFM]"));
 		
 		
-		algorithms.add(new com.moo.jmetal.NSGAII(p, MAX_EVALUATIONS, 100, 
+		algorithms.add(new com.moo.ttp.jmetal.NSGAII(p, MAX_EVALUATIONS, 100, 
 				new PositionDecodedTour(null), new BooleanPackingList(null), 
 				new jCrossover(new SinglePointCrossover<Integer>(),  new SinglePointCrossover<Boolean>()),
 				new jMutation(new RestrictedPolynomialMutation(), new BitFlipMutation()), "NSGAII-PDT[SPC-RPM]-BP[SPC-BFM]"));
 		
 		
-		algorithms.add(new com.moo.jmetal.NSGAII(p, MAX_EVALUATIONS, 100, 
+		algorithms.add(new com.moo.ttp.jmetal.NSGAII(p, MAX_EVALUATIONS, 100, 
 				new StandardTour(null), new BooleanPackingList(null), 
 				new jCrossover(new PMXCrossover<Integer>(),  new BooleanSimilarityCrossover()),
 				new jMutation(new SwapMutation<>(), new BitFlipMutation()), "NSGAII-ST[PMX-SWAP]-BP[BSC-BFM]"));
 		
-		algorithms.add(new com.moo.jmetal.NSGAII(p, MAX_EVALUATIONS, 100, 
+		algorithms.add(new com.moo.ttp.jmetal.NSGAII(p, MAX_EVALUATIONS, 100, 
 				new StandardTour(null), new BooleanPackingList(null), 
 				new jCrossover(new CycleCrossover<Integer>(),  new BooleanSimilarityCrossover()),
 				new jMutation(new SwapMutation<>(), new BitFlipMutation()), "NSGAII-ST[CX-SWAP]-BP[BSC-BFM]"));
 		
-		algorithms.add(new com.moo.jmetal.NSGAII(p, MAX_EVALUATIONS, 100, 
+		algorithms.add(new com.moo.ttp.jmetal.NSGAII(p, MAX_EVALUATIONS, 100, 
 				new StandardTour(null), new BooleanPackingList(null), 
 				new jCrossover(new OrderedCrossover<Integer>(),  new BooleanSimilarityCrossover()),
 				new jMutation(new SwapMutation<>(), new BitFlipMutation()), "NSGAII-ST[OX-SWAP]-BP[BSC-BFM]"));
 		
-		algorithms.add(new com.moo.jmetal.NSGAII(p, MAX_EVALUATIONS, 100, 
+		algorithms.add(new com.moo.ttp.jmetal.NSGAII(p, MAX_EVALUATIONS, 100, 
 				new StandardTour(null), new BooleanPackingList(null), 
 				new jCrossover(new EdgeRecombinationCrossover<Integer>(),  new BooleanSimilarityCrossover()),
 				new jMutation(new SwapMutation<>(), new BitFlipMutation()), "NSGAII-ST[ERC-SWAP]-BP[BSC-BFM]"));
 		
-		algorithms.add(new com.moo.jmetal.NSGAII(p, MAX_EVALUATIONS, 100, 
+		algorithms.add(new com.moo.ttp.jmetal.NSGAII(p, MAX_EVALUATIONS, 100, 
 				new PositionDecodedTour(null), new BooleanPackingList(null), 
 				new jCrossover(new SinglePointCrossover<Integer>(),  new BooleanSimilarityCrossover()),
 				new jMutation(new RestrictedPolynomialMutation(), new BitFlipMutation()), "NSGAII-PDT[SPC-RPM]-BP[BSC-BFM]"));

@@ -3,7 +3,7 @@ package com.moo.ttp.experiment.factory;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import com.moo.ttp.model.Map;
+import com.moo.ttp.model.tour.Map;
 import com.moo.ttp.util.Rnd;
 
 /**

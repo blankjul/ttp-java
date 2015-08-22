@@ -3,10 +3,10 @@ package com.moo.ttp.calculator.time;
 import java.util.HashMap;
 import java.util.List;
 
-import com.moo.ttp.TravellingThiefProblem;
 import com.moo.ttp.TravellingThiefProblemSettings;
 import com.moo.ttp.model.item.Item;
 import com.moo.ttp.model.item.ItemCollection;
+import com.moo.ttp.variable.TravellingThiefProblem;
 
 public class StandardTimeCalculator implements TimeCalculator {
 

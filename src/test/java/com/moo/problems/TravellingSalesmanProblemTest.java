@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.moo.problems.TravellingSalesmanProblem;
-import com.moo.ttp.model.Map;
+import com.moo.ttp.model.tour.Map;
 
 
 public class TravellingSalesmanProblemTest {

@@ -2,17 +2,18 @@ package com.moo.ttp.model.packing;
 
 import java.util.List;
 
-import com.moo.ttp.model.AVariable;
+import com.msu.moo.model.AbstractVariable;
 
-public abstract class APackingList<T> extends AVariable<APackingList<T>, T, List<Boolean>> implements IPackingList{
+public abstract class PackingList<T> extends AbstractVariable<List<Boolean>> {
 
-	public APackingList() {
-		super();
-	}
-
-	public APackingList(T obj) {
+	
+	public PackingList(List<Boolean> obj) {
 		super(obj);
 	}
+
+	abstract public List<Boolean> encode();
+	
+
 	
 	
 }

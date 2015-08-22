@@ -1,9 +1,9 @@
 package com.moo.ttp.experiment.factory;
 
-import com.moo.ttp.TravellingThiefProblem;
 import com.moo.ttp.TravellingThiefProblemSettings;
 import com.moo.ttp.model.item.Item;
 import com.moo.ttp.model.item.ItemCollection;
+import com.moo.ttp.variable.TravellingThiefProblem;
 
 /**
  * This factory creates a map and items that could be collected at each city.

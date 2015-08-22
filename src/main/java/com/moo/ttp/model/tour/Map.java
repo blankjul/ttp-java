@@ -1,4 +1,4 @@
-package com.moo.ttp.model;
+package com.moo.ttp.model.tour;
 
 /**
  * This class represents a map with a predefined number of cities.
