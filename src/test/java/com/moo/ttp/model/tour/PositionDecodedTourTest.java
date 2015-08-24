@@ -8,14 +8,28 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
+import com.moo.ttp.variable.TravellingThiefProblem;
+
 public class PositionDecodedTourTest {
 
+	public class TTPMOCK extends TravellingThiefProblem {
 
+		public TTPMOCK() {
+			super();
+		}
+		@Override
+		public int numOfCities() {
+			return 4;
+		}
+		
+	}
 
 	@Test
 	public void testRandomCreation() {
 		for (int i = 0; i < 100; i++) {
-			ArrayList<Integer> list = (ArrayList<Integer>) new PositionDecodedTourFactory(4).create().get();
+			Tour<?> t = new PositionDecodedTourFactory().create(new TTPMOCK());
+			@SuppressWarnings("unchecked")
+			ArrayList<Integer> list = (ArrayList<Integer>) t.get();
 			assertTrue(list.get(0) == 0);
 			assertTrue(list.get(1) <= 1);
 			assertTrue(list.get(2) <= 2);

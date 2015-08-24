@@ -8,16 +8,15 @@ import com.moo.ttp.model.packing.BooleanPackingListFactory;
 import com.moo.ttp.model.tour.Map;
 import com.moo.ttp.model.tour.StandardTourFactory;
 import com.moo.ttp.variable.TTPCrossover;
-import com.moo.ttp.variable.TTPFactory;
 import com.moo.ttp.variable.TTPMutation;
 import com.moo.ttp.variable.TTPVariable;
+import com.moo.ttp.variable.TTPVariableFactory;
 import com.moo.ttp.variable.TravellingThiefProblem;
-import com.msu.moo.algorithms.NSGAII;
-import com.msu.moo.model.interfaces.IFactory;
+import com.msu.moo.algorithms.NSGAIIBuilder;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.operators.crossover.SinglePointCrossover;
-import com.msu.moo.operators.crossover.permutation.CycleCrossover;
+import com.msu.moo.operators.crossover.permutation.PMXCrossover;
 import com.msu.moo.operators.mutation.BitFlipMutation;
 import com.msu.moo.operators.mutation.SwapMutation;
 
@@ -41,14 +40,13 @@ public class App {
 
 		TravellingThiefProblem ttp = example();
 		
-		IFactory<TTPVariable> fac = new TTPFactory(new StandardTourFactory(ttp.numOfCities()), new BooleanPackingListFactory(ttp.numOfItems()));
+		NSGAIIBuilder<TTPVariable, TravellingThiefProblem> builder = new NSGAIIBuilder<>();
+		builder.setFactory(new TTPVariableFactory(new StandardTourFactory(), new BooleanPackingListFactory()));
+		builder.setMutation(new TTPMutation(new SwapMutation<>(), new BitFlipMutation()));
+		builder.setCrossover(new TTPCrossover(new  PMXCrossover<Integer>(), new SinglePointCrossover<>()));
 		
-		NSGAII<TTPVariable, TravellingThiefProblem> nsgaII = new NSGAII<TTPVariable, TravellingThiefProblem>(
-				fac,
-				10000L, new TTPCrossover(new CycleCrossover<>(), new SinglePointCrossover<>()), 
-				new TTPMutation(new SwapMutation<>(), new BitFlipMutation()));
 
-		NonDominatedSolutionSet set = nsgaII.run(ttp);
+		NonDominatedSolutionSet set = builder.create().run(ttp);
 		for (Solution solution : set.getSolutions()) {
 			System.out.println(solution);
 		}

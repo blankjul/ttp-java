@@ -4,25 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 
-import com.msu.moo.model.interfaces.IFactory;
+import com.moo.ttp.variable.TravellingThiefProblem;
 
-public class StandardTourFactory implements IFactory<Tour<?>> {
-
-	//! length of the tour
-	protected int length;
-	
-	
-	
-	public StandardTourFactory(int length) {
-		super();
-		this.length = length;
-	}
+public class StandardTourFactory implements ITourFactory {
 
 
 	@Override
-	public Tour<?> create() {
+	public Tour<?> create(TravellingThiefProblem p) {
 		LinkedList<Integer> indices = new LinkedList<Integer>();
-		for (int i = 1; i < length; i++) {
+		for (int i = 1; i < p.numOfCities(); i++) {
 			indices.add(i);
 		}
 		Collections.shuffle(indices);

@@ -76,5 +76,16 @@ public class TravellingThiefProblemTest {
 		assertEquals(0.0, p.second, 0.01);
 	}
 	
+	@Test
+	public void testEvaluatePermutationOfTour() {
+		Tour<List<Integer>> tour = new StandardTour(new ArrayList<Integer>(Arrays.asList(0,1,3,2)));
+		PackingList<List<Boolean>> b = new BooleanPackingList(new ArrayList<Boolean>(Arrays.asList(true, true, true, false, true, true)));
+		Pair<Double,Double> p1 = ttp.evaluate(tour, b);
+		Pair<Double,Double> p2 = ttp.evaluate(new StandardTour(new ArrayList<Integer>(Arrays.asList(2,0,1,3))), b);
+		assertEquals(p1.first ,p2.first);
+		assertEquals(p1.second ,p2.second);
+	}
+	
+	
 
 }
