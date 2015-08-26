@@ -5,8 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.moo.ttp.model.item.Item;
-import com.moo.ttp.model.item.ItemCollection;
+import com.msu.thief.model.Item;
+import com.msu.thief.model.ItemCollection;
 
 
 

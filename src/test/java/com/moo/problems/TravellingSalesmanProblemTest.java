@@ -8,8 +8,8 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.moo.problems.TravellingSalesmanProblem;
-import com.moo.ttp.model.tour.Map;
+import com.msu.thief.model.Map;
+import com.msu.thief.problems.TravellingSalesmanProblem;
 
 
 public class TravellingSalesmanProblemTest {

@@ -9,16 +9,16 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.moo.ttp.TravellingThiefProblemSettings;
-import com.moo.ttp.model.item.Item;
-import com.moo.ttp.model.item.ItemCollection;
-import com.moo.ttp.model.packing.PackingList;
-import com.moo.ttp.model.packing.BooleanPackingList;
-import com.moo.ttp.model.tour.Tour;
-import com.moo.ttp.model.tour.Map;
-import com.moo.ttp.model.tour.StandardTour;
-import com.moo.ttp.util.Pair;
-import com.moo.ttp.variable.TravellingThiefProblem;
+import com.msu.moo.util.Pair;
+import com.msu.thief.model.Item;
+import com.msu.thief.model.ItemCollection;
+import com.msu.thief.model.Map;
+import com.msu.thief.model.packing.BooleanPackingList;
+import com.msu.thief.model.packing.PackingList;
+import com.msu.thief.model.tour.StandardTour;
+import com.msu.thief.model.tour.Tour;
+import com.msu.thief.problems.TravellingThiefProblemSettings;
+import com.msu.thief.variable.TravellingThiefProblem;
 
 
 public class TravellingThiefProblemTest {

@@ -8,7 +8,10 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import com.moo.ttp.variable.TravellingThiefProblem;
+import com.msu.thief.model.tour.PositionDecodedTour;
+import com.msu.thief.model.tour.PositionDecodedTourFactory;
+import com.msu.thief.model.tour.Tour;
+import com.msu.thief.variable.TravellingThiefProblem;
 
 public class PositionDecodedTourTest {
 

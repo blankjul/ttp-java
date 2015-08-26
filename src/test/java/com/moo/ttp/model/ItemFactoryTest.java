@@ -6,8 +6,8 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
-import com.moo.ttp.experiment.factory.ItemFactory;
-import com.moo.ttp.model.item.Item;
+import com.msu.thief.factory.ItemFactory;
+import com.msu.thief.model.Item;
 
 
 
