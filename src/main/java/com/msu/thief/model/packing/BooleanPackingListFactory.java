@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.msu.moo.util.Random;
-import com.msu.thief.variable.TravellingThiefProblem;
+import com.msu.thief.problems.TravellingThiefProblem;
 
 public class BooleanPackingListFactory implements IPackingPlanFactory {
 

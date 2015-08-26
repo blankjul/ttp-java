@@ -1,4 +1,4 @@
-package com.moo.ttp.model.tour;
+package com.msu.thief.model.tour;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -11,7 +11,7 @@ import org.junit.Test;
 import com.msu.thief.model.tour.PositionDecodedTour;
 import com.msu.thief.model.tour.PositionDecodedTourFactory;
 import com.msu.thief.model.tour.Tour;
-import com.msu.thief.variable.TravellingThiefProblem;
+import com.msu.thief.problems.TravellingThiefProblem;
 
 public class PositionDecodedTourTest {
 

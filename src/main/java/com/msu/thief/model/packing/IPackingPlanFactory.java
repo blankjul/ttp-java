@@ -1,6 +1,6 @@
 package com.msu.thief.model.packing;
 
-import com.msu.thief.variable.TravellingThiefProblem;
+import com.msu.thief.problems.TravellingThiefProblem;
 
 public interface IPackingPlanFactory {
 	

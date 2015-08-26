@@ -21,16 +21,16 @@ import com.msu.thief.factory.ThiefFactory;
 import com.msu.thief.model.packing.BooleanPackingListFactory;
 import com.msu.thief.model.tour.PositionDecodedTourFactory;
 import com.msu.thief.model.tour.StandardTourFactory;
+import com.msu.thief.problems.TravellingThiefProblem;
 import com.msu.thief.variable.TTPCrossover;
 import com.msu.thief.variable.TTPMutation;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.TTPVariableFactory;
-import com.msu.thief.variable.TravellingThiefProblem;
 
 public class NSGAIIOperatorExperiment extends AbstractExperiment<TravellingThiefProblem> {
 
 	public NSGAIIOperatorExperiment() {
-		this.maxEvaluations = 100000L;
+		this.maxEvaluations = 100L;
 		this.iterations = 10;
 		this.pathToEAF = "../moo-java/vendor/aft-0.95/eaf";
 		this.pathToHV = "../moo-java/vendor/hv-1.3-src/hv";

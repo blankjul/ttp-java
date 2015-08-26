@@ -1,4 +1,4 @@
-package com.moo.problems;
+package com.msu.thief.problems;
 
 import static org.junit.Assert.assertEquals;
 

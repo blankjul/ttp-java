@@ -16,5 +16,10 @@ public class TTPVariable extends AbstractVariable<Pair<Tour<?>, PackingList<?>>>
 	public IVariable copy() {
 		return new TTPVariable(obj);
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("(%s,%s)", obj.first.toString(),obj.second.toString());
+	}
 
 }

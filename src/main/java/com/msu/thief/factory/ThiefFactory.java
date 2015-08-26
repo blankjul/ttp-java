@@ -2,8 +2,7 @@ package com.msu.thief.factory;
 
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
-import com.msu.thief.problems.TravellingThiefProblemSettings;
-import com.msu.thief.variable.TravellingThiefProblem;
+import com.msu.thief.problems.TravellingThiefProblem;
 
 /**
  * This factory creates a map and items that could be collected at each city.
@@ -21,8 +20,8 @@ public class ThiefFactory {
 	}
 
 	public static TravellingThiefProblem create(int numOfCities, int itemsPerCity,  ItemFactory.TYPE type, double maxWeightPerc) {
-		TravellingThiefProblemSettings s = new TravellingThiefProblemSettings();
-		s.setMap(MapFactory.create(numOfCities, MAP_BOUNDS));
+		TravellingThiefProblem problem = new TravellingThiefProblem();
+		problem.setMap(MapFactory.create(numOfCities, MAP_BOUNDS));
 
 		ItemCollection<Item> items = new ItemCollection<Item>();
 		
@@ -30,7 +29,7 @@ public class ThiefFactory {
 		for (int i = 0; i < numOfCities; i++) {
 			for (int j = 0; j < itemsPerCity; j++) {
 				
-				double maxTime = (s.getMap().getMax() * s.getMap().getSize()) / s.getMinSpeed();
+				double maxTime = (problem.getMap().getMax() * problem.getMap().getSize()) / problem.MIN_SPEED;
 				
 				Item item = ItemFactory.create(type, ITEM_BOUNDS, maxTime);
 				sumWeights += item.getWeight();		
@@ -38,9 +37,9 @@ public class ThiefFactory {
 			}
 		}
 		
-		s.setItems(items);
-		s.setMaxWeight((int) (sumWeights * maxWeightPerc));
-		return new TravellingThiefProblem(s);
+		problem.setItems(items);
+		problem.setMaxWeight((int) (sumWeights * maxWeightPerc));
+		return problem;
 	}
 
 }

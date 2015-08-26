@@ -15,6 +15,10 @@ public abstract class Tour<T> extends AbstractVariable<T> {
 		super(obj);
 	}
 	
+	public String toString() {
+		return obj.toString();
+	}
+	
 	abstract public List<Integer> encode();
 	
 

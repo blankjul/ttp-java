@@ -1,4 +1,4 @@
-package com.moo.ttp.model;
+package com.msu.thief.model;
 
 import java.util.Collection;
 

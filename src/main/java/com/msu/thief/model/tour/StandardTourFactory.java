@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 
-import com.msu.thief.variable.TravellingThiefProblem;
+import com.msu.thief.problems.TravellingThiefProblem;
 
 public class StandardTourFactory implements ITourFactory {
 

@@ -3,23 +3,24 @@ package com.msu.thief;
 import javax.management.JMException;
 
 import com.msu.moo.algorithms.NSGAIIBuilder;
+import com.msu.moo.algorithms.RandomSearch;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.operators.crossover.SinglePointCrossover;
 import com.msu.moo.operators.crossover.permutation.PMXCrossover;
 import com.msu.moo.operators.mutation.BitFlipMutation;
 import com.msu.moo.operators.mutation.SwapMutation;
+import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.Map;
 import com.msu.thief.model.packing.BooleanPackingListFactory;
 import com.msu.thief.model.tour.StandardTourFactory;
-import com.msu.thief.problems.TravellingThiefProblemSettings;
+import com.msu.thief.problems.TravellingThiefProblem;
 import com.msu.thief.variable.TTPCrossover;
 import com.msu.thief.variable.TTPMutation;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.TTPVariableFactory;
-import com.msu.thief.variable.TravellingThiefProblem;
 
 public class App {
 
@@ -32,24 +33,29 @@ public class App {
 		items.add(1, new Item(2, 2));
 		items.add(2, new Item(3, 3));
 		items.add(3, new Item(2, 2));
-		TravellingThiefProblemSettings s = new TravellingThiefProblemSettings(m, items, 3);
-		s.setProfitCalculator("com.moo.ttp.calculator.profit.ExponentialProfitCalculator");
-		return new TravellingThiefProblem(s);
+		TravellingThiefProblem s = new TravellingThiefProblem(m, items, 3);
+		s.setProfitEvaluator(new ExponentialProfitEvaluator());
+		return s;
 	}
 
 	public static void main(String[] args) throws JMException {
 
 		TravellingThiefProblem ttp = example();
+
+		RandomSearch<TTPVariable, TravellingThiefProblem> r = new RandomSearch<>(
+				new TTPVariableFactory(new StandardTourFactory(), new BooleanPackingListFactory()));
+		r.setMaxEvaluations(100000L);
+		
 		
 		NSGAIIBuilder<TTPVariable, TravellingThiefProblem> builder = new NSGAIIBuilder<>();
 		builder.setFactory(new TTPVariableFactory(new StandardTourFactory(), new BooleanPackingListFactory()));
 		builder.setMutation(new TTPMutation(new SwapMutation<>(), new BitFlipMutation()));
-		builder.setCrossover(new TTPCrossover(new  PMXCrossover<Integer>(), new SinglePointCrossover<>()));
+		builder.setCrossover(new TTPCrossover(new PMXCrossover<Integer>(), new SinglePointCrossover<>()));
 		
-
+		//NonDominatedSolutionSet set = builder.create().run(ttp);
 		NonDominatedSolutionSet set = builder.create().run(ttp);
 		for (Solution solution : set.getSolutions()) {
-			System.out.println(solution);
+			System.out.println(String.format("%s -> %s", solution.getVariable(), solution));
 		}
 
 		/*

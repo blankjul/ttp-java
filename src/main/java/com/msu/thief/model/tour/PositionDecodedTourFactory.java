@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import com.msu.moo.util.Random;
-import com.msu.thief.variable.TravellingThiefProblem;
+import com.msu.thief.problems.TravellingThiefProblem;
 
 /**
  * The StandardTour provides an implementation of a tour that saves directly the

@@ -6,6 +6,7 @@ import com.msu.thief.model.packing.IPackingPlanFactory;
 import com.msu.thief.model.packing.PackingList;
 import com.msu.thief.model.tour.ITourFactory;
 import com.msu.thief.model.tour.Tour;
+import com.msu.thief.problems.TravellingThiefProblem;
 
 public class TTPVariableFactory implements VariableFactory<TTPVariable, TravellingThiefProblem> {
 
