@@ -1,9 +1,11 @@
-package com.msu.thief.problems;
+package com.msu.thief.problems.knp;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
+import com.msu.moo.model.AbstractProblem;
 import com.msu.thief.model.Item;
 
 /**
@@ -13,13 +15,13 @@ import com.msu.thief.model.Item;
  * fits into the knapsack.
  *
  */
-public class Knapsack  {
+public class KnapsackProblem  extends AbstractProblem<KnapsackVariable> {
 
 	// ! maximal weight of the knapsack
 	private int maxWeight;
 
 	// ! all items that could be added to the knapsack
-	private ArrayList<Item> items;
+	private List<Item> items;
 
 	/**
 	 * Create a Knapsack Problem with predefined items and a maximal weight!
@@ -29,7 +31,7 @@ public class Knapsack  {
 	 * @param items
 	 *            that could be added
 	 */
-	public Knapsack(int maxWeight, ArrayList<Item> items) {
+	public KnapsackProblem(int maxWeight, List<Item> items) {
 		super();
 		this.maxWeight = maxWeight;
 		this.items = items;
@@ -77,6 +79,21 @@ public class Knapsack  {
 			if (b.get(j)) weight += func.apply(items.get(j));
 		}
 		return weight;
+	}
+
+	@Override
+	public int getNumberOfObjectives() {
+		return 1;
+	}
+
+	@Override
+	protected List<Double> evaluate_(KnapsackVariable variable) {
+		double profit = evaluate(variable.get().encode());
+		return new ArrayList<Double>(Arrays.asList(profit));
+	}
+	
+	public int numOfItems() {
+		return items.size();
 	}
 
 }

@@ -45,4 +45,15 @@ public abstract class TimeEvaluator implements IEvaluator<Pair<Tour<?>, PackingL
 		return mItem;
 	}
 
+	@Override
+	public Double evaluate(Pair<Tour<?>, PackingList<?>> input) {
+		this.time = 0.0d;
+		this.weight = 0.0d;
+		mItem.clear();
+		return evaluate_(input);
+	}
+	
+	public abstract Double evaluate_(Pair<Tour<?>, PackingList<?>> input) ;
+	
+
 }

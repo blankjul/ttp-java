@@ -18,17 +18,13 @@ public class StandardTimeEvaluator extends TimeEvaluator {
 
 
 	@Override
-	public Double evaluate(Pair<Tour<?>, PackingList<?>> input) {
+	public Double evaluate_(Pair<Tour<?>, PackingList<?>> input) {
 		
 		ItemCollection<Item> items = problem.getItems();
 		
 		List<Integer> pi = input.first.encode();
 		List<Boolean> b = input.second.encode();
-		
-		this.time = 0.0d;
-		this.weight = 0.0d;
-		mItem.clear();
-		
+
 		double speed = problem.MAX_SPEED;
 		// iterate over all possible cities
 		for (int i = 0; i < pi.size(); i++) {

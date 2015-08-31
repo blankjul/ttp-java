@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.msu.thief.model.Map;
-import com.msu.thief.problems.TravellingSalesmanProblem;
+import com.msu.thief.problems.tsp.TravellingSalesmanProblem;
 
 
 public class TravellingSalesmanProblemTest {
@@ -25,7 +25,7 @@ public class TravellingSalesmanProblemTest {
 	
 	@Test
 	public void testEvaluateFunction() {
-		assertEquals(6, (int) tsp.evaluate( new ArrayList<Integer>(Arrays.asList(0,1,2))));
+		assertEquals(6.0, tsp.evaluate( new ArrayList<Integer>(Arrays.asList(0,1,2))), 0.01);
 	}
 	
 	@Test (expected=RuntimeException.class) 

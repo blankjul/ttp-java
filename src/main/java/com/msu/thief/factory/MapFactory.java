@@ -15,6 +15,11 @@ import com.msu.thief.model.Map;
 public class MapFactory {
 	
 	
+	public static Map create(int n, int maxValue, long seed) {
+		 Random.getInstance().setSeed(seed);
+		 return create(n, maxValue);
+	}
+	
 	/**
 	 * Create a map.
 	 * @param n cities

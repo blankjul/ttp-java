@@ -1,11 +1,13 @@
-package com.msu.thief.experiments;
+package com.msu.thief.experiment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.msu.moo.algorithms.NSGAIIBuilder;
-import com.msu.moo.model.AbstractExperiment;
 import com.msu.moo.model.interfaces.IAlgorithm;
+import com.msu.moo.model.interfaces.IProblem;
+import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.operators.crossover.HalfUniformCrossover;
 import com.msu.moo.operators.crossover.SinglePointCrossover;
 import com.msu.moo.operators.crossover.UniformCrossover;
@@ -29,11 +31,18 @@ import com.msu.thief.variable.TTPVariableFactory;
 
 public class NSGAIIOperatorExperiment extends AbstractExperiment<TravellingThiefProblem> {
 
-	public NSGAIIOperatorExperiment() {
-		this.maxEvaluations = 100L;
-		this.iterations = 10;
-		this.pathToEAF = "../moo-java/vendor/aft-0.95/eaf";
-		this.pathToHV = "../moo-java/vendor/hv-1.3-src/hv";
+	//! estimated true front
+	protected NonDominatedSolutionSet trueFront = new NonDominatedSolutionSet();
+	
+	
+	@Override
+	public int getIterations() {
+		return 10;
+	}
+
+	@Override
+	public long getMaxEvaluations() {
+		return 50000;
 	}
 
 	@Override
@@ -91,7 +100,7 @@ public class NSGAIIOperatorExperiment extends AbstractExperiment<TravellingThief
 	@Override
 	protected List<TravellingThiefProblem> getProblems() {
 		List<TravellingThiefProblem> l = new ArrayList<TravellingThiefProblem>();
-		
+		/*
 		l.add(ThiefFactory.create(20, 1, ItemFactory.TYPE.UNCORRELATED, 0.5, "TTP-20-1-UNCORRELATED"));
 		l.add(ThiefFactory.create(20, 5, ItemFactory.TYPE.UNCORRELATED, 0.5, "TTP-20-5-UNCORRELATED"));
 		l.add(ThiefFactory.create(20, 10, ItemFactory.TYPE.UNCORRELATED, 0.5, "TTP-20-10-UNCORRELATED"));
@@ -102,6 +111,8 @@ public class NSGAIIOperatorExperiment extends AbstractExperiment<TravellingThief
 		
 		l.add(ThiefFactory.create(20, 1, ItemFactory.TYPE.STRONGLY_CORRELATED, 0.5, "TTP-20-1-STRONGLY"));
 		l.add(ThiefFactory.create(20, 5, ItemFactory.TYPE.STRONGLY_CORRELATED, 0.5, "TTP-20-5-STRONGLY"));
+		*/
+		
 		l.add(ThiefFactory.create(20, 10, ItemFactory.TYPE.STRONGLY_CORRELATED, 0.5, "TTP-20-10-STRONGLY"));
 		
 		return l;
@@ -110,5 +121,14 @@ public class NSGAIIOperatorExperiment extends AbstractExperiment<TravellingThief
 	public static void main(String[] args) {
 		new NSGAIIOperatorExperiment().run();
 	}
+
+	@Override
+	public <P extends IProblem> Map<IProblem, NonDominatedSolutionSet> getTrueFronts(List<P> problems) {
+		return null;
+	}
+
+	
+	
+
 
 }

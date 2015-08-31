@@ -12,11 +12,10 @@ public class StandardTourFactory implements ITourFactory {
 	@Override
 	public Tour<?> create(TravellingThiefProblem p) {
 		LinkedList<Integer> indices = new LinkedList<Integer>();
-		for (int i = 1; i < p.numOfCities(); i++) {
+		for (int i = 0; i < p.numOfCities(); i++) {
 			indices.add(i);
 		}
 		Collections.shuffle(indices);
-		indices.addFirst(0);
 		return new StandardTour(new ArrayList<>(indices));
 	}
 

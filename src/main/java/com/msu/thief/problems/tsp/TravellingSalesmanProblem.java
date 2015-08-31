@@ -1,8 +1,11 @@
-package com.msu.thief.problems;
+package com.msu.thief.problems.tsp;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
+import com.msu.moo.model.AbstractProblem;
 import com.msu.thief.model.Map;
 import com.msu.thief.util.Util;
 
@@ -10,7 +13,7 @@ import com.msu.thief.util.Util;
  * This class defines the TravellingSalesmanProblem which aims to minimize the
  * tour distance of a salesman on a given map.
  */
-public class TravellingSalesmanProblem  {
+public class TravellingSalesmanProblem extends AbstractProblem<TSPVariable>{
 
 	// ! Map on which the salesman could plan his tour
 	protected Map map;
@@ -63,13 +66,13 @@ public class TravellingSalesmanProblem  {
 	 * @param pi
 	 *            permutation on which determines the tour. 
 	 */
-	public Integer evaluate(List<Integer> pi) {
+	public Double evaluate(List<Integer> pi) {
 
 		// check if the input is correct
 		checkTourSize(map.getSize(), pi);
 		checkTourValidtiy(pi);
 		
-		int length = 0;
+		double length = 0;
 		for (int i = 0; i < pi.size() - 1; i++) {
 			// sum up the length of the tour
 			length += map.get(pi.get(i), pi.get(i+1));
@@ -79,6 +82,22 @@ public class TravellingSalesmanProblem  {
 		length += map.get(pi.get(pi.size() - 1) , pi.get(0));
 
 		return length;
+	}
+
+	@Override
+	public int getNumberOfObjectives() {
+		return 1;
+	}
+
+	
+	@Override
+	protected List<Double> evaluate_(TSPVariable variable) {
+		Double length = evaluate(variable.get().encode());
+		return new ArrayList<Double>(Arrays.asList(length));
+	}
+	
+	public int numOfCities() {
+		return map.getSize();
 	}
 	
 	

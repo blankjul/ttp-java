@@ -9,22 +9,22 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.msu.thief.model.Item;
-import com.msu.thief.problems.Knapsack;
+import com.msu.thief.problems.knp.KnapsackProblem;
 
 public class KnapsackTest {
 
-	private Knapsack k;
+	private KnapsackProblem k;
 	private ArrayList<Item> l;
 
 	@Before
 	public void setUp() {
 		l = new ArrayList<Item>(Arrays.asList(new Item(1, 1), new Item(2, 2), new Item(3, 3)));
-		k = new Knapsack(3, l);
+		k = new KnapsackProblem(3, l);
 	}
 
 	@Test
 	public void testGetWeightFunction() {
-		assertEquals(6, (int) Knapsack.getWeight(l, new ArrayList<Boolean>(Arrays.asList(true, true, true))));
+		assertEquals(6, (int) KnapsackProblem.getWeight(l, new ArrayList<Boolean>(Arrays.asList(true, true, true))));
 	}
 
 	@Test

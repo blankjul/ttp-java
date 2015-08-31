@@ -57,6 +57,16 @@ public class Map {
 	public double getMax() {
 		return max;
 	}
+
+	/**
+	 * Be careful when using this method. It trusts the user!
+	 * @param distances cost matrix
+	 */
+	public void setDistances(double[][] distances) {
+		this.distances = distances;
+	}
+	
+	
 	
 
 
