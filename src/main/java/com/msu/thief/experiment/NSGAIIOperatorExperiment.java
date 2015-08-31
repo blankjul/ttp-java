@@ -18,8 +18,9 @@ import com.msu.moo.operators.crossover.permutation.PMXCrossover;
 import com.msu.moo.operators.mutation.BitFlipMutation;
 import com.msu.moo.operators.mutation.RestrictedPolynomialMutation;
 import com.msu.moo.operators.mutation.SwapMutation;
-import com.msu.thief.factory.ItemFactory;
-import com.msu.thief.factory.ThiefFactory;
+import com.msu.thief.factory.ThiefProblemFactory;
+import com.msu.thief.factory.items.ItemFactory;
+import com.msu.thief.factory.map.MapFactory;
 import com.msu.thief.model.packing.BooleanPackingListFactory;
 import com.msu.thief.model.tour.PositionDecodedTourFactory;
 import com.msu.thief.model.tour.StandardTourFactory;
@@ -37,12 +38,12 @@ public class NSGAIIOperatorExperiment extends AbstractExperiment<TravellingThief
 	
 	@Override
 	public int getIterations() {
-		return 10;
+		return 2;
 	}
 
 	@Override
 	public long getMaxEvaluations() {
-		return 50000;
+		return 1000;
 	}
 
 	@Override
@@ -113,7 +114,8 @@ public class NSGAIIOperatorExperiment extends AbstractExperiment<TravellingThief
 		l.add(ThiefFactory.create(20, 5, ItemFactory.TYPE.STRONGLY_CORRELATED, 0.5, "TTP-20-5-STRONGLY"));
 		*/
 		
-		l.add(ThiefFactory.create(20, 10, ItemFactory.TYPE.STRONGLY_CORRELATED, 0.5, "TTP-20-10-STRONGLY"));
+		l.add(new ThiefProblemFactory(new MapFactory(), 
+				new ItemFactory(ItemFactory.CORRELATION_TYPE.STRONGLY_CORRELATED), 0.5, "TTP-20-10-STRONGLY").create(20, 10));
 		
 		return l;
 	}

@@ -89,7 +89,7 @@ public class KnapsackProblem  extends AbstractProblem<KnapsackVariable> {
 	@Override
 	protected List<Double> evaluate_(KnapsackVariable variable) {
 		double profit = evaluate(variable.get().encode());
-		return new ArrayList<Double>(Arrays.asList(profit));
+		return new ArrayList<Double>(Arrays.asList(-profit));
 	}
 	
 	public int numOfItems() {

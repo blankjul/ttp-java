@@ -1,4 +1,4 @@
-package com.msu.thief.experiment.tsp;
+package com.msu.thief.experiment.knp;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,18 +10,18 @@ import com.msu.moo.algorithms.ExhaustiveSolver;
 import com.msu.moo.model.interfaces.IAlgorithm;
 import com.msu.moo.model.interfaces.IProblem;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
-import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
+import com.msu.moo.model.solution.Solution;
 import com.msu.thief.experiment.AbstractExperiment;
 import com.msu.thief.factory.AlgorithmFactory;
+import com.msu.thief.factory.ThiefProblemFactory;
+import com.msu.thief.factory.items.ItemFactory;
 import com.msu.thief.factory.map.MapFactory;
-import com.msu.thief.model.Item;
-import com.msu.thief.model.ItemCollection;
 import com.msu.thief.problems.TravellingThiefProblem;
-import com.msu.thief.problems.tsp.TSPExhaustiveFactory;
-import com.msu.thief.problems.tsp.TSPVariable;
-import com.msu.thief.problems.tsp.TravellingSalesmanProblem;
+import com.msu.thief.problems.knp.KnapsackExhaustiveFactory;
+import com.msu.thief.problems.knp.KnapsackProblem;
+import com.msu.thief.problems.knp.KnapsackVariable;
 
-public class TSPReducedExperiment extends AbstractExperiment<TravellingThiefProblem> {
+public class KnpReducedExperiment extends AbstractExperiment<TravellingThiefProblem> {
 
 	@Override
 	protected List<IAlgorithm<TravellingThiefProblem>> getAlgorithms() {
@@ -31,16 +31,12 @@ public class TSPReducedExperiment extends AbstractExperiment<TravellingThiefProb
 	@Override
 	protected List<TravellingThiefProblem> getProblems() {
 		List<TravellingThiefProblem> l = new ArrayList<TravellingThiefProblem>();
-		com.msu.thief.model.Map small = new MapFactory(1000).create(1000);
-		TravellingThiefProblem problem = new TravellingThiefProblem(small, new ItemCollection<Item>(), 0);
-		problem.setProfitEvaluator(new ExponentialProfitEvaluator());
-		problem.setName("TSPReducedProblem");
-		l.add(problem);
+		ItemFactory facItems = new ItemFactory(ItemFactory.CORRELATION_TYPE.UNCORRELATED);
+		ThiefProblemFactory fac = new ThiefProblemFactory(new MapFactory(), 
+				facItems, 0.5, "KnpReducedProblem");
+		fac.setDropType(ThiefProblemFactory.DROPPING_TYPE.RANDOM);
+		l.add(fac.create(1, 10));
 		return l;
-	}
-
-	public static void main(String[] args) {
-		new TSPReducedExperiment().run();
 	}
 
 	@Override
@@ -57,14 +53,21 @@ public class TSPReducedExperiment extends AbstractExperiment<TravellingThiefProb
 	public <P extends IProblem> Map<IProblem, NonDominatedSolutionSet> getTrueFronts(List<P> problems) {
 		Map<IProblem, NonDominatedSolutionSet> result = new HashMap<>();
 		for (P p : problems) {
-			TSPExhaustiveFactory fac = new TSPExhaustiveFactory();
-			ExhaustiveSolver<TSPVariable, TravellingSalesmanProblem> exhaustive = new ExhaustiveSolver<>(fac);
 			TravellingThiefProblem ttp = (TravellingThiefProblem) p;
-			NonDominatedSolutionSet set = exhaustive.run(new TravellingSalesmanProblem(ttp.getMap()));
-			set.getSolutions().get(0).getObjectives().add(0.0);
+			KnapsackProblem knp = new KnapsackProblem(ttp.getMaxWeight(), ttp.getItems().getItems());
+			ExhaustiveSolver<KnapsackVariable, KnapsackProblem> solver = new ExhaustiveSolver<>(new KnapsackExhaustiveFactory());
+			NonDominatedSolutionSet set = solver.run(knp);
+			for (Solution s : set.getSolutions()) {
+				s.getObjectives().add(0, 0.0);
+				System.out.println(String.format("Optimum: %s", s));
+			}
 			result.put(p, set);
 		}
 		return result;
+	}
+
+	public static void main(String[] args) {
+		new KnpReducedExperiment().run();
 	}
 
 }

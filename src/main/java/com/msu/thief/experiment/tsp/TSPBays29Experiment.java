@@ -6,44 +6,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.msu.moo.algorithms.NSGAIIBuilder;
 import com.msu.moo.model.interfaces.IAlgorithm;
 import com.msu.moo.model.interfaces.IProblem;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
-import com.msu.moo.operators.crossover.SinglePointCrossover;
-import com.msu.moo.operators.crossover.permutation.PMXCrossover;
-import com.msu.moo.operators.mutation.BitFlipMutation;
-import com.msu.moo.operators.mutation.SwapMutation;
 import com.msu.moo.util.Pair;
 import com.msu.thief.experiment.AbstractExperiment;
+import com.msu.thief.factory.AlgorithmFactory;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.packing.BooleanPackingList;
-import com.msu.thief.model.packing.BooleanPackingListFactory;
 import com.msu.thief.model.packing.PackingList;
 import com.msu.thief.model.tour.StandardTour;
-import com.msu.thief.model.tour.StandardTourFactory;
 import com.msu.thief.model.tour.Tour;
 import com.msu.thief.problems.TravellingThiefProblem;
-import com.msu.thief.variable.TTPCrossover;
-import com.msu.thief.variable.TTPMutation;
 import com.msu.thief.variable.TTPVariable;
-import com.msu.thief.variable.TTPVariableFactory;
 
 public class TSPBays29Experiment extends AbstractExperiment<TravellingThiefProblem> {
 
 	
 	@Override
 	protected List<IAlgorithm<TravellingThiefProblem>> getAlgorithms() {
-		List<IAlgorithm<TravellingThiefProblem>> algorithms = new ArrayList<>();
-		NSGAIIBuilder<TTPVariable, TravellingThiefProblem> builder = new NSGAIIBuilder<>();
-		builder.setFactory(new TTPVariableFactory(new StandardTourFactory(), new BooleanPackingListFactory()));
-		builder.setMutation(new TTPMutation(new SwapMutation<>(), new BitFlipMutation()));
-		builder.setCrossover(new TTPCrossover(new PMXCrossover<Integer>(), new SinglePointCrossover<>()));
-		builder.setProbMutation(0.3);
-		algorithms.add(builder.create());
-		return algorithms;
+		return new ArrayList<>(Arrays.asList(AlgorithmFactory.createNSGAII()));
 	}
 
 	@Override
