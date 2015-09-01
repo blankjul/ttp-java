@@ -7,6 +7,7 @@ import java.util.function.Function;
 
 import com.msu.moo.model.AbstractProblem;
 import com.msu.thief.model.Item;
+import com.msu.thief.problems.IPackingProblem;
 
 /**
  * This class represents the knapsack problem.
@@ -15,7 +16,7 @@ import com.msu.thief.model.Item;
  * fits into the knapsack.
  *
  */
-public class KnapsackProblem  extends AbstractProblem<KnapsackVariable> {
+public class KnapsackProblem  extends AbstractProblem<KnapsackVariable> implements IPackingProblem{
 
 	// ! maximal weight of the knapsack
 	private int maxWeight;

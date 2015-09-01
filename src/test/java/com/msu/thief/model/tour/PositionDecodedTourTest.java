@@ -30,7 +30,7 @@ public class PositionDecodedTourTest {
 	@Test
 	public void testRandomCreation() {
 		for (int i = 0; i < 100; i++) {
-			Tour<?> t = new PositionDecodedTourFactory().create(new TTPMOCK());
+			Tour<?> t = new PositionDecodedTourFactory<>().create(new TTPMOCK());
 			@SuppressWarnings("unchecked")
 			ArrayList<Integer> list = (ArrayList<Integer>) t.get();
 			assertTrue(list.get(0) == 0);

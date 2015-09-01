@@ -41,18 +41,19 @@ public class App {
 	public static void main(String[] args) throws JMException {
 
 		TravellingThiefProblem ttp = example();
+		ttp.setProfitEvaluator(new ExponentialProfitEvaluator());
 
 		RandomSearch<TTPVariable, TravellingThiefProblem> r = new RandomSearch<>(
-				new TTPVariableFactory(new StandardTourFactory(), new BooleanPackingListFactory()));
+				new TTPVariableFactory(new StandardTourFactory<>(), new BooleanPackingListFactory()));
 		r.setMaxEvaluations(100000L);
-		
-		
+
 		NSGAIIBuilder<TTPVariable, TravellingThiefProblem> builder = new NSGAIIBuilder<>();
-		builder.setFactory(new TTPVariableFactory(new StandardTourFactory(), new BooleanPackingListFactory()));
+		builder.setFactory(new TTPVariableFactory(new StandardTourFactory<>(), new BooleanPackingListFactory()));
 		builder.setMutation(new TTPMutation(new SwapMutation<>(), new BitFlipMutation()));
 		builder.setCrossover(new TTPCrossover(new PMXCrossover<Integer>(), new SinglePointCrossover<>()));
-		
-		//NonDominatedSolutionSet set = builder.create().run(ttp);
+		builder.setMaxEvaluations(25000L);
+
+		// NonDominatedSolutionSet set = builder.create().run(ttp);
 		NonDominatedSolutionSet set = builder.create().run(ttp);
 		for (Solution solution : set.getSolutions()) {
 			System.out.println(String.format("%s -> %s", solution.getVariable(), solution));

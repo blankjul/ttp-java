@@ -7,13 +7,15 @@ import java.util.List;
 
 import com.msu.moo.model.AbstractProblem;
 import com.msu.thief.model.Map;
+import com.msu.thief.model.tour.Tour;
+import com.msu.thief.problems.ICityProblem;
 import com.msu.thief.util.Util;
 
 /**
  * This class defines the TravellingSalesmanProblem which aims to minimize the
  * tour distance of a salesman on a given map.
  */
-public class TravellingSalesmanProblem extends AbstractProblem<TSPVariable>{
+public class TravellingSalesmanProblem extends AbstractProblem<Tour<?>> implements ICityProblem{
 
 	// ! Map on which the salesman could plan his tour
 	protected Map map;
@@ -89,15 +91,14 @@ public class TravellingSalesmanProblem extends AbstractProblem<TSPVariable>{
 		return 1;
 	}
 
-	
-	@Override
-	protected List<Double> evaluate_(TSPVariable variable) {
-		Double length = evaluate(variable.get().encode());
-		return new ArrayList<Double>(Arrays.asList(length));
-	}
-	
 	public int numOfCities() {
 		return map.getSize();
+	}
+
+	@Override
+	protected List<Double> evaluate_(Tour<?> variable) {
+		Double length = evaluate(variable.encode());
+		return new ArrayList<Double>(Arrays.asList(length));
 	}
 	
 	

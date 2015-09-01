@@ -9,16 +9,15 @@ import com.msu.thief.model.tour.StandardTour;
 import com.msu.thief.model.tour.Tour;
 import com.msu.thief.util.CombinatorialUtil;
 
-public class TSPExhaustiveFactory implements VariableFactory<TSPVariable,TravellingSalesmanProblem> {
+public class TSPExhaustiveFactory implements VariableFactory<Tour<?>,TravellingSalesmanProblem> {
 
 	
 	//! all the permutations that exist
 	protected Queue<List<Integer>> permutations = null;
 
-	
 
 	@Override
-	public TSPVariable create(TravellingSalesmanProblem problem) {
+	public Tour<?> create(TravellingSalesmanProblem problem) {
 		
 		if (permutations == null) {
 			LinkedList<Integer> initial = new LinkedList<Integer>();
@@ -28,9 +27,8 @@ public class TSPExhaustiveFactory implements VariableFactory<TSPVariable,Travell
 			permutations = new LinkedList<>(CombinatorialUtil.permute(initial));
 		}
 		else if (permutations.isEmpty()) return null;
-		
-		Tour<?> tour = new StandardTour(permutations.poll());
-		return new TSPVariable(tour);
+		List<Integer> list = permutations.poll();
+		return new StandardTour(list);
 
 	}
 

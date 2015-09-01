@@ -10,10 +10,10 @@ import com.msu.thief.problems.TravellingThiefProblem;
 
 public class TTPVariableFactory implements VariableFactory<TTPVariable, TravellingThiefProblem> {
 
-	protected ITourFactory facTour;
+	protected ITourFactory<TravellingThiefProblem> facTour;
 	protected IPackingPlanFactory facPlan;
 
-	public TTPVariableFactory(ITourFactory facTour, IPackingPlanFactory	 facPlan) {
+	public TTPVariableFactory(ITourFactory<TravellingThiefProblem> facTour, IPackingPlanFactory	 facPlan) {
 		super();
 		this.facTour = facTour;
 		this.facPlan = facPlan;

@@ -13,8 +13,7 @@ import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.Map;
 import com.msu.thief.variable.TTPVariable;
 
-public class TravellingThiefProblem extends AbstractProblem<TTPVariable> {
-
+public class TravellingThiefProblem extends AbstractProblem<TTPVariable> implements IPackingProblem, ICityProblem{
 	// ! minimal speed of the salesman
 	final public double MIN_SPEED = 0.1d;
 
