@@ -1,6 +1,48 @@
-package com.msu.thief.experiment.tsp;
+package com.msu.thief.experiment;
 
-public class Bays29 {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import com.msu.moo.experiment.MultiObjectiveExperiment;
+import com.msu.moo.model.solution.NonDominatedSolutionSet;
+import com.msu.moo.model.solution.Solution;
+import com.msu.moo.util.Pair;
+import com.msu.thief.factory.AlgorithmFactory;
+import com.msu.thief.model.Item;
+import com.msu.thief.model.ItemCollection;
+import com.msu.thief.model.packing.BooleanPackingList;
+import com.msu.thief.model.packing.PackingList;
+import com.msu.thief.model.tour.StandardTour;
+import com.msu.thief.model.tour.Tour;
+import com.msu.thief.problems.TravellingThiefProblem;
+import com.msu.thief.variable.TTPVariable;
+
+public class ReducedToTSPBays29Experiment extends MultiObjectiveExperiment<TravellingThiefProblem> {
+
+	@Override
+	protected void setAlgorithms() {
+		algorithms.add(AlgorithmFactory.createNSGAII());
+	}
+
+	@Override
+	protected void setProblem() {
+		com.msu.thief.model.Map m = new com.msu.thief.model.Map(29);
+		m.setDistances(MAP);
+		problem = new TravellingThiefProblem(m, new ItemCollection<Item>(), 0);
+		problem.setName("TSPBays29Problem");
+	}
+
+	@Override
+	public void setTrueFront(TravellingThiefProblem problem) {
+		List<Integer> best = new ArrayList<>(Arrays.asList(OPTIMAL));
+		Tour<?> t = new StandardTour(best);
+		PackingList<?> l = new BooleanPackingList(new ArrayList<Boolean>());
+		Solution s = problem.evaluate(new TTPVariable(Pair.create(t, l)));
+		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
+		set.add(s);
+		trueFront = set;
+	}
 
 	public static Integer[] OPTIMAL = new Integer[] { 0, 27, 5, 11, 8, 4, 25, 28, 2, 1, 19, 9, 3, 14, 17, 16, 13, 21, 10, 18, 24, 6, 22, 26, 7, 23, 15, 12, 20 };
 
@@ -35,4 +77,5 @@ public class Bays29 {
 			{ 45, 139, 273, 228, 121, 60, 314, 81, 132, 189, 308, 112, 158, 335, 266, 155, 380, 314, 213, 182, 97, 379, 189, 93, 247, 178, 124, 0, 199 },
 			{ 167, 79, 77, 205, 97, 185, 435, 243, 111, 163, 322, 238, 206, 288, 243, 275, 319, 253, 281, 135, 108, 332, 342, 218, 350, 39, 263, 199, 0 } };
 
+	
 }

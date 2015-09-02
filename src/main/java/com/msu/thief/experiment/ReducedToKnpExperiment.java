@@ -1,7 +1,7 @@
-package com.msu.thief.experiment.knp;
+package com.msu.thief.experiment;
 
 import com.msu.moo.algorithms.ExhaustiveSolver;
-import com.msu.moo.experiment.AbstractExperiment;
+import com.msu.moo.experiment.MultiObjectiveExperiment;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.thief.factory.AlgorithmFactory;
@@ -13,7 +13,7 @@ import com.msu.thief.problems.knp.KnapsackExhaustiveFactory;
 import com.msu.thief.problems.knp.KnapsackProblem;
 import com.msu.thief.problems.knp.KnapsackVariable;
 
-public class KnpReducedExperiment extends AbstractExperiment<TravellingThiefProblem> {
+public class ReducedToKnpExperiment extends MultiObjectiveExperiment<TravellingThiefProblem> {
 
 	@Override
 	protected void setAlgorithms() {
@@ -29,15 +29,18 @@ public class KnpReducedExperiment extends AbstractExperiment<TravellingThiefProb
 	}
 
 	@Override
-	public NonDominatedSolutionSet getTrueFront(TravellingThiefProblem problem) {
+	public void setTrueFront(TravellingThiefProblem problem) {
 		KnapsackProblem knp = new KnapsackProblem(problem.getMaxWeight(), problem.getItems().getItems());
 		ExhaustiveSolver<KnapsackVariable, KnapsackProblem> solver = new ExhaustiveSolver<>(new KnapsackExhaustiveFactory());
 		NonDominatedSolutionSet set = solver.run(knp);
 		for (Solution s : set.getSolutions()) {
 			s.getObjectives().add(0, 0.0);
-			// System.out.println(String.format("Optimum: %s", s));
+			System.out.println(String.format("Optimum: %s", s));
 		}
-		return set;
+		trueFront = set;
 	}
+	
+
+	
 
 }

@@ -3,7 +3,7 @@ package com.msu.thief.factory;
 import com.msu.moo.algorithms.NSGAII;
 import com.msu.moo.algorithms.NSGAIIBuilder;
 import com.msu.moo.operators.crossover.SinglePointCrossover;
-import com.msu.moo.operators.crossover.permutation.PMXCrossover;
+import com.msu.moo.operators.crossover.permutation.EdgeRecombinationCrossover;
 import com.msu.moo.operators.mutation.BitFlipMutation;
 import com.msu.moo.operators.mutation.SwapMutation;
 import com.msu.thief.model.packing.BooleanPackingListFactory;
@@ -20,7 +20,7 @@ public class AlgorithmFactory {
 		NSGAIIBuilder<TTPVariable, TravellingThiefProblem> builder = new NSGAIIBuilder<>();
 		builder.setFactory(new TTPVariableFactory(new StandardTourFactory<>(), new BooleanPackingListFactory()));
 		builder.setMutation(new TTPMutation(new SwapMutation<>(), new BitFlipMutation()));
-		builder.setCrossover(new TTPCrossover(new PMXCrossover<Integer>(), new SinglePointCrossover<>()));
+		builder.setCrossover(new TTPCrossover(new EdgeRecombinationCrossover<>(), new SinglePointCrossover<>()));
 		builder.setProbMutation(0.3);
 		return builder.create();
 	}

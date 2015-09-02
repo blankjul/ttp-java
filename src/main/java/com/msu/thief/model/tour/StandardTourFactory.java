@@ -1,9 +1,9 @@
 package com.msu.thief.model.tour;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 
+import com.msu.moo.util.Random;
 import com.msu.thief.problems.ICityProblem;
 
 public class StandardTourFactory<P extends ICityProblem> implements ITourFactory<P>{
@@ -15,7 +15,7 @@ public class StandardTourFactory<P extends ICityProblem> implements ITourFactory
 		for (int i = 0; i < p.numOfCities(); i++) {
 			indices.add(i);
 		}
-		Collections.shuffle(indices);
+		Random.getInstance().shuffle(indices);
 		return new StandardTour(new ArrayList<>(indices));
 	}
 

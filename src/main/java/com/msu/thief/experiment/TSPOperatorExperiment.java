@@ -1,8 +1,10 @@
 package com.msu.thief.experiment;
 
+import org.apache.log4j.BasicConfigurator;
+
 import com.msu.moo.algorithms.NSGAIIBuilder;
 import com.msu.moo.algorithms.RandomSearch;
-import com.msu.moo.experiment.AbstractExperiment;
+import com.msu.moo.experiment.SingeĺeObjectiveExperiment;
 import com.msu.moo.operators.crossover.SinglePointCrossover;
 import com.msu.moo.operators.crossover.permutation.CycleCrossover;
 import com.msu.moo.operators.crossover.permutation.EdgeRecombinationCrossover;
@@ -16,7 +18,7 @@ import com.msu.thief.model.tour.StandardTourFactory;
 import com.msu.thief.model.tour.Tour;
 import com.msu.thief.problems.tsp.TravellingSalesmanProblem;
 
-public class TSPOperatorExperiment extends AbstractExperiment<TravellingSalesmanProblem> {
+public class TSPOperatorExperiment extends SingeĺeObjectiveExperiment<TravellingSalesmanProblem> {
 
 
 	@Override
@@ -53,6 +55,17 @@ public class TSPOperatorExperiment extends AbstractExperiment<TravellingSalesman
 	@Override
 	protected void setProblem() {
 		problem = new TravellingSalesmanProblem(new MapFactory().create(30));
+	}
+	
+	
+	
+	public static void main(String[] args) {
+		BasicConfigurator.configure();
+		TSPOperatorExperiment exp = new TSPOperatorExperiment();
+		exp.setPathToEAF("../moo-java/vendor/aft-0.95/eaf");
+		exp.setPathToHV("../moo-java/vendor/hv-1.3-src/hv");
+		exp.run(50000, 10, 12337657);
+		exp.visualize();
 	}
 	
 	

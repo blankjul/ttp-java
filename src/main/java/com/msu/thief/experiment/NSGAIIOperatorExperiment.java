@@ -1,7 +1,7 @@
 package com.msu.thief.experiment;
 
 import com.msu.moo.algorithms.NSGAIIBuilder;
-import com.msu.moo.experiment.AbstractExperiment;
+import com.msu.moo.experiment.MultiObjectiveExperiment;
 import com.msu.moo.operators.crossover.HalfUniformCrossover;
 import com.msu.moo.operators.crossover.SinglePointCrossover;
 import com.msu.moo.operators.crossover.UniformCrossover;
@@ -24,9 +24,9 @@ import com.msu.thief.variable.TTPMutation;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.TTPVariableFactory;
 
-public class NSGAIIOperatorExperiment extends AbstractExperiment<TravellingThiefProblem> {
+public class NSGAIIOperatorExperiment extends MultiObjectiveExperiment<TravellingThiefProblem>  {
 
-
+	
 	@Override
 	protected void setAlgorithms() {
 
@@ -68,27 +68,11 @@ public class NSGAIIOperatorExperiment extends AbstractExperiment<TravellingThief
 
 	@Override
 	protected void setProblem() {
-		/*
-		 * l.add(ThiefFactory.create(20, 1, ItemFactory.TYPE.UNCORRELATED, 0.5,
-		 * "TTP-20-1-UNCORRELATED")); l.add(ThiefFactory.create(20, 5,
-		 * ItemFactory.TYPE.UNCORRELATED, 0.5, "TTP-20-5-UNCORRELATED"));
-		 * l.add(ThiefFactory.create(20, 10, ItemFactory.TYPE.UNCORRELATED, 0.5,
-		 * "TTP-20-10-UNCORRELATED"));
-		 * 
-		 * l.add(ThiefFactory.create(20, 1, ItemFactory.TYPE.WEAKLY_CORRELATED,
-		 * 0.5, "TTP-20-1-WEAK")); l.add(ThiefFactory.create(20, 5,
-		 * ItemFactory.TYPE.WEAKLY_CORRELATED, 0.5, "TTP-20-5-WEAK"));
-		 * l.add(ThiefFactory.create(20, 10, ItemFactory.TYPE.WEAKLY_CORRELATED,
-		 * 0.5, "TTP-20-10-WEAK"));
-		 * 
-		 * l.add(ThiefFactory.create(20, 1,
-		 * ItemFactory.TYPE.STRONGLY_CORRELATED, 0.5, "TTP-20-1-STRONGLY"));
-		 * l.add(ThiefFactory.create(20, 5,
-		 * ItemFactory.TYPE.STRONGLY_CORRELATED, 0.5, "TTP-20-5-STRONGLY"));
-		 */
-
 		problem = new ThiefProblemFactory(new MapFactory(), new ItemFactory(ItemFactory.CORRELATION_TYPE.STRONGLY_CORRELATED), 0.5, "TTP-20-10-STRONGLY")
 				.create(20, 10);
 
 	}
+	
+	
+
 }
