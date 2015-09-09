@@ -1,4 +1,4 @@
-package com.msu.thief.experiment;
+package com.msu.thief.experiment.tsp;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,12 +19,12 @@ import com.msu.thief.model.tour.Tour;
 import com.msu.thief.problems.TravellingThiefProblem;
 import com.msu.thief.variable.TTPVariable;
 
-public class ReducedToTSPBays29Experiment extends MultiObjectiveExperiment<TravellingThiefProblem> {
+public class Bays29Experiment extends MultiObjectiveExperiment<TravellingThiefProblem>{
 
 	@Override
 	protected void setAlgorithms() {
 		NSGAII<TTPVariable, TravellingThiefProblem> nsga = AlgorithmFactory.createNSGAII();
-		nsga.setPopulationSize(10000);
+		nsga.setPopulationSize(1000);
 		algorithms.add(nsga);
 	}
 

@@ -17,12 +17,16 @@ import com.msu.thief.variable.TTPVariableFactory;
 public class AlgorithmFactory {
 	
 	public static NSGAII<TTPVariable, TravellingThiefProblem> createNSGAII() {
+		return createNSGAIIBuilder().create();
+	}
+	
+	public static NSGAIIBuilder<TTPVariable, TravellingThiefProblem>  createNSGAIIBuilder() {
 		NSGAIIBuilder<TTPVariable, TravellingThiefProblem> builder = new NSGAIIBuilder<>();
 		builder.setFactory(new TTPVariableFactory(new StandardTourFactory<>(), new BooleanPackingListFactory()));
 		builder.setMutation(new TTPMutation(new SwapMutation<>(), new BitFlipMutation()));
 		builder.setCrossover(new TTPCrossover(new EdgeRecombinationCrossover<>(), new SinglePointCrossover<>()));
 		builder.setProbMutation(0.3);
-		return builder.create();
+		return builder;
 	}
 
 }
