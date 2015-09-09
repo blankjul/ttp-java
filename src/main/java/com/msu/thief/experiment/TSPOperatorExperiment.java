@@ -3,9 +3,11 @@ package com.msu.thief.experiment;
 import org.apache.log4j.BasicConfigurator;
 
 import com.msu.moo.algorithms.NSGAIIBuilder;
-import com.msu.moo.algorithms.RandomSearch;
 import com.msu.moo.experiment.SingeĺeObjectiveExperiment;
+import com.msu.moo.operators.crossover.HalfUniformCrossover;
+import com.msu.moo.operators.crossover.SimulatedBinaryCrossoverForInteger;
 import com.msu.moo.operators.crossover.SinglePointCrossover;
+import com.msu.moo.operators.crossover.UniformCrossover;
 import com.msu.moo.operators.crossover.permutation.CycleCrossover;
 import com.msu.moo.operators.crossover.permutation.EdgeRecombinationCrossover;
 import com.msu.moo.operators.crossover.permutation.OrderedCrossover;
@@ -29,6 +31,7 @@ public class TSPOperatorExperiment extends SingeĺeObjectiveExperiment<Travellin
 		builder.setMutation(new SwapMutation<>());
 		builder.setProbMutation(0.3);
 
+		
 		algorithms.add(builder.setCrossover(new PMXCrossover<Integer>())
 				.setName("NSGAII-[PMX-SWAP]").create());
 		
@@ -41,20 +44,25 @@ public class TSPOperatorExperiment extends SingeĺeObjectiveExperiment<Travellin
 		algorithms.add(builder.setCrossover(new EdgeRecombinationCrossover<Integer>())
 				.setName("NSGAII-[ERC-SWAP]").create());
 		
-		RandomSearch<Tour<?>, TravellingSalesmanProblem> rs = new RandomSearch<>(new PositionDecodedTourFactory<>());
-		rs.setName("Random-PDT[SPC-RPM]");
-		algorithms.add(rs);
-		
 		algorithms.add(builder.setCrossover(new SinglePointCrossover<Integer>())
 				.setMutation(new RestrictedPolynomialMutation())
 				.setFactory(new PositionDecodedTourFactory<>())
 				.setName("NSGAII-PDT[SPC-RPM]").create());
+		
+		algorithms.add(builder.setCrossover(new SimulatedBinaryCrossoverForInteger())
+				.setName("NSGAII-PDT[SBX-RPM]").create());
+		
+		algorithms.add(builder.setCrossover(new UniformCrossover<>())
+				.setName("NSGAII-PDT[UX-RPM]").create());
+		
+		algorithms.add(builder.setCrossover(new HalfUniformCrossover<>())
+				.setName("NSGAII-PDT[UX-RPM]").create());
 
 	}
 
 	@Override
 	protected void setProblem() {
-		problem = new TravellingSalesmanProblem(new MapFactory().create(30));
+		problem = new TravellingSalesmanProblem(new MapFactory().create(100));
 	}
 	
 	
@@ -64,7 +72,7 @@ public class TSPOperatorExperiment extends SingeĺeObjectiveExperiment<Travellin
 		TSPOperatorExperiment exp = new TSPOperatorExperiment();
 		exp.setPathToEAF("../moo-java/vendor/aft-0.95/eaf");
 		exp.setPathToHV("../moo-java/vendor/hv-1.3-src/hv");
-		exp.run(50000, 10, 12337657);
+		exp.run(100000, 10, 12337657);
 		exp.visualize();
 	}
 	

@@ -5,9 +5,13 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Test;
 
+import com.msu.moo.model.interfaces.IVariable;
+import com.msu.moo.operators.crossover.SimulatedBinaryCrossoverForInteger;
+import com.msu.moo.operators.crossover.SinglePointCrossover;
 import com.msu.thief.model.tour.PositionDecodedTour;
 import com.msu.thief.model.tour.PositionDecodedTourFactory;
 import com.msu.thief.model.tour.Tour;
@@ -58,6 +62,43 @@ public class PositionDecodedTourTest {
 		t.encode();
 	}
 	
+	
+	
+	@Test
+	public void testCrossoverOfPDT() {
+		PositionDecodedTour p1 = new PositionDecodedTour(new ArrayList<Integer>(Arrays.asList(0,0,0,3,0)));
+		PositionDecodedTour p2 = new PositionDecodedTour(new ArrayList<Integer>(Arrays.asList(0,1,1,2,4)));
+		List<IVariable> offs = new SinglePointCrossover<Integer> ().crossover(p1,p2);
+		
+		System.out.println(p1.get() + " -> " + p1.encode());
+		System.out.println(p2.get() + " -> " + p2.encode());
+		
+		PositionDecodedTour off1 = ((PositionDecodedTour)offs.get(0));
+		PositionDecodedTour off2 = ((PositionDecodedTour)offs.get(1));
+		
+		System.out.println(off1.get() + " -> " + off1.encode());
+		System.out.println(off2.get() + " -> " + off2.encode());
+		System.out.println("--------------------------");
+	}
+	
+	@Test
+	public void testSBXCrossoverOfPDT() {
+		System.out.println("SimulatedBinaryCrossoverForInteger");
+		PositionDecodedTour p1 = new PositionDecodedTour(new ArrayList<Integer>(Arrays.asList(0,0,0,0,0)));
+		PositionDecodedTour p2 = new PositionDecodedTour(new ArrayList<Integer>(Arrays.asList(0,1,2,3,4)));
+		List<IVariable> offs = new SimulatedBinaryCrossoverForInteger().crossover(p1,p2);
+		
+		System.out.println(p1.get() + " -> " + p1.encode());
+		System.out.println(p2.get() + " -> " + p2.encode());
+		
+		PositionDecodedTour off1 = ((PositionDecodedTour)offs.get(0));
+		PositionDecodedTour off2 = ((PositionDecodedTour)offs.get(1));
+		
+		System.out.println(off1.get() + " -> " + off1.encode());
+		System.out.println(off2.get() + " -> " + off2.encode());
+		System.out.println("--------------------------");
+	}
+
 
 
 	

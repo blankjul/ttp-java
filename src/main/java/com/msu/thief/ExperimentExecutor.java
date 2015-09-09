@@ -4,6 +4,7 @@ import org.apache.log4j.BasicConfigurator;
 
 import com.msu.moo.experiment.AbstractExperiment;
 import com.msu.thief.experiment.NSGAIIOperatorExperiment;
+import com.msu.thief.experiment.PublicationExperiment;
 import com.msu.thief.experiment.ReducedToKnpExperiment;
 import com.msu.thief.experiment.ReducedToTSPBays29Experiment;
 import com.msu.thief.experiment.ReducedToTSPExperiment;
@@ -16,12 +17,12 @@ public class ExperimentExecutor {
 	protected final static ReducedToKnpExperiment reducedKnpExp = new ReducedToKnpExperiment();
 	protected final static NSGAIIOperatorExperiment nsgaIIExp = new NSGAIIOperatorExperiment();
 	protected final static TSPOperatorExperiment tspOperatorExp = new TSPOperatorExperiment();
+	protected final static PublicationExperiment pubExp = new PublicationExperiment();
 	
-	
-	protected static final AbstractExperiment<?> exp = reducedTSPBays29Exp;
+	protected static final AbstractExperiment<?> exp = pubExp;
 	protected final static int iterations = 1;
 	protected final static long maxEvaluations = 1000000;
-	protected final static long seed = 12345;		
+	protected final static long seed = 5646;		
 	
 	public static void main(String[] args) {
 		BasicConfigurator.configure();

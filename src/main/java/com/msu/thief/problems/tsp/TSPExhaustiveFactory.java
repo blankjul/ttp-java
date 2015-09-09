@@ -18,7 +18,6 @@ public class TSPExhaustiveFactory implements VariableFactory<Tour<?>,TravellingS
 
 	@Override
 	public Tour<?> create(TravellingSalesmanProblem problem) {
-		
 		if (permutations == null) {
 			LinkedList<Integer> initial = new LinkedList<Integer>();
 			for (int i = 0; i < problem.numOfCities(); i++) {

@@ -49,6 +49,10 @@ public class Item {
 		return dropping;
 	}
 	
+	public String toString() {
+		return String.format("w:%s|v:%s|d:%s", weight, profit, dropping);
+	}
+	
 	
 	
 

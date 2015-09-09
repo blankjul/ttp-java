@@ -16,6 +16,19 @@ public class ExponentialProfitEvaluator extends ProfitEvaluator{
 	protected double droppingConstant = 10;
 
 
+	public ExponentialProfitEvaluator() {
+		super();
+	}
+
+
+	public ExponentialProfitEvaluator(double droppingRate, double droppingConstant) {
+		super();
+		this.droppingRate = droppingRate;
+		this.droppingConstant = droppingConstant;
+	}
+
+
+
 	@Override
 	public Double evaluate(Map<Item, Double> mItems) {
 		Double profit = 0.0d;

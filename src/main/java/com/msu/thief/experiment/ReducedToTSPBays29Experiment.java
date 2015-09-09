@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.msu.moo.algorithms.NSGAII;
 import com.msu.moo.experiment.MultiObjectiveExperiment;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
@@ -22,7 +23,9 @@ public class ReducedToTSPBays29Experiment extends MultiObjectiveExperiment<Trave
 
 	@Override
 	protected void setAlgorithms() {
-		algorithms.add(AlgorithmFactory.createNSGAII());
+		NSGAII<TTPVariable, TravellingThiefProblem> nsga = AlgorithmFactory.createNSGAII();
+		nsga.setPopulationSize(10000);
+		algorithms.add(nsga);
 	}
 
 	@Override
@@ -41,6 +44,7 @@ public class ReducedToTSPBays29Experiment extends MultiObjectiveExperiment<Trave
 		Solution s = problem.evaluate(new TTPVariable(Pair.create(t, l)));
 		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
 		set.add(s);
+		System.out.println(set.getSolutions().get(0).getObjectives());
 		trueFront = set;
 	}
 

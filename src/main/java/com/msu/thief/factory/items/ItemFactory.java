@@ -43,13 +43,13 @@ public class ItemFactory extends AbstractItemFactory {
 		Random rnd = Random.getInstance();
 
 		// fix the weight value
-		int weight = rnd.nextInt(0, maximalValue);
+		int weight = rnd.nextInt(1, maximalValue);
 		int profit = 0;
 
 		// calculate the profit value
 		switch (corrType) {
 		case UNCORRELATED:
-			profit = rnd.nextInt(0, maximalValue);
+			profit = rnd.nextInt(1, maximalValue);
 			break;
 		case WEAKLY_CORRELATED:
 			int epsW = (int) ((maximalValue * 0.05 == 0) ? 1 : maximalValue * 0.05);
@@ -108,6 +108,14 @@ public class ItemFactory extends AbstractItemFactory {
 		this.maximalTourTime = maximalTourTime;
 	}
 	
+	
+	public static void main(String[] args) {
+		ItemFactory fac = new ItemFactory(CORRELATION_TYPE.UNCORRELATED);
+		fac.setMaximalValue(100);
+		for (int i = 0; i < 10; i++) {
+			System.out.println(fac.create());
+		}
+	}
 	
 
 }
