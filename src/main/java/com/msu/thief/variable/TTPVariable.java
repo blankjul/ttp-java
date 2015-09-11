@@ -14,7 +14,7 @@ public class TTPVariable extends AbstractVariable<Pair<Tour<?>, PackingList<?>>>
 	
 	@Override
 	public String toString() {
-		return String.format("(%s,%s)", obj.first.toString(),obj.second.toString());
+		return String.format("%s;%s", obj.first.toString(),obj.second.toString());
 	}
 
 	@Override

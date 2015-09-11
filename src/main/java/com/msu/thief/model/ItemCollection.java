@@ -25,7 +25,6 @@ public class ItemCollection<T extends Item> implements Iterable<T> {
 	protected HashMap<Integer, Integer> mapFromItemToCity;
 
 	
-	
 	public ItemCollection() {
 		super();
 		items = new ArrayList<T>();

@@ -20,7 +20,12 @@ public class ItemFactory extends AbstractItemFactory {
 	// ! default maximal tour time. has to be given as a parameter
 	protected Double maximalTourTime = null;
 
+	
+	public ItemFactory() {
+		this.corrType = CORRELATION_TYPE.UNCORRELATED;
+	}
 
+	
 	
 	public ItemFactory(CORRELATION_TYPE corrType) {
 		super();

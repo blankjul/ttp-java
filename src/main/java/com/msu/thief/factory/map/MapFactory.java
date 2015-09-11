@@ -17,10 +17,10 @@ import com.msu.thief.model.Map;
 public class MapFactory extends AbstractMapFactory {
 	
 	// type for rounding
-	public static enum TYPE {EUCL_2D, CEIL_2D};
+	public static enum TYPE {EUCL_2D, CEIL_2D, MANHATTEN_2D};
 	
 	// type which should be used
-	protected static TYPE type = TYPE.EUCL_2D;
+	protected TYPE type = TYPE.EUCL_2D;
 
 	// ! maximal coordinate on the map
 	protected int maximalValue = 1000;
@@ -40,15 +40,21 @@ public class MapFactory extends AbstractMapFactory {
 	}
 
 	
-	
 
 	public Map createFromDouble(List<Point2D> cities) {
 		Map m = new Map(cities.size());
 		for (int i = 0; i < cities.size(); i++) {
 			for (int j = i; j < cities.size(); j++) {
-				double disX = (cities.get(i).getX() - cities.get(j).getX()) * (cities.get(i).getX() - cities.get(j).getX());
-				double disY = (cities.get(i).getY() - cities.get(j).getY()) * (cities.get(i).getY() - cities.get(j).getY());
-				double value = Math.sqrt(disX + disY);
+				double value = -1;
+				if (type == TYPE.EUCL_2D) {
+					double disX = (cities.get(i).getX() - cities.get(j).getX()) * (cities.get(i).getX() - cities.get(j).getX());
+					double disY = (cities.get(i).getY() - cities.get(j).getY()) * (cities.get(i).getY() - cities.get(j).getY());
+					value = Math.sqrt(disX + disY);
+				} else if (type == TYPE.MANHATTEN_2D) {
+					value = Math.abs(cities.get(i).getX() - cities.get(j).getX())
+							+ Math.abs(cities.get(i).getX() - cities.get(j).getX());
+				}
+				
 				// if ceil round up
 				if (type == TYPE.CEIL_2D) value = Math.ceil(value);
 				
@@ -92,13 +98,13 @@ public class MapFactory extends AbstractMapFactory {
 	}
 	
 	
-	public static TYPE getType() {
+	public TYPE getType() {
 		return type;
 	}
 
 
-	public static void setType(TYPE type) {
-		MapFactory.type = type;
+	public void setType(TYPE type) {
+		this.type = type;
 	}
 	
 

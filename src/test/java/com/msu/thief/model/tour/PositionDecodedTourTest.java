@@ -10,11 +10,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.msu.moo.model.interfaces.IVariable;
-import com.msu.moo.operators.crossover.SimulatedBinaryCrossoverForInteger;
 import com.msu.moo.operators.crossover.SinglePointCrossover;
-import com.msu.thief.model.tour.PositionDecodedTour;
-import com.msu.thief.model.tour.PositionDecodedTourFactory;
-import com.msu.thief.model.tour.Tour;
 import com.msu.thief.problems.TravellingThiefProblem;
 
 public class PositionDecodedTourTest {
@@ -66,6 +62,7 @@ public class PositionDecodedTourTest {
 	
 	@Test
 	public void testCrossoverOfPDT() {
+		System.out.println("SinglePointCrossover");
 		PositionDecodedTour p1 = new PositionDecodedTour(new ArrayList<Integer>(Arrays.asList(0,0,0,3,0)));
 		PositionDecodedTour p2 = new PositionDecodedTour(new ArrayList<Integer>(Arrays.asList(0,1,1,2,4)));
 		List<IVariable> offs = new SinglePointCrossover<Integer> ().crossover(p1,p2);
@@ -75,12 +72,14 @@ public class PositionDecodedTourTest {
 		
 		PositionDecodedTour off1 = ((PositionDecodedTour)offs.get(0));
 		PositionDecodedTour off2 = ((PositionDecodedTour)offs.get(1));
-		
+		System.out.println("--------------------------");
 		System.out.println(off1.get() + " -> " + off1.encode());
 		System.out.println(off2.get() + " -> " + off2.encode());
 		System.out.println("--------------------------");
+		System.out.println("--------------------------");
 	}
 	
+	/*
 	@Test
 	public void testSBXCrossoverOfPDT() {
 		System.out.println("SimulatedBinaryCrossoverForInteger");
@@ -93,13 +92,21 @@ public class PositionDecodedTourTest {
 		
 		PositionDecodedTour off1 = ((PositionDecodedTour)offs.get(0));
 		PositionDecodedTour off2 = ((PositionDecodedTour)offs.get(1));
-		
+		System.out.println("--------------------------");
 		System.out.println(off1.get() + " -> " + off1.encode());
 		System.out.println(off2.get() + " -> " + off2.encode());
 		System.out.println("--------------------------");
+		System.out.println("--------------------------");
 	}
+	*/
 
 
-
+	@Test
+	public void testEncodingLive() {
+		PositionDecodedTour t = new PositionDecodedTour(new ArrayList<Integer>(Arrays.asList(0,1,1,3,4)));
+		System.out.println("live");
+		System.out.println(t.encode());
+	}
+	
 	
 }
