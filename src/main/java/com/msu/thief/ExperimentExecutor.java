@@ -11,6 +11,7 @@ public class ExperimentExecutor {
 	/*
 	 * EXERIMENTS AVAILABLE
 	 * GreedyMapExperiment, TSPOperatorExperiment, NSGAIIOperatorExperiment, PublicationExperiment
+	 * BonyadiExperiment, NSGAIIOperatorExperiment, OneScenarioTSPColoredExperiment
 	 * 
 	 * TSP
 	 * tsp.Bays29Experiment, 
@@ -18,16 +19,16 @@ public class ExperimentExecutor {
 	 */
 	
 	//! experiment that should be executed
-	protected final static String EXPERIMENT = "com.msu.thief.experiment.tsp.Bays29Experiment";
+	protected final static String EXPERIMENT = "com.msu.thief.experiment.GreedyMapExperiment";
 	
 	//! number of iterations per experiment
-	protected final static int ITERATIONS = 10;
+	protected final static int ITERATIONS = 1;
 	
 	//! max evaluations per run
-	protected final static long MAX_EVALUATIONS = 50000;
+	protected final static long MAX_EVALUATIONS = 1000000;
 	
 	//! random seed for experiment execution
-	protected final static long SEED = 85678;		
+	protected final static long SEED = 543453;		
 	
 	
 	public static void main(String[] args) {

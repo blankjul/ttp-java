@@ -9,21 +9,14 @@ import com.msu.moo.algorithms.NSGAIIBuilder;
 import com.msu.moo.experiment.NProblemNAlgorithmExperiment;
 import com.msu.moo.model.interfaces.IAlgorithm;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
-import com.msu.moo.operators.crossover.HalfUniformCrossover;
 import com.msu.moo.operators.crossover.SinglePointCrossover;
-import com.msu.moo.operators.crossover.UniformCrossover;
-import com.msu.moo.operators.crossover.permutation.CycleCrossover;
-import com.msu.moo.operators.crossover.permutation.EdgeRecombinationCrossover;
-import com.msu.moo.operators.crossover.permutation.OrderedCrossover;
 import com.msu.moo.operators.crossover.permutation.PMXCrossover;
 import com.msu.moo.operators.mutation.BitFlipMutation;
-import com.msu.moo.operators.mutation.RestrictedPolynomialMutation;
 import com.msu.moo.operators.mutation.SwapMutation;
 import com.msu.thief.factory.ThiefProblemFactory;
 import com.msu.thief.factory.items.ItemFactory;
 import com.msu.thief.factory.map.MapFactory;
 import com.msu.thief.model.packing.BooleanPackingListFactory;
-import com.msu.thief.model.tour.PositionDecodedTourFactory;
 import com.msu.thief.model.tour.StandardTourFactory;
 import com.msu.thief.problems.TravellingThiefProblem;
 import com.msu.thief.variable.TTPCrossover;
@@ -45,6 +38,7 @@ public class NSGAIIOperatorExperiment extends NProblemNAlgorithmExperiment<Trave
 		result.add(builder.setCrossover(new TTPCrossover(new PMXCrossover<Integer>(), new SinglePointCrossover<>()))
 				.setName("NSGAII-ST[PMX-SWAP]-BP[SPX-BFM]").create());
 
+		/*
 		result.add(builder.setCrossover(new TTPCrossover(new CycleCrossover<Integer>(), new SinglePointCrossover<Boolean>()))
 				.setName("NSGAII-ST[CX-SWAP]-BP[SPX-BFM]").create());
 
@@ -70,7 +64,7 @@ public class NSGAIIOperatorExperiment extends NProblemNAlgorithmExperiment<Trave
 
 		result.add(builder.setCrossover(new TTPCrossover(new SinglePointCrossover<Integer>(), new HalfUniformCrossover<>()))
 				.setName("NSGAII-PDT[SPC-RPM]-BP[HUX-BFM]").create());
-
+*/
 		return result;
 	}
 
@@ -80,7 +74,7 @@ public class NSGAIIOperatorExperiment extends NProblemNAlgorithmExperiment<Trave
 		Map<TravellingThiefProblem, NonDominatedSolutionSet> m = new HashMap<>();
 
 		m.put(new ThiefProblemFactory(new MapFactory(), new ItemFactory(ItemFactory.CORRELATION_TYPE.STRONGLY_CORRELATED), 0.5, 
-				"TTP-20-10-STRONGLY").create(20,10), null);
+				"TTP-20-10-STRONGLY").create(100,3), null);
 
 		return m;
 	}

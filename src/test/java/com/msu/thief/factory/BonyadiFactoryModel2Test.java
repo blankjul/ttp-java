@@ -1,32 +1,30 @@
 package com.msu.thief.factory;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
-import org.apache.log4j.BasicConfigurator;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.msu.thief.problems.TravellingThiefProblem;
 
-public class BonyadiFactoryTest {
+public class BonyadiFactoryModel2Test {
 	
 	protected TravellingThiefProblem ttp;
 	
 	
 	@Before
     public void setUp() {
-		BasicConfigurator.configure();
-		BonyadiFactory fac = new BonyadiFactory();
-		ttp = fac.create("../ttp-benchmark/10/10_3_1_25.txt");
+		BonyadiFactoryModel1 fac = new BonyadiFactoryModel1();
+		ttp = fac.create("../ttp-bonyadi/berlin52-ttp/berlin52_n51_bounded-strongly-corr_01.ttp");
     }
 	
 	
 	@Test
 	public void testNumOfCitiesCorrect() {
-		assertEquals(10, ttp.numOfCities());
+		assertEquals(52, ttp.numOfCities());
 	}
 	
-	/*
+	
 	@Test
 	public void testMaxWeight() {
 		assertEquals(4046, ttp.getMaxWeight());
@@ -41,6 +39,6 @@ public class BonyadiFactoryTest {
 	public void testHasItems() {
 		assertTrue(ttp.getItems().size() != 0);
 	}
-	*/
+	
 
 }

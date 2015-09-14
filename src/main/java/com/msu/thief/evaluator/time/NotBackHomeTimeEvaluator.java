@@ -9,10 +9,10 @@ import com.msu.thief.model.packing.PackingList;
 import com.msu.thief.model.tour.Tour;
 import com.msu.thief.problems.TravellingThiefProblem;
 
-public class StandardTimeEvaluator extends TimeEvaluator {
+public class NotBackHomeTimeEvaluator extends TimeEvaluator {
 
 	
-	public StandardTimeEvaluator(TravellingThiefProblem problem) {
+	public NotBackHomeTimeEvaluator(TravellingThiefProblem problem) {
 		super(problem);
 	}
 
@@ -54,6 +54,9 @@ public class StandardTimeEvaluator extends TimeEvaluator {
 				}
 			}
 
+			// do not go home!!
+			if (i == pi.size() - 1) continue;
+			
 			// do not forget the way from the last city to the first!
 			time += (problem.getMap().get(pi.get(i), pi.get((i + 1) % pi.size()) ) / speed);
 

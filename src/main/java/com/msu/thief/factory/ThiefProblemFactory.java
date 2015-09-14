@@ -67,7 +67,7 @@ public class ThiefProblemFactory {
 		
 		// set the maximal tour time or null
 		if (dropType == DROPPING_TYPE.MAX_DISTANCE_DEPENDENT) {
-			maxTime = (problem.getMap().getMax() * problem.getMap().getSize()) / problem.MIN_SPEED;
+			maxTime = (problem.getMap().getMax() * problem.getMap().getSize()) / problem.getMinSpeed();
 		} else maxTime = null;
 		facItems.setMaximalTourTime(maxTime);
 		

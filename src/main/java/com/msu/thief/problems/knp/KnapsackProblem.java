@@ -45,21 +45,21 @@ public class KnapsackProblem  extends AbstractProblem<KnapsackVariable> implemen
 	 *            that defines which items to pick
 	 * @return the profit of the knapsack
 	 */
-	public Integer evaluate(List<Boolean> b) {
+	public double evaluate(List<Boolean> b) {
 		if (b.size() != items.size())
 			throw new RuntimeException("Sizes of the varialbes are different " + b.size() + " != " + items.size());
-		int weight = getWeight(items, b);
+		double weight = getWeight(items, b);
 		if (weight > maxWeight)
 			return 0;
 		else
 			return getProfit(items, b);
 	}
 
-	public static <T extends Item> Integer getWeight(List<T> items, List<Boolean> b) {
+	public static <T extends Item> double getWeight(List<T> items, List<Boolean> b) {
 		return getSumItemAttribute(items, b, i -> i.getWeight());
 	}
 
-	public static <T extends Item> Integer getProfit(List<T> items, List<Boolean> b) {
+	public static <T extends Item> double getProfit(List<T> items, List<Boolean> b) {
 		return getSumItemAttribute(items, b, i -> i.getProfit());
 	}
 
@@ -74,8 +74,8 @@ public class KnapsackProblem  extends AbstractProblem<KnapsackVariable> implemen
 	 *            lambda expression
 	 * @return resulting weight
 	 */
-	public static <T extends Item> Integer getSumItemAttribute(List<T> items, List<Boolean> b, Function<T, Integer> func) {
-		int weight = 0;
+	public static <T extends Item> double getSumItemAttribute(List<T> items, List<Boolean> b, Function<T, Double> func) {
+		double weight = 0;
 		for (int j = 0; j < b.size(); j++) {
 			if (b.get(j)) weight += func.apply(items.get(j));
 		}

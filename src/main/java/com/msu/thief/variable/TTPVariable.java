@@ -1,5 +1,8 @@
 package com.msu.thief.variable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.msu.moo.model.AbstractVariable;
 import com.msu.moo.model.interfaces.IVariable;
 import com.msu.moo.util.Pair;
@@ -14,7 +17,12 @@ public class TTPVariable extends AbstractVariable<Pair<Tour<?>, PackingList<?>>>
 	
 	@Override
 	public String toString() {
-		return String.format("%s;%s", obj.first.toString(),obj.second.toString());
+		List<Integer> p = new ArrayList<>();
+		for(boolean b : obj.second.encode()) {
+			if (b == true) p.add(1);
+			else p.add(0);
+		}
+		return String.format("%s;%s", obj.first.toString(),p.toString());
 	}
 
 	@Override

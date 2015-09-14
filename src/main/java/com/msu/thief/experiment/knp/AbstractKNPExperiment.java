@@ -2,6 +2,7 @@ package com.msu.thief.experiment.knp;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import com.msu.moo.algorithms.NSGAII;
@@ -33,7 +34,7 @@ public abstract class AbstractKNPExperiment extends OneProblemOneAlgorithmExperi
 
 	public void visualize() {
 		for (IAlgorithm<TravellingThiefProblem> a : algorithms) {
-			List<NonDominatedSolutionSet> sets = expResult.get(problem, a);
+			Collection<NonDominatedSolutionSet> sets = expResult.get(problem, a);
 			for(NonDominatedSolutionSet s : sets) {
 				System.out.println(s.getSolutions().get(0).getObjectives().get(1));
 			}

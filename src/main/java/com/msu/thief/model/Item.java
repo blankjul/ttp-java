@@ -7,10 +7,10 @@ package com.msu.thief.model;
 public class Item {
 	
 	//! weight of the item
-	protected int weight;
+	protected double weight;
 	
 	//! profit of the item
-	protected int profit;
+	protected double profit;
 	
 	//! dropping of the item over time
 	protected double dropping;
@@ -19,7 +19,7 @@ public class Item {
 	/**
 	 * Create an item with predefined values.
 	 */
-	public Item(int profit, int weight) {
+	public Item(double profit, double weight) {
 		super();
 		this.weight = weight;
 		this.profit = profit;
@@ -29,18 +29,18 @@ public class Item {
 	/**
 	 * Create an item with profit,weight and dropping.
 	 */
-	public Item(int profit, int weight, double dropping) {
+	public Item(double profit, double weight, double dropping) {
 		this(profit, weight);
 		this.dropping = dropping;
 	}
 	
 	
 
-	public int getWeight() {
+	public double getWeight() {
 		return weight;
 	}
 
-	public int getProfit() {
+	public double getProfit() {
 		return profit;
 	}
 

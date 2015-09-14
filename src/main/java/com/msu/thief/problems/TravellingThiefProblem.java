@@ -14,11 +14,12 @@ import com.msu.thief.model.Map;
 import com.msu.thief.variable.TTPVariable;
 
 public class TravellingThiefProblem extends AbstractProblem<TTPVariable> implements IPackingProblem, ICityProblem{
+	
 	// ! minimal speed of the salesman
-	final public double MIN_SPEED = 0.1d;
+	protected double minSpeed = 0.1d;
 
 	// ! maximal speed of the salesman
-	final public double MAX_SPEED = 1.0d;
+	protected double maxSpeed = 1.0d;
 
 	// evaluator objects
 	protected ProfitEvaluator evalProfit = new IndividualProfitEvaluator();
@@ -116,6 +117,22 @@ public class TravellingThiefProblem extends AbstractProblem<TTPVariable> impleme
 
 	public void setTimeEvaluator(TimeEvaluator evalTime) {
 		this.evalTime = evalTime;
+	}
+
+	public double getMinSpeed() {
+		return minSpeed;
+	}
+
+	public void setMinSpeed(double minSpeed) {
+		this.minSpeed = minSpeed;
+	}
+
+	public double getMaxSpeed() {
+		return maxSpeed;
+	}
+
+	public void setMaxSpeed(double maxSpeed) {
+		this.maxSpeed = maxSpeed;
 	}
 
 }
