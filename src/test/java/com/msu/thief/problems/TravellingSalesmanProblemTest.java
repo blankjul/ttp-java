@@ -8,8 +8,8 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.msu.thief.model.Map;
-import com.msu.thief.problems.tsp.TravellingSalesmanProblem;
+import com.msu.thief.model.SymmetricMap;
+import com.msu.tsp.TravellingSalesmanProblem;
 
 
 public class TravellingSalesmanProblemTest {
@@ -18,7 +18,7 @@ public class TravellingSalesmanProblemTest {
 	
 	@Before
 	public void setUp() {
-		Map m = new Map(3).set(0, 1, 1).set(1, 2, 2).set(2, 0, 3);
+		SymmetricMap m = new SymmetricMap(3).set(0, 1, 1).set(1, 2, 2).set(2, 0, 3);
 		tsp = new TravellingSalesmanProblem(m);
 	}
 	

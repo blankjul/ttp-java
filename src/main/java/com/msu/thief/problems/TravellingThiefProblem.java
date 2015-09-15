@@ -10,7 +10,7 @@ import com.msu.thief.evaluator.time.StandardTimeEvaluator;
 import com.msu.thief.evaluator.time.TimeEvaluator;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
-import com.msu.thief.model.Map;
+import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.variable.TTPVariable;
 
 public class TravellingThiefProblem extends AbstractProblem<TTPVariable> implements IPackingProblem, ICityProblem{
@@ -29,7 +29,7 @@ public class TravellingThiefProblem extends AbstractProblem<TTPVariable> impleme
 	protected String name = "NO_NAME";
 
 	// ! map where the salesman could visit cities
-	protected Map map = null;
+	protected SymmetricMap map = null;
 
 	// ! maximal weight of the knapsack
 	protected int maxWeight;
@@ -41,7 +41,7 @@ public class TravellingThiefProblem extends AbstractProblem<TTPVariable> impleme
 	public TravellingThiefProblem() {
 	}
 
-	public TravellingThiefProblem(Map map, ItemCollection<Item> items, int maxWeight) {
+	public TravellingThiefProblem(SymmetricMap map, ItemCollection<Item> items, int maxWeight) {
 		super();
 		this.map = map;
 		this.maxWeight = maxWeight;
@@ -79,11 +79,11 @@ public class TravellingThiefProblem extends AbstractProblem<TTPVariable> impleme
 		this.name = name;
 	}
 
-	public Map getMap() {
+	public SymmetricMap getMap() {
 		return map;
 	}
 
-	public void setMap(Map map) {
+	public void setMap(SymmetricMap map) {
 		this.map = map;
 	}
 

@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
-import com.msu.thief.model.Map;
+import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.problems.TravellingThiefProblem;
 
 public class BonyadiFactory {
@@ -20,7 +20,7 @@ public class BonyadiFactory {
 	public TravellingThiefProblem create(String pathToFile) {
 
 		TravellingThiefProblem ttp = new TravellingThiefProblem();
-		Map map = null;
+		SymmetricMap map = null;
 		ItemCollection<Item> items = new ItemCollection<>();
 
 		logger.info(String.format("Starting to parse file %s", pathToFile));
@@ -35,7 +35,7 @@ public class BonyadiFactory {
 
 			int numOfCities = Integer.valueOf(br.readLine());
 			logger.info(String.format("Parsed number of cities: %s", numOfCities));
-			map = new Map(numOfCities);
+			map = new SymmetricMap(numOfCities);
 
 			int numOfItems = Integer.valueOf(br.readLine());
 			logger.info(String.format("Parsed number of items: %s", numOfItems));

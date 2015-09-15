@@ -7,12 +7,12 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.msu.knp.KnapsackExhaustiveFactory;
+import com.msu.knp.KnapsackProblem;
+import com.msu.knp.KnapsackVariable;
 import com.msu.moo.algorithms.ExhaustiveSolver;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.thief.model.Item;
-import com.msu.thief.problems.knp.KnapsackExhaustiveFactory;
-import com.msu.thief.problems.knp.KnapsackProblem;
-import com.msu.thief.problems.knp.KnapsackVariable;
 
 public class KnapsackExhaustiveSolverTest {
 

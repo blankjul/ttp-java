@@ -2,6 +2,9 @@ package com.msu.thief.experiment;
 
 import java.util.Arrays;
 
+import com.msu.knp.KnapsackExhaustiveFactory;
+import com.msu.knp.KnapsackProblem;
+import com.msu.knp.KnapsackVariable;
 import com.msu.moo.algorithms.ExhaustiveSolver;
 import com.msu.moo.experiment.OneProblemOneAlgorithmExperiment;
 import com.msu.moo.model.interfaces.IAlgorithm;
@@ -13,19 +16,16 @@ import com.msu.moo.visualization.ScatterPlot;
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
-import com.msu.thief.model.Map;
+import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.model.packing.BooleanPackingList;
 import com.msu.thief.model.packing.PackingList;
 import com.msu.thief.model.tour.StandardTour;
 import com.msu.thief.model.tour.Tour;
 import com.msu.thief.problems.TTPExhaustiveFactory;
 import com.msu.thief.problems.TravellingThiefProblem;
-import com.msu.thief.problems.knp.KnapsackExhaustiveFactory;
-import com.msu.thief.problems.knp.KnapsackProblem;
-import com.msu.thief.problems.knp.KnapsackVariable;
-import com.msu.thief.problems.tsp.TSPExhaustiveFactory;
-import com.msu.thief.problems.tsp.TravellingSalesmanProblem;
 import com.msu.thief.variable.TTPVariable;
+import com.msu.tsp.TSPExhaustiveFactory;
+import com.msu.tsp.TravellingSalesmanProblem;
 
 public class PublicationExperiment extends OneProblemOneAlgorithmExperiment<TravellingThiefProblem> {
 
@@ -78,7 +78,7 @@ public class PublicationExperiment extends OneProblemOneAlgorithmExperiment<Trav
 
 	@Override
 	protected TravellingThiefProblem getProblem() {
-		Map m = new Map(4);
+		SymmetricMap m = new SymmetricMap(4);
 		m.set(0, 1, 4);
 		m.set(0, 2, 10);
 		m.set(0, 3, 3);

@@ -3,16 +3,16 @@ package com.msu.thief.problems;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import com.msu.knp.KnapsackExhaustiveFactory;
+import com.msu.knp.KnapsackProblem;
+import com.msu.knp.KnapsackVariable;
 import com.msu.moo.model.interfaces.VariableFactory;
 import com.msu.moo.util.Pair;
 import com.msu.thief.model.packing.PackingList;
 import com.msu.thief.model.tour.Tour;
-import com.msu.thief.problems.knp.KnapsackExhaustiveFactory;
-import com.msu.thief.problems.knp.KnapsackProblem;
-import com.msu.thief.problems.knp.KnapsackVariable;
-import com.msu.thief.problems.tsp.TSPExhaustiveFactory;
-import com.msu.thief.problems.tsp.TravellingSalesmanProblem;
 import com.msu.thief.variable.TTPVariable;
+import com.msu.tsp.TSPExhaustiveFactory;
+import com.msu.tsp.TravellingSalesmanProblem;
 
 public class TTPExhaustiveFactory implements VariableFactory<TTPVariable,TravellingThiefProblem> {
 

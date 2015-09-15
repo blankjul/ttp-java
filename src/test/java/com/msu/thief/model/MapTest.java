@@ -5,17 +5,17 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.msu.thief.model.Map;
+import com.msu.thief.model.SymmetricMap;
 
 
 
 public class MapTest {
 
-	private Map m;
+	private SymmetricMap m;
 	
 	@Before
     public void setUp() {
-        m = new Map(10);
+        m = new SymmetricMap(10);
     }
 	
 	@Test

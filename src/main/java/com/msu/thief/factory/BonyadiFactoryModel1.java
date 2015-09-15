@@ -11,7 +11,7 @@ import java.util.List;
 import com.msu.thief.factory.map.MapFactory;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
-import com.msu.thief.model.Map;
+import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.problems.TravellingThiefProblem;
 
 public class BonyadiFactoryModel1 {
@@ -19,7 +19,7 @@ public class BonyadiFactoryModel1 {
 	public TravellingThiefProblem create(String pathToFile) {
 
 		TravellingThiefProblem ttp = new TravellingThiefProblem();
-		Map map = null;
+		SymmetricMap map = null;
 		ItemCollection<Item> items = new ItemCollection<>();
 		
 		
@@ -36,7 +36,7 @@ public class BonyadiFactoryModel1 {
 			while ((line = bufferedReader.readLine()) != null) {
 				
 				if (line.startsWith("DIMENSION")) {
-					map = new Map(Integer.valueOf(line.split("\t")[1]));
+					map = new SymmetricMap(Integer.valueOf(line.split("\t")[1]));
 				} else if (line.startsWith("CAPACITY OF KNAPSACK")) {
 					ttp.setMaxWeight(Integer.valueOf(line.split("\t")[1]));
 				} else if (line.startsWith("NODE_COORD_SECTION")) {

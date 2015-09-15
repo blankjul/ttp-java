@@ -52,7 +52,7 @@ public class GreedyMapExperiment extends OneProblemOneAlgorithmExperiment<Travel
 		
 		MapFactory fac = new MapFactory();
 		fac.setType(TYPE.MANHATTEN_2D);
-		com.msu.thief.model.Map m = fac.createFromDouble(cities);
+		com.msu.thief.model.SymmetricMap m = fac.createFromDouble(cities);
 
 		// add one random item to map
 		ItemCollection<Item> items = new ItemCollection<>();

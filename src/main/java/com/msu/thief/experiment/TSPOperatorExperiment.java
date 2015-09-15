@@ -22,7 +22,7 @@ import com.msu.thief.factory.map.MapFactory;
 import com.msu.thief.model.tour.PositionDecodedTourFactory;
 import com.msu.thief.model.tour.StandardTourFactory;
 import com.msu.thief.model.tour.Tour;
-import com.msu.thief.problems.tsp.TravellingSalesmanProblem;
+import com.msu.tsp.TravellingSalesmanProblem;
 
 public class TSPOperatorExperiment extends OneProblemNAlgorithmExperiment<TravellingSalesmanProblem> {
 

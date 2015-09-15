@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.msu.moo.util.Random;
-import com.msu.thief.model.Map;
+import com.msu.thief.model.SymmetricMap;
 
 /**
  * This class is used to create a Map which only contains a cost matrix. There
@@ -41,8 +41,8 @@ public class MapFactory extends AbstractMapFactory {
 
 	
 
-	public Map createFromDouble(List<Point2D> cities) {
-		Map m = new Map(cities.size());
+	public SymmetricMap createFromDouble(List<Point2D> cities) {
+		SymmetricMap m = new SymmetricMap(cities.size());
 		for (int i = 0; i < cities.size(); i++) {
 			for (int j = i; j < cities.size(); j++) {
 				double value = -1;
@@ -65,8 +65,8 @@ public class MapFactory extends AbstractMapFactory {
 		return m;
 	}
 	
-	public Map create(List<Point> cities) {
-		Map m = new Map(cities.size());
+	public SymmetricMap create(List<Point> cities) {
+		SymmetricMap m = new SymmetricMap(cities.size());
 		for (int i = 0; i < cities.size(); i++) {
 			for (int j = i; j < cities.size(); j++) {
 				double disX = (cities.get(i).getX() - cities.get(j).getX()) * (cities.get(i).getX() - cities.get(j).getX());
@@ -87,7 +87,7 @@ public class MapFactory extends AbstractMapFactory {
 		
 		
 	@Override
-	public Map create(int n) {
+	public SymmetricMap create(int n) {
 		
 		ArrayList<Point> cities = new ArrayList<Point>(n);
 		for (int i = 0; i < n; i++) {
