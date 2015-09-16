@@ -1,4 +1,4 @@
-package com.msu.thief.scenarios;
+package com.msu.thief.scenarios.impl;
 
 import java.awt.Point;
 import java.io.BufferedReader;

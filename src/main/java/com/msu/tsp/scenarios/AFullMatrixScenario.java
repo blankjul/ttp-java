@@ -7,7 +7,7 @@ import com.msu.thief.scenarios.AScenario;
 public abstract class AFullMatrixScenario  extends AScenario<SymmetricMap, Tour<?>>{
 
 	//! return the full matrix 
-	protected abstract double[][] getCosts();
+	public abstract double[][] getCosts();
 	
 	
 	@Override

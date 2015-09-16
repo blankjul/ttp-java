@@ -1,6 +1,6 @@
 package com.msu.tsp.util.rounding;
 
-public class RoundingStandard implements IRounding{
+public class RoundingNearestInt implements IRounding{
 
 
 	@Override

@@ -1,4 +1,4 @@
-package com.msu.thief.scenarios;
+package com.msu.thief.scenarios.impl;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

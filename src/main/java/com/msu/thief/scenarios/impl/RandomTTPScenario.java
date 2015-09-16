@@ -1,10 +1,12 @@
-package com.msu.thief.scenarios;
+package com.msu.thief.scenarios.impl;
 
 import com.msu.knp.impl.scenarios.RandomKnapsackScenario;
 import com.msu.knp.impl.scenarios.RandomKnapsackScenario.CORRELATION_TYPE;
 import com.msu.thief.TravellingThiefProblem;
+import com.msu.thief.evaluator.profit.IndividualProfitEvaluator;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
+import com.msu.thief.scenarios.AScenario;
 import com.msu.tsp.scenarios.impl.RandomTSPScenario;
 
 /**
@@ -68,6 +70,7 @@ public class RandomTTPScenario extends AScenario<TravellingThiefProblem, Object>
 
 		problem.setItems(items);
 		problem.setMaxWeight((int) (sumWeights * maxWeightPerc));
+		problem.setProfitEvaluator(new IndividualProfitEvaluator());
 		return problem;
 	}
 

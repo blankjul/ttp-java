@@ -3,7 +3,9 @@ package com.msu.thief;
 import java.util.List;
 
 import com.msu.knp.IPackingProblem;
+import com.msu.moo.exception.EvaluationException;
 import com.msu.moo.model.AbstractProblem;
+import com.msu.moo.util.Pair;
 import com.msu.thief.evaluator.Evaluator;
 import com.msu.thief.evaluator.profit.IndividualProfitEvaluator;
 import com.msu.thief.evaluator.profit.ProfitEvaluator;
@@ -12,8 +14,11 @@ import com.msu.thief.evaluator.time.TimeEvaluator;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
+import com.msu.thief.model.packing.PackingList;
+import com.msu.thief.model.tour.Tour;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.tsp.ICityProblem;
+import com.msu.tsp.TravellingSalesmanProblem;
 
 public class TravellingThiefProblem extends AbstractProblem<TTPVariable> implements IPackingProblem, ICityProblem{
 	
@@ -60,7 +65,26 @@ public class TravellingThiefProblem extends AbstractProblem<TTPVariable> impleme
 
 	@Override
 	protected List<Double> evaluate_(TTPVariable variable) {
+		
+		// check for the correct input before using evaluator
+		Pair<Tour<?>, PackingList<?>> pair = variable.get();
+		checkTour(pair.first);
+		checkPackingList(pair.second);
+		
+		// use the evaluators to calculate the result
 		return new Evaluator(this, evalProfit, evalTime).evaluate(variable.get());
+	}
+	
+	public void checkTour(Tour<?> tour) {
+		List<Integer> pi = tour.encode();
+		TravellingSalesmanProblem.checkTourSize(map.getSize(), pi);
+		TravellingSalesmanProblem.checkTourValidtiy(pi);
+	}
+	
+    public void checkPackingList(PackingList<?> list) {
+    	final int length = list.encode().size();
+		if (length != numOfItems()) 
+			throw new EvaluationException(String.format("Probem has %s items but picking vector only %s", numOfItems(), length));
 	}
 
 	@Override

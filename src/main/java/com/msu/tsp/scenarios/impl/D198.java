@@ -6,7 +6,7 @@ import com.msu.thief.model.tour.StandardTour;
 import com.msu.thief.model.tour.Tour;
 import com.msu.tsp.scenarios.ACoordinateScenario;
 
-public class D198 extends ACoordinateScenario{
+public class D198 extends ACoordinateScenario {
 	@Override
 	public Tour<?> getOptimal() {
 		return new StandardTour(Arrays.asList(28, 29, 27, 33, 32, 35, 36, 31, 30, 37, 44, 53, 60, 65, 73, 81, 74, 61, 52, 45, 51, 64, 80, 75, 76, 77, 63, 49, 50, 46, 38, 34,

@@ -46,7 +46,7 @@ public class Bays29 extends AFullMatrixScenario {
 	}
 
 	@Override
-	protected double[][] getCosts() {
+	public double[][] getCosts() {
 		return COSTS;
 	}
 

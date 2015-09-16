@@ -1,4 +1,4 @@
-package com.msu.thief;
+package com.msu;
 
 import org.junit.runner.RunWith;
 

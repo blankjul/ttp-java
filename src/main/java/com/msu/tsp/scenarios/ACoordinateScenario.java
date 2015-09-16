@@ -8,6 +8,7 @@ import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.model.tour.Tour;
 import com.msu.thief.scenarios.AScenario;
 import com.msu.tsp.scenarios.impl.RandomTSPScenario;
+import com.msu.tsp.util.rounding.RoundingNearestInt;
 
 public abstract class ACoordinateScenario extends AScenario<SymmetricMap, Tour<?>> {
 
@@ -26,7 +27,9 @@ public abstract class ACoordinateScenario extends AScenario<SymmetricMap, Tour<?
 		for (double[] p : coordinates) {
 			cities.add(new Point2D.Double(p[0], p[1]));
 		}
-		return RandomTSPScenario.create(cities);
+		SymmetricMap map = RandomTSPScenario.create(cities);
+		map.round(new RoundingNearestInt());
+		return map;
 	}
 	
 

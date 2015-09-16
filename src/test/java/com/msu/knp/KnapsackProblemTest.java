@@ -1,4 +1,4 @@
-package com.msu.thief.problems;
+package com.msu.knp;
 
 import static org.junit.Assert.assertEquals;
 
@@ -11,7 +11,7 @@ import org.junit.Test;
 import com.msu.knp.KnapsackProblem;
 import com.msu.thief.model.Item;
 
-public class KnapsackTest {
+public class KnapsackProblemTest {
 
 	private KnapsackProblem k;
 	private ArrayList<Item> l;

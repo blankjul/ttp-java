@@ -1,4 +1,4 @@
-package com.msu.thief;
+package com.msu.algorithms;
 
 
 import com.msu.moo.algorithms.NSGAII;
@@ -7,6 +7,7 @@ import com.msu.moo.operators.crossover.SinglePointCrossover;
 import com.msu.moo.operators.crossover.permutation.CycleCrossover;
 import com.msu.moo.operators.mutation.BitFlipMutation;
 import com.msu.moo.operators.mutation.SwapMutation;
+import com.msu.thief.TravellingThiefProblem;
 import com.msu.thief.model.packing.factory.BooleanPackingListFactory;
 import com.msu.thief.model.tour.factory.StandardTourFactory;
 import com.msu.thief.variable.TTPCrossover;

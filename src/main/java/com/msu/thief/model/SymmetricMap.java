@@ -1,5 +1,7 @@
 package com.msu.thief.model;
 
+import com.msu.tsp.util.rounding.IRounding;
+
 /**
  * This class represents a map with a predefined number of cities.
  * It is a symmetrical map where where the [i][j] value will always be the same
@@ -44,6 +46,18 @@ public class SymmetricMap {
 		distances[i][j] = value;
 		distances[j][i] = value;
 		return this;
+	}
+	
+	/**
+	 * Round all the values by a given method.
+	 * @param calcRounded rounder which is executed
+	 */
+	public void round(IRounding calcRounded) {
+		for (int i = 0; i < distances.length; i++) {
+			for (int j = 0; j < distances.length; j++) {
+				distances[j][i] = calcRounded.execute(distances[j][i]);
+			}
+		}
 	}
 	
 	public int getSize() {

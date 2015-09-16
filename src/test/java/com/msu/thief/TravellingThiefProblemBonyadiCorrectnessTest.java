@@ -1,4 +1,4 @@
-package com.msu.thief.problems;
+package com.msu.thief;
 
 import static org.junit.Assert.assertEquals;
 
@@ -11,33 +11,20 @@ import org.junit.Test;
 
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.util.Pair;
-import com.msu.thief.TravellingThiefProblem;
-import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
-import com.msu.thief.model.Item;
-import com.msu.thief.model.ItemCollection;
-import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.model.packing.BooleanPackingList;
 import com.msu.thief.model.packing.PackingList;
 import com.msu.thief.model.tour.StandardTour;
 import com.msu.thief.model.tour.Tour;
+import com.msu.thief.scenarios.impl.BonyadiScenario;
 import com.msu.thief.variable.TTPVariable;
 
-public class TravellingThiefProblemTest {
+public class TravellingThiefProblemBonyadiCorrectnessTest {
 
 	private TravellingThiefProblem ttp;
 
 	@Before
 	public void setUp() {
-		SymmetricMap m = new SymmetricMap(4).set(0, 1, 5).set(0, 2, 6).set(0, 3, 6).set(1, 2, 5).set(1, 3, 6).set(2, 3, 4);
-		ItemCollection<Item> items = new ItemCollection<Item>();
-		items.add(2, new Item(10, 3));
-		items.add(2, new Item(4, 1));
-		items.add(2, new Item(4, 1));
-		items.add(1, new Item(2, 2));
-		items.add(2, new Item(3, 3));
-		items.add(3, new Item(2, 2));
-		ttp = new TravellingThiefProblem(m, items, 3);
-		ttp.setProfitEvaluator(new ExponentialProfitEvaluator());
+		ttp = new BonyadiScenario().getObject();
 	}
 
 	@Test

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.msu.moo.exception.EvaluationException;
 import com.msu.moo.util.Pair;
 import com.msu.thief.TravellingThiefProblem;
 import com.msu.thief.evaluator.profit.ProfitEvaluator;
@@ -42,7 +43,7 @@ public class Evaluator implements IEvaluator<Pair<Tour<?>,PackingList<?>>, List<
 			return new ArrayList<Double>(Arrays.asList(evalTime.getTime(), 0d));
 		}
 		Double profit = evalProfit.evaluate(evalTime.getItemMap());
-		if (profit < 0) throw new RuntimeException("Profit has to be larger than 0! But it is " + profit);
+		if (profit < 0) throw new EvaluationException("Profit has to be larger than 0! But it is " + profit);
 
 		return new ArrayList<Double>(Arrays.asList(time, -profit));
 	}

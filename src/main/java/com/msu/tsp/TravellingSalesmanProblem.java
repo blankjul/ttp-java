@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
+import com.msu.moo.exception.EvaluationException;
 import com.msu.moo.model.AbstractProblem;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.model.tour.Tour;
@@ -37,7 +38,7 @@ public class TravellingSalesmanProblem extends AbstractProblem<Tour<?>> implemen
 	 */
 	public static void checkTourSize(int size, List<Integer> pi) {
 		if (pi.size() != size)
-			throw new RuntimeException(String.format("Map has %s cities but input only %s!", size, pi.size()));
+			throw new EvaluationException(String.format("Map has %s cities but input only %s!", size, pi.size()));
 
 	}
 	
@@ -49,11 +50,11 @@ public class TravellingSalesmanProblem extends AbstractProblem<Tour<?>> implemen
 		HashSet<Integer> hash = new HashSet<Integer>();
 		Integer duplicate = Util.getDuplicate(hash, pi);
 		if (duplicate != null) {
-			throw new RuntimeException(String.format("Tour is not a real permuation: city %s is visited twice!", duplicate));
+			throw new EvaluationException(String.format("Tour is not a real permuation: city %s is visited twice!", duplicate));
 		}
 		for (int i = 0; i < pi.size(); i++) {
 			if (!hash.contains(i)) 
-				throw new RuntimeException(String.format("Tour is not valid because city %s is not visited!", i));
+				throw new EvaluationException(String.format("Tour is not valid because city %s is not visited!", i));
 		}
 	}
 	

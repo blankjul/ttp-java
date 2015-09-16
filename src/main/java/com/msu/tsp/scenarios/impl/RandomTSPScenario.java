@@ -8,7 +8,6 @@ import com.msu.moo.util.Random;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.tsp.util.distances.ADistanceCalculator;
 import com.msu.tsp.util.distances.EuclideanDistance;
-import com.msu.tsp.util.rounding.IRounding;
 
 /**
  * This class is used to create a Map which only contains a cost matrix. There
@@ -23,15 +22,14 @@ public class RandomTSPScenario {
 
 	
 	public static <T extends Point2D> SymmetricMap create(List<T> cities) {
-		return create(cities, new EuclideanDistance(), null);
+		return create(cities, new EuclideanDistance());
 	}
 	
-	public static <T extends Point2D> SymmetricMap create(List<T> cities, ADistanceCalculator calcDistance, IRounding calcRounded) {
+	public static <T extends Point2D> SymmetricMap create(List<T> cities, ADistanceCalculator calcDistance) {
 		SymmetricMap m = new SymmetricMap(cities.size());
 		for (int i = 0; i < cities.size(); i++) {
 			for (int j = i; j < cities.size(); j++) {
 				double distance = calcDistance.getDistance(cities.get(i), cities.get(j));
-				if (calcRounded != null) distance = calcRounded.execute(distance);
 				m.set(i, j, distance);
 			}
 		}

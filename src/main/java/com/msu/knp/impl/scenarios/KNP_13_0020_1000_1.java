@@ -1,6 +1,6 @@
 package com.msu.knp.impl.scenarios;
 
-public class KNP_13_20_1000_1 extends AKnapsackScenario {
+public class KNP_13_0020_1000_1 extends AKnapsackScenario {
 
 	@Override
 	protected Integer[][] getItems() {

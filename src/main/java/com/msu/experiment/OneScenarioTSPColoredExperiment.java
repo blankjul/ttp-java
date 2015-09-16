@@ -8,7 +8,6 @@ import com.msu.moo.algorithms.NSGAIIBuilder;
 import com.msu.moo.experiment.OneProblemNAlgorithmExperiment;
 import com.msu.moo.model.interfaces.IAlgorithm;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
-import com.msu.moo.operators.crossover.HalfUniformCrossover;
 import com.msu.moo.operators.crossover.SinglePointCrossover;
 import com.msu.moo.operators.crossover.permutation.CycleCrossover;
 import com.msu.moo.operators.crossover.permutation.EdgeRecombinationCrossover;
@@ -18,7 +17,7 @@ import com.msu.moo.operators.mutation.SwapMutation;
 import com.msu.thief.TravellingThiefProblem;
 import com.msu.thief.model.packing.factory.BooleanPackingListFactory;
 import com.msu.thief.model.tour.factory.StandardTourFactory;
-import com.msu.thief.scenarios.RandomTTPScenario;
+import com.msu.thief.scenarios.impl.RandomTTPScenario;
 import com.msu.thief.variable.TTPCrossover;
 import com.msu.thief.variable.TTPMutation;
 import com.msu.thief.variable.TTPVariable;
@@ -41,8 +40,11 @@ public class OneScenarioTSPColoredExperiment extends OneProblemNAlgorithmExperim
 
 	@Override
 	protected TravellingThiefProblem getProblem() {
-		TravellingThiefProblem ttp =  new RandomTTPScenario(50, 10, 0.7, CORRELATION_TYPE.UNCORRELATED).getObject();
-		ttp.setName("TTP-50-10-0.7-UNCORRELATED");
+		TravellingThiefProblem ttp =  new RandomTTPScenario(50, 2, 0.4, CORRELATION_TYPE.STRONGLY_CORRELATED).getObject();
+		ttp.setName("TTP-50-10-0.7-STRONGLY_CORRELATED");
+		
+		ttp =  new RandomTTPScenario(100, 3, 0.5, CORRELATION_TYPE.STRONGLY_CORRELATED).getObject();
+		ttp.setName("TTP-100-3-0.5-STRONGLY_CORRELATED");
 		return ttp;
 	}
 
@@ -56,15 +58,16 @@ public class OneScenarioTSPColoredExperiment extends OneProblemNAlgorithmExperim
 		builder.setFactory(new TTPVariableFactory(new StandardTourFactory<>(), new BooleanPackingListFactory()));
 		builder.setMutation(new TTPMutation(new SwapMutation<>(), new BitFlipMutation()));
 		builder.setProbMutation(0.3);
-		builder.setCrossover(new TTPCrossover(new OrderedCrossover<>(), new SinglePointCrossover<>())).setName("NSGAII-ST[ORD-SWAP]-BP[SPX-BFM]");
+		
+		builder.setCrossover(new TTPCrossover(new OrderedCrossover<>(), new SinglePointCrossover<>())).setName("ORD");
 		result.add(builder.create());
 
 		result.add(builder.setCrossover(new TTPCrossover(new CycleCrossover<Integer>(), new SinglePointCrossover<Boolean>()))
-				.setName("NSGAII-ST[CX-SWAP]-BP[SPX-BFM]").create());
+				.setName("CX").create());
 		
 
-		result.add(builder.setCrossover(new TTPCrossover(new EdgeRecombinationCrossover<Integer>(), new HalfUniformCrossover<>()))
-				.setName("NSGAII-ST[ERX-SWAP]-BP[HUX-BFM]").create());
+		result.add(builder.setCrossover(new TTPCrossover(new EdgeRecombinationCrossover<Integer>(), new SinglePointCrossover<>()))
+				.setName("ERC").create());
 		
 
 		return result;

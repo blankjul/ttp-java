@@ -1,4 +1,4 @@
-package com.msu.thief.problems;
+package com.msu.ttp;
 
 import static org.junit.Assert.*;
 
@@ -8,6 +8,7 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.msu.moo.exception.EvaluationException;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.tsp.TravellingSalesmanProblem;
 
@@ -28,17 +29,17 @@ public class TravellingSalesmanProblemTest {
 		assertEquals(6.0, tsp.evaluate( new ArrayList<Integer>(Arrays.asList(0,1,2))), 0.01);
 	}
 	
-	@Test (expected=RuntimeException.class) 
+	@Test (expected=EvaluationException.class) 
 	public void testWrongSizeOfTour() throws RuntimeException {
 		tsp.evaluate( new ArrayList<Integer>(Arrays.asList(0)));
 	}
 	
-	@Test (expected=RuntimeException.class) 
+	@Test (expected=EvaluationException.class) 
 	public void testNotAValidPermutation() throws RuntimeException {
 		tsp.evaluate( new ArrayList<Integer>(Arrays.asList(0,0,1)));
 	}
 	
-	@Test (expected=RuntimeException.class) 
+	@Test (expected=EvaluationException.class) 
 	public void testValidPermuationButMissingCity() throws RuntimeException {
 		tsp.evaluate( new ArrayList<Integer>(Arrays.asList(0,2,3)));
 	}

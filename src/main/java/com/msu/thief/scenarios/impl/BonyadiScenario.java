@@ -1,4 +1,4 @@
-package com.msu.thief.scenarios;
+package com.msu.thief.scenarios.impl;
 
 import javax.management.JMException;
 
@@ -17,6 +17,7 @@ import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.model.packing.factory.BooleanPackingListFactory;
 import com.msu.thief.model.tour.factory.StandardTourFactory;
+import com.msu.thief.scenarios.AScenario;
 import com.msu.thief.variable.TTPCrossover;
 import com.msu.thief.variable.TTPMutation;
 import com.msu.thief.variable.TTPVariable;

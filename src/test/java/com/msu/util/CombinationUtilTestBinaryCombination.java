@@ -1,4 +1,4 @@
-package com.msu.thief.util;
+package com.msu.util;
 
 import static org.junit.Assert.assertEquals;
 

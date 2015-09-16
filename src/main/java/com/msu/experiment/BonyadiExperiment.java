@@ -16,7 +16,7 @@ import com.msu.moo.operators.mutation.SwapMutation;
 import com.msu.thief.TravellingThiefProblem;
 import com.msu.thief.model.packing.factory.BooleanPackingListFactory;
 import com.msu.thief.model.tour.factory.StandardTourFactory;
-import com.msu.thief.scenarios.BonyadiFactory;
+import com.msu.thief.scenarios.impl.BonyadiFactory;
 import com.msu.thief.variable.TTPCrossover;
 import com.msu.thief.variable.TTPMutation;
 import com.msu.thief.variable.TTPVariable;

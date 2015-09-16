@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
+import com.msu.moo.exception.EvaluationException;
 import com.msu.moo.model.AbstractProblem;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.packing.PackingList;
@@ -19,10 +20,11 @@ import com.msu.thief.model.packing.PackingList;
 public class KnapsackProblem  extends AbstractProblem<PackingList<?>> implements IPackingProblem{
 
 	// ! maximal weight of the knapsack
-	private int maxWeight;
+	protected int maxWeight;
 
 	// ! all items that could be added to the knapsack
-	private List<Item> items;
+	protected List<Item> items;
+	
 
 	/**
 	 * Create a Knapsack Problem with predefined items and a maximal weight!
@@ -33,9 +35,8 @@ public class KnapsackProblem  extends AbstractProblem<PackingList<?>> implements
 	 *            that could be added
 	 */
 	public KnapsackProblem(int maxWeight, List<Item> items) {
-		super();
-		this.maxWeight = maxWeight;
-		this.items = items;
+		setMaxWeight(maxWeight);
+		setItems(items);
 	}
 
 	/**
@@ -47,7 +48,7 @@ public class KnapsackProblem  extends AbstractProblem<PackingList<?>> implements
 	 */
 	public double evaluate(List<Boolean> b) {
 		if (b.size() != items.size())
-			throw new RuntimeException("Sizes of the varialbes are different " + b.size() + " != " + items.size());
+			throw new EvaluationException(String.format("Sizes of the varialbes are different %s != %s", b.size(),  items.size()));
 		double weight = getWeight(items, b);
 		if (weight > maxWeight)
 			return 0;
@@ -55,10 +56,16 @@ public class KnapsackProblem  extends AbstractProblem<PackingList<?>> implements
 			return getProfit(items, b);
 	}
 
+	/**
+	 * @return sum of weights for given packing list
+	 */
 	public static <T extends Item> double getWeight(List<T> items, List<Boolean> b) {
 		return getSumItemAttribute(items, b, i -> i.getWeight());
 	}
 
+	/**
+	 * @return sum of profits for given packing list
+	 */
 	public static <T extends Item> double getProfit(List<T> items, List<Boolean> b) {
 		return getSumItemAttribute(items, b, i -> i.getProfit());
 	}
@@ -96,5 +103,24 @@ public class KnapsackProblem  extends AbstractProblem<PackingList<?>> implements
 	public int numOfItems() {
 		return items.size();
 	}
+
+	public int getMaxWeight() {
+		return maxWeight;
+	}
+
+	public void setMaxWeight(int maxWeight) {
+		if (maxWeight < 0) throw new RuntimeException("Maximal weight of knapsack must be positive!");
+		this.maxWeight = maxWeight;
+	}
+
+	public List<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+	
+	
 
 }

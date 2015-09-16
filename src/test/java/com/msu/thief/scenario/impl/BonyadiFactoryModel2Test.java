@@ -1,4 +1,4 @@
-package com.msu.thief.factory;
+package com.msu.thief.scenario.impl;
 
 import static org.junit.Assert.*;
 
@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.msu.thief.TravellingThiefProblem;
-import com.msu.thief.scenarios.BonyadiFactoryModel1;
+import com.msu.thief.scenarios.impl.BonyadiFactoryModel1;
 
 public class BonyadiFactoryModel2Test {
 	

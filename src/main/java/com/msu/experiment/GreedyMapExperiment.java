@@ -4,10 +4,10 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.msu.algorithms.AlgorithmFactory;
 import com.msu.moo.experiment.OneProblemOneAlgorithmExperiment;
 import com.msu.moo.model.interfaces.IAlgorithm;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
-import com.msu.thief.AlgorithmFactory;
 import com.msu.thief.TravellingThiefProblem;
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
 import com.msu.thief.evaluator.time.NotBackHomeTimeEvaluator;
@@ -51,7 +51,7 @@ public class GreedyMapExperiment extends OneProblemOneAlgorithmExperiment<Travel
 			cities.add(new Point2D.Double(i, i));
 		}
 		
-		SymmetricMap m = RandomTSPScenario.create(cities, new ManhattenDistance(), null);
+		SymmetricMap m = RandomTSPScenario.create(cities, new ManhattenDistance());
 
 		// add one random item to map
 		ItemCollection<Item> items = new ItemCollection<>();
