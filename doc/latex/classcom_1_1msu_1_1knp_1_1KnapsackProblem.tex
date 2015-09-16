@@ -1,0 +1,112 @@
+\hypertarget{classcom_1_1msu_1_1knp_1_1KnapsackProblem}{\section{com.\-msu.\-knp.\-Knapsack\-Problem Class Reference}
+\label{classcom_1_1msu_1_1knp_1_1KnapsackProblem}\index{com.\-msu.\-knp.\-Knapsack\-Problem@{com.\-msu.\-knp.\-Knapsack\-Problem}}
+}
+Inheritance diagram for com.\-msu.\-knp.\-Knapsack\-Problem\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.301370cm]{classcom_1_1msu_1_1knp_1_1KnapsackProblem}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classcom_1_1msu_1_1knp_1_1KnapsackProblem_a8cc3eead021b3b28d87be891563fcda3}{Knapsack\-Problem} (int max\-Weight, List$<$ \hyperlink{classcom_1_1msu_1_1thief_1_1model_1_1Item}{Item} $>$ items)
+\item 
+double \hyperlink{classcom_1_1msu_1_1knp_1_1KnapsackProblem_a688e4bdef229b11397db6c65421228cb}{evaluate} (List$<$ Boolean $>$ b)
+\item 
+\hypertarget{classcom_1_1msu_1_1knp_1_1KnapsackProblem_a16aa516d8fadcd091124badf0f837526}{int {\bfseries get\-Number\-Of\-Objectives} ()}\label{classcom_1_1msu_1_1knp_1_1KnapsackProblem_a16aa516d8fadcd091124badf0f837526}
+
+\item 
+\hypertarget{classcom_1_1msu_1_1knp_1_1KnapsackProblem_afe0445cd0c20ac2c95937d4253770228}{int {\bfseries num\-Of\-Items} ()}\label{classcom_1_1msu_1_1knp_1_1KnapsackProblem_afe0445cd0c20ac2c95937d4253770228}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classcom_1_1msu_1_1knp_1_1KnapsackProblem_a001af3c71b70b741fbb9e97be55b0771}{static$<$ Textends\-Item $>$ double {\bfseries get\-Weight} (List$<$ T $>$ items, List$<$ Boolean $>$ b)}\label{classcom_1_1msu_1_1knp_1_1KnapsackProblem_a001af3c71b70b741fbb9e97be55b0771}
+
+\item 
+\hypertarget{classcom_1_1msu_1_1knp_1_1KnapsackProblem_a76140b794fa226f6b3cd945bbf717814}{static$<$ Textends\-Item $>$ double {\bfseries get\-Profit} (List$<$ T $>$ items, List$<$ Boolean $>$ b)}\label{classcom_1_1msu_1_1knp_1_1KnapsackProblem_a76140b794fa226f6b3cd945bbf717814}
+
+\item 
+static$<$ Textends\-Item $>$ double \hyperlink{classcom_1_1msu_1_1knp_1_1KnapsackProblem_ae82777f42a9c6b80eca15ebc2864cd86}{get\-Sum\-Item\-Attribute} (List$<$ T $>$ items, List$<$ Boolean $>$ b, Function$<$ T, Double $>$ func)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classcom_1_1msu_1_1knp_1_1KnapsackProblem_adc1b4a49bcd78ca332d993609ec3f0ab}{List$<$ Double $>$ {\bfseries evaluate\-\_\-} (\hyperlink{classcom_1_1msu_1_1knp_1_1KnapsackVariable}{Knapsack\-Variable} variable)}\label{classcom_1_1msu_1_1knp_1_1KnapsackProblem_adc1b4a49bcd78ca332d993609ec3f0ab}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class represents the knapsack problem.
+
+The Problem is defined by items that could be added and a maximal weight that fits into the knapsack. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classcom_1_1msu_1_1knp_1_1KnapsackProblem_a8cc3eead021b3b28d87be891563fcda3}{\index{com\-::msu\-::knp\-::\-Knapsack\-Problem@{com\-::msu\-::knp\-::\-Knapsack\-Problem}!Knapsack\-Problem@{Knapsack\-Problem}}
+\index{Knapsack\-Problem@{Knapsack\-Problem}!com::msu::knp::KnapsackProblem@{com\-::msu\-::knp\-::\-Knapsack\-Problem}}
+\subsubsection[{Knapsack\-Problem}]{\setlength{\rightskip}{0pt plus 5cm}com.\-msu.\-knp.\-Knapsack\-Problem.\-Knapsack\-Problem (
+\begin{DoxyParamCaption}
+\item[{int}]{max\-Weight, }
+\item[{List$<$ {\bf Item} $>$}]{items}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classcom_1_1msu_1_1knp_1_1KnapsackProblem_a8cc3eead021b3b28d87be891563fcda3}
+Create a Knapsack Problem with predefined items and a maximal weight!
+
+
+\begin{DoxyParams}{Parameters}
+{\em max\-Weight} & maximal weight of the knapsack \\
+\hline
+{\em items} & that could be added \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classcom_1_1msu_1_1knp_1_1KnapsackProblem_a688e4bdef229b11397db6c65421228cb}{\index{com\-::msu\-::knp\-::\-Knapsack\-Problem@{com\-::msu\-::knp\-::\-Knapsack\-Problem}!evaluate@{evaluate}}
+\index{evaluate@{evaluate}!com::msu::knp::KnapsackProblem@{com\-::msu\-::knp\-::\-Knapsack\-Problem}}
+\subsubsection[{evaluate}]{\setlength{\rightskip}{0pt plus 5cm}double com.\-msu.\-knp.\-Knapsack\-Problem.\-evaluate (
+\begin{DoxyParamCaption}
+\item[{List$<$ Boolean $>$}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classcom_1_1msu_1_1knp_1_1KnapsackProblem_a688e4bdef229b11397db6c65421228cb}
+Evaluate the knapsack problem.
+
+
+\begin{DoxyParams}{Parameters}
+{\em b} & that defines which items to pick \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the profit of the knapsack 
+\end{DoxyReturn}
+\hypertarget{classcom_1_1msu_1_1knp_1_1KnapsackProblem_ae82777f42a9c6b80eca15ebc2864cd86}{\index{com\-::msu\-::knp\-::\-Knapsack\-Problem@{com\-::msu\-::knp\-::\-Knapsack\-Problem}!get\-Sum\-Item\-Attribute@{get\-Sum\-Item\-Attribute}}
+\index{get\-Sum\-Item\-Attribute@{get\-Sum\-Item\-Attribute}!com::msu::knp::KnapsackProblem@{com\-::msu\-::knp\-::\-Knapsack\-Problem}}
+\subsubsection[{get\-Sum\-Item\-Attribute}]{\setlength{\rightskip}{0pt plus 5cm}static $<$Textends\-Item$>$ double com.\-msu.\-knp.\-Knapsack\-Problem.\-get\-Sum\-Item\-Attribute (
+\begin{DoxyParamCaption}
+\item[{List$<$ T $>$}]{items, }
+\item[{List$<$ Boolean $>$}]{b, }
+\item[{Function$<$ T, Double $>$}]{func}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}}\label{classcom_1_1msu_1_1knp_1_1KnapsackProblem_ae82777f42a9c6b80eca15ebc2864cd86}
+Calculate the sum by using a lambda expression
+
+
+\begin{DoxyParams}{Parameters}
+{\em items} & that could be added \\
+\hline
+{\em b} & for the knapsack \\
+\hline
+{\em func} & lambda expression \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+resulting weight 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+src/main/java/com/msu/knp/Knapsack\-Problem.\-java\end{DoxyCompactItemize}

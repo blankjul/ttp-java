@@ -6,7 +6,8 @@ import org.apache.log4j.BasicConfigurator;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.msu.thief.problems.TravellingThiefProblem;
+import com.msu.thief.TravellingThiefProblem;
+import com.msu.thief.scenarios.BonyadiFactory;
 
 public class BonyadiFactoryTest {
 	

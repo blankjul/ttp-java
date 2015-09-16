@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.util.Pair;
+import com.msu.thief.TravellingThiefProblem;
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
@@ -19,7 +20,6 @@ import com.msu.thief.model.packing.BooleanPackingList;
 import com.msu.thief.model.packing.PackingList;
 import com.msu.thief.model.tour.StandardTour;
 import com.msu.thief.model.tour.Tour;
-import com.msu.thief.problems.TravellingThiefProblem;
 import com.msu.thief.variable.TTPVariable;
 
 public class TravellingThiefProblemTest {

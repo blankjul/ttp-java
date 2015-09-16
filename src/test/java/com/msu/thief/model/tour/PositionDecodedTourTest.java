@@ -11,7 +11,8 @@ import org.junit.Test;
 
 import com.msu.moo.model.interfaces.IVariable;
 import com.msu.moo.operators.crossover.SinglePointCrossover;
-import com.msu.thief.problems.TravellingThiefProblem;
+import com.msu.thief.TravellingThiefProblem;
+import com.msu.thief.model.tour.factory.PositionDecodedTourFactory;
 
 public class PositionDecodedTourTest {
 

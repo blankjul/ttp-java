@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.msu.moo.util.Pair;
+import com.msu.thief.TravellingThiefProblem;
 import com.msu.thief.evaluator.IEvaluator;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.packing.PackingList;
 import com.msu.thief.model.tour.Tour;
-import com.msu.thief.problems.TravellingThiefProblem;
 
 /**
  * The TimeCalculator provides an interface for calculating the time of a given

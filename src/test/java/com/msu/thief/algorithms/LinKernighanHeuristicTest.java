@@ -2,6 +2,7 @@ package com.msu.thief.algorithms;
 
 import org.junit.Test;
 
+import com.msu.algorithms.LinKernighanHeuristic;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.tsp.TravellingSalesmanProblem;

@@ -1,0 +1,101 @@
+\hypertarget{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem}{\section{com.\-msu.\-tsp.\-Travelling\-Salesman\-Problem Class Reference}
+\label{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem}\index{com.\-msu.\-tsp.\-Travelling\-Salesman\-Problem@{com.\-msu.\-tsp.\-Travelling\-Salesman\-Problem}}
+}
+Inheritance diagram for com.\-msu.\-tsp.\-Travelling\-Salesman\-Problem\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.718446cm]{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem_a0a5878269d3ef19bcae96cefd7780203}{Travelling\-Salesman\-Problem} (\hyperlink{classcom_1_1msu_1_1thief_1_1model_1_1SymmetricMap}{Symmetric\-Map} map)
+\item 
+Double \hyperlink{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem_a798e3f5291752f96cdad115704e18d7a}{evaluate} (List$<$ Integer $>$ pi)
+\item 
+\hypertarget{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem_a579ec22ec3327c72aaf05e2b4649af3f}{int {\bfseries get\-Number\-Of\-Objectives} ()}\label{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem_a579ec22ec3327c72aaf05e2b4649af3f}
+
+\item 
+\hypertarget{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem_a07ba09f7b9170509441f9d2926158f51}{int {\bfseries num\-Of\-Cities} ()}\label{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem_a07ba09f7b9170509441f9d2926158f51}
+
+\item 
+\hypertarget{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem_a10b90d40349c85a3f648158e9fa5a523}{\hyperlink{classcom_1_1msu_1_1thief_1_1model_1_1SymmetricMap}{Symmetric\-Map} {\bfseries get\-Map} ()}\label{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem_a10b90d40349c85a3f648158e9fa5a523}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem_ad95a98935d07fa7acd8cb505d00c7d2f}{check\-Tour\-Size} (int size, List$<$ Integer $>$ pi)
+\item 
+static void \hyperlink{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem_ab1efe77a150e9413156162105ae954bf}{check\-Tour\-Validtiy} (List$<$ Integer $>$ pi)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem_ac9587ac7ae89eaf8ff668a1b5ffa0ee6}{List$<$ Double $>$ {\bfseries evaluate\-\_\-} (Tour$<$?$>$ variable)}\label{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem_ac9587ac7ae89eaf8ff668a1b5ffa0ee6}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem_adf1dcf831a6523d1eb26ef2cdcb759e4}{\hyperlink{classcom_1_1msu_1_1thief_1_1model_1_1SymmetricMap}{Symmetric\-Map} {\bfseries map}}\label{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem_adf1dcf831a6523d1eb26ef2cdcb759e4}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class defines the \hyperlink{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem}{Travelling\-Salesman\-Problem} which aims to minimize the tour distance of a salesman on a given map. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem_a0a5878269d3ef19bcae96cefd7780203}{\index{com\-::msu\-::tsp\-::\-Travelling\-Salesman\-Problem@{com\-::msu\-::tsp\-::\-Travelling\-Salesman\-Problem}!Travelling\-Salesman\-Problem@{Travelling\-Salesman\-Problem}}
+\index{Travelling\-Salesman\-Problem@{Travelling\-Salesman\-Problem}!com::msu::tsp::TravellingSalesmanProblem@{com\-::msu\-::tsp\-::\-Travelling\-Salesman\-Problem}}
+\subsubsection[{Travelling\-Salesman\-Problem}]{\setlength{\rightskip}{0pt plus 5cm}com.\-msu.\-tsp.\-Travelling\-Salesman\-Problem.\-Travelling\-Salesman\-Problem (
+\begin{DoxyParamCaption}
+\item[{{\bf Symmetric\-Map}}]{map}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem_a0a5878269d3ef19bcae96cefd7780203}
+Construct a \hyperlink{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem}{Travelling\-Salesman\-Problem} by using a predefined map which provides a distance matrix.
+
+
+\begin{DoxyParams}{Parameters}
+{\em map} & object which defines the distances \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem_ad95a98935d07fa7acd8cb505d00c7d2f}{\index{com\-::msu\-::tsp\-::\-Travelling\-Salesman\-Problem@{com\-::msu\-::tsp\-::\-Travelling\-Salesman\-Problem}!check\-Tour\-Size@{check\-Tour\-Size}}
+\index{check\-Tour\-Size@{check\-Tour\-Size}!com::msu::tsp::TravellingSalesmanProblem@{com\-::msu\-::tsp\-::\-Travelling\-Salesman\-Problem}}
+\subsubsection[{check\-Tour\-Size}]{\setlength{\rightskip}{0pt plus 5cm}static void com.\-msu.\-tsp.\-Travelling\-Salesman\-Problem.\-check\-Tour\-Size (
+\begin{DoxyParamCaption}
+\item[{int}]{size, }
+\item[{List$<$ Integer $>$}]{pi}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}}\label{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem_ad95a98935d07fa7acd8cb505d00c7d2f}
+Check if the tour is to short or to long for sure \hypertarget{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem_ab1efe77a150e9413156162105ae954bf}{\index{com\-::msu\-::tsp\-::\-Travelling\-Salesman\-Problem@{com\-::msu\-::tsp\-::\-Travelling\-Salesman\-Problem}!check\-Tour\-Validtiy@{check\-Tour\-Validtiy}}
+\index{check\-Tour\-Validtiy@{check\-Tour\-Validtiy}!com::msu::tsp::TravellingSalesmanProblem@{com\-::msu\-::tsp\-::\-Travelling\-Salesman\-Problem}}
+\subsubsection[{check\-Tour\-Validtiy}]{\setlength{\rightskip}{0pt plus 5cm}static void com.\-msu.\-tsp.\-Travelling\-Salesman\-Problem.\-check\-Tour\-Validtiy (
+\begin{DoxyParamCaption}
+\item[{List$<$ Integer $>$}]{pi}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}}\label{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem_ab1efe77a150e9413156162105ae954bf}
+Check if the tour has no duplicates and contains all the needed indices \hypertarget{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem_a798e3f5291752f96cdad115704e18d7a}{\index{com\-::msu\-::tsp\-::\-Travelling\-Salesman\-Problem@{com\-::msu\-::tsp\-::\-Travelling\-Salesman\-Problem}!evaluate@{evaluate}}
+\index{evaluate@{evaluate}!com::msu::tsp::TravellingSalesmanProblem@{com\-::msu\-::tsp\-::\-Travelling\-Salesman\-Problem}}
+\subsubsection[{evaluate}]{\setlength{\rightskip}{0pt plus 5cm}Double com.\-msu.\-tsp.\-Travelling\-Salesman\-Problem.\-evaluate (
+\begin{DoxyParamCaption}
+\item[{List$<$ Integer $>$}]{pi}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classcom_1_1msu_1_1tsp_1_1TravellingSalesmanProblem_a798e3f5291752f96cdad115704e18d7a}
+Evaluate the tour of the sales man by a given permutation vector. If the vector has a value twice (it is no permutation)
+
+
+\begin{DoxyParams}{Parameters}
+{\em pi} & permutation on which determines the tour. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+src/main/java/com/msu/tsp/Travelling\-Salesman\-Problem.\-java\end{DoxyCompactItemize}

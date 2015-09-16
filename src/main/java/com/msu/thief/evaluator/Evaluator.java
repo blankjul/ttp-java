@@ -5,11 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.msu.moo.util.Pair;
+import com.msu.thief.TravellingThiefProblem;
 import com.msu.thief.evaluator.profit.ProfitEvaluator;
 import com.msu.thief.evaluator.time.TimeEvaluator;
 import com.msu.thief.model.packing.PackingList;
 import com.msu.thief.model.tour.Tour;
-import com.msu.thief.problems.TravellingThiefProblem;
 
 public class Evaluator implements IEvaluator<Pair<Tour<?>,PackingList<?>>, List<Double>>{
 	

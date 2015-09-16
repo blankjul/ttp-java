@@ -2,11 +2,11 @@ package com.msu.thief.variable;
 
 import com.msu.moo.model.interfaces.VariableFactory;
 import com.msu.moo.util.Pair;
-import com.msu.thief.model.packing.IPackingPlanFactory;
+import com.msu.thief.TravellingThiefProblem;
 import com.msu.thief.model.packing.PackingList;
-import com.msu.thief.model.tour.ITourFactory;
+import com.msu.thief.model.packing.factory.IPackingPlanFactory;
 import com.msu.thief.model.tour.Tour;
-import com.msu.thief.problems.TravellingThiefProblem;
+import com.msu.thief.model.tour.factory.ITourFactory;
 
 public class TTPVariableFactory implements VariableFactory<TTPVariable, TravellingThiefProblem> {
 

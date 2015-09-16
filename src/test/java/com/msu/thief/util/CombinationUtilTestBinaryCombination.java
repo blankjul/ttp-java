@@ -9,6 +9,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
+import com.msu.util.CombinatorialUtil;
+
 @RunWith(value = Parameterized.class)
 public class CombinationUtilTestBinaryCombination {
 

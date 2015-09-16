@@ -1,0 +1,108 @@
+\hypertarget{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4}{\section{com.\-msu.\-thief.\-model.\-Item\-Collection$<$ T extends Item $>$ Class Reference}
+\label{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4}\index{com.\-msu.\-thief.\-model.\-Item\-Collection$<$ T extends Item $>$@{com.\-msu.\-thief.\-model.\-Item\-Collection$<$ T extends Item $>$}}
+}
+Inheritance diagram for com.\-msu.\-thief.\-model.\-Item\-Collection$<$ T extends Item $>$\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_a81bcb2492a8fc8324338fc9c93d243b4}{Iterator$<$ T $>$ {\bfseries iterator} ()}\label{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_a81bcb2492a8fc8324338fc9c93d243b4}
+
+\item 
+void \hyperlink{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_a11bea9852ef956861f92527831083aac}{add} (int city, T item)
+\item 
+List$<$ T $>$ \hyperlink{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_a8ba2465ea966528d155028525f417702}{get\-Items} ()
+\item 
+boolean \hyperlink{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_a82d96f8e83739b321cc185119481f770}{is\-Item\-At\-City} (int city, T item)
+\item 
+List$<$ T $>$ \hyperlink{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_a3d2560312732695c625bc083bc440761}{get\-Items\-From\-City} (int city)
+\item 
+Set$<$ Integer $>$ \hyperlink{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_a87765ea1b66b6a31d89679c9ca768413}{get\-Items\-From\-City\-By\-Index} (int city)
+\item 
+\hypertarget{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_a61467644747e6a702b72abad14bb12ac}{int {\bfseries size} ()}\label{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_a61467644747e6a702b72abad14bb12ac}
+
+\item 
+\hypertarget{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_aee431beb012ef3de53ade3cdf59a4131}{\hyperlink{classcom_1_1msu_1_1thief_1_1model_1_1Item}{Item} {\bfseries get} (int i)}\label{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_aee431beb012ef3de53ade3cdf59a4131}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_a678804cba392f7ba8be19313f8b48c15}{Array\-List$<$ T $>$ {\bfseries items}}\label{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_a678804cba392f7ba8be19313f8b48c15}
+
+\item 
+\hypertarget{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_abdafcfaf4a7dbae104fd5b4e16f20b69}{Hash\-Multimap$<$ Integer, Integer $>$ {\bfseries map\-From\-City\-To\-Item}}\label{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_abdafcfaf4a7dbae104fd5b4e16f20b69}
+
+\item 
+\hypertarget{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_a7c4263b1bf9c6a5b7404db3247abe598}{Hash\-Map$<$ Integer, Integer $>$ {\bfseries map\-From\-Item\-To\-City}}\label{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_a7c4263b1bf9c6a5b7404db3247abe598}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class represents a Item\-Collection that maps each item to a city. Several utility structures are used to provide fast access. 
+\begin{DoxyParams}{Parameters}
+{\em $<$\-T$>$} & \hyperlink{classcom_1_1msu_1_1thief_1_1model_1_1Item}{Item} class or inherited one! \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_a11bea9852ef956861f92527831083aac}{\index{com\-::msu\-::thief\-::model\-::\-Item\-Collection$<$ T extends Item $>$@{com\-::msu\-::thief\-::model\-::\-Item\-Collection$<$ T extends Item $>$}!add@{add}}
+\index{add@{add}!com::msu::thief::model::ItemCollection< T extends Item >@{com\-::msu\-::thief\-::model\-::\-Item\-Collection$<$ T extends Item $>$}}
+\subsubsection[{add}]{\setlength{\rightskip}{0pt plus 5cm}void com.\-msu.\-thief.\-model.\-Item\-Collection$<$ T extends {\bf Item} $>$.add (
+\begin{DoxyParamCaption}
+\item[{int}]{city, }
+\item[{T}]{item}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_a11bea9852ef956861f92527831083aac}
+Add an item to a city. \hypertarget{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_a8ba2465ea966528d155028525f417702}{\index{com\-::msu\-::thief\-::model\-::\-Item\-Collection$<$ T extends Item $>$@{com\-::msu\-::thief\-::model\-::\-Item\-Collection$<$ T extends Item $>$}!get\-Items@{get\-Items}}
+\index{get\-Items@{get\-Items}!com::msu::thief::model::ItemCollection< T extends Item >@{com\-::msu\-::thief\-::model\-::\-Item\-Collection$<$ T extends Item $>$}}
+\subsubsection[{get\-Items}]{\setlength{\rightskip}{0pt plus 5cm}List$<$T$>$ com.\-msu.\-thief.\-model.\-Item\-Collection$<$ T extends {\bf Item} $>$.get\-Items (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_a8ba2465ea966528d155028525f417702}
+\begin{DoxyReturn}{Returns}
+items as a vector 
+\end{DoxyReturn}
+\hypertarget{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_a3d2560312732695c625bc083bc440761}{\index{com\-::msu\-::thief\-::model\-::\-Item\-Collection$<$ T extends Item $>$@{com\-::msu\-::thief\-::model\-::\-Item\-Collection$<$ T extends Item $>$}!get\-Items\-From\-City@{get\-Items\-From\-City}}
+\index{get\-Items\-From\-City@{get\-Items\-From\-City}!com::msu::thief::model::ItemCollection< T extends Item >@{com\-::msu\-::thief\-::model\-::\-Item\-Collection$<$ T extends Item $>$}}
+\subsubsection[{get\-Items\-From\-City}]{\setlength{\rightskip}{0pt plus 5cm}List$<$T$>$ com.\-msu.\-thief.\-model.\-Item\-Collection$<$ T extends {\bf Item} $>$.get\-Items\-From\-City (
+\begin{DoxyParamCaption}
+\item[{int}]{city}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_a3d2560312732695c625bc083bc440761}
+\begin{DoxyReturn}{Returns}
+all items that are at the specific city. 
+\end{DoxyReturn}
+\hypertarget{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_a87765ea1b66b6a31d89679c9ca768413}{\index{com\-::msu\-::thief\-::model\-::\-Item\-Collection$<$ T extends Item $>$@{com\-::msu\-::thief\-::model\-::\-Item\-Collection$<$ T extends Item $>$}!get\-Items\-From\-City\-By\-Index@{get\-Items\-From\-City\-By\-Index}}
+\index{get\-Items\-From\-City\-By\-Index@{get\-Items\-From\-City\-By\-Index}!com::msu::thief::model::ItemCollection< T extends Item >@{com\-::msu\-::thief\-::model\-::\-Item\-Collection$<$ T extends Item $>$}}
+\subsubsection[{get\-Items\-From\-City\-By\-Index}]{\setlength{\rightskip}{0pt plus 5cm}Set$<$Integer$>$ com.\-msu.\-thief.\-model.\-Item\-Collection$<$ T extends {\bf Item} $>$.get\-Items\-From\-City\-By\-Index (
+\begin{DoxyParamCaption}
+\item[{int}]{city}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_a87765ea1b66b6a31d89679c9ca768413}
+\begin{DoxyReturn}{Returns}
+all items that are at the specific city by index 
+\end{DoxyReturn}
+\hypertarget{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_a82d96f8e83739b321cc185119481f770}{\index{com\-::msu\-::thief\-::model\-::\-Item\-Collection$<$ T extends Item $>$@{com\-::msu\-::thief\-::model\-::\-Item\-Collection$<$ T extends Item $>$}!is\-Item\-At\-City@{is\-Item\-At\-City}}
+\index{is\-Item\-At\-City@{is\-Item\-At\-City}!com::msu::thief::model::ItemCollection< T extends Item >@{com\-::msu\-::thief\-::model\-::\-Item\-Collection$<$ T extends Item $>$}}
+\subsubsection[{is\-Item\-At\-City}]{\setlength{\rightskip}{0pt plus 5cm}boolean com.\-msu.\-thief.\-model.\-Item\-Collection$<$ T extends {\bf Item} $>$.is\-Item\-At\-City (
+\begin{DoxyParamCaption}
+\item[{int}]{city, }
+\item[{T}]{item}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classcom_1_1msu_1_1thief_1_1model_1_1ItemCollection_3_01T_01extends_01Item_01_4_a82d96f8e83739b321cc185119481f770}
+\begin{DoxyReturn}{Returns}
+true if item is at the specific city, otherwise false 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+src/main/java/com/msu/thief/model/Item\-Collection.\-java\end{DoxyCompactItemize}

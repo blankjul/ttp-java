@@ -35,7 +35,6 @@ public class Item {
 	}
 	
 	
-
 	public double getWeight() {
 		return weight;
 	}
@@ -43,7 +42,6 @@ public class Item {
 	public double getProfit() {
 		return profit;
 	}
-
 
 	public double getDropping() {
 		return dropping;

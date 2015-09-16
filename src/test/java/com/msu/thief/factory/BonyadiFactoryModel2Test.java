@@ -5,7 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.msu.thief.problems.TravellingThiefProblem;
+import com.msu.thief.TravellingThiefProblem;
+import com.msu.thief.scenarios.BonyadiFactoryModel1;
 
 public class BonyadiFactoryModel2Test {
 	

@@ -7,7 +7,7 @@ import java.util.function.Function;
 
 import com.msu.moo.model.AbstractProblem;
 import com.msu.thief.model.Item;
-import com.msu.thief.problems.IPackingProblem;
+import com.msu.thief.model.packing.PackingList;
 
 /**
  * This class represents the knapsack problem.
@@ -16,7 +16,7 @@ import com.msu.thief.problems.IPackingProblem;
  * fits into the knapsack.
  *
  */
-public class KnapsackProblem  extends AbstractProblem<KnapsackVariable> implements IPackingProblem{
+public class KnapsackProblem  extends AbstractProblem<PackingList<?>> implements IPackingProblem{
 
 	// ! maximal weight of the knapsack
 	private int maxWeight;
@@ -88,8 +88,8 @@ public class KnapsackProblem  extends AbstractProblem<KnapsackVariable> implemen
 	}
 
 	@Override
-	protected List<Double> evaluate_(KnapsackVariable variable) {
-		double profit = evaluate(variable.get().encode());
+	protected List<Double> evaluate_(PackingList<?> variable) {
+		double profit = evaluate(variable.get());
 		return new ArrayList<Double>(Arrays.asList(-profit));
 	}
 	

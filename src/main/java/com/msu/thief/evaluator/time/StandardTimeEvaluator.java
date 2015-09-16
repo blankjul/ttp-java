@@ -3,11 +3,11 @@ package com.msu.thief.evaluator.time;
 import java.util.List;
 
 import com.msu.moo.util.Pair;
+import com.msu.thief.TravellingThiefProblem;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.packing.PackingList;
 import com.msu.thief.model.tour.Tour;
-import com.msu.thief.problems.TravellingThiefProblem;
 
 public class StandardTimeEvaluator extends TimeEvaluator {
 
