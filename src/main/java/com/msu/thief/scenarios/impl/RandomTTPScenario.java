@@ -1,7 +1,7 @@
 package com.msu.thief.scenarios.impl;
 
-import com.msu.knp.impl.scenarios.RandomKnapsackScenario;
-import com.msu.knp.impl.scenarios.RandomKnapsackScenario.CORRELATION_TYPE;
+import com.msu.knp.scenarios.impl.RandomKnapsackScenario;
+import com.msu.knp.scenarios.impl.RandomKnapsackScenario.CORRELATION_TYPE;
 import com.msu.thief.TravellingThiefProblem;
 import com.msu.thief.evaluator.profit.IndividualProfitEvaluator;
 import com.msu.thief.model.Item;
@@ -71,6 +71,7 @@ public class RandomTTPScenario extends AScenario<TravellingThiefProblem, Object>
 		problem.setItems(items);
 		problem.setMaxWeight((int) (sumWeights * maxWeightPerc));
 		problem.setProfitEvaluator(new IndividualProfitEvaluator());
+		problem.setName(String.format("TTP-%s-%s-%s-%s", numOfCities, numOfItemsPerCity, maxWeightPerc, corrType));
 		return problem;
 	}
 

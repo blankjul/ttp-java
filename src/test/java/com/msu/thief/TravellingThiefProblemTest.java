@@ -7,13 +7,13 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.msu.moo.exception.EvaluationException;
 import com.msu.moo.util.Pair;
+import com.msu.moo.util.exceptions.EvaluationException;
 import com.msu.thief.model.packing.BooleanPackingList;
 import com.msu.thief.model.packing.PackingList;
 import com.msu.thief.model.tour.StandardTour;
 import com.msu.thief.model.tour.Tour;
-import com.msu.thief.scenarios.impl.BonyadiScenario;
+import com.msu.thief.scenarios.impl.BonyadiPublicationScenario;
 import com.msu.thief.variable.TTPVariable;
 
 public class TravellingThiefProblemTest {
@@ -22,7 +22,7 @@ public class TravellingThiefProblemTest {
 
 	@Before
 	public void setUp() {
-		ttp = new BonyadiScenario().getObject();
+		ttp = new BonyadiPublicationScenario().getObject();
 	}
 
 	

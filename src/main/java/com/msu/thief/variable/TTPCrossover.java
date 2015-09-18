@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.msu.moo.model.interfaces.IVariable;
+import com.msu.moo.interfaces.IVariable;
 import com.msu.moo.operators.AbstractCrossover;
 import com.msu.moo.util.Pair;
 

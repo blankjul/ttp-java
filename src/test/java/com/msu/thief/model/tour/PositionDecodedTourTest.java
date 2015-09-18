@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.msu.moo.model.interfaces.IVariable;
+import com.msu.moo.interfaces.IVariable;
 import com.msu.moo.operators.crossover.SinglePointCrossover;
 import com.msu.thief.TravellingThiefProblem;
 import com.msu.thief.model.tour.factory.PositionDecodedTourFactory;
@@ -31,7 +31,7 @@ public class PositionDecodedTourTest {
 	@Test
 	public void testRandomCreation() {
 		for (int i = 0; i < 100; i++) {
-			Tour<?> t = new PositionDecodedTourFactory<>().create(new TTPMOCK());
+			Tour<?> t = new PositionDecodedTourFactory<>().next(new TTPMOCK());
 			@SuppressWarnings("unchecked")
 			ArrayList<Integer> list = (ArrayList<Integer>) t.get();
 			assertTrue(list.get(0) == 0);

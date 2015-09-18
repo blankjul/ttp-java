@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
+import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.model.tour.Tour;
@@ -51,7 +52,7 @@ public class LinKernighanHeuristicTest {
 	public void testCorrectness() {
 		LinKernighanHeuristic lkh = new LinKernighanHeuristic();
 		SymmetricMap map = scenario.getObject();
-		NonDominatedSolutionSet set = lkh.run(new TravellingSalesmanProblem(map));
+		NonDominatedSolutionSet set = lkh.run(new Evaluator<TravellingSalesmanProblem>(new TravellingSalesmanProblem(map)));
 		assertEquals(1, set.getSolutions().size());
 		assertEquals(optimal, set.getSolutions().get(0).getObjectives(0), 0.1);
 	}

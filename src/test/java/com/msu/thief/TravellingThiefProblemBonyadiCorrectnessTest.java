@@ -15,7 +15,7 @@ import com.msu.thief.model.packing.BooleanPackingList;
 import com.msu.thief.model.packing.PackingList;
 import com.msu.thief.model.tour.StandardTour;
 import com.msu.thief.model.tour.Tour;
-import com.msu.thief.scenarios.impl.BonyadiScenario;
+import com.msu.thief.scenarios.impl.BonyadiPublicationScenario;
 import com.msu.thief.variable.TTPVariable;
 
 public class TravellingThiefProblemBonyadiCorrectnessTest {
@@ -24,7 +24,7 @@ public class TravellingThiefProblemBonyadiCorrectnessTest {
 
 	@Before
 	public void setUp() {
-		ttp = new BonyadiScenario().getObject();
+		ttp = new BonyadiPublicationScenario().getObject();
 	}
 
 	@Test
@@ -33,8 +33,8 @@ public class TravellingThiefProblemBonyadiCorrectnessTest {
 		PackingList<List<Boolean>> b = new BooleanPackingList(
 				new ArrayList<Boolean>(Arrays.asList(false, false, false, false, false, false)));
 		Solution p = ttp.evaluate(new TTPVariable(Pair.create(tour, b)));
-		assertEquals(20.0, p.getObjectives().get(0), 0.01);
-		assertEquals(0.0, p.getObjectives().get(1), 0.01);
+		assertEquals(20.0, p.getObjective().get(0), 0.01);
+		assertEquals(0.0, p.getObjective().get(1), 0.01);
 	}
 
 	@Test
@@ -43,8 +43,8 @@ public class TravellingThiefProblemBonyadiCorrectnessTest {
 		PackingList<List<Boolean>> b = new BooleanPackingList(
 				new ArrayList<Boolean>(Arrays.asList(false, true, false, false, false, false)));
 		Solution p = ttp.evaluate(new TTPVariable(Pair.create(tour, b)));
-		assertEquals(23.57, p.getObjectives().get(0), 0.01);
-		assertEquals(-3.65, p.getObjectives().get(1), 0.01);
+		assertEquals(23.57, p.getObjective().get(0), 0.01);
+		assertEquals(-3.65, p.getObjective().get(1), 0.01);
 	}
 
 	@Test
@@ -53,8 +53,8 @@ public class TravellingThiefProblemBonyadiCorrectnessTest {
 		PackingList<List<Boolean>> b = new BooleanPackingList(
 				new ArrayList<Boolean>(Arrays.asList(false, true, true, false, false, false)));
 		Solution p = ttp.evaluate(new TTPVariable(Pair.create(tour, b)));
-		assertEquals(30.0, p.getObjectives().get(0), 0.01);
-		assertEquals(-6.83, p.getObjectives().get(1), 0.01);
+		assertEquals(30.0, p.getObjective().get(0), 0.01);
+		assertEquals(-6.83, p.getObjective().get(1), 0.01);
 	}
 
 	@Test
@@ -63,7 +63,7 @@ public class TravellingThiefProblemBonyadiCorrectnessTest {
 		PackingList<List<Boolean>> b = new BooleanPackingList(
 				new ArrayList<Boolean>(Arrays.asList(true, true, true, false, true, true)));
 		Solution p = ttp.evaluate(new TTPVariable(Pair.create(tour, b)));
-		assertEquals(0.0, p.getObjectives().get(1), 0.01);
+		assertEquals(0.0, p.getObjective().get(1), 0.01);
 	}
 
 	@Test
@@ -72,8 +72,8 @@ public class TravellingThiefProblemBonyadiCorrectnessTest {
 		PackingList<List<Boolean>> b = new BooleanPackingList(
 				new ArrayList<Boolean>(Arrays.asList(false, false, false, false, false, false)));
 		Solution p = ttp.evaluate(new TTPVariable(Pair.create(tour, b)));
-		assertEquals(20.0, p.getObjectives().get(0), 0.01);
-		assertEquals(0.0, p.getObjectives().get(1), 0.01);
+		assertEquals(20.0, p.getObjective().get(0), 0.01);
+		assertEquals(0.0, p.getObjective().get(1), 0.01);
 	}
 
 }

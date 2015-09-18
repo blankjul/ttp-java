@@ -1,6 +1,6 @@
 package com.msu.thief.variable;
 
-import com.msu.moo.model.interfaces.IVariable;
+import com.msu.moo.interfaces.IVariable;
 import com.msu.moo.operators.AbstractMutation;
 import com.msu.moo.util.Pair;
 

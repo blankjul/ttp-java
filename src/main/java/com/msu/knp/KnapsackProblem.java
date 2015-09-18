@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
-import com.msu.moo.exception.EvaluationException;
-import com.msu.moo.model.AbstractProblem;
+import com.msu.moo.model.AMultiObjectiveProblem;
+import com.msu.moo.util.exceptions.EvaluationException;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.packing.PackingList;
 
@@ -17,7 +17,7 @@ import com.msu.thief.model.packing.PackingList;
  * fits into the knapsack.
  *
  */
-public class KnapsackProblem  extends AbstractProblem<PackingList<?>> implements IPackingProblem{
+public class KnapsackProblem  extends AMultiObjectiveProblem<PackingList<?>> implements IPackingProblem{
 
 	// ! maximal weight of the knapsack
 	protected int maxWeight;

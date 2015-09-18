@@ -15,10 +15,10 @@ import com.msu.tsp.ICityProblem;
  * The encoding is nothing else than returning the array directly.
  *
  */
-public class PositionDecodedTourFactory<P extends ICityProblem> implements ITourFactory<P> {
+public class PositionDecodedTourFactory<P extends ICityProblem> extends ATourFactory<P> {
 
 	@Override
-	public Tour<?> create(P p) {
+	public Tour<?> next(P p) {
 		LinkedList<Integer> indices = new LinkedList<Integer>();
 		for (int i = 0; i < p.numOfCities(); i++) {
 			indices.add(Random.getInstance().nextInt(0, i));

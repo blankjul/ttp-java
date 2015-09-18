@@ -3,11 +3,10 @@ package com.msu.experiment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 
-import com.msu.moo.algorithms.NSGAIIBuilder;
-import com.msu.moo.experiment.OneProblemOneAlgorithmExperiment;
-import com.msu.moo.model.interfaces.IAlgorithm;
+import com.msu.moo.algorithms.impl.NSGAIIBuilder;
+import com.msu.moo.experiment.AMultiObjectiveExperiment;
+import com.msu.moo.experiment.ExperimetSettings;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.operators.crossover.SinglePointCrossover;
@@ -40,7 +39,7 @@ import com.msu.thief.variable.TTPVariableFactory;
  * Bays29, Berlin52, Eil101, D198
  *
  */
-public class TSPExperiment extends OneProblemOneAlgorithmExperiment<TravellingThiefProblem> {
+public class TSPExperiment extends AMultiObjectiveExperiment<TravellingThiefProblem> {
 
 	
 	//! the current scenario which is executed
@@ -49,48 +48,37 @@ public class TSPExperiment extends OneProblemOneAlgorithmExperiment<TravellingTh
 			(AScenario<SymmetricMap, Tour<?>>) ObjectFactory.create( "com.msu.tsp.scenarios.impl.Bays29");
 	
 	
-	public void report() {
-		for (IAlgorithm<TravellingThiefProblem> a : algorithms) {
-			Collection<NonDominatedSolutionSet> sets = expResult.get(problem, a);
-			for(NonDominatedSolutionSet s : sets) {
-				System.out.println(s.getSolutions().get(0).getObjectives().get(0));
-			}
-		}
-	}
-	
 	
 	@Override
-	protected IAlgorithm<TravellingThiefProblem> getAlgorithm() {
+	protected void setAlgorithms(ExperimetSettings<TravellingThiefProblem, NonDominatedSolutionSet> settings) {
 		NSGAIIBuilder<TTPVariable, TravellingThiefProblem> builder = new NSGAIIBuilder<>();
 		builder.setFactory(new TTPVariableFactory(new StandardTourFactory<>(), new BooleanPackingListFactory()));
 		builder.setMutation(new TTPMutation(new SwapMutation<>(), new BitFlipMutation()));
 		builder.setCrossover(new TTPCrossover(new EdgeRecombinationCrossover<Integer>(), new SinglePointCrossover<>()));
 		builder.setProbMutation(0.3);
 		builder.setPopulationSize(1000);
-		return builder.create();
+		settings.addAlgorithm(builder.create());
 	}
 	
 	
-	
 	@Override
-	protected TravellingThiefProblem getProblem() {
+	protected void setProblems(ExperimetSettings<TravellingThiefProblem, NonDominatedSolutionSet> settings) {
 		TravellingThiefProblem problem = new TravellingThiefProblem(scenario.getObject(), new ItemCollection<Item>(), 0);
 		problem.setName(this.getClass().getSimpleName());
-		return problem;
+		settings.addProblem(problem);
 	}
 	
 	
-	
 	@Override
-	protected NonDominatedSolutionSet getTrueFront() {
+	protected void setOptima(ExperimetSettings<TravellingThiefProblem, NonDominatedSolutionSet> settings) {
+		TravellingThiefProblem problem = settings.getProblems().get(0);
 		PackingList<?> l = new BooleanPackingList(new ArrayList<Boolean>());
 		
 		Solution s = problem.evaluate(new TTPVariable(Pair.create(scenario.getOptimal(), l)));
 		NonDominatedSolutionSet set = new NonDominatedSolutionSet(Arrays.asList(s));
-		
-		System.out.println(set.getSolutions().get(0).getObjectives());
-		return set;
+		settings.addOptima(problem, set);
 	}
+	
 
 	
 }

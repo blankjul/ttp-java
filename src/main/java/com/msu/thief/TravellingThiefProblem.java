@@ -3,9 +3,9 @@ package com.msu.thief;
 import java.util.List;
 
 import com.msu.knp.IPackingProblem;
-import com.msu.moo.exception.EvaluationException;
-import com.msu.moo.model.AbstractProblem;
+import com.msu.moo.model.AMultiObjectiveProblem;
 import com.msu.moo.util.Pair;
+import com.msu.moo.util.exceptions.EvaluationException;
 import com.msu.thief.evaluator.Evaluator;
 import com.msu.thief.evaluator.profit.IndividualProfitEvaluator;
 import com.msu.thief.evaluator.profit.ProfitEvaluator;
@@ -20,7 +20,7 @@ import com.msu.thief.variable.TTPVariable;
 import com.msu.tsp.ICityProblem;
 import com.msu.tsp.TravellingSalesmanProblem;
 
-public class TravellingThiefProblem extends AbstractProblem<TTPVariable> implements IPackingProblem, ICityProblem{
+public class TravellingThiefProblem extends AMultiObjectiveProblem<TTPVariable> implements IPackingProblem, ICityProblem{
 	
 	// ! minimal speed of the salesman
 	protected double minSpeed = 0.1d;

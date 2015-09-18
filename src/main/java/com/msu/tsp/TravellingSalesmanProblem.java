@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-import com.msu.moo.exception.EvaluationException;
-import com.msu.moo.model.AbstractProblem;
+import com.msu.moo.model.AMultiObjectiveProblem;
+import com.msu.moo.util.exceptions.EvaluationException;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.model.tour.Tour;
 import com.msu.util.Util;
@@ -15,7 +15,7 @@ import com.msu.util.Util;
  * This class defines the TravellingSalesmanProblem which aims to minimize the
  * tour distance of a salesman on a given map.
  */
-public class TravellingSalesmanProblem extends AbstractProblem<Tour<?>> implements ICityProblem{
+public class TravellingSalesmanProblem extends AMultiObjectiveProblem<Tour<?>> implements ICityProblem{
 
 	// ! Map on which the salesman could plan his tour
 	protected SymmetricMap map;

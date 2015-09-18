@@ -2,13 +2,13 @@ package com.msu.thief.model.tour;
 
 import java.util.List;
 
-import com.msu.moo.model.AbstractVariable;
+import com.msu.moo.model.AVariable;
 
 /**
  * This class represents the interface of a tour. Since there are different representation of tours 
  * which could be all encoded to the permutation representation.
  */
-public abstract class Tour<T> extends AbstractVariable<T> {
+public abstract class Tour<T> extends AVariable<T> {
 
 	
 	public Tour(T obj) {

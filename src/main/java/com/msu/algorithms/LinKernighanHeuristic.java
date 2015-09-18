@@ -9,7 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.msu.moo.model.AbstractAlgorithm;
+import com.msu.moo.algorithms.AMultiObjectiveAlgorithm;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.util.BashExecutor;
 import com.msu.moo.util.Util;
@@ -34,13 +34,11 @@ import com.msu.tsp.TravellingSalesmanProblem;
  * 1,904,711-city instance (World TSP).
  * 
  */
-public class LinKernighanHeuristic extends AbstractAlgorithm<Tour<?>, TravellingSalesmanProblem> {
+public class LinKernighanHeuristic extends AMultiObjectiveAlgorithm<TravellingSalesmanProblem> {
 
 	// ! path to the LKH executable
 	protected String pathToLKH = "vendor/LKH-2.0.7/LKH";
 
-	protected boolean hasFinished = false;
-	
 	protected List<Integer> result= null;
 
 	public LinKernighanHeuristic() {
@@ -49,13 +47,12 @@ public class LinKernighanHeuristic extends AbstractAlgorithm<Tour<?>, Travelling
 
 	}
 
-
+	
 	@Override
-	protected void next() {
-		this.hasFinished = true;
+	public NonDominatedSolutionSet run(com.msu.moo.model.Evaluator<TravellingSalesmanProblem> eval) {
 
 		try {
-			writeProblemFile();
+			writeProblemFile(eval.getProblem());
 			writeParameterFile();
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -82,23 +79,15 @@ public class LinKernighanHeuristic extends AbstractAlgorithm<Tour<?>, Travelling
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public boolean hasFinished() {
-		return hasFinished;
-	}
-
-	@Override
-	protected NonDominatedSolutionSet getResult() {
+		
 		Tour<?> tour = new StandardTour(result);
 		NonDominatedSolutionSet result = new NonDominatedSolutionSet();
-		result.add(problem.evaluate(tour));
+		result.add(eval.evaluate(tour));
 		return result;
 	}
-	
 
-	private void writeProblemFile() throws FileNotFoundException, UnsupportedEncodingException {
+
+	private void writeProblemFile(TravellingSalesmanProblem problem) throws FileNotFoundException, UnsupportedEncodingException {
 		PrintWriter writer;
 		writer = new PrintWriter("problem.tsp", "UTF-8");
 		writer.println("TYPE : TSP");
@@ -128,5 +117,7 @@ public class LinKernighanHeuristic extends AbstractAlgorithm<Tour<?>, Travelling
 		writer.println("TOUR_FILE = tour.opt");
 		writer.close();
 	}
+
+
 
 }

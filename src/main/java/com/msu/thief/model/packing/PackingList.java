@@ -2,9 +2,9 @@ package com.msu.thief.model.packing;
 
 import java.util.List;
 
-import com.msu.moo.model.AbstractVariable;
+import com.msu.moo.model.AVariable;
 
-public abstract class PackingList<T> extends AbstractVariable<List<Boolean>> {
+public abstract class PackingList<T> extends AVariable<List<Boolean>> {
 
 	
 	public PackingList(List<Boolean> obj) {

@@ -1,4 +1,4 @@
-package com.msu.knp.impl.scenarios;
+package com.msu.knp.scenarios.impl;
 
 public class KNP_13_0020_1000_1 extends AKnapsackScenario {
 

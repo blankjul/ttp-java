@@ -1,4 +1,4 @@
-package com.msu.knp.impl.scenarios;
+package com.msu.knp.scenarios.impl;
 
 import java.util.ArrayList;
 import java.util.List;

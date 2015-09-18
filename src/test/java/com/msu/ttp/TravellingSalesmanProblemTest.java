@@ -8,7 +8,7 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.msu.moo.exception.EvaluationException;
+import com.msu.moo.util.exceptions.EvaluationException;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.tsp.TravellingSalesmanProblem;
 

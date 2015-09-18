@@ -6,7 +6,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.model.solution.SolutionSet;
-import com.msu.moo.visualization.ScatterPlot;
+import com.msu.moo.util.plots.ScatterPlot;
 import com.msu.thief.variable.TTPVariable;
 
 public class ColoredTourScatterPlot extends ScatterPlot {

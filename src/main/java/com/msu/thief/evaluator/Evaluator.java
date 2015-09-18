@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.msu.moo.exception.EvaluationException;
 import com.msu.moo.util.Pair;
+import com.msu.moo.util.exceptions.EvaluationException;
 import com.msu.thief.TravellingThiefProblem;
 import com.msu.thief.evaluator.profit.ProfitEvaluator;
 import com.msu.thief.evaluator.time.TimeEvaluator;

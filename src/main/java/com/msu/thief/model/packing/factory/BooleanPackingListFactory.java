@@ -8,11 +8,11 @@ import com.msu.thief.TravellingThiefProblem;
 import com.msu.thief.model.packing.BooleanPackingList;
 import com.msu.thief.model.packing.PackingList;
 
-public class BooleanPackingListFactory implements IPackingPlanFactory {
+public class BooleanPackingListFactory extends APackingPlanFactory {
 
 
 	@Override
-	public PackingList<?> create(TravellingThiefProblem p) {
+	public PackingList<?> next(TravellingThiefProblem p) {
 		Random rnd = Random.getInstance();
 		double pickingProb = rnd.nextDouble();
 		List<Boolean> b = new ArrayList<Boolean>();

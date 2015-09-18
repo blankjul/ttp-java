@@ -1,8 +1,8 @@
 package com.msu.algorithms;
 
 
-import com.msu.moo.algorithms.NSGAII;
-import com.msu.moo.algorithms.NSGAIIBuilder;
+import com.msu.moo.algorithms.impl.NSGAII;
+import com.msu.moo.algorithms.impl.NSGAIIBuilder;
 import com.msu.moo.operators.crossover.SinglePointCrossover;
 import com.msu.moo.operators.crossover.permutation.CycleCrossover;
 import com.msu.moo.operators.mutation.BitFlipMutation;
@@ -24,9 +24,10 @@ public class AlgorithmFactory {
 	public static NSGAIIBuilder<TTPVariable, TravellingThiefProblem>  createNSGAIIBuilder() {
 		NSGAIIBuilder<TTPVariable, TravellingThiefProblem> builder = new NSGAIIBuilder<>();
 		builder.setFactory(new TTPVariableFactory(new StandardTourFactory<>(), new BooleanPackingListFactory()));
-		builder.setMutation(new TTPMutation(new SwapMutation<>(), new BitFlipMutation()));
 		builder.setCrossover(new TTPCrossover(new CycleCrossover<>(), new SinglePointCrossover<>()));
+		builder.setMutation(new TTPMutation(new SwapMutation<>(), new BitFlipMutation()));
 		builder.setProbMutation(0.3);
+		builder.setName("NSGAII-ST[CYC-SWAP]-BP[SPX-BFM]");
 		return builder;
 	}
 
