@@ -8,7 +8,7 @@ import com.msu.thief.TravellingThiefProblem;
 import com.msu.thief.model.packing.BooleanPackingList;
 import com.msu.thief.model.packing.PackingList;
 
-public class BooleanPackingListFactory extends APackingPlanFactory {
+public class PackingListFactory extends APackingPlanFactory {
 
 
 	@Override

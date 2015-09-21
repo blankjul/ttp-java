@@ -1,0 +1,4 @@
+PROBLEM_FILE = problem.tsp
+RUNS = 1
+TRACE_LEVEL = 0
+TOUR_FILE = tour.opt

@@ -13,7 +13,7 @@ import com.msu.moo.operators.crossover.permutation.PMXCrossover;
 import com.msu.moo.operators.mutation.BitFlipMutation;
 import com.msu.moo.operators.mutation.SwapMutation;
 import com.msu.thief.TravellingThiefProblem;
-import com.msu.thief.model.packing.factory.BooleanPackingListFactory;
+import com.msu.thief.model.packing.factory.PackingListFactory;
 import com.msu.thief.model.tour.factory.StandardTourFactory;
 import com.msu.thief.model.tour.factory.StandardTourMutateOptimumFactory;
 import com.msu.thief.scenarios.impl.RandomTTPScenario;
@@ -28,7 +28,7 @@ public class NSGAIIOperatorExperiment extends AMultiObjectiveExperiment<Travelli
 	protected void setAlgorithms(ExperimetSettings<TravellingThiefProblem, NonDominatedSolutionSet> settings) {
 
 		NSGAIIBuilder<TTPVariable, TravellingThiefProblem> builder = new NSGAIIBuilder<>();
-		builder.setFactory(new TTPVariableFactory(new StandardTourFactory<>(), new BooleanPackingListFactory()));
+		builder.setFactory(new TTPVariableFactory(new StandardTourFactory<>(), new PackingListFactory()));
 		builder.setMutation(new TTPMutation(new SwapMutation<>(), new BitFlipMutation()));
 		builder.setProbMutation(0.3);
 		
@@ -44,7 +44,7 @@ public class NSGAIIOperatorExperiment extends AMultiObjectiveExperiment<Travelli
 				.setName("NSGAII-ST[ERX-SWAP]-BP[SPX-BFM]").create());
 		
 		
-		builder.setFactory(new TTPVariableFactory(new StandardTourMutateOptimumFactory<>(), new BooleanPackingListFactory()));
+		builder.setFactory(new TTPVariableFactory(new StandardTourMutateOptimumFactory<>(), new PackingListFactory()));
 		settings.addAlgorithm(builder.setCrossover(new TTPCrossover(new OrderedCrossover<Integer>(), new SinglePointCrossover<Boolean>()))
 				.setName("NSGAII-ST[OX-SWAP]-BP[SPX-BFM]").create());
 		

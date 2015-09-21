@@ -32,8 +32,6 @@ public class TravellingThiefProblem extends AMultiObjectiveProblem<TTPVariable> 
 	protected ProfitEvaluator evalProfit = new IndividualProfitEvaluator();
 	protected TimeEvaluator evalTime = new StandardTimeEvaluator(this);
 
-	// ! name of this problem instance
-	protected String name = "NO_NAME";
 
 	// ! map where the salesman could visit cities
 	protected SymmetricMap map = null;
@@ -92,18 +90,6 @@ public class TravellingThiefProblem extends AMultiObjectiveProblem<TTPVariable> 
 		return 2;
 	}
 
-	@Override
-	public String toString() {
-		return name;
-	}
-
-	/*
-	 * Getter and Setter Methods
-	 */
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public SymmetricMap getMap() {
 		return map;

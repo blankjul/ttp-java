@@ -22,16 +22,16 @@ public class ExperimentExecutor {
 	 */
 	
 	//! experiment that should be executed
-	protected final static String EXPERIMENT = "com.msu.experiment.KNPExperiment";
+	protected final static String EXPERIMENT = "com.msu.experiment.KNPOperatorExperiment";
 	
 	//! number of iterations per experiment
-	protected final static int ITERATIONS = 1;
+	protected final static int ITERATIONS = 10;
 	
 	//! max evaluations per run
-	protected final static int MAX_EVALUATIONS = 50000;
+	protected final static int MAX_EVALUATIONS = 200000;
 	
 	//! random seed for experiment execution
-	protected final static long SEED = 8979654;		
+	protected final static long SEED = 456464;		
 	
 	
 	public static void main(String[] args) {

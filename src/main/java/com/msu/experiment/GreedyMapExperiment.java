@@ -4,7 +4,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.msu.algorithms.AlgorithmFactory;
+import com.msu.AlgorithmFactory;
 import com.msu.moo.experiment.AMultiObjectiveExperiment;
 import com.msu.moo.experiment.ExperimetSettings;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;

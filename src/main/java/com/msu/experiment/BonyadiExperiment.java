@@ -1,11 +1,12 @@
 package com.msu.experiment;
 
-import com.msu.algorithms.AlgorithmFactory;
+import com.msu.AlgorithmFactory;
 import com.msu.moo.experiment.AMultiObjectiveExperiment;
 import com.msu.moo.experiment.ExperimetSettings;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.thief.TravellingThiefProblem;
 import com.msu.thief.scenarios.impl.BonyadiFactory;
+import com.msu.visualize.TSPObjectiveVisualizer;
 
 public class BonyadiExperiment extends AMultiObjectiveExperiment<TravellingThiefProblem> {
 
@@ -15,6 +16,11 @@ public class BonyadiExperiment extends AMultiObjectiveExperiment<TravellingThief
 			"../ttp-benchmark/50/50_75_10_75.txt",
 			"../ttp-benchmark/100/100_150_10_75.txt",
 	};
+	
+	@Override
+	public void visualize() {
+		new TSPObjectiveVisualizer<TravellingThiefProblem>().show(settings, result);
+	}
 	
 
 	@Override

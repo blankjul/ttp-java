@@ -1,6 +1,6 @@
 package com.msu.experiment;
 
-import com.msu.algorithms.AlgorithmFactory;
+import com.msu.AlgorithmFactory;
 import com.msu.moo.experiment.AMultiObjectiveExperiment;
 import com.msu.moo.experiment.ExperimetSettings;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;

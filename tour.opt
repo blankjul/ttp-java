@@ -1,0 +1,13 @@
+NAME : Unnamed.1754.tour
+COMMENT : Length = 1754
+COMMENT : Found by LKH [Keld Helsgaun] Fri Sep 18 16:47:05 2015
+TYPE : TOUR
+DIMENSION : 5
+TOUR_SECTION
+1
+2
+4
+3
+5
+-1
+EOF

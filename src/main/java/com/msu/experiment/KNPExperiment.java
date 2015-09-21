@@ -3,7 +3,7 @@ package com.msu.experiment;
 import java.util.Arrays;
 import java.util.List;
 
-import com.msu.algorithms.AlgorithmFactory;
+import com.msu.AlgorithmFactory;
 import com.msu.moo.algorithms.impl.NSGAIIBuilder;
 import com.msu.moo.experiment.AMultiObjectiveExperiment;
 import com.msu.moo.experiment.ExperimetSettings;

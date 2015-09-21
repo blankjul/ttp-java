@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.msu.ThiefConfiguration;
 import com.msu.moo.algorithms.AMultiObjectiveAlgorithm;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.util.BashExecutor;
@@ -36,21 +37,20 @@ import com.msu.tsp.TravellingSalesmanProblem;
  */
 public class LinKernighanHeuristic extends AMultiObjectiveAlgorithm<TravellingSalesmanProblem> {
 
-	// ! path to the LKH executable
-	protected String pathToLKH = "vendor/LKH-2.0.7/LKH";
 
 	protected List<Integer> result= null;
 
 	public LinKernighanHeuristic() {
-		if (!Util.doesFileExist(pathToLKH))
+		if (!Util.doesFileExist(ThiefConfiguration.PATH_TO_LKH))
 			throw new RuntimeException("LinKernighanHeuristic Implementation not found!");
 
 	}
 
 	
-	@Override
-	public NonDominatedSolutionSet run(com.msu.moo.model.Evaluator<TravellingSalesmanProblem> eval) {
-
+	public static Tour<?> getTour(com.msu.moo.model.Evaluator<TravellingSalesmanProblem> eval) {
+		
+		List<Integer> result = new ArrayList<>();
+		
 		try {
 			writeProblemFile(eval.getProblem());
 			writeParameterFile();
@@ -58,7 +58,7 @@ public class LinKernighanHeuristic extends AMultiObjectiveAlgorithm<TravellingSa
 			e.printStackTrace();
 		}
 
-		BashExecutor.execute(pathToLKH + " instance.par");
+		BashExecutor.execute(ThiefConfiguration.PATH_TO_LKH + " instance.par");
 
 		FileReader fileReader;
 		try {
@@ -69,7 +69,7 @@ public class LinKernighanHeuristic extends AMultiObjectiveAlgorithm<TravellingSa
 			while (!line.startsWith("TOUR_SECTION")) line = br.readLine();
 			line = br.readLine();
 			
-			result = new ArrayList<>();
+			
 			while (!line.equals("-1")) {
 				result.add(Integer.valueOf(line) - 1);
 				line = br.readLine();
@@ -81,13 +81,19 @@ public class LinKernighanHeuristic extends AMultiObjectiveAlgorithm<TravellingSa
 		}
 		
 		Tour<?> tour = new StandardTour(result);
+		return tour;
+		
+	}
+	
+	@Override
+	public NonDominatedSolutionSet run(com.msu.moo.model.Evaluator<TravellingSalesmanProblem> eval) {
 		NonDominatedSolutionSet result = new NonDominatedSolutionSet();
-		result.add(eval.evaluate(tour));
+		result.add(eval.evaluate(LinKernighanHeuristic.getTour(eval)));
 		return result;
 	}
 
 
-	private void writeProblemFile(TravellingSalesmanProblem problem) throws FileNotFoundException, UnsupportedEncodingException {
+	private static void writeProblemFile(TravellingSalesmanProblem problem) throws FileNotFoundException, UnsupportedEncodingException {
 		PrintWriter writer;
 		writer = new PrintWriter("problem.tsp", "UTF-8");
 		writer.println("TYPE : TSP");
@@ -108,7 +114,7 @@ public class LinKernighanHeuristic extends AMultiObjectiveAlgorithm<TravellingSa
 		
 	}
 
-	private void writeParameterFile() throws FileNotFoundException, UnsupportedEncodingException {
+	private static void writeParameterFile() throws FileNotFoundException, UnsupportedEncodingException {
 		PrintWriter writer;
 		writer = new PrintWriter("instance.par", "UTF-8");
 		writer.println("PROBLEM_FILE = problem.tsp");

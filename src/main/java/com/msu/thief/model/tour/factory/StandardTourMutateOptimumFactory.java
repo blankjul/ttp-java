@@ -19,7 +19,9 @@ public class StandardTourMutateOptimumFactory<P extends ICityProblem> extends AT
 
 	@Override
 	public Tour<?> next(P p) {
-		if (problem != p) optimum = null;
+		if (problem != p)
+			problem = p;
+			optimum = null;
 		if (optimum == null) {
 			LinKernighanHeuristic lkh = new LinKernighanHeuristic();
 			TravellingSalesmanProblem tsp = new TravellingSalesmanProblem(p.getMap());
@@ -28,16 +30,23 @@ public class StandardTourMutateOptimumFactory<P extends ICityProblem> extends AT
 				throw new RuntimeException("LinKernighanHeuristic error solving tour!");
 			optimum = (Tour<?>) set.getSolutions().get(0).getVariable();
 		}
+		double rnd = Random.getInstance().nextDouble(); 
 		
-		if (Random.getInstance().nextDouble() < 0.2) return optimum;
+		if (rnd < 0.2)
+			return optimum;
+		else if (rnd < 0.6) {
+			return new StandardTourFactory<>().next(problem);
+		}
 		else {
 			List<Integer> l = optimum.encode();
-			int a = Random.getInstance().nextInt(0, l.size()-1);
-			int b = Random.getInstance().nextInt(0, l.size()-1);
-			Util.swap(l, a, b);
+			for (int i = 0; i < (int) (l.size() / 10.0); i++) {
+				int a = Random.getInstance().nextInt(0, l.size() - 1);
+				int b = Random.getInstance().nextInt(0, l.size() - 1);
+				Util.swap(l, a, b);
+			}
 			return new StandardTour(l);
 		}
-		
+
 	}
 
 }

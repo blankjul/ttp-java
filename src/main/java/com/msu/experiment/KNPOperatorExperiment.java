@@ -1,8 +1,7 @@
 package com.msu.experiment;
 
-
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import com.msu.moo.algorithms.IAlgorithm;
 import com.msu.moo.algorithms.impl.NSGAIIBuilder;
@@ -11,9 +10,10 @@ import com.msu.moo.experiment.ExperimetSettings;
 import com.msu.moo.interfaces.IProblem;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
+import com.msu.moo.operators.crossover.HalfUniformCrossover;
 import com.msu.moo.operators.crossover.SinglePointCrossover;
-import com.msu.moo.operators.crossover.permutation.EdgeRecombinationCrossover;
-import com.msu.moo.operators.crossover.permutation.PMXCrossover;
+import com.msu.moo.operators.crossover.UniformCrossover;
+import com.msu.moo.operators.crossover.permutation.OrderedCrossover;
 import com.msu.moo.operators.mutation.BitFlipMutation;
 import com.msu.moo.operators.mutation.SwapMutation;
 import com.msu.moo.util.ObjectFactory;
@@ -22,9 +22,9 @@ import com.msu.thief.TravellingThiefProblem;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
-import com.msu.thief.model.packing.BooleanPackingList;
 import com.msu.thief.model.packing.PackingList;
 import com.msu.thief.model.packing.factory.PackingListFactory;
+import com.msu.thief.model.tour.StandardTour;
 import com.msu.thief.model.tour.Tour;
 import com.msu.thief.model.tour.factory.StandardTourFactory;
 import com.msu.thief.scenarios.AScenario;
@@ -34,71 +34,84 @@ import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.TTPVariableFactory;
 
 
-/**
- * Execute the Traveling Thief Problem algorithms on a instance with no items. In principal 
- * it is a degenerated problem instance!
- * 
- * Scenarios:
- * Bays29, Berlin52, Eil101, D198
- *
- */
-public class TSPExperiment extends AMultiObjectiveExperiment<TravellingThiefProblem> {
+public class KNPOperatorExperiment extends AMultiObjectiveExperiment<TravellingThiefProblem> {
 
 	
-
+	protected final String[] SCENARIOS = new String[] { "KNP_13_2000_1000_1"};
+	
 	@Override
 	public void visualize() {
 		for (IProblem problem : settings.getProblems()) {
-			System.out.println(String.format("%s,%s,%s", problem, "Optimum", settings.getOptima().get(problem).get(0).getObjective().get(0)));
 			for (IAlgorithm<NonDominatedSolutionSet, ?> algorithm : settings.getAlgorithms()) {
 				for (NonDominatedSolutionSet set : result.get(problem, algorithm)) {
 					if (set.size() != 1)
 						throw new RuntimeException("Single Objective problem only one solution allowed.");
-					System.out.println(String.format("%s,%s,%s", problem, algorithm, set.get(0).getObjectives(0)));
+					System.out.println(String.format("%s,%s,%s", problem, algorithm, set.get(0).getObjectives(1)));
 				}
 			}
 		}
+		
+		for (IProblem problem : settings.getProblems()) {
+			System.out.println(String.format("%s,%s,%s", problem, "Optimum", settings.getOptima().get(problem).get(0).getObjective().get(1)));
+		}
 	}
 
-	
-	//! the current scenario which is executed
-	@SuppressWarnings("unchecked")
-	protected final AScenario<SymmetricMap, Tour<?>> scenario = 
-			(AScenario<SymmetricMap, Tour<?>>) ObjectFactory.create( "com.msu.tsp.scenarios.impl.Berlin52");
-	
-	
 	
 	@Override
 	protected void setAlgorithms(ExperimetSettings<TravellingThiefProblem, NonDominatedSolutionSet> settings) {
 		NSGAIIBuilder<TTPVariable, TravellingThiefProblem> builder = new NSGAIIBuilder<>();
 		builder.setFactory(new TTPVariableFactory(new StandardTourFactory<>(), new PackingListFactory()));
 		builder.setMutation(new TTPMutation(new SwapMutation<>(), new BitFlipMutation()));
-		builder.setCrossover(new TTPCrossover(new PMXCrossover<Integer>(), new SinglePointCrossover<>()));
 		builder.setProbMutation(0.3);
-		builder.setPopulationSize(100);
-		settings.addAlgorithm(builder.create());
+		
+		
+		settings.addAlgorithm(builder.setCrossover(new TTPCrossover(new OrderedCrossover<>(), new SinglePointCrossover<>()))
+				.setName("SPX").create());
+		
+		settings.addAlgorithm(builder.setCrossover(new TTPCrossover(new OrderedCrossover<>(), new UniformCrossover<>()))
+				.setName("UX").create());
+		
+		settings.addAlgorithm(builder.setCrossover(new TTPCrossover(new OrderedCrossover<>(), new HalfUniformCrossover<>()))
+				.setName("HUX").create());
 	}
+
+	
 	
 	
 	@Override
 	protected void setProblems(ExperimetSettings<TravellingThiefProblem, NonDominatedSolutionSet> settings) {
-		TravellingThiefProblem problem = new TravellingThiefProblem(scenario.getObject(), new ItemCollection<Item>(), 0);
-		problem.setName(this.getClass().getSimpleName());
-		settings.addProblem(problem);
+		for (String s : SCENARIOS) {
+			@SuppressWarnings("unchecked")
+			AScenario<Pair<List<Item>,Integer>, PackingList<?>> scenario = 
+			(AScenario<Pair<List<Item>,Integer>, PackingList<?>>) ObjectFactory.create("com.msu.knp.scenarios.impl." + s);
+			
+			Pair<List<Item>, Integer> obj = scenario.getObject();
+
+			// add all to the first city
+			ItemCollection<Item> items = new ItemCollection<>();
+			for (Item i : obj.first)
+				items.add(0, i);
+
+			TravellingThiefProblem problem = new TravellingThiefProblem(new SymmetricMap(1), items, obj.second);
+			problem.setName(s);
+			settings.addProblem(problem);
+			
+			Tour<?> t = new StandardTour(Arrays.asList(0));
+			Solution sol = problem.evaluate(new TTPVariable(Pair.create(t, scenario.getOptimal())));
+			NonDominatedSolutionSet set = new NonDominatedSolutionSet(Arrays.asList(sol));
+			settings.addOptima(problem, set);
+			
+			
+		}
 	}
-	
-	
+
 	@Override
 	protected void setOptima(ExperimetSettings<TravellingThiefProblem, NonDominatedSolutionSet> settings) {
-		TravellingThiefProblem problem = settings.getProblems().get(0);
-		PackingList<?> l = new BooleanPackingList(new ArrayList<Boolean>());
-		
-		Solution s = problem.evaluate(new TTPVariable(Pair.create(scenario.getOptimal(), l)));
-		NonDominatedSolutionSet set = new NonDominatedSolutionSet(Arrays.asList(s));
-		settings.addOptima(problem, set);
+		// otherwise all optima are set to zero!
 	}
 	
-
 	
-}
+	
 
+
+}

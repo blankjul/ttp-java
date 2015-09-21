@@ -12,22 +12,30 @@ import com.msu.moo.operators.crossover.permutation.OrderedCrossover;
 import com.msu.moo.operators.mutation.BitFlipMutation;
 import com.msu.moo.operators.mutation.SwapMutation;
 import com.msu.thief.TravellingThiefProblem;
-import com.msu.thief.model.packing.factory.BooleanPackingListFactory;
+import com.msu.thief.model.packing.factory.PackingListFactory;
 import com.msu.thief.model.tour.factory.StandardTourFactory;
 import com.msu.thief.model.tour.factory.StandardTourMutateOptimumFactory;
 import com.msu.thief.scenarios.impl.RandomTTPScenario;
 import com.msu.thief.variable.TTPCrossover;
 import com.msu.thief.variable.TTPMutation;
 import com.msu.thief.variable.TTPVariable;
-import com.msu.thief.variable.TTPVariableFactory;
+import com.msu.thief.variable.TTPVariableFactory;import com.msu.visualize.TSPObjectiveVisualizer;
 
 public class OneScenarioTSPColoredExperiment extends AMultiObjectiveExperiment<TravellingThiefProblem> {
+
+	
+	
+	
+	@Override
+	public void visualize() {
+		new TSPObjectiveVisualizer<TravellingThiefProblem>().show(settings, result);
+	}
 
 	@Override
 	protected void setAlgorithms(ExperimetSettings<TravellingThiefProblem, NonDominatedSolutionSet> settings) {
 
 		NSGAIIBuilder<TTPVariable, TravellingThiefProblem> builder = new NSGAIIBuilder<>();
-		builder.setFactory(new TTPVariableFactory(new StandardTourFactory<>(), new BooleanPackingListFactory()));
+		builder.setFactory(new TTPVariableFactory(new StandardTourFactory<>(), new PackingListFactory()));
 		builder.setMutation(new TTPMutation(new SwapMutation<>(), new BitFlipMutation()));
 		builder.setProbMutation(0.3);
 
@@ -40,14 +48,14 @@ public class OneScenarioTSPColoredExperiment extends AMultiObjectiveExperiment<T
 		builder.setCrossover(new TTPCrossover(new OrderedCrossover<>(), new SinglePointCrossover<>())).setName("ORD");
 		settings.addAlgorithm(builder.create());
 
-		builder.setFactory(new TTPVariableFactory(new StandardTourMutateOptimumFactory<>(), new BooleanPackingListFactory())).setName("ORD+FAC");
+		builder.setFactory(new TTPVariableFactory(new StandardTourMutateOptimumFactory<>(), new PackingListFactory())).setName("ORD+FAC");
 		settings.addAlgorithm(builder.create());
 	}
 
 	@Override
 	protected void setProblems(ExperimetSettings<TravellingThiefProblem, NonDominatedSolutionSet> settings) {
 
-		settings.addProblem(new RandomTTPScenario(50, 5, 0.5, CORRELATION_TYPE.UNCORRELATED).getObject());
+		settings.addProblem(new RandomTTPScenario(5, 100, 0.6, CORRELATION_TYPE.STRONGLY_CORRELATED).getObject());
 
 		/*
 		 * for (Integer numOfCities : new Integer[] { 10, 20, 50, 100 }) { for
