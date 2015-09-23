@@ -16,16 +16,15 @@ import com.msu.moo.interfaces.IProblem;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.operators.crossover.SinglePointCrossover;
-import com.msu.moo.operators.crossover.permutation.EdgeRecombinationCrossover;
 import com.msu.moo.operators.crossover.permutation.PMXCrossover;
 import com.msu.moo.operators.mutation.BitFlipMutation;
 import com.msu.moo.operators.mutation.SwapMutation;
 import com.msu.moo.util.ObjectFactory;
 import com.msu.moo.util.Pair;
-import com.msu.thief.TravellingThiefProblem;
+import com.msu.scenarios.AThiefScenario;
+import com.msu.thief.ThiefProblem;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
-import com.msu.thief.scenarios.AScenario;
 import com.msu.thief.variable.TTPCrossover;
 import com.msu.thief.variable.TTPMutation;
 import com.msu.thief.variable.TTPVariable;
@@ -42,7 +41,7 @@ import com.msu.tsp.model.factory.RandomFactory;
  * Bays29, Berlin52, Eil101, D198
  *
  */
-public class TSPExperiment extends AMultiObjectiveExperiment<TravellingThiefProblem> {
+public class TSPExperiment extends AMultiObjectiveExperiment<ThiefProblem> {
 
 	
 
@@ -63,14 +62,14 @@ public class TSPExperiment extends AMultiObjectiveExperiment<TravellingThiefProb
 	
 	//! the current scenario which is executed
 	@SuppressWarnings("unchecked")
-	protected final AScenario<SymmetricMap, Tour<?>> scenario = 
-			(AScenario<SymmetricMap, Tour<?>>) ObjectFactory.create( "com.msu.tsp.scenarios.impl.Berlin52");
+	protected final AThiefScenario<SymmetricMap, Tour<?>> scenario = 
+			(AThiefScenario<SymmetricMap, Tour<?>>) ObjectFactory.create( "com.msu.tsp.scenarios.impl.Berlin52");
 	
 	
 	
 	@Override
-	protected void setAlgorithms(ExperimetSettings<TravellingThiefProblem, NonDominatedSolutionSet> settings) {
-		NSGAIIBuilder<TTPVariable, TravellingThiefProblem> builder = new NSGAIIBuilder<>();
+	protected void setAlgorithms(ExperimetSettings<ThiefProblem, NonDominatedSolutionSet> settings) {
+		NSGAIIBuilder<TTPVariable, ThiefProblem> builder = new NSGAIIBuilder<>();
 		builder.setFactory(new TTPVariableFactory(new RandomFactory<>(), new RandomPackingListFactory()));
 		builder.setMutation(new TTPMutation(new SwapMutation<>(), new BitFlipMutation()));
 		builder.setCrossover(new TTPCrossover(new PMXCrossover<Integer>(), new SinglePointCrossover<>()));
@@ -81,16 +80,16 @@ public class TSPExperiment extends AMultiObjectiveExperiment<TravellingThiefProb
 	
 	
 	@Override
-	protected void setProblems(ExperimetSettings<TravellingThiefProblem, NonDominatedSolutionSet> settings) {
-		TravellingThiefProblem problem = new TravellingThiefProblem(scenario.getObject(), new ItemCollection<Item>(), 0);
+	protected void setProblems(ExperimetSettings<ThiefProblem, NonDominatedSolutionSet> settings) {
+		ThiefProblem problem = new ThiefProblem(scenario.getObject(), new ItemCollection<Item>(), 0);
 		problem.setName(this.getClass().getSimpleName());
 		settings.addProblem(problem);
 	}
 	
 	
 	@Override
-	protected void setOptima(ExperimetSettings<TravellingThiefProblem, NonDominatedSolutionSet> settings) {
-		TravellingThiefProblem problem = settings.getProblems().get(0);
+	protected void setOptima(ExperimetSettings<ThiefProblem, NonDominatedSolutionSet> settings) {
+		ThiefProblem problem = settings.getProblems().get(0);
 		PackingList<?> l = new BooleanPackingList(new ArrayList<Boolean>());
 		
 		Solution s = problem.evaluate(new TTPVariable(Pair.create(scenario.getOptimal(), l)));

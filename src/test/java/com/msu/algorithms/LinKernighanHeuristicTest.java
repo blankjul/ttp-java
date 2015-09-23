@@ -11,14 +11,14 @@ import org.junit.runners.Parameterized.Parameters;
 
 import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
+import com.msu.scenarios.AThiefScenario;
+import com.msu.scenarios.tsp.Bays29;
+import com.msu.scenarios.tsp.Berlin52;
+import com.msu.scenarios.tsp.D198;
+import com.msu.scenarios.tsp.Eil101;
 import com.msu.thief.model.SymmetricMap;
-import com.msu.thief.scenarios.AScenario;
 import com.msu.tsp.TravellingSalesmanProblem;
 import com.msu.tsp.model.Tour;
-import com.msu.tsp.scenarios.impl.Bays29;
-import com.msu.tsp.scenarios.impl.Berlin52;
-import com.msu.tsp.scenarios.impl.D198;
-import com.msu.tsp.scenarios.impl.Eil101;
 
 
 
@@ -33,10 +33,10 @@ import com.msu.tsp.scenarios.impl.Eil101;
 public class LinKernighanHeuristicTest {
 
 	protected double optimal;
-	AScenario<SymmetricMap, Tour<?>> scenario;
+	AThiefScenario<SymmetricMap, Tour<?>> scenario;
 	
 
-	public LinKernighanHeuristicTest(double optimal, AScenario<SymmetricMap, Tour<?>> scenario) {
+	public LinKernighanHeuristicTest(double optimal, AThiefScenario<SymmetricMap, Tour<?>> scenario) {
 		super();
 		this.optimal = optimal;
 		this.scenario = scenario;

@@ -12,8 +12,8 @@ import com.msu.moo.operators.crossover.permutation.OrderedCrossover;
 import com.msu.moo.operators.crossover.permutation.PMXCrossover;
 import com.msu.moo.operators.mutation.SwapMutation;
 import com.msu.moo.util.ObjectFactory;
+import com.msu.scenarios.AThiefScenario;
 import com.msu.thief.model.SymmetricMap;
-import com.msu.thief.scenarios.AScenario;
 import com.msu.tsp.TravellingSalesmanProblem;
 import com.msu.tsp.model.Tour;
 import com.msu.tsp.model.factory.NearestNeighbourFactory;
@@ -58,7 +58,7 @@ public class TSPOperatorExperiment extends AMultiObjectiveExperiment<TravellingS
 	protected void setProblems(ExperimetSettings<TravellingSalesmanProblem, NonDominatedSolutionSet> settings) {
 		for (String s : SCENARIOS) {
 			@SuppressWarnings("unchecked")
-			AScenario<SymmetricMap, Tour<?>> scenario = (AScenario<SymmetricMap, Tour<?>>) ObjectFactory.create("com.msu.tsp.scenarios.impl." + s);
+			AThiefScenario<SymmetricMap, Tour<?>> scenario = (AThiefScenario<SymmetricMap, Tour<?>>) ObjectFactory.create("com.msu.tsp.scenarios.impl." + s);
 			TravellingSalesmanProblem tsp = new TravellingSalesmanProblem(scenario.getObject());
 			tsp.setName(s);
 			settings.addProblem(tsp);

@@ -9,14 +9,14 @@ import com.msu.knp.model.BooleanPackingList;
 import com.msu.knp.model.Item;
 import com.msu.knp.model.PackingList;
 import com.msu.moo.util.Random;
-import com.msu.thief.TravellingThiefProblem;
+import com.msu.thief.ThiefProblem;
 import com.msu.util.CombinatorialUtil;
 
 public class FullPackingListFactory extends APackingPlanFactory {
 
 
 	@Override
-	public PackingList<?> next(TravellingThiefProblem p) {
+	public PackingList<?> next(ThiefProblem p) {
 		
 		// create empty list with no items 
 		List<Boolean> b = new ArrayList<Boolean>();

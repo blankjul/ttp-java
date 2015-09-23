@@ -13,18 +13,18 @@ import com.msu.knp.model.BooleanPackingList;
 import com.msu.knp.model.PackingList;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.util.Pair;
-import com.msu.thief.scenarios.impl.BonyadiPublicationScenario;
+import com.msu.scenarios.thief.bonyadi.PublicationScenario;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.tsp.model.StandardTour;
 import com.msu.tsp.model.Tour;
 
 public class TravellingThiefProblemBonyadiCorrectnessTest {
 
-	private TravellingThiefProblem ttp;
+	private ThiefProblem ttp;
 
 	@Before
 	public void setUp() {
-		ttp = new BonyadiPublicationScenario().getObject();
+		ttp = new PublicationScenario().getObject();
 	}
 
 	@Test

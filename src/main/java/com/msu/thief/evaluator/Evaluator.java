@@ -7,7 +7,7 @@ import java.util.List;
 import com.msu.knp.model.PackingList;
 import com.msu.moo.util.Pair;
 import com.msu.moo.util.exceptions.EvaluationException;
-import com.msu.thief.TravellingThiefProblem;
+import com.msu.thief.ThiefProblem;
 import com.msu.thief.evaluator.profit.ProfitEvaluator;
 import com.msu.thief.evaluator.time.TimeEvaluator;
 import com.msu.tsp.model.Tour;
@@ -15,7 +15,7 @@ import com.msu.tsp.model.Tour;
 public class Evaluator implements IEvaluator<Pair<Tour<?>,PackingList<?>>, List<Double>>{
 	
 	// the problem instance
-	protected TravellingThiefProblem problem = null;
+	protected ThiefProblem problem = null;
 
 	// evaluate the profit according ProfitEvaluator
 	protected ProfitEvaluator evalProfit = null;
@@ -24,7 +24,7 @@ public class Evaluator implements IEvaluator<Pair<Tour<?>,PackingList<?>>, List<
 	protected TimeEvaluator evalTime = null;
 
 	
-	public Evaluator(TravellingThiefProblem problem, ProfitEvaluator evalProfit, TimeEvaluator evalTime) {
+	public Evaluator(ThiefProblem problem, ProfitEvaluator evalProfit, TimeEvaluator evalTime) {
 		super();
 		this.problem = problem;
 		this.evalProfit = evalProfit;

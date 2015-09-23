@@ -53,11 +53,15 @@
 #include <string.h>
 #include <math.h>
 #include <malloc.h>
+#include <limits.h>
 
 
 /* ======================================================================
 				   macros
    ====================================================================== */
+
+#define smaxof(t) (((0x1ULL << ((sizeof(t) * 8ULL) - 1ULL)) - 1ULL) | \
+                    (0x7ULL << ((sizeof(t) * 8ULL) - 4ULL)))
 
 #define srand(x)     srand48(x)
 #define randm(x)    (lrand48() % (long) (x))
@@ -1295,58 +1299,48 @@ int main(int argc, char *argv[])
        size_t len = 0;
        ssize_t read;
 
-	double * value;
-	double * weight;
+       itype f1, f2;
 
-       fp = fopen(argv[1], "r");
-       if (fp == NULL)
+      fp = fopen(argv[1], "r");
+      if (fp == NULL)
            exit(EXIT_FAILURE);
 
-       while ((read = getline(&line, &len, fp)) != -1) {
-           printf("Retrieved line of length %zu :\n", read);
-           printf("%s", line);
-	   scanf( "%lf,%lf" , value, weight );
+      int numOfItems;
+      fscanf(fp, "%d\n", &numOfItems);
+
+      long maxWeight;
+      fscanf(fp, "%ld\n", &maxWeight);
+
+      item *items= (item *) malloc(numOfItems*sizeof(item));//[numOfItems];
+      int counter = 0;
+      //printf("hello\n");
+      while (fscanf(fp, "%ld,%ld\n", &f1, &f2) == 2) {
+
+	//item *tmp = (item *) malloc(sizeof(item));
+        //tmp->p = f1;
+        //tmp->w = f2;
+	items[counter].p = f1;
+	items[counter].w = f2;
+
+	//items[counter] = *tmp; 
+        ++counter;
+
+	printf("%ld,%ld\n", f1,f2);
        }
+
+
+       item *f = (items+0);
+       item *l = (items+numOfItems-1);
+       long max = smaxof(long);
+	printf("%ld %ld %ld\n", f->p, l->p, max);
+       combo(f, l, maxWeight, 0, max, 0, 0);
+
 
        fclose(fp);
        if (line)
            free(line);
        exit(EXIT_SUCCESS);
 
-
-	/*
-
-
-	FILE *ifp, *ofp;
-	char *mode = "r";
-
-	ifp = fopen(argv[1], mode);
-	
-
-	if (ifp == NULL) {
-	  fprintf(stderr, "Can't open input file in.list!\n");
-	  exit(1);
-	}
-
-
-
-	double * value;
-	double * weight;
-
-	printf("%s\n", argv[1]);
-
-	while (fscanf(ifp, "%lf,%lf", value, weight) != EOF) {
- 		 fprintf(ofp, "%lf haha %lf\n", *value, *weight);
-	}
-
-
-	ofp = fopen("plan.opt", "w");
-
-	if (ofp == NULL) {
-	  fprintf(stderr, "Can't open output file plan.opt!\n");
-	  exit(1);
-	}
-*/
 
    	 return 0;
 } 

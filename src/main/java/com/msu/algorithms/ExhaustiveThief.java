@@ -8,15 +8,16 @@ import com.msu.knp.model.PackingList;
 import com.msu.moo.algorithms.AMultiObjectiveAlgorithm;
 import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
-import com.msu.thief.TravellingThiefProblem;
+import com.msu.thief.ThiefProblem;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.tsp.model.StandardTour;
 import com.msu.tsp.model.Tour;
 import com.msu.util.Combination;
 import com.msu.util.CombinatorialUtil;
 
-public class ExhaustiveThief extends AMultiObjectiveAlgorithm<TravellingThiefProblem> {
+public class ExhaustiveThief extends AMultiObjectiveAlgorithm<ThiefProblem> {
 
+	
 	public static int factorial(int n) {
         int fact = 1; // this  will be the result
         for (int i = 1; i <= n; i++) {
@@ -26,7 +27,7 @@ public class ExhaustiveThief extends AMultiObjectiveAlgorithm<TravellingThiefPro
     }
 	
 	@Override
-	public NonDominatedSolutionSet run(Evaluator<TravellingThiefProblem> eval) {
+	public NonDominatedSolutionSet run(Evaluator<ThiefProblem> eval) {
 		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
 
 		
@@ -43,6 +44,7 @@ public class ExhaustiveThief extends AMultiObjectiveAlgorithm<TravellingThiefPro
 		
 		// over all possible tours
 		for (List<Integer> l : CombinatorialUtil.permute(index)) {
+			
 			Tour<?> t = new StandardTour(l);
 
 			// for all possible item combinations
@@ -69,5 +71,7 @@ public class ExhaustiveThief extends AMultiObjectiveAlgorithm<TravellingThiefPro
 		for (int entry : entries) b.set(entry, true);
 		return b;
 	}
+
+	
 
 }

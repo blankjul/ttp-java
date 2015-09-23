@@ -6,7 +6,7 @@ import java.util.Map;
 import com.msu.knp.model.Item;
 import com.msu.knp.model.PackingList;
 import com.msu.moo.util.Pair;
-import com.msu.thief.TravellingThiefProblem;
+import com.msu.thief.ThiefProblem;
 import com.msu.thief.evaluator.IEvaluator;
 import com.msu.tsp.model.Tour;
 
@@ -17,7 +17,7 @@ import com.msu.tsp.model.Tour;
 public abstract class TimeEvaluator implements IEvaluator<Pair<Tour<?>, PackingList<?>>, Double> {
 
 	// ! the problem instance
-	protected TravellingThiefProblem problem;
+	protected ThiefProblem problem;
 	
 	//! traveling time of the salesman
 	protected Double time = null;
@@ -28,7 +28,7 @@ public abstract class TimeEvaluator implements IEvaluator<Pair<Tour<?>, PackingL
 	//! mapping of the items and the packing duration
 	protected Map<Item, Double> mItem = new HashMap<>();
 
-	public TimeEvaluator(TravellingThiefProblem problem) {
+	public TimeEvaluator(ThiefProblem problem) {
 		super();
 		this.problem = problem;
 	}
@@ -53,7 +53,7 @@ public abstract class TimeEvaluator implements IEvaluator<Pair<Tour<?>, PackingL
 		return evaluate_(input);
 	}
 	
-	public abstract Double evaluate_(Pair<Tour<?>, PackingList<?>> input) ;
+	protected abstract Double evaluate_(Pair<Tour<?>, PackingList<?>> input) ;
 	
 
 }

@@ -5,14 +5,14 @@ import java.util.List;
 import com.msu.knp.model.Item;
 import com.msu.knp.model.PackingList;
 import com.msu.moo.util.Pair;
-import com.msu.thief.TravellingThiefProblem;
+import com.msu.thief.ThiefProblem;
 import com.msu.thief.model.ItemCollection;
 import com.msu.tsp.model.Tour;
 
 public class StandardTimeEvaluator extends TimeEvaluator {
 
 	
-	public StandardTimeEvaluator(TravellingThiefProblem problem) {
+	public StandardTimeEvaluator(ThiefProblem problem) {
 		super(problem);
 	}
 

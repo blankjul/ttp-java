@@ -1,9 +1,7 @@
 package com.msu.experiment;
 
 import com.msu.algorithms.OnePlusOneEA;
-import com.msu.knp.model.factory.EmptyPackingListFactory;
 import com.msu.knp.model.factory.RandomPackingListFactory;
-import com.msu.knp.scenarios.impl.RandomKnapsackScenario.CORRELATION_TYPE;
 import com.msu.moo.algorithms.impl.NSGAIIBuilder;
 import com.msu.moo.experiment.AMultiObjectiveExperiment;
 import com.msu.moo.experiment.ExperimetSettings;
@@ -13,8 +11,9 @@ import com.msu.moo.operators.crossover.permutation.EdgeRecombinationCrossover;
 import com.msu.moo.operators.crossover.permutation.OrderedCrossover;
 import com.msu.moo.operators.mutation.BitFlipMutation;
 import com.msu.moo.operators.mutation.SwapMutation;
-import com.msu.thief.TravellingThiefProblem;
-import com.msu.thief.scenarios.impl.RandomTTPScenario;
+import com.msu.scenarios.knp.RandomKnapsackScenario.CORRELATION_TYPE;
+import com.msu.scenarios.thief.RandomTTPScenario;
+import com.msu.thief.ThiefProblem;
 import com.msu.thief.variable.TTPCrossover;
 import com.msu.thief.variable.TTPMutation;
 import com.msu.thief.variable.TTPVariable;
@@ -22,14 +21,14 @@ import com.msu.thief.variable.TTPVariableFactory;
 import com.msu.tsp.model.factory.NearestNeighbourFactory;
 import com.msu.tsp.model.factory.OptimumFactory;
 import com.msu.tsp.model.factory.RandomFactory;
-import com.msu.visualize.TSPObjectiveVisualizer;
+import com.msu.visualize.ThiefVisualizer;
 
-public class NSGAIIOperatorExperiment extends AMultiObjectiveExperiment<TravellingThiefProblem> {
+public class NSGAIIOperatorExperiment extends AMultiObjectiveExperiment<ThiefProblem> {
 
 	@Override
-	protected void setAlgorithms(ExperimetSettings<TravellingThiefProblem, NonDominatedSolutionSet> settings) {
+	protected void setAlgorithms(ExperimetSettings<ThiefProblem, NonDominatedSolutionSet> settings) {
 
-		NSGAIIBuilder<TTPVariable, TravellingThiefProblem> builder = new NSGAIIBuilder<>();
+		NSGAIIBuilder<TTPVariable, ThiefProblem> builder = new NSGAIIBuilder<>();
 		builder.setFactory(new TTPVariableFactory(new RandomFactory<>(), new RandomPackingListFactory()));
 		builder.setMutation(new TTPMutation(new SwapMutation<>(), new BitFlipMutation()));
 		builder.setProbMutation(0.3);
@@ -66,7 +65,7 @@ public class NSGAIIOperatorExperiment extends AMultiObjectiveExperiment<Travelli
 
 
 	@Override
-	protected void setProblems(ExperimetSettings<TravellingThiefProblem, NonDominatedSolutionSet> settings) {
+	protected void setProblems(ExperimetSettings<ThiefProblem, NonDominatedSolutionSet> settings) {
 		
 		for (Integer cities : new Integer[] {10,25,50,100,500}) {
 			for (Integer itemsPercity : new Integer[] {1,3,5,10,20}) {
@@ -80,7 +79,7 @@ public class NSGAIIOperatorExperiment extends AMultiObjectiveExperiment<Travelli
 
 
 	public void visualize() {
-		new TSPObjectiveVisualizer<TravellingThiefProblem>().show(settings, result);
+		new ThiefVisualizer<ThiefProblem>().show(settings, result);
 	}
 
 

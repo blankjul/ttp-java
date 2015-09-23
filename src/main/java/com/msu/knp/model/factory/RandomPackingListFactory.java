@@ -6,13 +6,13 @@ import java.util.List;
 import com.msu.knp.model.BooleanPackingList;
 import com.msu.knp.model.PackingList;
 import com.msu.moo.util.Random;
-import com.msu.thief.TravellingThiefProblem;
+import com.msu.thief.ThiefProblem;
 
 public class RandomPackingListFactory extends APackingPlanFactory {
 
 
 	@Override
-	public PackingList<?> next(TravellingThiefProblem p) {
+	public PackingList<?> next(ThiefProblem p) {
 		Random rnd = Random.getInstance();
 		double pickingProb = rnd.nextDouble();
 		List<Boolean> b = new ArrayList<Boolean>();

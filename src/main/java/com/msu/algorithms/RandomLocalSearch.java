@@ -12,15 +12,15 @@ import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.util.Pair;
 import com.msu.moo.util.Random;
-import com.msu.thief.TravellingThiefProblem;
+import com.msu.thief.ThiefProblem;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.tsp.TravellingSalesmanProblem;
 import com.msu.tsp.model.Tour;
 
-public class RandomLocalSearch extends AMultiObjectiveAlgorithm<TravellingThiefProblem> {
+public class RandomLocalSearch extends AMultiObjectiveAlgorithm<ThiefProblem> {
 
 	@Override
-	public NonDominatedSolutionSet run(Evaluator<TravellingThiefProblem> eval) {
+	public NonDominatedSolutionSet run(Evaluator<ThiefProblem> eval) {
 
 		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
 

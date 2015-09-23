@@ -21,10 +21,10 @@ import com.msu.moo.operators.mutation.BitFlipMutation;
 import com.msu.moo.operators.mutation.SwapMutation;
 import com.msu.moo.util.ObjectFactory;
 import com.msu.moo.util.Pair;
-import com.msu.thief.TravellingThiefProblem;
+import com.msu.scenarios.AThiefScenario;
+import com.msu.thief.ThiefProblem;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
-import com.msu.thief.scenarios.AScenario;
 import com.msu.thief.variable.TTPCrossover;
 import com.msu.thief.variable.TTPMutation;
 import com.msu.thief.variable.TTPVariable;
@@ -34,7 +34,7 @@ import com.msu.tsp.model.Tour;
 import com.msu.tsp.model.factory.RandomFactory;
 
 
-public class KNPOperatorExperiment extends AMultiObjectiveExperiment<TravellingThiefProblem> {
+public class KNPOperatorExperiment extends AMultiObjectiveExperiment<ThiefProblem> {
 
 	
 	protected final String[] SCENARIOS = new String[] { 
@@ -63,8 +63,8 @@ public class KNPOperatorExperiment extends AMultiObjectiveExperiment<TravellingT
 
 	
 	@Override
-	protected void setAlgorithms(ExperimetSettings<TravellingThiefProblem, NonDominatedSolutionSet> settings) {
-		NSGAIIBuilder<TTPVariable, TravellingThiefProblem> builder = new NSGAIIBuilder<>();
+	protected void setAlgorithms(ExperimetSettings<ThiefProblem, NonDominatedSolutionSet> settings) {
+		NSGAIIBuilder<TTPVariable, ThiefProblem> builder = new NSGAIIBuilder<>();
 		builder.setFactory(new TTPVariableFactory(new RandomFactory<>(), new EmptyPackingListFactory()));
 		builder.setMutation(new TTPMutation(new SwapMutation<>(), new BitFlipMutation()));
 		builder.setProbMutation(0.3);
@@ -83,11 +83,11 @@ public class KNPOperatorExperiment extends AMultiObjectiveExperiment<TravellingT
 	
 	
 	@Override
-	protected void setProblems(ExperimetSettings<TravellingThiefProblem, NonDominatedSolutionSet> settings) {
+	protected void setProblems(ExperimetSettings<ThiefProblem, NonDominatedSolutionSet> settings) {
 		for (String s : SCENARIOS) {
 			@SuppressWarnings("unchecked")
-			AScenario<Pair<List<Item>,Integer>, PackingList<?>> scenario = 
-			(AScenario<Pair<List<Item>,Integer>, PackingList<?>>) ObjectFactory.create("com.msu.knp.scenarios.impl." + s);
+			AThiefScenario<Pair<List<Item>,Integer>, PackingList<?>> scenario = 
+			(AThiefScenario<Pair<List<Item>,Integer>, PackingList<?>>) ObjectFactory.create("com.msu.knp.scenarios.impl." + s);
 			
 			Pair<List<Item>, Integer> obj = scenario.getObject();
 
@@ -96,7 +96,7 @@ public class KNPOperatorExperiment extends AMultiObjectiveExperiment<TravellingT
 			for (Item i : obj.first)
 				items.add(0, i);
 
-			TravellingThiefProblem problem = new TravellingThiefProblem(new SymmetricMap(1), items, obj.second);
+			ThiefProblem problem = new ThiefProblem(new SymmetricMap(1), items, obj.second);
 			problem.setName(s);
 			settings.addProblem(problem);
 			
@@ -110,7 +110,7 @@ public class KNPOperatorExperiment extends AMultiObjectiveExperiment<TravellingT
 	}
 
 	@Override
-	protected void setOptima(ExperimetSettings<TravellingThiefProblem, NonDominatedSolutionSet> settings) {
+	protected void setOptima(ExperimetSettings<ThiefProblem, NonDominatedSolutionSet> settings) {
 		// otherwise all optima are set to zero!
 	}
 	

@@ -48,17 +48,7 @@ public class SymmetricMap {
 		return this;
 	}
 	
-	/**
-	 * Round all the values by a given method.
-	 * @param calcRounded rounder which is executed
-	 */
-	public void round(IRounding calcRounded) {
-		for (int i = 0; i < distances.length; i++) {
-			for (int j = 0; j < distances.length; j++) {
-				distances[j][i] = calcRounded.execute(distances[j][i]);
-			}
-		}
-	}
+
 	
 	public int getSize() {
 		return distances.length;
@@ -80,6 +70,29 @@ public class SymmetricMap {
 		this.distances = distances;
 	}
 	
+	/**
+	 * Multiplies all the values of a map with a specific value
+	 * @param value multiplier
+	 */
+	public void multipleCosts(double value) {
+		for (int i = 0; i < distances.length; i++) {
+			for (int j = 0; j < distances.length; j++) {
+				distances[j][i] = distances[j][i] * value;
+			}
+		}
+	}
+	
+	/**
+	 * Round all the values by a given method.
+	 * @param calcRounded rounder which is executed
+	 */
+	public void round(IRounding calcRounded) {
+		for (int i = 0; i < distances.length; i++) {
+			for (int j = 0; j < distances.length; j++) {
+				distances[j][i] = calcRounded.execute(distances[j][i]);
+			}
+		}
+	}
 	
 	
 
