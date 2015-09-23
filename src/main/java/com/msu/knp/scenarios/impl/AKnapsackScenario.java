@@ -3,10 +3,10 @@ package com.msu.knp.scenarios.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.msu.knp.model.BooleanPackingList;
+import com.msu.knp.model.Item;
+import com.msu.knp.model.PackingList;
 import com.msu.moo.util.Pair;
-import com.msu.thief.model.Item;
-import com.msu.thief.model.packing.BooleanPackingList;
-import com.msu.thief.model.packing.PackingList;
 import com.msu.thief.scenarios.AScenario;
 
 public abstract class AKnapsackScenario extends AScenario<Pair<List<Item>,Integer>, PackingList<?>> {

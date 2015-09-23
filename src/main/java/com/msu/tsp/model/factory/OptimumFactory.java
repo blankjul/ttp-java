@@ -1,18 +1,17 @@
-package com.msu.thief.model.tour.factory;
+package com.msu.tsp.model.factory;
 
 import java.util.List;
 
 import com.msu.algorithms.LinKernighanHeuristic;
 import com.msu.moo.model.Evaluator;
-import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.util.Random;
 import com.msu.moo.util.Util;
-import com.msu.thief.model.tour.StandardTour;
-import com.msu.thief.model.tour.Tour;
 import com.msu.tsp.ICityProblem;
 import com.msu.tsp.TravellingSalesmanProblem;
+import com.msu.tsp.model.StandardTour;
+import com.msu.tsp.model.Tour;
 
-public class StandardTourMutateOptimumFactory<P extends ICityProblem> extends ATourFactory<P> {
+public class OptimumFactory<P extends ICityProblem> extends ATourFactory<P> {
 
 	P problem = null;
 	Tour<?> optimum = null;
@@ -23,19 +22,14 @@ public class StandardTourMutateOptimumFactory<P extends ICityProblem> extends AT
 			problem = p;
 			optimum = null;
 		if (optimum == null) {
-			LinKernighanHeuristic lkh = new LinKernighanHeuristic();
 			TravellingSalesmanProblem tsp = new TravellingSalesmanProblem(p.getMap());
-			NonDominatedSolutionSet set = lkh.run(new Evaluator<TravellingSalesmanProblem>(tsp));
-			if (set.size() != 1)
-				throw new RuntimeException("LinKernighanHeuristic error solving tour!");
-			optimum = (Tour<?>) set.getSolutions().get(0).getVariable();
+			optimum = LinKernighanHeuristic.getTour(new Evaluator<TravellingSalesmanProblem>(tsp));
 		}
 		double rnd = Random.getInstance().nextDouble(); 
-		
-		if (rnd < 0.2)
+		if (rnd <= 1)
 			return optimum;
 		else if (rnd < 0.6) {
-			return new StandardTourFactory<>().next(problem);
+			return new RandomFactory<>().next(problem);
 		}
 		else {
 			List<Integer> l = optimum.encode();

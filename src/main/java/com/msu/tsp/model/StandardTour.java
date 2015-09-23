@@ -1,4 +1,4 @@
-package com.msu.thief.model.tour;
+package com.msu.tsp.model;
 
 import java.util.ArrayList;
 import java.util.List;

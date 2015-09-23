@@ -3,10 +3,10 @@ package com.msu.knp.scenarios.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.msu.knp.model.Item;
+import com.msu.knp.model.PackingList;
 import com.msu.moo.util.Pair;
 import com.msu.moo.util.Random;
-import com.msu.thief.model.Item;
-import com.msu.thief.model.packing.PackingList;
 import com.msu.thief.scenarios.AScenario;
 
 public class RandomKnapsackScenario extends AScenario<Pair<List<Item>, Integer>, PackingList<?>> {

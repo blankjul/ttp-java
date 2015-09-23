@@ -1,12 +1,12 @@
-package com.msu.thief.model.tour.factory;
+package com.msu.tsp.model.factory;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 
 import com.msu.moo.util.Random;
-import com.msu.thief.model.tour.PositionDecodedTour;
-import com.msu.thief.model.tour.Tour;
 import com.msu.tsp.ICityProblem;
+import com.msu.tsp.model.PositionDecodedTour;
+import com.msu.tsp.model.Tour;
 
 /**
  * The StandardTour provides an implementation of a tour that saves directly the

@@ -1,4 +1,4 @@
-package com.msu.thief.model;
+package com.msu.knp.model;
 
 /**
  * This class represents an item that could be picked by the salesman or

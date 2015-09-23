@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.msu.AlgorithmFactory;
+import com.msu.knp.model.Item;
 import com.msu.moo.experiment.AMultiObjectiveExperiment;
 import com.msu.moo.experiment.ExperimetSettings;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.thief.TravellingThiefProblem;
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
 import com.msu.thief.evaluator.time.NotBackHomeTimeEvaluator;
-import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.tsp.scenarios.impl.RandomTSPScenario;

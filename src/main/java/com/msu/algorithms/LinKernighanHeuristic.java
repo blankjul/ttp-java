@@ -15,9 +15,9 @@ import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.util.BashExecutor;
 import com.msu.moo.util.Util;
 import com.msu.thief.model.SymmetricMap;
-import com.msu.thief.model.tour.StandardTour;
-import com.msu.thief.model.tour.Tour;
 import com.msu.tsp.TravellingSalesmanProblem;
+import com.msu.tsp.model.StandardTour;
+import com.msu.tsp.model.Tour;
 
 /**
  * http://www.akira.ruc.dk/~keld/research/LKH/

@@ -1,14 +1,14 @@
-package com.msu.thief.model.packing.factory;
+package com.msu.knp.model.factory;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.msu.knp.model.BooleanPackingList;
+import com.msu.knp.model.PackingList;
 import com.msu.moo.util.Random;
 import com.msu.thief.TravellingThiefProblem;
-import com.msu.thief.model.packing.BooleanPackingList;
-import com.msu.thief.model.packing.PackingList;
 
-public class PackingListFactory extends APackingPlanFactory {
+public class RandomPackingListFactory extends APackingPlanFactory {
 
 
 	@Override

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.google.common.collect.HashMultimap;
+import com.msu.knp.model.Item;
 
 /**
  * This class represents a ItemCollection that maps each item to a 
@@ -52,7 +53,7 @@ public class ItemCollection<T extends Item> implements Iterable<T> {
 	/**
 	 * @return items as a vector
 	 */
-	public List<T> getItems() {
+	public List<T> getAsList() {
 		return items;
 	}
 	

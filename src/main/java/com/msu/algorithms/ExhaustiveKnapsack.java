@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.msu.knp.KnapsackProblem;
+import com.msu.knp.model.BooleanPackingList;
 import com.msu.moo.algorithms.AMultiObjectiveAlgorithm;
 import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
-import com.msu.thief.model.packing.BooleanPackingList;
 import com.msu.util.Combination;
 
 public class ExhaustiveKnapsack extends AMultiObjectiveAlgorithm<KnapsackProblem> {

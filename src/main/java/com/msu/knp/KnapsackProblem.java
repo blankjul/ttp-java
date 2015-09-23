@@ -5,10 +5,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
+import com.msu.knp.model.Item;
+import com.msu.knp.model.PackingList;
 import com.msu.moo.model.AMultiObjectiveProblem;
 import com.msu.moo.util.exceptions.EvaluationException;
-import com.msu.thief.model.Item;
-import com.msu.thief.model.packing.PackingList;
 
 /**
  * This class represents the knapsack problem.

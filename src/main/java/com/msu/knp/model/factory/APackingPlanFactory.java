@@ -1,8 +1,8 @@
-package com.msu.thief.model.packing.factory;
+package com.msu.knp.model.factory;
 
+import com.msu.knp.model.PackingList;
 import com.msu.moo.model.AVariableFactory;
 import com.msu.thief.TravellingThiefProblem;
-import com.msu.thief.model.packing.PackingList;
 
 public abstract class APackingPlanFactory extends AVariableFactory<PackingList<?>, TravellingThiefProblem> {
 }

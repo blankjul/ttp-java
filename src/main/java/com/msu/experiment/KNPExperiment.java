@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.msu.AlgorithmFactory;
+import com.msu.knp.model.Item;
+import com.msu.knp.model.PackingList;
 import com.msu.moo.algorithms.impl.NSGAIIBuilder;
 import com.msu.moo.experiment.AMultiObjectiveExperiment;
 import com.msu.moo.experiment.ExperimetSettings;
@@ -14,15 +16,13 @@ import com.msu.moo.operators.crossover.permutation.EdgeRecombinationCrossover;
 import com.msu.moo.util.ObjectFactory;
 import com.msu.moo.util.Pair;
 import com.msu.thief.TravellingThiefProblem;
-import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
-import com.msu.thief.model.packing.PackingList;
-import com.msu.thief.model.tour.StandardTour;
-import com.msu.thief.model.tour.Tour;
 import com.msu.thief.scenarios.AScenario;
 import com.msu.thief.variable.TTPCrossover;
 import com.msu.thief.variable.TTPVariable;
+import com.msu.tsp.model.StandardTour;
+import com.msu.tsp.model.Tour;
 
 /**
  * 

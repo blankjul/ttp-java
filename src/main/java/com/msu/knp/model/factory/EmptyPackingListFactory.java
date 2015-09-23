@@ -1,11 +1,11 @@
-package com.msu.thief.model.packing.factory;
+package com.msu.knp.model.factory;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.msu.knp.model.BooleanPackingList;
+import com.msu.knp.model.PackingList;
 import com.msu.thief.TravellingThiefProblem;
-import com.msu.thief.model.packing.BooleanPackingList;
-import com.msu.thief.model.packing.PackingList;
 
 public class EmptyPackingListFactory extends APackingPlanFactory {
 

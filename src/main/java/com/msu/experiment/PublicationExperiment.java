@@ -17,7 +17,6 @@ public class PublicationExperiment extends AMultiObjectiveExperiment<TravellingT
 	@Override
 	protected void setProblems(ExperimetSettings<TravellingThiefProblem, NonDominatedSolutionSet> settings) {
 		settings.addProblem(new PublicationScenario().getObject());
-		
 	}
 
 

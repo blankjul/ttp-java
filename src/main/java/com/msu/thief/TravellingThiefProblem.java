@@ -3,6 +3,8 @@ package com.msu.thief;
 import java.util.List;
 
 import com.msu.knp.IPackingProblem;
+import com.msu.knp.model.Item;
+import com.msu.knp.model.PackingList;
 import com.msu.moo.model.AMultiObjectiveProblem;
 import com.msu.moo.util.Pair;
 import com.msu.moo.util.exceptions.EvaluationException;
@@ -11,14 +13,12 @@ import com.msu.thief.evaluator.profit.IndividualProfitEvaluator;
 import com.msu.thief.evaluator.profit.ProfitEvaluator;
 import com.msu.thief.evaluator.time.StandardTimeEvaluator;
 import com.msu.thief.evaluator.time.TimeEvaluator;
-import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
-import com.msu.thief.model.packing.PackingList;
-import com.msu.thief.model.tour.Tour;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.tsp.ICityProblem;
 import com.msu.tsp.TravellingSalesmanProblem;
+import com.msu.tsp.model.Tour;
 
 public class TravellingThiefProblem extends AMultiObjectiveProblem<TTPVariable> implements IPackingProblem, ICityProblem{
 	

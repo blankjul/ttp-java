@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.msu.knp.model.PackingList;
 import com.msu.moo.util.Pair;
 import com.msu.moo.util.exceptions.EvaluationException;
 import com.msu.thief.TravellingThiefProblem;
 import com.msu.thief.evaluator.profit.ProfitEvaluator;
 import com.msu.thief.evaluator.time.TimeEvaluator;
-import com.msu.thief.model.packing.PackingList;
-import com.msu.thief.model.tour.Tour;
+import com.msu.tsp.model.Tour;
 
 public class Evaluator implements IEvaluator<Pair<Tour<?>,PackingList<?>>, List<Double>>{
 	

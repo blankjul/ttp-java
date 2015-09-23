@@ -4,6 +4,10 @@ package com.msu.experiment;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.msu.knp.model.BooleanPackingList;
+import com.msu.knp.model.Item;
+import com.msu.knp.model.PackingList;
+import com.msu.knp.model.factory.RandomPackingListFactory;
 import com.msu.moo.algorithms.IAlgorithm;
 import com.msu.moo.algorithms.impl.NSGAIIBuilder;
 import com.msu.moo.experiment.AMultiObjectiveExperiment;
@@ -19,19 +23,15 @@ import com.msu.moo.operators.mutation.SwapMutation;
 import com.msu.moo.util.ObjectFactory;
 import com.msu.moo.util.Pair;
 import com.msu.thief.TravellingThiefProblem;
-import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
-import com.msu.thief.model.packing.BooleanPackingList;
-import com.msu.thief.model.packing.PackingList;
-import com.msu.thief.model.packing.factory.PackingListFactory;
-import com.msu.thief.model.tour.Tour;
-import com.msu.thief.model.tour.factory.StandardTourFactory;
 import com.msu.thief.scenarios.AScenario;
 import com.msu.thief.variable.TTPCrossover;
 import com.msu.thief.variable.TTPMutation;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.TTPVariableFactory;
+import com.msu.tsp.model.Tour;
+import com.msu.tsp.model.factory.RandomFactory;
 
 
 /**
@@ -71,7 +71,7 @@ public class TSPExperiment extends AMultiObjectiveExperiment<TravellingThiefProb
 	@Override
 	protected void setAlgorithms(ExperimetSettings<TravellingThiefProblem, NonDominatedSolutionSet> settings) {
 		NSGAIIBuilder<TTPVariable, TravellingThiefProblem> builder = new NSGAIIBuilder<>();
-		builder.setFactory(new TTPVariableFactory(new StandardTourFactory<>(), new PackingListFactory()));
+		builder.setFactory(new TTPVariableFactory(new RandomFactory<>(), new RandomPackingListFactory()));
 		builder.setMutation(new TTPMutation(new SwapMutation<>(), new BitFlipMutation()));
 		builder.setCrossover(new TTPCrossover(new PMXCrossover<Integer>(), new SinglePointCrossover<>()));
 		builder.setProbMutation(0.3);

@@ -2,8 +2,8 @@ package com.msu.tsp.scenarios.impl;
 
 import java.util.Arrays;
 
-import com.msu.thief.model.tour.StandardTour;
-import com.msu.thief.model.tour.Tour;
+import com.msu.tsp.model.StandardTour;
+import com.msu.tsp.model.Tour;
 import com.msu.tsp.scenarios.ACoordinateScenario;
 
 public class Eil101 extends ACoordinateScenario {

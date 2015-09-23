@@ -13,14 +13,19 @@ import com.msu.moo.operators.crossover.permutation.PMXCrossover;
 import com.msu.moo.operators.mutation.SwapMutation;
 import com.msu.moo.util.ObjectFactory;
 import com.msu.thief.model.SymmetricMap;
-import com.msu.thief.model.tour.Tour;
-import com.msu.thief.model.tour.factory.StandardTourFactory;
 import com.msu.thief.scenarios.AScenario;
 import com.msu.tsp.TravellingSalesmanProblem;
+import com.msu.tsp.model.Tour;
+import com.msu.tsp.model.factory.NearestNeighbourFactory;
 
 public class TSPOperatorExperiment extends AMultiObjectiveExperiment<TravellingSalesmanProblem> {
 
-	protected final String[] SCENARIOS = new String[] { "Bays29", "Berlin52", "Eil101", "D198" };
+	protected final String[] SCENARIOS = new String[] { 
+			"Bays29", 
+			"Berlin52", 
+			"Eil101", 
+			"D198" 
+			};
 
 	@Override
 	public void visualize() {
@@ -39,14 +44,14 @@ public class TSPOperatorExperiment extends AMultiObjectiveExperiment<TravellingS
 	@Override
 	protected void setAlgorithms(ExperimetSettings<TravellingSalesmanProblem, NonDominatedSolutionSet> settings) {
 		NSGAIIBuilder<Tour<?>, TravellingSalesmanProblem> builder = new NSGAIIBuilder<>();
-		builder.setFactory(new StandardTourFactory<TravellingSalesmanProblem>());
+		builder.setFactory(new NearestNeighbourFactory<TravellingSalesmanProblem>());
 		builder.setMutation(new SwapMutation<>());
 		builder.setProbMutation(0.3);
-		builder.setPopulationSize(500);
-		settings.addAlgorithm(builder.setCrossover(new PMXCrossover<Integer>()).setName("NSGAII-PMX").create());
-		settings.addAlgorithm(builder.setCrossover(new CycleCrossover<Integer>()).setName("NSGAII-CX").create());
-		settings.addAlgorithm(builder.setCrossover(new OrderedCrossover<Integer>()).setName("NSGAII-OX").create());
-		settings.addAlgorithm(builder.setCrossover(new EdgeRecombinationCrossover<Integer>()).setName("NSGAII-ERC").create());
+		builder.setPopulationSize(1000);
+		settings.addAlgorithm(builder.setCrossover(new PMXCrossover<Integer>()).setName("PMX").create());
+		settings.addAlgorithm(builder.setCrossover(new CycleCrossover<Integer>()).setName("CX").create());
+		settings.addAlgorithm(builder.setCrossover(new OrderedCrossover<Integer>()).setName("OX").create());
+		settings.addAlgorithm(builder.setCrossover(new EdgeRecombinationCrossover<Integer>()).setName("ERC").create());
 	}
 
 	@Override

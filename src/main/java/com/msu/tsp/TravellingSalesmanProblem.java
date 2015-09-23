@@ -8,7 +8,7 @@ import java.util.List;
 import com.msu.moo.model.AMultiObjectiveProblem;
 import com.msu.moo.util.exceptions.EvaluationException;
 import com.msu.thief.model.SymmetricMap;
-import com.msu.thief.model.tour.Tour;
+import com.msu.tsp.model.Tour;
 import com.msu.util.Util;
 
 /**

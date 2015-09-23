@@ -1,14 +1,14 @@
-package com.msu.thief.model.tour.factory;
+package com.msu.tsp.model.factory;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 
 import com.msu.moo.util.Random;
-import com.msu.thief.model.tour.StandardTour;
-import com.msu.thief.model.tour.Tour;
 import com.msu.tsp.ICityProblem;
+import com.msu.tsp.model.StandardTour;
+import com.msu.tsp.model.Tour;
 
-public class StandardTourFactory<P extends ICityProblem> extends ATourFactory<P>{
+public class RandomFactory<P extends ICityProblem> extends ATourFactory<P>{
 
 
 	@Override

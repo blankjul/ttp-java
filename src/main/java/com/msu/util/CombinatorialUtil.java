@@ -46,6 +46,17 @@ public class CombinatorialUtil {
 		return result;
 	}
 
+	/**
+	 * Returns a list like [1,2,3,4,5,5...,n]
+	 */
+	public static List<Integer> getIndexVector(int n) {
+		// create the first tour
+		List<Integer> index = new ArrayList<>();
+		for (int i = 0; i < n; i++) {
+			index.add(i);
+		}
+		return index;
+	}
 
 	
 }

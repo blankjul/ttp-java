@@ -1,10 +1,10 @@
 package com.msu.thief.scenarios.impl;
 
+import com.msu.knp.model.Item;
 import com.msu.knp.scenarios.impl.RandomKnapsackScenario;
 import com.msu.knp.scenarios.impl.RandomKnapsackScenario.CORRELATION_TYPE;
 import com.msu.thief.TravellingThiefProblem;
 import com.msu.thief.evaluator.profit.IndividualProfitEvaluator;
-import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.scenarios.AScenario;
 import com.msu.tsp.scenarios.impl.RandomTSPScenario;

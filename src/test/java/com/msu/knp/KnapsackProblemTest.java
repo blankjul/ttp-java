@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.msu.knp.KnapsackProblem;
-import com.msu.thief.model.Item;
+import com.msu.knp.model.Item;
 
 public class KnapsackProblemTest {
 

@@ -2,7 +2,7 @@ package com.msu.thief.evaluator.profit;
 
 import java.util.Map;
 
-import com.msu.thief.model.Item;
+import com.msu.knp.model.Item;
 
 /**
  * The ExponentialProfitCalculator uses the same function for all items.

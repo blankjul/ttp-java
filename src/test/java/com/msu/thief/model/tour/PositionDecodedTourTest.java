@@ -12,7 +12,9 @@ import org.junit.Test;
 import com.msu.moo.interfaces.IVariable;
 import com.msu.moo.operators.crossover.SinglePointCrossover;
 import com.msu.thief.TravellingThiefProblem;
-import com.msu.thief.model.tour.factory.PositionDecodedTourFactory;
+import com.msu.tsp.model.PositionDecodedTour;
+import com.msu.tsp.model.Tour;
+import com.msu.tsp.model.factory.PositionDecodedTourFactory;
 
 public class PositionDecodedTourTest {
 

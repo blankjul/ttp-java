@@ -3,6 +3,9 @@ package com.msu.algorithms;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.msu.knp.model.BooleanPackingList;
+import com.msu.knp.model.PackingList;
+import com.msu.knp.model.factory.EmptyPackingListFactory;
 import com.msu.moo.algorithms.AMultiObjectiveAlgorithm;
 import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
@@ -10,12 +13,9 @@ import com.msu.moo.model.solution.Solution;
 import com.msu.moo.util.Pair;
 import com.msu.moo.util.Random;
 import com.msu.thief.TravellingThiefProblem;
-import com.msu.thief.model.packing.BooleanPackingList;
-import com.msu.thief.model.packing.PackingList;
-import com.msu.thief.model.packing.factory.EmptyPackingListFactory;
-import com.msu.thief.model.tour.Tour;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.tsp.TravellingSalesmanProblem;
+import com.msu.tsp.model.Tour;
 
 public class RandomLocalSearch extends AMultiObjectiveAlgorithm<TravellingThiefProblem> {
 

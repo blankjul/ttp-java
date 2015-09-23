@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.msu.knp.model.Item;
 import com.msu.thief.TravellingThiefProblem;
-import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.tsp.scenarios.impl.RandomTSPScenario;

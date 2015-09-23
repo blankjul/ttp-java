@@ -2,8 +2,8 @@ package com.msu.thief.evaluator.profit;
 
 import java.util.Map;
 
+import com.msu.knp.model.Item;
 import com.msu.thief.evaluator.IEvaluator;
-import com.msu.thief.model.Item;
 
 /**
  * The ProfitCalculator provides an interface for calculating the profit. For

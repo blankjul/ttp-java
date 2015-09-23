@@ -3,6 +3,9 @@ package com.msu.experiment;
 import java.util.Arrays;
 import java.util.List;
 
+import com.msu.knp.model.Item;
+import com.msu.knp.model.PackingList;
+import com.msu.knp.model.factory.EmptyPackingListFactory;
 import com.msu.moo.algorithms.IAlgorithm;
 import com.msu.moo.algorithms.impl.NSGAIIBuilder;
 import com.msu.moo.experiment.AMultiObjectiveExperiment;
@@ -19,25 +22,27 @@ import com.msu.moo.operators.mutation.SwapMutation;
 import com.msu.moo.util.ObjectFactory;
 import com.msu.moo.util.Pair;
 import com.msu.thief.TravellingThiefProblem;
-import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
-import com.msu.thief.model.packing.PackingList;
-import com.msu.thief.model.packing.factory.PackingListFactory;
-import com.msu.thief.model.tour.StandardTour;
-import com.msu.thief.model.tour.Tour;
-import com.msu.thief.model.tour.factory.StandardTourFactory;
 import com.msu.thief.scenarios.AScenario;
 import com.msu.thief.variable.TTPCrossover;
 import com.msu.thief.variable.TTPMutation;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.TTPVariableFactory;
+import com.msu.tsp.model.StandardTour;
+import com.msu.tsp.model.Tour;
+import com.msu.tsp.model.factory.RandomFactory;
 
 
 public class KNPOperatorExperiment extends AMultiObjectiveExperiment<TravellingThiefProblem> {
 
 	
-	protected final String[] SCENARIOS = new String[] { "KNP_13_2000_1000_1"};
+	protected final String[] SCENARIOS = new String[] { 
+			"KNP_13_0020_1000_1", 
+			"KNP_13_0200_1000_1", 
+			"KNP_13_1000_1000_1",
+			"KNP_13_2000_1000_1"
+			};
 	
 	@Override
 	public void visualize() {
@@ -60,10 +65,9 @@ public class KNPOperatorExperiment extends AMultiObjectiveExperiment<TravellingT
 	@Override
 	protected void setAlgorithms(ExperimetSettings<TravellingThiefProblem, NonDominatedSolutionSet> settings) {
 		NSGAIIBuilder<TTPVariable, TravellingThiefProblem> builder = new NSGAIIBuilder<>();
-		builder.setFactory(new TTPVariableFactory(new StandardTourFactory<>(), new PackingListFactory()));
+		builder.setFactory(new TTPVariableFactory(new RandomFactory<>(), new EmptyPackingListFactory()));
 		builder.setMutation(new TTPMutation(new SwapMutation<>(), new BitFlipMutation()));
 		builder.setProbMutation(0.3);
-		
 		
 		settings.addAlgorithm(builder.setCrossover(new TTPCrossover(new OrderedCrossover<>(), new SinglePointCrossover<>()))
 				.setName("SPX").create());

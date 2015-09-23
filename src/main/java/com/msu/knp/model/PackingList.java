@@ -1,4 +1,4 @@
-package com.msu.thief.model.packing;
+package com.msu.knp.model;
 
 import java.util.List;
 

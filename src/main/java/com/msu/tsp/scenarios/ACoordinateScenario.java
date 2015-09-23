@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.msu.thief.model.SymmetricMap;
-import com.msu.thief.model.tour.Tour;
 import com.msu.thief.scenarios.AScenario;
+import com.msu.tsp.model.Tour;
 import com.msu.tsp.scenarios.impl.RandomTSPScenario;
 import com.msu.tsp.util.rounding.RoundingNearestInt;
 
