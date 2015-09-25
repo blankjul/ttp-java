@@ -35,28 +35,30 @@ int main(int argc, char* argv[]) {
         item i;
         i.p = p;
         i.w = w;
-        i.x = 0;
         i.id = counter++;
         items.push_back(i);
     }
 
      if (items.size() != numOfItems) {
-         std::cout << "ERROR while reading items. Read " << items.size() << " exspected " << numOfItems<< "!\n";
+         std::cout << "ERROR while reading items. Read " << items.size() << " expected " << numOfItems<< "!\n";
          
          return EXIT_FAILURE;
      }
 
      item *f = &(*items.begin());
-     item *l = &(*items.end());
+     item *l = &(*(items.end() - 1));
 
    
-     combo(f,l, maxWeight,0, 45654646464645, true, true);
+     long objValue = combo(f,l, maxWeight,0, 45654646464645, true, false);
+
+     std::cout << "#" << objValue << "\n";
 
      std::sort( items.begin(), items.end(), IDgreater() );     
 
      for(std::vector<item>::iterator it = items.begin(); it != items.end(); ++it) {
-          //std::cout << it->id << " - " << it->p << " - " << it-> w << " - " << it->x << "\n";
+          std::cout << "#" << it->id << " - " << it->p << " - " << it-> w << " - " << it->x << "\n";
           std::cout << it->x << "\n";
+
      }
 
 }

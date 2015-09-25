@@ -76,6 +76,10 @@ public class LinKernighanHeuristic extends AMultiObjectiveAlgorithm<TravellingSa
 			}
 			br.close();
 			
+			BashExecutor.execute("rm instance.par");
+			BashExecutor.execute("rm problem.tsp");
+			BashExecutor.execute("rm tour.opt");
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

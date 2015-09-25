@@ -17,8 +17,6 @@ import com.msu.moo.util.Util;
 public class Combo extends AMultiObjectiveAlgorithm<KnapsackProblem>{
 
 	
-	
-	
 	public Combo() {
 		super();
 		if (!Util.doesFileExist(ThiefConfiguration.PATH_TO_COMBO))
@@ -35,13 +33,14 @@ public class Combo extends AMultiObjectiveAlgorithm<KnapsackProblem>{
 	
 	public static PackingList<?> getPackingList(Evaluator<KnapsackProblem> eval) {
 		String command = getCommand(eval.getProblem());
-		System.out.println(command);
+		//System.out.println(command);
 		String out = BashExecutor.execute(command);
 		
 		List<Boolean> result = new ArrayList<>();
 		
 		// for each line at the results
 		for (String line : out.split("\n")) {
+			if (line.startsWith("#")) continue;
 			result.add(line.equals("1"));
 		}
 
@@ -57,9 +56,9 @@ public class Combo extends AMultiObjectiveAlgorithm<KnapsackProblem>{
 		sb.append(problem.numOfItems());
 		sb.append(" ");
 		for (Item item : problem.getItems()) {
-			sb.append((int) item.getProfit());
+			sb.append(Math.round(item.getProfit()));
 			sb.append(" ");
-			sb.append((int) item.getWeight());
+			sb.append((int) Math.ceil(item.getWeight()));
 			sb.append(" ");
 		}
 		sb.append("\" | ");

@@ -59,7 +59,7 @@ public class KnapsackProblem  extends AMultiObjectiveProblem<PackingList<?>> imp
 	/**
 	 * @return sum of weights for given packing list
 	 */
-	public static <T extends Item> double getWeight(List<T> items, List<Boolean> b) {
+	public static <T extends Item> double getWeight(List<Item> items, List<Boolean> b) {
 		return getSumItemAttribute(items, b, i -> i.getWeight());
 	}
 
