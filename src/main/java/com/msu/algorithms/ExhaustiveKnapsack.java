@@ -5,18 +5,19 @@ import java.util.List;
 
 import com.msu.knp.KnapsackProblem;
 import com.msu.knp.model.BooleanPackingList;
-import com.msu.moo.algorithms.AMultiObjectiveAlgorithm;
-import com.msu.moo.model.Evaluator;
+import com.msu.moo.interfaces.IEvaluator;
+import com.msu.moo.model.AbstractAlgorithm;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.util.Combination;
 
-public class ExhaustiveKnapsack extends AMultiObjectiveAlgorithm<KnapsackProblem> {
+public class ExhaustiveKnapsack extends AbstractAlgorithm {
 
 	
 	@Override
-	public NonDominatedSolutionSet run(Evaluator<KnapsackProblem> evaluator) {
+	public NonDominatedSolutionSet run(IEvaluator evaluator) {
 		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
-		final int n = evaluator.getProblem().numOfItems();
+		KnapsackProblem problem = (KnapsackProblem) evaluator.getProblem();
+		final int n = problem.numOfItems();
 		for (int i = 0; i <= n; i++) {
 			Combination combination = new Combination(n, i);
 			while (combination.hasNext()) {

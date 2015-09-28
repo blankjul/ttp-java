@@ -46,6 +46,7 @@ public class SingleObjectiveThiefProblem extends ThiefProblem {
 		// check for the correct input before using evaluator
 		Pair<Tour<?>, PackingList<?>> pair = variable.get();
 
+		// always start at city 0
 		List<Integer> tour = pair.first.encode();
 		Collections.rotate(tour, -tour.indexOf(0));
 		pair.first = new StandardTour(tour);

@@ -35,6 +35,14 @@ public class TTPVariable extends AVariable<Pair<Tour<?>, PackingList<?>>> {
 	public IVariable copy() {
 		return new TTPVariable(obj);
 	}
+	
+	public Tour<?> getTour() {
+		return obj.first;
+	}
+	
+	public PackingList<?> getPackingList() {
+		return obj.second;
+	}
 
 	
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
+import com.msu.moo.interfaces.IProblem;
 import com.msu.moo.util.Random;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.tsp.ICityProblem;
@@ -16,13 +17,13 @@ import com.msu.tsp.model.StandardTour;
 import com.msu.tsp.model.Tour;
 import com.msu.util.CombinatorialUtil;
 
-public class NearestNeighbourFactory<P extends ICityProblem> extends ATourFactory<P>{
+public class NearestNeighbourFactory extends ATourFactory {
 
 	protected int maxPoolSize = 20;
 	
 	List<Tour<?>> pool = null;
 	
-	P problem = null;
+	IProblem problem = null;
 	
 	
 	public static Tour<?> create(int startingCity, SymmetricMap map) {
@@ -57,7 +58,7 @@ public class NearestNeighbourFactory<P extends ICityProblem> extends ATourFactor
 
 
 	@Override
-	public Tour<?> next(P p) {
+	public Tour<?> next(IProblem p) {
 		
 		// if there is a new problem!
 		if (problem != p) {
@@ -67,7 +68,7 @@ public class NearestNeighbourFactory<P extends ICityProblem> extends ATourFactor
 		
 		if (pool == null) {
 			pool = new ArrayList<>();
-			SymmetricMap map = problem.getMap();
+			SymmetricMap map = ((ICityProblem) problem).getMap();
 			List<Integer> startingCities = CombinatorialUtil.getIndexVector(map.getSize());
 			Random.getInstance().shuffle(startingCities);
 			Queue<Integer> q = new LinkedList<>(startingCities);

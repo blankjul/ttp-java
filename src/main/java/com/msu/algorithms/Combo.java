@@ -8,13 +8,13 @@ import com.msu.knp.KnapsackProblem;
 import com.msu.knp.model.BooleanPackingList;
 import com.msu.knp.model.Item;
 import com.msu.knp.model.PackingList;
-import com.msu.moo.algorithms.AMultiObjectiveAlgorithm;
-import com.msu.moo.model.Evaluator;
+import com.msu.moo.interfaces.IEvaluator;
+import com.msu.moo.model.AbstractAlgorithm;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.util.BashExecutor;
 import com.msu.moo.util.Util;
 
-public class Combo extends AMultiObjectiveAlgorithm<KnapsackProblem>{
+public class Combo extends AbstractAlgorithm {
 
 	
 	public Combo() {
@@ -24,15 +24,15 @@ public class Combo extends AMultiObjectiveAlgorithm<KnapsackProblem>{
 	}
 
 	@Override
-	public NonDominatedSolutionSet run(Evaluator<KnapsackProblem> eval) {
+	public NonDominatedSolutionSet run(IEvaluator eval) {
 		NonDominatedSolutionSet result = new NonDominatedSolutionSet();
 		result.add(eval.evaluate(Combo.getPackingList(eval)));
 		return result;
 	}
 	
 	
-	public static PackingList<?> getPackingList(Evaluator<KnapsackProblem> eval) {
-		String command = getCommand(eval.getProblem());
+	public static PackingList<?> getPackingList(IEvaluator eval) {
+		String command = getCommand((KnapsackProblem) eval.getProblem());
 		//System.out.println(command);
 		String out = BashExecutor.execute(command);
 		

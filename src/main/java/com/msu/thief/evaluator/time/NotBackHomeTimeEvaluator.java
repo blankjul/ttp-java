@@ -20,7 +20,7 @@ public class NotBackHomeTimeEvaluator extends TimeEvaluator {
 	@Override
 	public Double evaluate_(Pair<Tour<?>, PackingList<?>> input) {
 		
-		ItemCollection<Item> items = problem.getItems();
+		ItemCollection<Item> items = problem.getItemCollection();
 		
 		List<Integer> pi = input.first.encode();
 		List<Boolean> b = input.second.encode();

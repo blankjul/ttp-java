@@ -11,7 +11,7 @@ public class ExperimentExecutor {
 	/*
 	 * EXERIMENTS AVAILABLE
 	 * GreedyMapExperiment, TSPOperatorExperiment, NSGAIIOperatorExperiment, PublicationExperiment
-	 * BonyadiExperiment, NSGAIIOperatorExperiment, OneScenarioTSPColoredExperiment
+	 * BonyadiExperiment, NSGAIIOperatorExperiment, OneScenarioExperiment
 	 * 
 	 * TSP
 	 * TSPExperiment
@@ -25,10 +25,10 @@ public class ExperimentExecutor {
 	protected final static String PREFIX = "com.msu.experiment.";
 	
 	//! experiment that should be executed
-	protected final static String EXPERIMENT = "BonyadiMultiTSPLIBExperiment";
+	protected final static String EXPERIMENT = "bonyadi.BonyadiSingleExperiment";
 	
 	//! number of iterations per experiment
-	protected final static int ITERATIONS = 1;
+	protected final static int ITERATIONS = 10;
 	
 	//! max evaluations per run
 	protected final static int MAX_EVALUATIONS = 100000;
@@ -43,11 +43,8 @@ public class ExperimentExecutor {
 		Configuration.PATH_TO_EAF = "../moo-java/vendor/aft-0.95/eaf";
 		Configuration.PATH_TO_HYPERVOLUME = "../moo-java/vendor/hv-1.3-src/hv";
 		
-		AExperiment<?,?> experiment = ObjectFactory.create(AExperiment.class,  PREFIX + EXPERIMENT);
-		
+		AExperiment experiment = ObjectFactory.create(AExperiment.class,  PREFIX + EXPERIMENT);
 		experiment.run(MAX_EVALUATIONS, ITERATIONS, SEED);
-		experiment.visualize();
-		experiment.report();
 	}
 	
 

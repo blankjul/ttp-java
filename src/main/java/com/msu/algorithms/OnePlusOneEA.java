@@ -3,39 +3,44 @@ package com.msu.algorithms;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.math3.analysis.function.Sigmoid;
+
 import com.msu.knp.model.BooleanPackingList;
 import com.msu.knp.model.PackingList;
 import com.msu.knp.model.factory.EmptyPackingListFactory;
-import com.msu.moo.algorithms.AMultiObjectiveAlgorithm;
+import com.msu.moo.interfaces.IEvaluator;
+import com.msu.moo.model.AbstractAlgorithm;
 import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.util.Pair;
 import com.msu.moo.util.Random;
+import com.msu.thief.SingleObjectiveThiefProblem;
 import com.msu.thief.ThiefProblem;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.variable.TTPVariable;
-import com.msu.tsp.ICityProblem;
 import com.msu.tsp.TravellingSalesmanProblem;
 import com.msu.tsp.model.Tour;
 
-public class OnePlusOneEA extends AMultiObjectiveAlgorithm<ThiefProblem> {
+public class OnePlusOneEA extends AbstractAlgorithm {
 
 
 	Solution best = null;
 	
 	@Override
-	public NonDominatedSolutionSet run(Evaluator<ThiefProblem> eval) {
+	public NonDominatedSolutionSet run(IEvaluator eval) {
 
 		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
 
-		SymmetricMap map = eval.getProblem().getMap();
-		map.multipleCosts(eval.getProblem().getMaxSpeed());
+		SingleObjectiveThiefProblem problem = new SingleObjectiveThiefProblem((ThiefProblem) eval.getProblem());
+		
+		SymmetricMap map = problem.getMap();
+		map.multipleCosts(problem.getMaxSpeed());
 		
 		TravellingSalesmanProblem tsp = new TravellingSalesmanProblem(map);
 		
-		Tour<?> bestTour = LinKernighanHeuristic.getTour(new Evaluator<ICityProblem>(tsp), eval.getProblem().getMaxSpeed());
-		PackingList<?> bestList = new EmptyPackingListFactory().next(eval.getProblem());
+		Tour<?> bestTour = LinKernighanHeuristic.getTour(new Evaluator(tsp), problem.getMaxSpeed());
+		PackingList<?> bestList = new EmptyPackingListFactory().next(problem);
 
 		while (eval.hasNext()) {
 

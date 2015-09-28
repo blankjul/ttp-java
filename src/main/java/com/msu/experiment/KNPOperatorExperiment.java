@@ -2,14 +2,14 @@ package com.msu.experiment;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import com.msu.knp.model.Item;
 import com.msu.knp.model.PackingList;
 import com.msu.knp.model.factory.EmptyPackingListFactory;
-import com.msu.moo.algorithms.IAlgorithm;
-import com.msu.moo.algorithms.impl.NSGAIIBuilder;
-import com.msu.moo.experiment.AMultiObjectiveExperiment;
-import com.msu.moo.experiment.ExperimetSettings;
+import com.msu.moo.algorithms.NSGAIIBuilder;
+import com.msu.moo.experiment.AExperiment;
+import com.msu.moo.interfaces.IAlgorithm;
 import com.msu.moo.interfaces.IProblem;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
@@ -19,6 +19,7 @@ import com.msu.moo.operators.crossover.UniformCrossover;
 import com.msu.moo.operators.crossover.permutation.OrderedCrossover;
 import com.msu.moo.operators.mutation.BitFlipMutation;
 import com.msu.moo.operators.mutation.SwapMutation;
+import com.msu.moo.report.SingleObjectiveReport;
 import com.msu.moo.util.ObjectFactory;
 import com.msu.moo.util.Pair;
 import com.msu.scenarios.AThiefScenario;
@@ -34,7 +35,7 @@ import com.msu.tsp.model.Tour;
 import com.msu.tsp.model.factory.RandomFactory;
 
 
-public class KNPOperatorExperiment extends AMultiObjectiveExperiment<ThiefProblem> {
+public class KNPOperatorExperiment extends AExperiment {
 
 	
 	protected final String[] SCENARIOS = new String[] { 
@@ -45,49 +46,41 @@ public class KNPOperatorExperiment extends AMultiObjectiveExperiment<ThiefProble
 			};
 	
 	@Override
-	public void visualize() {
-		for (IProblem problem : settings.getProblems()) {
-			for (IAlgorithm<NonDominatedSolutionSet, ?> algorithm : settings.getAlgorithms()) {
-				for (NonDominatedSolutionSet set : result.get(problem, algorithm)) {
-					if (set.size() != 1)
-						throw new RuntimeException("Single Objective problem only one solution allowed.");
-					System.out.println(String.format("%s,%s,%s", problem, algorithm, set.get(0).getObjectives(1)));
-				}
-			}
-		}
-		
-		for (IProblem problem : settings.getProblems()) {
-			System.out.println(String.format("%s,%s,%s", problem, "Optimum", settings.getOptima().get(problem).get(0).getObjective().get(1)));
-		}
+	public void finalize() {
+		new SingleObjectiveReport(1).print(this);
 	}
 
 	
 	@Override
-	protected void setAlgorithms(ExperimetSettings<ThiefProblem, NonDominatedSolutionSet> settings) {
-		NSGAIIBuilder<TTPVariable, ThiefProblem> builder = new NSGAIIBuilder<>();
-		builder.setFactory(new TTPVariableFactory(new RandomFactory<>(), new EmptyPackingListFactory()));
+	protected void setAlgorithms(List<IAlgorithm> algorithms) {
+		NSGAIIBuilder builder = new NSGAIIBuilder();
+		builder.setFactory(new TTPVariableFactory(new RandomFactory(), new EmptyPackingListFactory()));
 		builder.setMutation(new TTPMutation(new SwapMutation<>(), new BitFlipMutation()));
 		builder.setProbMutation(0.3);
 		
-		settings.addAlgorithm(builder.setCrossover(new TTPCrossover(new OrderedCrossover<>(), new SinglePointCrossover<>()))
+		algorithms.add(builder.setCrossover(new TTPCrossover(new OrderedCrossover<>(), new SinglePointCrossover<>()))
 				.setName("SPX").create());
 		
-		settings.addAlgorithm(builder.setCrossover(new TTPCrossover(new OrderedCrossover<>(), new UniformCrossover<>()))
+		algorithms.add(builder.setCrossover(new TTPCrossover(new OrderedCrossover<>(), new UniformCrossover<>()))
 				.setName("UX").create());
 		
-		settings.addAlgorithm(builder.setCrossover(new TTPCrossover(new OrderedCrossover<>(), new HalfUniformCrossover<>()))
+		algorithms.add(builder.setCrossover(new TTPCrossover(new OrderedCrossover<>(), new HalfUniformCrossover<>()))
 				.setName("HUX").create());
 	}
 
 	
+
+	@Override
+	protected void setProblems(List<IProblem> problems) {
+	}
 	
 	
 	@Override
-	protected void setProblems(ExperimetSettings<ThiefProblem, NonDominatedSolutionSet> settings) {
+	protected void setOptima(List<IProblem> problems, Map<IProblem, NonDominatedSolutionSet> mOptima) {
 		for (String s : SCENARIOS) {
 			@SuppressWarnings("unchecked")
 			AThiefScenario<Pair<List<Item>,Integer>, PackingList<?>> scenario = 
-			(AThiefScenario<Pair<List<Item>,Integer>, PackingList<?>>) ObjectFactory.create("com.msu.knp.scenarios.impl." + s);
+			(AThiefScenario<Pair<List<Item>,Integer>, PackingList<?>>) ObjectFactory.create("com.msu.scenarios.knp." + s);
 			
 			Pair<List<Item>, Integer> obj = scenario.getObject();
 
@@ -98,22 +91,15 @@ public class KNPOperatorExperiment extends AMultiObjectiveExperiment<ThiefProble
 
 			ThiefProblem problem = new ThiefProblem(new SymmetricMap(1), items, obj.second);
 			problem.setName(s);
-			settings.addProblem(problem);
+			problems.add(problem);
 			
 			Tour<?> t = new StandardTour(Arrays.asList(0));
 			Solution sol = problem.evaluate(new TTPVariable(Pair.create(t, scenario.getOptimal())));
 			NonDominatedSolutionSet set = new NonDominatedSolutionSet(Arrays.asList(sol));
-			settings.addOptima(problem, set);
-			
+			mOptima.put(problem, set);
 			
 		}
 	}
-
-	@Override
-	protected void setOptima(ExperimetSettings<ThiefProblem, NonDominatedSolutionSet> settings) {
-		// otherwise all optima are set to zero!
-	}
-	
 	
 	
 

@@ -7,7 +7,7 @@ import java.util.function.Function;
 
 import com.msu.knp.model.Item;
 import com.msu.knp.model.PackingList;
-import com.msu.moo.model.AMultiObjectiveProblem;
+import com.msu.moo.model.AProblem;
 import com.msu.moo.util.exceptions.EvaluationException;
 
 /**
@@ -17,7 +17,7 @@ import com.msu.moo.util.exceptions.EvaluationException;
  * fits into the knapsack.
  *
  */
-public class KnapsackProblem  extends AMultiObjectiveProblem<PackingList<?>> implements IPackingProblem{
+public class KnapsackProblem  extends AProblem<PackingList<?>> implements IPackingProblem{
 
 	// ! maximal weight of the knapsack
 	protected int maxWeight;
@@ -120,7 +120,7 @@ public class KnapsackProblem  extends AMultiObjectiveProblem<PackingList<?>> imp
 	public void setItems(List<Item> items) {
 		this.items = items;
 	}
-	
+
 	
 
 }

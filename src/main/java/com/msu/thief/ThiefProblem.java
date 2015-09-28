@@ -5,7 +5,7 @@ import java.util.List;
 import com.msu.knp.IPackingProblem;
 import com.msu.knp.model.Item;
 import com.msu.knp.model.PackingList;
-import com.msu.moo.model.AMultiObjectiveProblem;
+import com.msu.moo.model.AProblem;
 import com.msu.moo.util.Pair;
 import com.msu.moo.util.exceptions.EvaluationException;
 import com.msu.thief.evaluator.Evaluator;
@@ -20,7 +20,7 @@ import com.msu.tsp.ICityProblem;
 import com.msu.tsp.TravellingSalesmanProblem;
 import com.msu.tsp.model.Tour;
 
-public class ThiefProblem extends AMultiObjectiveProblem<TTPVariable> implements IPackingProblem, ICityProblem{
+public class ThiefProblem extends AProblem<TTPVariable> implements IPackingProblem, ICityProblem{
 	
 	// ! minimal speed of the salesman
 	protected double minSpeed = 0.1d;
@@ -106,7 +106,7 @@ public class ThiefProblem extends AMultiObjectiveProblem<TTPVariable> implements
 		this.maxWeight = maxWeight;
 	}
 
-	public ItemCollection<Item> getItems() {
+	public ItemCollection<Item> getItemCollection() {
 		return items;
 	}
 
@@ -144,6 +144,11 @@ public class ThiefProblem extends AMultiObjectiveProblem<TTPVariable> implements
 
 	public void setMaxSpeed(double maxSpeed) {
 		this.maxSpeed = maxSpeed;
+	}
+
+	@Override
+	public List<Item> getItems() {
+		return items.getAsList();
 	}
 
 }

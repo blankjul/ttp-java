@@ -1,22 +1,23 @@
 package com.msu.experiment.proofs;
 
-import com.msu.AlgorithmFactory;
-import com.msu.moo.experiment.AMultiObjectiveExperiment;
-import com.msu.moo.experiment.ExperimetSettings;
-import com.msu.moo.model.solution.NonDominatedSolutionSet;
-import com.msu.scenarios.thief.PublicationScenario;
-import com.msu.thief.ThiefProblem;
+import java.util.List;
 
-public class MyPublicationExperiment extends AMultiObjectiveExperiment<ThiefProblem> {
+import com.msu.AlgorithmFactory;
+import com.msu.moo.experiment.AExperiment;
+import com.msu.moo.interfaces.IAlgorithm;
+import com.msu.moo.interfaces.IProblem;
+import com.msu.scenarios.thief.PublicationScenario;
+
+public class MyPublicationExperiment extends AExperiment {
 
 	@Override
-	protected void setAlgorithms(ExperimetSettings<ThiefProblem, NonDominatedSolutionSet> settings) {
-		settings.addAlgorithm(AlgorithmFactory.createNSGAII());
+	protected void setAlgorithms(List<IAlgorithm> algorithms) {
+		algorithms.add(AlgorithmFactory.createNSGAII());
 	}
 	
 	@Override
-	protected void setProblems(ExperimetSettings<ThiefProblem, NonDominatedSolutionSet> settings) {
-		settings.addProblem(new PublicationScenario().getObject());
+	protected void setProblems(List<IProblem> problems) {
+		problems.add(new PublicationScenario().getObject());
 	}
 
 

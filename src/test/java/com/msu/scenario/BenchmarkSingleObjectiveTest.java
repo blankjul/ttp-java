@@ -44,7 +44,7 @@ public class BenchmarkSingleObjectiveTest {
 	
 	@Test
 	public void testHasItems() {
-		assertTrue(ttp.getItems().size() != 0);
+		assertTrue(ttp.getItemCollection().size() != 0);
 	}
 	
 

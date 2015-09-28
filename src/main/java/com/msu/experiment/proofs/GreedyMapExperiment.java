@@ -6,9 +6,9 @@ import java.util.List;
 
 import com.msu.AlgorithmFactory;
 import com.msu.knp.model.Item;
-import com.msu.moo.experiment.AMultiObjectiveExperiment;
-import com.msu.moo.experiment.ExperimetSettings;
-import com.msu.moo.model.solution.NonDominatedSolutionSet;
+import com.msu.moo.experiment.AExperiment;
+import com.msu.moo.interfaces.IAlgorithm;
+import com.msu.moo.interfaces.IProblem;
 import com.msu.scenarios.tsp.RandomTSPScenario;
 import com.msu.thief.ThiefProblem;
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
@@ -17,17 +17,17 @@ import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.tsp.util.distances.ManhattenDistance;
 
-public class GreedyMapExperiment extends AMultiObjectiveExperiment<ThiefProblem> {
+public class GreedyMapExperiment extends AExperiment {
 
 	final protected int NUM_OF_CITIES = 20;
 
 	@Override
-	protected void setAlgorithms(ExperimetSettings<ThiefProblem, NonDominatedSolutionSet> settings) {
-		settings.addAlgorithm(AlgorithmFactory.createNSGAII());
+	protected void setAlgorithms(List<IAlgorithm> algorithms) {
+		algorithms.add(AlgorithmFactory.createNSGAII());
 	}
 
 	@Override
-	protected void setProblems(ExperimetSettings<ThiefProblem, NonDominatedSolutionSet> settings) {
+	protected void setProblems(List<IProblem> problems) {
 		// create the map
 		List<Point2D> cities = new ArrayList<>();
 		for (int i = 0; i < NUM_OF_CITIES; i++) {
@@ -55,7 +55,7 @@ public class GreedyMapExperiment extends AMultiObjectiveExperiment<ThiefProblem>
 		ttp.setProfitEvaluator(new ExponentialProfitEvaluator(0.9, 100.0));
 		ttp.setTimeEvaluator(new NotBackHomeTimeEvaluator(ttp));
 
-		settings.addProblem(ttp);
+		problems.add(ttp);
 
 	}
 

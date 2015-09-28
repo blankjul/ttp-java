@@ -1,37 +1,33 @@
 package com.msu.experiment.proofs;
 
-import com.msu.algorithms.ExhaustiveThief;
-import com.msu.moo.algorithms.IAlgorithm;
-import com.msu.moo.experiment.AMultiObjectiveExperiment;
-import com.msu.moo.experiment.ExperimetSettings;
-import com.msu.moo.model.solution.NonDominatedSolutionSet;
+import java.util.List;
+
+import com.msu.AlgorithmFactory;
+import com.msu.moo.experiment.AExperiment;
+import com.msu.moo.interfaces.IAlgorithm;
+import com.msu.moo.interfaces.IProblem;
+import com.msu.moo.report.SolutionSetReport;
 import com.msu.scenarios.thief.bonyadi.PublicationScenario;
-import com.msu.thief.ThiefProblem;
 
-public class BonyadiMultiObjectiveExperiment extends AMultiObjectiveExperiment<ThiefProblem> {
+public class BonyadiMultiObjectiveExperiment extends AExperiment {
 
-	
-	
+
 	@Override
-	public void visualize() {
+	protected void finalize() {
+		new SolutionSetReport().print(this);
 	}
 
 
 	@Override
-	protected void report_(ThiefProblem problem, IAlgorithm<NonDominatedSolutionSet, ThiefProblem> algorithm, NonDominatedSolutionSet set) {
-		System.out.println(set);
-	}
-
-
-	@Override
-	protected void setAlgorithms(ExperimetSettings<ThiefProblem, NonDominatedSolutionSet> settings) {
-		settings.addAlgorithm(new ExhaustiveThief());
+	protected void setAlgorithms(List<IAlgorithm> algorithms) {
+		algorithms.add(AlgorithmFactory.createNSGAII());
 	}
 	
 
 	@Override
-	protected void setProblems(ExperimetSettings<ThiefProblem, NonDominatedSolutionSet> settings) {
-			settings.addProblem(new PublicationScenario().getObject());
+	protected void setProblems(List<IProblem> problems) {
+		problems.add(new PublicationScenario().getObject());
 	}
+
 
 }

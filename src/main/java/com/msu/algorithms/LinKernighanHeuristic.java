@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.msu.ThiefConfiguration;
-import com.msu.moo.algorithms.AMultiObjectiveAlgorithm;
-import com.msu.moo.model.Evaluator;
+import com.msu.moo.interfaces.IEvaluator;
+import com.msu.moo.model.AbstractAlgorithm;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.util.BashExecutor;
 import com.msu.moo.util.Util;
@@ -36,7 +36,7 @@ import com.msu.tsp.model.Tour;
  * 1,904,711-city instance (World TSP).
  * 
  */
-public class LinKernighanHeuristic extends AMultiObjectiveAlgorithm<ICityProblem> {
+public class LinKernighanHeuristic extends AbstractAlgorithm {
 
 	protected List<Integer> result= null;
 
@@ -47,16 +47,18 @@ public class LinKernighanHeuristic extends AMultiObjectiveAlgorithm<ICityProblem
 	}
 
 	
-	public static Tour<?> getTour(Evaluator<ICityProblem> eval) {
+	public static Tour<?> getTour(IEvaluator eval) {
 		return getTour(eval, null);
 	}
 	
 	
-	public static Tour<?> getTour(Evaluator<ICityProblem> eval, Double speed) {
+	public static Tour<?> getTour(IEvaluator eval, Double speed) {
 		
 		List<Integer> result = new ArrayList<>();
 		
-		SymmetricMap map = eval.getProblem().getMap();
+		ICityProblem problem = (ICityProblem)eval.getProblem();
+		
+		SymmetricMap map = problem.getMap();
 		if (speed != null) map = map.multipleCosts(speed);
 		
 		try {
@@ -98,7 +100,7 @@ public class LinKernighanHeuristic extends AMultiObjectiveAlgorithm<ICityProblem
 	}
 	
 	@Override
-	public NonDominatedSolutionSet run(com.msu.moo.model.Evaluator<ICityProblem> eval) {
+	public NonDominatedSolutionSet run(IEvaluator eval) {
 		NonDominatedSolutionSet result = new NonDominatedSolutionSet();
 		result.add(eval.evaluate(LinKernighanHeuristic.getTour(eval)));
 		return result;
