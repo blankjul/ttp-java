@@ -74,12 +74,18 @@ public class SymmetricMap {
 	 * Multiplies all the values of a map with a specific value
 	 * @param value multiplier
 	 */
-	public void multipleCosts(double value) {
+	public SymmetricMap multipleCosts(double value) {
+		double[][] d = new double[distances.length][distances.length];
 		for (int i = 0; i < distances.length; i++) {
 			for (int j = 0; j < distances.length; j++) {
-				distances[j][i] = distances[j][i] * value;
+				d[i][j] = distances[i][j] * value;
 			}
 		}
+		SymmetricMap result = new SymmetricMap(distances.length);
+		result.setDistances(d);
+		result.max = this.max * value;
+		result.min = this.min * value;
+		return result;
 	}
 	
 	/**

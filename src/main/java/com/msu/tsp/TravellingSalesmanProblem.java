@@ -104,6 +104,11 @@ public class TravellingSalesmanProblem extends AMultiObjectiveProblem<Tour<?>> i
 	public SymmetricMap getMap() {
 		return map;
 	}
+
+	@Override
+	public double getMaxSpeed() {
+		return 1.0;
+	}
 	
 	
 	

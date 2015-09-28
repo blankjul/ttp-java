@@ -1,6 +1,7 @@
 package com.msu.tsp.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -21,6 +22,7 @@ public class StandardTour extends Tour<List<Integer>> {
 	 */
 	public StandardTour(List<Integer> list) {
 		super(list);
+		Collections.rotate(obj, obj.indexOf(0));
 	}
 
 	

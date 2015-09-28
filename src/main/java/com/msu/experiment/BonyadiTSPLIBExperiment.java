@@ -9,7 +9,7 @@ import com.msu.thief.ThiefProblem;
 public class BonyadiTSPLIBExperiment extends ABonyadiBenchmark {
 
 	final public static String[] INSTANCES = new String[] { 
-			"../ttp-benchmark/TSPLIB/rat195-ttp/rat195_n582_bounded-strongly-corr_03.ttp",
+			"../ttp-benchmark/TSPLIB/eil51-ttp/eil51_n50_uncorr-similar-weights_05.ttp",
 			//"../ttp-benchmark/10/10_15_10_75.txt",
 			//"../ttp-benchmark/20/20_25_10_75.txt",
 			//"../ttp-benchmark/50/50_75_10_75.txt",
@@ -25,5 +25,15 @@ public class BonyadiTSPLIBExperiment extends ABonyadiBenchmark {
 			settings.addProblem(ttp);
 		}
 	}
+
+
+	@Override
+	public void visualize() {
+		super.visualize();
+	}
+	
+	
+	
+	
 
 }

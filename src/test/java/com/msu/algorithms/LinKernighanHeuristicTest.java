@@ -17,6 +17,7 @@ import com.msu.scenarios.tsp.Berlin52;
 import com.msu.scenarios.tsp.D198;
 import com.msu.scenarios.tsp.Eil101;
 import com.msu.thief.model.SymmetricMap;
+import com.msu.tsp.ICityProblem;
 import com.msu.tsp.TravellingSalesmanProblem;
 import com.msu.tsp.model.Tour;
 
@@ -52,7 +53,7 @@ public class LinKernighanHeuristicTest {
 	public void testCorrectness() {
 		LinKernighanHeuristic lkh = new LinKernighanHeuristic();
 		SymmetricMap map = scenario.getObject();
-		NonDominatedSolutionSet set = lkh.run(new Evaluator<TravellingSalesmanProblem>(new TravellingSalesmanProblem(map)));
+		NonDominatedSolutionSet set = lkh.run(new Evaluator<ICityProblem>(new TravellingSalesmanProblem(map)));
 		assertEquals(1, set.getSolutions().size());
 		assertEquals(optimal, set.getSolutions().get(0).getObjectives(0), 0.1);
 	}

@@ -14,6 +14,7 @@ import com.msu.moo.util.Pair;
 import com.msu.moo.util.Random;
 import com.msu.thief.ThiefProblem;
 import com.msu.thief.variable.TTPVariable;
+import com.msu.tsp.ICityProblem;
 import com.msu.tsp.TravellingSalesmanProblem;
 import com.msu.tsp.model.Tour;
 
@@ -24,8 +25,9 @@ public class RandomLocalSearch extends AMultiObjectiveAlgorithm<ThiefProblem> {
 
 		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
 
+		
 		TravellingSalesmanProblem tsp = new TravellingSalesmanProblem(eval.getProblem().getMap());
-		Tour<?> bestTour = LinKernighanHeuristic.getTour(new Evaluator<TravellingSalesmanProblem>(tsp));
+		Tour<?> bestTour = LinKernighanHeuristic.getTour(new Evaluator<ICityProblem>(tsp), eval.getProblem().getMaxSpeed());
 		PackingList<?> bestList = new EmptyPackingListFactory().next(eval.getProblem());
 
 		while (eval.hasNext()) {

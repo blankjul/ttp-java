@@ -34,6 +34,14 @@ public class BenchmarkTSPLIB {
 			while ((line = bufferedReader.readLine()) != null) {
 				if (line.startsWith("DIMENSION")) {
 					map = new SymmetricMap(Integer.valueOf(line.split("\t")[1]));
+				} else if (line.startsWith("RENTING RATIO")) {
+					ttp.setR(Double.valueOf(line.split("\t")[1]));
+				} else if (line.startsWith("MIN SPEED")) {
+					ttp.setMinSpeed(Double.valueOf(line.split("\t")[1]));
+				} else if (line.startsWith("MAX SPEED")) {
+					ttp.setMaxSpeed(Double.valueOf(line.split("\t")[1]));
+				} else if (line.startsWith("RENTING RATIO")) {
+					ttp.setR(Double.valueOf(line.split("\t")[1]));
 				} else if (line.startsWith("CAPACITY OF KNAPSACK")) {
 					ttp.setMaxWeight(Integer.valueOf(line.split("\t")[1]));
 				} else if (line.startsWith("NODE_COORD_SECTION")) {
@@ -63,6 +71,7 @@ public class BenchmarkTSPLIB {
 		}
 		
 		ttp.setMap(map);
+		ttp.setName(pathToFile);
 		ttp.setItems(items);
 		return ttp;
 	}

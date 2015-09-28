@@ -25,10 +25,10 @@ public class ExperimentExecutor {
 	protected final static String PREFIX = "com.msu.experiment.";
 	
 	//! experiment that should be executed
-	protected final static String EXPERIMENT = "BonyadiSingleExperiment";
+	protected final static String EXPERIMENT = "BonyadiMultiTSPLIBExperiment";
 	
 	//! number of iterations per experiment
-	protected final static int ITERATIONS = 10;
+	protected final static int ITERATIONS = 1;
 	
 	//! max evaluations per run
 	protected final static int MAX_EVALUATIONS = 100000;

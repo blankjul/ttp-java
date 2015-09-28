@@ -1,6 +1,7 @@
 package com.msu.scenarios.thief.bonyadi;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -36,6 +37,7 @@ public class BenchmarkSingleObjective extends ABenchmarkReader {
 			
 			ttp.setMap(parseMap(br, numOfCities));
 			ttp.setItems(parseItems(br, numOfItems, numOfCities));
+			ttp.setName(new File(pathToFile).getName());
 
 			br.close();
 		} catch (FileNotFoundException ex) {

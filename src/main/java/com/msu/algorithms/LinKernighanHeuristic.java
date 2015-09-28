@@ -11,11 +11,12 @@ import java.util.List;
 
 import com.msu.ThiefConfiguration;
 import com.msu.moo.algorithms.AMultiObjectiveAlgorithm;
+import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.util.BashExecutor;
 import com.msu.moo.util.Util;
 import com.msu.thief.model.SymmetricMap;
-import com.msu.tsp.TravellingSalesmanProblem;
+import com.msu.tsp.ICityProblem;
 import com.msu.tsp.model.StandardTour;
 import com.msu.tsp.model.Tour;
 
@@ -35,8 +36,7 @@ import com.msu.tsp.model.Tour;
  * 1,904,711-city instance (World TSP).
  * 
  */
-public class LinKernighanHeuristic extends AMultiObjectiveAlgorithm<TravellingSalesmanProblem> {
-
+public class LinKernighanHeuristic extends AMultiObjectiveAlgorithm<ICityProblem> {
 
 	protected List<Integer> result= null;
 
@@ -47,12 +47,20 @@ public class LinKernighanHeuristic extends AMultiObjectiveAlgorithm<TravellingSa
 	}
 
 	
-	public static Tour<?> getTour(com.msu.moo.model.Evaluator<TravellingSalesmanProblem> eval) {
+	public static Tour<?> getTour(Evaluator<ICityProblem> eval) {
+		return getTour(eval, null);
+	}
+	
+	
+	public static Tour<?> getTour(Evaluator<ICityProblem> eval, Double speed) {
 		
 		List<Integer> result = new ArrayList<>();
 		
+		SymmetricMap map = eval.getProblem().getMap();
+		if (speed != null) map = map.multipleCosts(speed);
+		
 		try {
-			writeProblemFile(eval.getProblem());
+			writeProblemFile(map);
 			writeParameterFile();
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -90,25 +98,24 @@ public class LinKernighanHeuristic extends AMultiObjectiveAlgorithm<TravellingSa
 	}
 	
 	@Override
-	public NonDominatedSolutionSet run(com.msu.moo.model.Evaluator<TravellingSalesmanProblem> eval) {
+	public NonDominatedSolutionSet run(com.msu.moo.model.Evaluator<ICityProblem> eval) {
 		NonDominatedSolutionSet result = new NonDominatedSolutionSet();
 		result.add(eval.evaluate(LinKernighanHeuristic.getTour(eval)));
 		return result;
 	}
 
 
-	private static void writeProblemFile(TravellingSalesmanProblem problem) throws FileNotFoundException, UnsupportedEncodingException {
+	private static void writeProblemFile(SymmetricMap map) throws FileNotFoundException, UnsupportedEncodingException {
 		PrintWriter writer;
 		writer = new PrintWriter("problem.tsp", "UTF-8");
 		writer.println("TYPE : TSP");
-		writer.println("DIMENSION : " + problem.numOfCities());
+		writer.println("DIMENSION : " + map.getSize());
 		writer.println("EDGE_WEIGHT_TYPE : EXPLICIT");
 		writer.println("EDGE_WEIGHT_FORMAT : FULL_MATRIX");
 		writer.println("EDGE_WEIGHT_SECTION");
-		SymmetricMap m = problem.getMap();
-		for (int i = 0; i < problem.numOfCities(); i++) {
-			for (int j = 0; j < problem.numOfCities(); j++) {
-				writer.print((int) m.get(i, j));
+		for (int i = 0; i < map.getSize(); i++) {
+			for (int j = 0; j < map.getSize(); j++) {
+				writer.print((int) map.get(i, j));
 				writer.print(" ");
 			}
 			writer.print("\n");
