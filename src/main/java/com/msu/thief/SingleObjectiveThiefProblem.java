@@ -19,7 +19,7 @@ public class SingleObjectiveThiefProblem extends ThiefProblem {
 
 	protected double R = 1;
 
-	public SingleObjectiveThiefProblem(ThiefProblem problem) {
+	public SingleObjectiveThiefProblem(ThiefProblem problem, double R) {
 		this.evalProfit = problem.evalProfit;
 		this.evalTime = problem.evalTime;
 		this.items = problem.items;
@@ -28,6 +28,7 @@ public class SingleObjectiveThiefProblem extends ThiefProblem {
 		this.maxWeight = problem.maxWeight;
 		this.minSpeed = problem.minSpeed;
 		this.name = problem.getName();
+		this.R = R;
 	}
 	
 	public SingleObjectiveThiefProblem() {

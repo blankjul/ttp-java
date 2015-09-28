@@ -1,7 +1,6 @@
 package com.msu.experiment;
 
 import java.util.List;
-import java.util.Map;
 
 import com.msu.moo.algorithms.NSGAIIBuilder;
 import com.msu.moo.experiment.AExperiment;
@@ -45,10 +44,6 @@ public class TSPOperatorExperiment extends AExperiment {
 
 	@Override
 	protected void setProblems(List<IProblem> problems) {
-	}
-
-	@Override
-	protected void setOptima(List<IProblem> problems, Map<IProblem, NonDominatedSolutionSet> mOptima) {
 		for (String s : SCENARIOS) {
 			@SuppressWarnings("unchecked")
 			AThiefScenario<SymmetricMap, Tour<?>> scenario = (AThiefScenario<SymmetricMap, Tour<?>>) ObjectFactory.create("com.msu.tsp.scenarios.impl." + s);
@@ -57,8 +52,9 @@ public class TSPOperatorExperiment extends AExperiment {
 			problems.add(tsp);
 			NonDominatedSolutionSet set = new NonDominatedSolutionSet();
 			set.add(tsp.evaluate(scenario.getOptimal()));
-			mOptima.put(tsp, set);
+			tsp.setOptimum(set);
 		}
 	}
+
 
 }

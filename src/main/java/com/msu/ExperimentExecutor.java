@@ -25,16 +25,16 @@ public class ExperimentExecutor {
 	protected final static String PREFIX = "com.msu.experiment.";
 	
 	//! experiment that should be executed
-	protected final static String EXPERIMENT = "bonyadi.BonyadiSingleExperiment";
+	protected final static String EXPERIMENT = "bonyadi.BonyadiTSPLIBExperiment";
 	
 	//! number of iterations per experiment
-	protected final static int ITERATIONS = 10;
+	protected final static int ITERATIONS = 1;
 	
 	//! max evaluations per run
-	protected final static int MAX_EVALUATIONS = 100000;
+	protected final static int MAX_EVALUATIONS = 1000;
 	
 	//! random seed for experiment execution
-	protected final static long SEED = 456464;		
+	protected final static long SEED = 123456;		
 	
 	
 	public static void main(String[] args) {

@@ -1,5 +1,6 @@
 package com.msu.experiment.bonyadi;
 
+import java.io.File;
 import java.util.List;
 
 import com.msu.algorithms.OnePlusOneEA;
@@ -8,6 +9,7 @@ import com.msu.moo.interfaces.IAlgorithm;
 import com.msu.moo.interfaces.IProblem;
 import com.msu.moo.report.SingleObjectiveReport;
 import com.msu.scenarios.thief.bonyadi.BenchmarkSingleObjective;
+import com.msu.thief.SingleObjectiveThiefProblem;
 import com.msu.util.Util;
 
 public class BonyadiSingleExperiment extends ABonyadiBenchmark {
@@ -31,7 +33,9 @@ public class BonyadiSingleExperiment extends ABonyadiBenchmark {
 	@Override
 	protected void setProblems(List<IProblem> problems) {
 		for (String path : Util.getFiles(FOLDER)) {
-			problems.add(new BenchmarkSingleObjective().create(path));
+			SingleObjectiveThiefProblem problem = new BenchmarkSingleObjective().create(path);
+			problem.setName("SO_" + new File(path).getName().split("\\.")[0]);
+			problems.add(problem);
 		}
 	}
 

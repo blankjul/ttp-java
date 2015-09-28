@@ -2,7 +2,6 @@ package com.msu.experiment;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import com.msu.knp.model.Item;
 import com.msu.knp.model.PackingList;
@@ -72,11 +71,6 @@ public class KNPOperatorExperiment extends AExperiment {
 
 	@Override
 	protected void setProblems(List<IProblem> problems) {
-	}
-	
-	
-	@Override
-	protected void setOptima(List<IProblem> problems, Map<IProblem, NonDominatedSolutionSet> mOptima) {
 		for (String s : SCENARIOS) {
 			@SuppressWarnings("unchecked")
 			AThiefScenario<Pair<List<Item>,Integer>, PackingList<?>> scenario = 
@@ -96,10 +90,12 @@ public class KNPOperatorExperiment extends AExperiment {
 			Tour<?> t = new StandardTour(Arrays.asList(0));
 			Solution sol = problem.evaluate(new TTPVariable(Pair.create(t, scenario.getOptimal())));
 			NonDominatedSolutionSet set = new NonDominatedSolutionSet(Arrays.asList(sol));
-			mOptima.put(problem, set);
-			
+			problem.setOptimum(set);
 		}
+		
 	}
+	
+	
 	
 	
 

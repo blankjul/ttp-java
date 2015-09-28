@@ -3,8 +3,6 @@ package com.msu.algorithms;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.math3.analysis.function.Sigmoid;
-
 import com.msu.knp.model.BooleanPackingList;
 import com.msu.knp.model.PackingList;
 import com.msu.knp.model.factory.EmptyPackingListFactory;
@@ -15,7 +13,6 @@ import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.util.Pair;
 import com.msu.moo.util.Random;
-import com.msu.thief.SingleObjectiveThiefProblem;
 import com.msu.thief.ThiefProblem;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.variable.TTPVariable;
@@ -32,7 +29,7 @@ public class OnePlusOneEA extends AbstractAlgorithm {
 
 		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
 
-		SingleObjectiveThiefProblem problem = new SingleObjectiveThiefProblem((ThiefProblem) eval.getProblem());
+		ThiefProblem problem =(ThiefProblem) eval.getProblem();
 		
 		SymmetricMap map = problem.getMap();
 		map.multipleCosts(problem.getMaxSpeed());

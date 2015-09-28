@@ -31,7 +31,7 @@ public class ComboTest {
 		
 		KnapsackProblem problem = new KnapsackProblem(10, items);
 		
-		PackingList<?> pl = Combo.getPackingList(new Evaluator<KnapsackProblem>(problem));
+		PackingList<?> pl = Combo.getPackingList(new Evaluator(problem));
 		assertEquals(Arrays.asList(false, true, true, true), pl.encode());
 	}
 	
@@ -43,7 +43,7 @@ public class ComboTest {
 			Pair<List<Item>, Integer> pair = scenario.getObject();
 			KnapsackProblem problem = new KnapsackProblem(pair.second, pair.first);
 			
-			Evaluator<KnapsackProblem> eval = new Evaluator<KnapsackProblem>(problem);
+			Evaluator eval = new Evaluator(problem);
 			PackingList<?> pl = Combo.getPackingList(eval);
 			
 			Double value =  eval.evaluate(pl).getObjectives(0);
