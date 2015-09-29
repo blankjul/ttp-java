@@ -7,7 +7,7 @@ import com.msu.moo.interfaces.IProblem;
 import com.msu.moo.visualization.AttainmentSurfacePlot;
 import com.msu.scenarios.thief.bonyadi.BenchmarkMuliObjective;
 import com.msu.thief.ThiefProblem;
-import com.msu.util.Util;
+import com.msu.util.ThiefUtil;
 
 public class BonyadiMultiExperiment extends ABonyadiBenchmark {
 	
@@ -15,7 +15,7 @@ public class BonyadiMultiExperiment extends ABonyadiBenchmark {
 	
 	@Override
 	protected void setProblems(List<IProblem> problems) {
-		for (String path : Util.getFiles(FOLDER)) {
+		for (String path : ThiefUtil.getFiles(FOLDER)) {
 			ThiefProblem ttp = new BenchmarkMuliObjective().create(path);
 			ttp.setName("MO_" + new File(path).getName().split("\\.")[0]);
 			problems.add(ttp);

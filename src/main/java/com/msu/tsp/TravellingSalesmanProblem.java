@@ -9,7 +9,7 @@ import com.msu.moo.model.AProblem;
 import com.msu.moo.util.exceptions.EvaluationException;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.tsp.model.Tour;
-import com.msu.util.Util;
+import com.msu.util.ThiefUtil;
 
 /**
  * This class defines the TravellingSalesmanProblem which aims to minimize the
@@ -48,7 +48,7 @@ public class TravellingSalesmanProblem extends AProblem<Tour<?>> implements ICit
 	
 	public static void checkTourValidtiy(List<Integer> pi) {
 		HashSet<Integer> hash = new HashSet<Integer>();
-		Integer duplicate = Util.getDuplicate(hash, pi);
+		Integer duplicate = ThiefUtil.getDuplicate(hash, pi);
 		if (duplicate != null) {
 			throw new EvaluationException(String.format("Tour is not a real permuation: city %s is visited twice!", duplicate));
 		}

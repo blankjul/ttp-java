@@ -28,7 +28,7 @@ public class RandomLocalSearch extends AbstractAlgorithm {
 		ThiefProblem problem = (ThiefProblem) eval.getProblem();
 		
 		TravellingSalesmanProblem tsp = new TravellingSalesmanProblem(problem.getMap());
-		Tour<?> bestTour = LinKernighanHeuristic.getTour(new Evaluator(tsp), problem.getMaxSpeed());
+		Tour<?> bestTour = new LinKernighanHeuristic().getTour(new Evaluator(tsp), problem.getMaxSpeed());
 		PackingList<?> bestList = new EmptyPackingListFactory().next(problem);
 
 		while (eval.hasNext()) {

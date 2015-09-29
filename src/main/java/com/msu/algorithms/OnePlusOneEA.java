@@ -36,7 +36,7 @@ public class OnePlusOneEA extends AbstractAlgorithm {
 		
 		TravellingSalesmanProblem tsp = new TravellingSalesmanProblem(map);
 		
-		Tour<?> bestTour = LinKernighanHeuristic.getTour(new Evaluator(tsp), problem.getMaxSpeed());
+		Tour<?> bestTour = new LinKernighanHeuristic().getTour(new Evaluator(tsp), problem.getMaxSpeed());
 		PackingList<?> bestList = new EmptyPackingListFactory().next(problem);
 
 		while (eval.hasNext()) {

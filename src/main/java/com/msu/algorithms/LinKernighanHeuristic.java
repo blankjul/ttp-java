@@ -19,6 +19,7 @@ import com.msu.thief.model.SymmetricMap;
 import com.msu.tsp.ICityProblem;
 import com.msu.tsp.model.StandardTour;
 import com.msu.tsp.model.Tour;
+import com.msu.util.ThiefUtil;
 
 /**
  * http://www.akira.ruc.dk/~keld/research/LKH/
@@ -39,20 +40,22 @@ import com.msu.tsp.model.Tour;
 public class LinKernighanHeuristic extends AbstractAlgorithm {
 
 	protected List<Integer> result= null;
+	
+	protected String timestamp;
 
 	public LinKernighanHeuristic() {
 		if (!Util.doesFileExist(ThiefConfiguration.PATH_TO_LKH))
 			throw new RuntimeException("LinKernighanHeuristic Implementation not found!");
-
+		timestamp = ThiefUtil.getTimestamp();
 	}
 
 	
-	public static Tour<?> getTour(IEvaluator eval) {
+	public Tour<?> getTour(IEvaluator eval) {
 		return getTour(eval, null);
 	}
 	
 	
-	public static Tour<?> getTour(IEvaluator eval, Double speed) {
+	public Tour<?> getTour(IEvaluator eval, Double speed) {
 		
 		List<Integer> result = new ArrayList<>();
 		
@@ -68,11 +71,11 @@ public class LinKernighanHeuristic extends AbstractAlgorithm {
 			e.printStackTrace();
 		}
 
-		BashExecutor.execute(ThiefConfiguration.PATH_TO_LKH + " instance.par");
+		BashExecutor.execute(ThiefConfiguration.PATH_TO_LKH + " " + timestamp + "_instance.par");
 
 		FileReader fileReader;
 		try {
-			fileReader = new FileReader("tour.opt");
+			fileReader = new FileReader(timestamp + "_tour.opt");
 			BufferedReader br = new BufferedReader(fileReader);
 			
 			String line = br.readLine();
@@ -86,9 +89,9 @@ public class LinKernighanHeuristic extends AbstractAlgorithm {
 			}
 			br.close();
 			
-			BashExecutor.execute("rm instance.par");
-			BashExecutor.execute("rm problem.tsp");
-			BashExecutor.execute("rm tour.opt");
+			BashExecutor.execute(String.format("rm %s_instance.par", timestamp ));
+			BashExecutor.execute(String.format("rm %s_problem.par", timestamp ));
+			BashExecutor.execute(String.format("rm %s_tour.par", timestamp ));
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -102,14 +105,14 @@ public class LinKernighanHeuristic extends AbstractAlgorithm {
 	@Override
 	public NonDominatedSolutionSet run(IEvaluator eval) {
 		NonDominatedSolutionSet result = new NonDominatedSolutionSet();
-		result.add(eval.evaluate(LinKernighanHeuristic.getTour(eval)));
+		result.add(eval.evaluate(getTour(eval)));
 		return result;
 	}
 
 
-	private static void writeProblemFile(SymmetricMap map) throws FileNotFoundException, UnsupportedEncodingException {
+	private void writeProblemFile(SymmetricMap map) throws FileNotFoundException, UnsupportedEncodingException {
 		PrintWriter writer;
-		writer = new PrintWriter("problem.tsp", "UTF-8");
+		writer = new PrintWriter(timestamp + "_problem.tsp", "UTF-8");
 		writer.println("TYPE : TSP");
 		writer.println("DIMENSION : " + map.getSize());
 		writer.println("EDGE_WEIGHT_TYPE : EXPLICIT");
@@ -124,16 +127,15 @@ public class LinKernighanHeuristic extends AbstractAlgorithm {
 		}
 		writer.println("EOF");
 		writer.close();
-		
 	}
 
-	private static void writeParameterFile() throws FileNotFoundException, UnsupportedEncodingException {
+	private void writeParameterFile() throws FileNotFoundException, UnsupportedEncodingException {
 		PrintWriter writer;
-		writer = new PrintWriter("instance.par", "UTF-8");
-		writer.println("PROBLEM_FILE = problem.tsp");
+		writer = new PrintWriter(timestamp + "_instance.par", "UTF-8");
+		writer.println("PROBLEM_FILE = " + timestamp + "_problem.tsp");
 		writer.println("RUNS = 1");
 		writer.println("TRACE_LEVEL = 0");
-		writer.println("TOUR_FILE = tour.opt");
+		writer.println("TOUR_FILE = " + timestamp + "_tour.opt");
 		writer.close();
 	}
 

@@ -32,7 +32,8 @@ public class ThiefVisualizer<P extends IProblem> implements IVisualize {
 					sp.add(set, algorithm.toString());
 				}
 			}
-			sp.show();
+			if (experiment.hasOutputDirectory()) sp.save(String.format("%s/thief_%s.png", experiment.getOutputDir(), problem));
+			if (experiment.isVisualize()) sp.show();
 		}
 
 	}

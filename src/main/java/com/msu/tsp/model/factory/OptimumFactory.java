@@ -20,7 +20,7 @@ public class OptimumFactory extends ATourFactory {
 		if (optimum == null) {
 			ICityProblem cityProblem = (ICityProblem) p;
 			TravellingSalesmanProblem tsp = new TravellingSalesmanProblem(cityProblem.getMap());
-			optimum = LinKernighanHeuristic.getTour(new Evaluator(tsp),cityProblem.getMaxSpeed());
+			optimum = new LinKernighanHeuristic().getTour(new Evaluator(tsp),cityProblem.getMaxSpeed());
 		}
 		return optimum;
 

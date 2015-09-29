@@ -12,16 +12,17 @@ import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.model.solution.SolutionDominator;
+import com.msu.moo.util.Util;
 import com.msu.moo.visualization.AttainmentSurfacePlot;
 import com.msu.scenarios.thief.bonyadi.BenchmarkTSPLIB;
 import com.msu.thief.SingleObjectiveThiefProblem;
 import com.msu.thief.ThiefProblem;
-import com.msu.util.Util;
+import com.msu.util.ThiefUtil;
 
 public class BonyadiTSPLIBExperiment extends ABonyadiBenchmark {
 
 	
-	final public static String FOLDER = "../ttp-benchmark/TSPLIB/eil51-ttp/";
+	final public static String FOLDER = "../ttp-benchmark/TSPLIB";
 	
 	//! single objective problems for the SO algorithms
 	protected List<IProblem> sotps = new ArrayList<>();
@@ -60,20 +61,27 @@ public class BonyadiTSPLIBExperiment extends ABonyadiBenchmark {
 		
 		new AttainmentSurfacePlot().show(this);
 		
+		StringBuffer sb = new StringBuffer();
+		sb.append(String.format("%s,%s,%s,%s\n", "problem", "algorithm", "dominates", "isDominated"));
 		
 		for(IProblem problem : problems) {
 			Solution best = getResult().getFirst(problem, onePlusOne, "median").get(0);
 			for (IAlgorithm algorithm : algorithms) {
 				
-				int counter = 0;
+				int singleDominates = 0;
+				int singleIsDominated = 0;
 				NonDominatedSolutionSet set = getResult().getFirst(problem, algorithm, "median");
 				SolutionDominator cmp = new SolutionDominator();
 				for(Solution s :  set.getSolutions()) {
-					if (cmp.isDominating(best, s)) ++counter;
+					if (cmp.isDominating(best, s)) ++singleDominates;
+					if (cmp.isDominating(s, best)) ++singleIsDominated;
 				}
-				System.out.println(String.format("%s,%s,%s", problem, algorithm, counter));
+				sb.append(String.format("%s,%s,%s,%s\n", problem, algorithm, singleDominates, singleIsDominated));
 			}
 		}
+		
+		if (hasOutputDirectory()) Util.write(String.format("%s/%s", getOutputDir(), "TSPLIB_result.csv"),sb);
+		else System.out.println(sb);
 		
 		
 	}
@@ -81,7 +89,7 @@ public class BonyadiTSPLIBExperiment extends ABonyadiBenchmark {
 
 	@Override
 	protected void setProblems(List<IProblem> problems) {
-		for (String path : Util.getFiles(FOLDER)) {
+		for (String path : ThiefUtil.getFiles(FOLDER)) {
 			if (path.endsWith(".ttp")) {
 				System.out.println(path);
 				SingleObjectiveThiefProblem sotp = new BenchmarkTSPLIB().create(path);
