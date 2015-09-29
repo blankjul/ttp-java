@@ -90,8 +90,8 @@ public class LinKernighanHeuristic extends AbstractAlgorithm {
 			br.close();
 			
 			BashExecutor.execute(String.format("rm %s_instance.par", timestamp ));
-			BashExecutor.execute(String.format("rm %s_problem.par", timestamp ));
-			BashExecutor.execute(String.format("rm %s_tour.par", timestamp ));
+			BashExecutor.execute(String.format("rm %s_problem.tsp", timestamp ));
+			BashExecutor.execute(String.format("rm %s_tour.opt", timestamp ));
 			
 		} catch (IOException e) {
 			e.printStackTrace();
