@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.msu.algorithms.OnePlusOneEA;
 import com.msu.moo.interfaces.IAlgorithm;
@@ -23,6 +24,7 @@ public class BonyadiTSPLIBExperiment extends ABonyadiBenchmark {
 
 	
 	final public static String FOLDER = "../ttp-benchmark/TSPLIB";
+	final public static String PATTERN = "berlin52_n510_bounded-strongly-corr_.*";
 	
 	//! single objective problems for the SO algorithms
 	protected List<IProblem> sotps = new ArrayList<>();
@@ -57,7 +59,7 @@ public class BonyadiTSPLIBExperiment extends ABonyadiBenchmark {
 			}
 		}
 		
-		algorithms.addAll(soAlgorithms);
+		algorithms.add(0,onePlusOne);
 		
 		new AttainmentSurfacePlot().show(this);
 		
@@ -91,9 +93,14 @@ public class BonyadiTSPLIBExperiment extends ABonyadiBenchmark {
 	protected void setProblems(List<IProblem> problems) {
 		for (String path : ThiefUtil.getFiles(FOLDER)) {
 			if (path.endsWith(".ttp")) {
+				
+				String name = new File(path).getName().split("\\.")[0];
+				Pattern r = Pattern.compile(PATTERN);
+				if (!r.matcher(name).matches())  continue;
+
 				System.out.println(path);
 				SingleObjectiveThiefProblem sotp = new BenchmarkTSPLIB().create(path);
-				sotp.setName("TSPLIB_" + new File(path).getName().split("\\.")[0]);
+				sotp.setName("TSPLIB_" + name);
 				sotps.add(sotp);
 				ThiefProblem ttp = sotp.getThiefProblem();
 				problems.add(ttp);

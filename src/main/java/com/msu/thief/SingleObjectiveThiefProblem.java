@@ -2,7 +2,6 @@ package com.msu.thief;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import com.msu.knp.model.Item;
@@ -12,7 +11,6 @@ import com.msu.thief.evaluator.profit.NoDroppingEvaluator;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.variable.TTPVariable;
-import com.msu.tsp.model.StandardTour;
 import com.msu.tsp.model.Tour;
 
 public class SingleObjectiveThiefProblem extends ThiefProblem {
@@ -43,14 +41,12 @@ public class SingleObjectiveThiefProblem extends ThiefProblem {
 
 	@Override
 	protected List<Double> evaluate_(TTPVariable variable) {
+		
+		// always start at city 0
+		if (startingCityIsZero) rotateToCityZero(variable);
 
 		// check for the correct input before using evaluator
 		Pair<Tour<?>, PackingList<?>> pair = variable.get();
-
-		// always start at city 0
-		List<Integer> tour = pair.first.encode();
-		Collections.rotate(tour, -tour.indexOf(0));
-		pair.first = new StandardTour(tour);
 
 		checkTour(pair.first);
 		checkPackingList(pair.second);

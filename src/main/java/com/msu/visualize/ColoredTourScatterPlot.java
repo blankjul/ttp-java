@@ -2,6 +2,10 @@ package com.msu.visualize;
 
 import java.util.List;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.msu.moo.model.solution.Solution;
@@ -11,9 +15,16 @@ import com.msu.thief.variable.TTPVariable;
 
 public class ColoredTourScatterPlot extends ScatterPlot {
 
+	protected boolean showLegend = true;
+	
 	public ColoredTourScatterPlot(String title) {
 		super(title);
 	}
+	public ColoredTourScatterPlot(String title, boolean showLegend) {
+		super(title);
+		this.showLegend = showLegend;
+	}
+	
 
 	public void add(SolutionSet set) {
 		add(set, "");
@@ -35,8 +46,16 @@ public class ColoredTourScatterPlot extends ScatterPlot {
 			++counter;
 			super.add(setToAdd, lbl);
 		}
+	}
+	
 
+	@Override
+	public JFreeChart getChart() {
+		JFreeChart chart = ChartFactory.createScatterPlot(title, xLabel, yLabel, collection,
+				PlotOrientation.VERTICAL, showLegend, true, false);
+		return chart;
 	}
 
+	
 
 }

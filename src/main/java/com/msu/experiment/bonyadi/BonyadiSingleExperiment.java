@@ -3,13 +3,17 @@ package com.msu.experiment.bonyadi;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Pattern;
 
+import com.google.common.collect.Multimap;
 import com.msu.algorithms.OnePlusOneEA;
 import com.msu.algorithms.RandomLocalSearch;
 import com.msu.moo.interfaces.IAlgorithm;
 import com.msu.moo.interfaces.IProblem;
 import com.msu.moo.report.SingleObjectiveReport;
-import com.msu.moo.util.Util;
+import com.msu.moo.util.events.FinishedProblemExecution;
+import com.msu.moo.util.events.IEvent;
+import com.msu.moo.util.events.IListener;
 import com.msu.moo.visualization.ObjectiveBoxPlot;
 import com.msu.scenarios.thief.bonyadi.BenchmarkSingleObjective;
 import com.msu.thief.SingleObjectiveThiefProblem;
@@ -17,18 +21,23 @@ import com.msu.util.ThiefUtil;
 
 public class BonyadiSingleExperiment extends ABonyadiBenchmark {
 
-	final public static String FOLDER = "../ttp-benchmark/SingleObjective/10/10_3_1_25.txt";
+	final public static String FOLDER = "../ttp-benchmark/SingleObjective";
 
+	final public static String PATTERN = "(\\d+)_(\\d+)_1_75";
+	
 	@Override
 	protected void finalize() {
 		new ObjectiveBoxPlot().show(this);
-		
-		StringBuffer sb =  new SingleObjectiveReport().print(this);
-		if (hasOutputDirectory()) Util.write(String.format("%s/%s", getOutputDir(), "SO_result.csv"),sb);
-		else System.out.println(sb);
-		
 	}
 	
+
+	@Override
+	protected void setListener(Multimap<Class<?>, IListener<? extends IEvent>> listener) {
+		SingleObjectiveReport report = new SingleObjectiveReport();
+		report.set("experiment/SO_result.csv");
+		listener.put(FinishedProblemExecution.class, report);
+	}
+
 
 	@Override
 	protected void setAlgorithms(List<IAlgorithm> algorithms) {
@@ -40,12 +49,19 @@ public class BonyadiSingleExperiment extends ABonyadiBenchmark {
 
 	@Override
 	protected void setProblems(List<IProblem> problems) {
+		
 		List<String> l = ThiefUtil.getFiles(FOLDER);
 		Collections.sort(l);
 		for (String path : l) {
-			if (!path.endsWith("75.txt"))  continue;
+			
+			String name = new File(path).getName().split("\\.")[0];
+			Pattern r = Pattern.compile(PATTERN);
+			
+			// pattern has to match
+			if (!r.matcher(name).matches())  continue;
+			
 			SingleObjectiveThiefProblem problem = new BenchmarkSingleObjective().create(path);
-			problem.setName("SO_" + new File(path).getName().split("\\.")[0]);
+			problem.setName("SO_" + name);
 			problems.add(problem);
 		}
 	}

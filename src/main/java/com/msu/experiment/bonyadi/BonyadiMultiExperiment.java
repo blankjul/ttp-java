@@ -11,7 +11,7 @@ import com.msu.util.ThiefUtil;
 
 public class BonyadiMultiExperiment extends ABonyadiBenchmark {
 	
-	final public static String FOLDER = "../ttp-benchmark/MultiObjective/10/10_3_1_25.txt";
+	final public static String FOLDER = "../ttp-benchmark/MultiObjective/100/100_150_10_75.txt";
 	
 	@Override
 	protected void setProblems(List<IProblem> problems) {

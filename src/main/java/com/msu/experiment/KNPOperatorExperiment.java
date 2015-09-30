@@ -3,6 +3,7 @@ package com.msu.experiment;
 import java.util.Arrays;
 import java.util.List;
 
+import com.google.common.collect.Multimap;
 import com.msu.knp.model.Item;
 import com.msu.knp.model.PackingList;
 import com.msu.knp.model.factory.EmptyPackingListFactory;
@@ -21,6 +22,9 @@ import com.msu.moo.operators.mutation.SwapMutation;
 import com.msu.moo.report.SingleObjectiveReport;
 import com.msu.moo.util.ObjectFactory;
 import com.msu.moo.util.Pair;
+import com.msu.moo.util.events.FinishedProblemExecution;
+import com.msu.moo.util.events.IEvent;
+import com.msu.moo.util.events.IListener;
 import com.msu.scenarios.AThiefScenario;
 import com.msu.thief.ThiefProblem;
 import com.msu.thief.model.ItemCollection;
@@ -45,8 +49,11 @@ public class KNPOperatorExperiment extends AExperiment {
 			};
 	
 	@Override
-	public void finalize() {
-		new SingleObjectiveReport(1).print(this);
+	protected void setListener(Multimap<Class<?>, IListener<? extends IEvent>> listener) {
+		SingleObjectiveReport sop = new SingleObjectiveReport();
+		sop.set("experiment/TSPOperator_result.csv");
+		sop.setObjective(1);
+		listener.put(FinishedProblemExecution.class, sop);
 	}
 
 	

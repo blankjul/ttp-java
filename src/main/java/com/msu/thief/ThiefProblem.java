@@ -1,5 +1,6 @@
 package com.msu.thief;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.msu.knp.IPackingProblem;
@@ -18,6 +19,7 @@ import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.tsp.ICityProblem;
 import com.msu.tsp.TravellingSalesmanProblem;
+import com.msu.tsp.model.StandardTour;
 import com.msu.tsp.model.Tour;
 
 public class ThiefProblem extends AProblem<TTPVariable> implements IPackingProblem, ICityProblem{
@@ -40,6 +42,9 @@ public class ThiefProblem extends AProblem<TTPVariable> implements IPackingProbl
 
 	// ! items and hash for storing the items and the mapping to the cities!
 	protected ItemCollection<Item> items;
+	
+	//! value for fixing the starting city at each evaluation
+	protected boolean startingCityIsZero = false;
 
 	
 	public ThiefProblem() {
@@ -67,6 +72,9 @@ public class ThiefProblem extends AProblem<TTPVariable> implements IPackingProbl
 		Pair<Tour<?>, PackingList<?>> pair = variable.get();
 		checkTour(pair.first);
 		checkPackingList(pair.second);
+		
+		// fix the starting city if necessary
+		if (startingCityIsZero) rotateToCityZero(variable);
 		
 		// use the evaluators to calculate the result
 		return new Evaluator(this, evalProfit, evalTime).evaluate(variable.get());
@@ -151,4 +159,25 @@ public class ThiefProblem extends AProblem<TTPVariable> implements IPackingProbl
 		return items.getAsList();
 	}
 
+	public boolean isFixStartingCitiy() {
+		return startingCityIsZero;
+	}
+
+	public void setStartingCityIsZero(boolean fixStartingCitiy) {
+		this.startingCityIsZero = fixStartingCitiy;
+	}
+	
+	protected void rotateToCityZero(TTPVariable var) {
+		Pair<Tour<?>, PackingList<?>> pair = var.get();
+		List<Integer> tour = pair.first.encode();
+		
+		if (!tour.contains(0)) 
+			throw new RuntimeException("Failed to start at city 0. It's not included at the tour!");
+		
+		Collections.rotate(tour, -tour.indexOf(0));
+		pair.first = new StandardTour(tour);
+	}
+
+	
+	
 }

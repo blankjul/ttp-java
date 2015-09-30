@@ -2,6 +2,7 @@ package com.msu.experiment;
 
 import java.util.List;
 
+import com.google.common.collect.Multimap;
 import com.msu.moo.algorithms.NSGAIIBuilder;
 import com.msu.moo.experiment.AExperiment;
 import com.msu.moo.interfaces.IAlgorithm;
@@ -14,6 +15,9 @@ import com.msu.moo.operators.crossover.permutation.PMXCrossover;
 import com.msu.moo.operators.mutation.SwapMutation;
 import com.msu.moo.report.SingleObjectiveReport;
 import com.msu.moo.util.ObjectFactory;
+import com.msu.moo.util.events.FinishedProblemExecution;
+import com.msu.moo.util.events.IEvent;
+import com.msu.moo.util.events.IListener;
 import com.msu.scenarios.AThiefScenario;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.tsp.TravellingSalesmanProblem;
@@ -25,9 +29,12 @@ public class TSPOperatorExperiment extends AExperiment {
 	protected final String[] SCENARIOS = new String[] { "Bays29", "Berlin52", "Eil101", "D198" };
 
 	@Override
-	public void finalize() {
-		new SingleObjectiveReport(0).print(this);
+	protected void setListener(Multimap<Class<?>, IListener<? extends IEvent>> listener) {
+		SingleObjectiveReport report = new SingleObjectiveReport();
+		report.set("experiment/TSPOperator_result.csv");
+		listener.put(FinishedProblemExecution.class, report);
 	}
+	
 
 	@Override
 	protected void setAlgorithms(List<IAlgorithm> algorithms) {

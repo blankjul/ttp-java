@@ -19,7 +19,6 @@ import com.msu.thief.model.SymmetricMap;
 import com.msu.tsp.ICityProblem;
 import com.msu.tsp.model.StandardTour;
 import com.msu.tsp.model.Tour;
-import com.msu.util.ThiefUtil;
 
 /**
  * http://www.akira.ruc.dk/~keld/research/LKH/
@@ -46,7 +45,7 @@ public class LinKernighanHeuristic extends AbstractAlgorithm {
 	public LinKernighanHeuristic() {
 		if (!Util.doesFileExist(ThiefConfiguration.PATH_TO_LKH))
 			throw new RuntimeException("LinKernighanHeuristic Implementation not found!");
-		timestamp = ThiefUtil.getTimestamp();
+		timestamp = Util.getTimestamp();
 	}
 
 	

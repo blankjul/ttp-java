@@ -6,16 +6,12 @@ import com.msu.AlgorithmFactory;
 import com.msu.moo.experiment.AExperiment;
 import com.msu.moo.interfaces.IAlgorithm;
 import com.msu.moo.interfaces.IProblem;
-import com.msu.moo.report.SolutionSetReport;
 import com.msu.scenarios.thief.bonyadi.PublicationScenario;
 
 public class BonyadiMultiObjectiveExperiment extends AExperiment {
 
 
-	@Override
-	protected void finalize() {
-		new SolutionSetReport().print(this);
-	}
+
 
 
 	@Override

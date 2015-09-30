@@ -8,6 +8,7 @@ import com.msu.knp.model.PackingList;
 import com.msu.moo.interfaces.IEvaluator;
 import com.msu.moo.model.AbstractAlgorithm;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
+import com.msu.moo.model.solution.Solution;
 import com.msu.thief.ThiefProblem;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.tsp.model.StandardTour;
@@ -17,6 +18,17 @@ import com.msu.util.CombinatorialUtil;
 
 public class ExhaustiveThief extends AbstractAlgorithm {
 
+	protected boolean startingCityIsZero = false;
+	
+	protected boolean onlyNonDominatedPoints = false;
+	
+	private class ExhaustiveSolutionSet extends NonDominatedSolutionSet {
+		@Override
+		public boolean add(Solution solutionToAdd) {
+			return solutions.add(solutionToAdd);
+		}
+	}
+	
 	public static int factorial(int n) {
 		int fact = 1; // this will be the result
 		for (int i = 1; i <= n; i++) {
@@ -27,26 +39,32 @@ public class ExhaustiveThief extends AbstractAlgorithm {
 
 	@Override
 	public NonDominatedSolutionSet run(IEvaluator eval) {
-		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
+		NonDominatedSolutionSet set = (onlyNonDominatedPoints) ? new NonDominatedSolutionSet() : new ExhaustiveSolutionSet();
 
 		ThiefProblem problem = (ThiefProblem) eval.getProblem();
 
 		final int numItems = problem.numOfItems();
 		final int numCities = problem.numOfCities();
-
-		double numOfSolution = ExhaustiveThief.factorial(numCities) * Math.pow(2, numItems);
-		System.out.println(String.format("There are %s solutions.", numOfSolution));
+		
+		double numOfSolution = -1;
+		if (startingCityIsZero) numOfSolution = ExhaustiveThief.factorial(numCities-1) * Math.pow(2, numItems);
+		else numOfSolution = ExhaustiveThief.factorial(numCities) * Math.pow(2, numItems);
+		//System.out.println(String.format("There are %s solutions.", numOfSolution));
 
 		// create the first tour
-		List<Integer> index = CombinatorialUtil.getIndexVector(numCities);
+		// if starting city is should be zero start to permute at one
+		int n = (startingCityIsZero) ? 1 : 0;
+		List<Integer> index = CombinatorialUtil.getIndexVector(n,numCities);
 
 		int counter = 0;
 
 		// over all possible tours
 		for (List<Integer> l : CombinatorialUtil.permute(index)) {
 
+			// since permute at one is enabled we need to add 0 as the first city
+			if (startingCityIsZero) l.add(0,0);
 			Tour<?> t = new StandardTour(l);
-
+			
 			// for all possible item combinations
 			for (int i = 0; i <= numItems; i++) {
 				Combination combination = new Combination(numItems, i);
@@ -54,9 +72,11 @@ public class ExhaustiveThief extends AbstractAlgorithm {
 					int[] entries = combination.next();
 					PackingList<?> b = new BooleanPackingList(convert(entries, numItems));
 					TTPVariable var = new TTPVariable(t, b);
-					set.add(eval.evaluate(var));
+					Solution s = eval.evaluate(var);
+					set.add(s);
 					if (++counter % 100000 == 0)
 						System.out.println(String.format("%f perc.", (Double.valueOf(counter) / numOfSolution) * 100));
+					//System.out.println(String.format("%s,%s,%s", s.getObjectives(0), s.getObjectives(1), var.getTour().encode()));
 				}
 			}
 		}
@@ -73,4 +93,17 @@ public class ExhaustiveThief extends AbstractAlgorithm {
 		return b;
 	}
 
+	public ExhaustiveThief setOnlyNonDominatedPoints(boolean onlyNonDominatedPoints) {
+		this.onlyNonDominatedPoints = onlyNonDominatedPoints;
+		return this;
+	}
+
+	public ExhaustiveThief setStartingCityIsZero(boolean startingCityIsZero) {
+		this.startingCityIsZero = startingCityIsZero;
+		return this;
+	}
+	
+	
+
+	
 }

@@ -28,13 +28,13 @@ public class ExperimentExecutor {
 	protected final static String PREFIX = "com.msu.experiment.";
 	
 	//! experiment that should be executed
-	protected final static String EXPERIMENT = "bonyadi.BonyadiSingleExperiment";
+	protected final static String EXPERIMENT = "BestTourPerformsBadExperiment";
 	
 	//! number of iterations per experiment
-	protected final static int ITERATIONS = 10;
+	protected final static int ITERATIONS = 1;
 	
 	//! max evaluations per run
-	protected final static int MAX_EVALUATIONS = 100000;
+	protected final static int MAX_EVALUATIONS = 500000;
 	
 	//! random seed for experiment execution
 	protected final static long SEED = 123456;		
@@ -42,7 +42,7 @@ public class ExperimentExecutor {
 	//! output directory, if null no output
 	protected final static String OUTPUT_DIR = "experiment";
 	
-	protected final static boolean VISUALIZE = false;
+	protected final static boolean VISUALIZE = true;
 	
 	
 	public static void main(String[] args) {
@@ -56,10 +56,6 @@ public class ExperimentExecutor {
 		experiment.setVisualize(VISUALIZE);
 		experiment.run(MAX_EVALUATIONS, ITERATIONS, SEED);
 		
-		experiment = ObjectFactory.create(AExperiment.class,  PREFIX + "bonyadi.BonyadiTSPLIBExperiment");
-		experiment.setOutputDir(OUTPUT_DIR);
-		experiment.setVisualize(VISUALIZE);
-		experiment.run(MAX_EVALUATIONS, ITERATIONS, SEED);
 		
 	}
 	

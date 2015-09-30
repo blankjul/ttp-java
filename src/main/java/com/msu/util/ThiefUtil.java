@@ -3,7 +3,6 @@ package com.msu.util;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -44,12 +43,6 @@ public class ThiefUtil {
 		}
 		return result;
 		
-	}
-	
-	public static String getTimestamp() {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS") ;
-		String date = dateFormat.format(System.currentTimeMillis());
-		return date;
 	}
 	
 

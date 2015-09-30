@@ -41,7 +41,9 @@ public class RandomTSPScenario {
 		Random rnd = Random.getInstance();
 		ArrayList<Point2D> cities = new ArrayList<Point2D>(numOfCities);
 		for (int i = 0; i < numOfCities; i++) {
-			cities.add(new Point2D.Double(rnd.nextInt(0, MAXIMAL_VALUE_ON_MAP), rnd.nextInt(0, MAXIMAL_VALUE_ON_MAP)));
+			Point2D point = new Point2D.Double(rnd.nextInt(0, MAXIMAL_VALUE_ON_MAP), rnd.nextInt(0, MAXIMAL_VALUE_ON_MAP));
+			System.out.println(point);
+			cities.add(point);
 		}
 		return create(cities);
 	}
