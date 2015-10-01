@@ -3,30 +3,32 @@ package com.msu.experiment;
 import java.util.List;
 
 import com.google.common.collect.Multimap;
+import com.msu.io.reader.SalesmanProblemReader;
 import com.msu.moo.algorithms.NSGAIIBuilder;
 import com.msu.moo.experiment.AExperiment;
 import com.msu.moo.interfaces.IAlgorithm;
 import com.msu.moo.interfaces.IProblem;
-import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.operators.crossover.permutation.CycleCrossover;
 import com.msu.moo.operators.crossover.permutation.EdgeRecombinationCrossover;
 import com.msu.moo.operators.crossover.permutation.OrderedCrossover;
 import com.msu.moo.operators.crossover.permutation.PMXCrossover;
 import com.msu.moo.operators.mutation.SwapMutation;
 import com.msu.moo.report.SingleObjectiveReport;
-import com.msu.moo.util.ObjectFactory;
 import com.msu.moo.util.events.FinishedProblemExecution;
 import com.msu.moo.util.events.IEvent;
 import com.msu.moo.util.events.IListener;
-import com.msu.scenarios.AThiefScenario;
-import com.msu.thief.model.SymmetricMap;
 import com.msu.tsp.TravellingSalesmanProblem;
-import com.msu.tsp.model.Tour;
 import com.msu.tsp.model.factory.NearestNeighbourFactory;
 
 public class TSPOperatorExperiment extends AExperiment {
 
-	protected final String[] SCENARIOS = new String[] { "Bays29", "Berlin52", "Eil101", "D198" };
+	protected final String[] SCENARIOS = new String[] { 
+			"resources/bays29.tsp",
+			"resources/berlin52.tsp",
+			"resources/eil101.tsp",
+			"resources/d198.tsp",
+	};
+	
 
 	@Override
 	protected void setListener(Multimap<Class<?>, IListener<? extends IEvent>> listener) {
@@ -51,17 +53,19 @@ public class TSPOperatorExperiment extends AExperiment {
 
 	@Override
 	protected void setProblems(List<IProblem> problems) {
-		for (String s : SCENARIOS) {
-			@SuppressWarnings("unchecked")
-			AThiefScenario<SymmetricMap, Tour<?>> scenario = (AThiefScenario<SymmetricMap, Tour<?>>) ObjectFactory.create("com.msu.tsp.scenarios.impl." + s);
-			TravellingSalesmanProblem tsp = new TravellingSalesmanProblem(scenario.getObject());
-			tsp.setName(s);
+		
+		for (String scenario : SCENARIOS) {
+			TravellingSalesmanProblem tsp = new SalesmanProblemReader().read(scenario);
 			problems.add(tsp);
-			NonDominatedSolutionSet set = new NonDominatedSolutionSet();
-			set.add(tsp.evaluate(scenario.getOptimal()));
-			tsp.setOptimum(set);
+			
+			/*
+			ThiefProblem problem = new ThiefProblem(new SymmetricMap(1), new ItemCollection<>(), 0);
+			problem.setName(tsp.getName());
+			problems.add(problem);
+			*/
 		}
+		
 	}
-
+	
 
 }

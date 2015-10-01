@@ -39,6 +39,18 @@ public class ExponentialProfitEvaluator extends ProfitEvaluator{
 		return profit;
 	}
 
+
+	public double getDroppingRate() {
+		return droppingRate;
+	}
+
+
+	public double getDroppingConstant() {
+		return droppingConstant;
+	}
+	
+	
+
 	
 	
 }

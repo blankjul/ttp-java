@@ -159,7 +159,7 @@ public class ThiefProblem extends AProblem<TTPVariable> implements IPackingProbl
 		return items.getAsList();
 	}
 
-	public boolean isFixStartingCitiy() {
+	public boolean isStartingCityIsZero() {
 		return startingCityIsZero;
 	}
 

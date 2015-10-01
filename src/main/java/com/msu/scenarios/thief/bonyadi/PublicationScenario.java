@@ -31,6 +31,7 @@ public class PublicationScenario extends AThiefScenario<ThiefProblem, Object>{
 		
 		ThiefProblem problem = new ThiefProblem(m, items, 3);
 		problem.setProfitEvaluator(new ExponentialProfitEvaluator());
+		problem.setName("PublicationScenario");
 		return problem;
 		
 	}

@@ -8,18 +8,22 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.msu.io.reader.KnapsackProblemReader;
 import com.msu.knp.KnapsackProblem;
 import com.msu.knp.model.Item;
 import com.msu.knp.model.PackingList;
 import com.msu.moo.model.Evaluator;
-import com.msu.moo.util.Pair;
-import com.msu.scenarios.AKNPScenario;
-import com.msu.scenarios.knp.KNP_13_0020_1000_1;
-import com.msu.scenarios.knp.KNP_13_0200_1000_1;
-import com.msu.scenarios.knp.KNP_13_1000_1000_1;
-import com.msu.scenarios.knp.KNP_13_2000_1000_1;
+import com.msu.moo.model.solution.NonDominatedSolutionSet;
 
 public class ComboTest {
+	
+	
+	protected final String[] SCENARIOS = new String[] { 
+			"resources/knapPI_13_0020_1000.csv",
+			"resources/knapPI_13_0200_1000.csv",
+			"resources/knapPI_13_1000_1000.csv",
+			"resources/knapPI_13_2000_1000.csv"
+			};
 	
 	@Test
 	public void testCorrectResult() {
@@ -38,17 +42,10 @@ public class ComboTest {
 	
 	@Test
 	public void testKNPScenarios() {
-		
-		for(AKNPScenario scenario : new AKNPScenario[] {new KNP_13_0200_1000_1(),new KNP_13_0020_1000_1(),new KNP_13_1000_1000_1(),new KNP_13_2000_1000_1(), }) {
-			Pair<List<Item>, Integer> pair = scenario.getObject();
-			KnapsackProblem problem = new KnapsackProblem(pair.second, pair.first);
-			
-			Evaluator eval = new Evaluator(problem);
-			PackingList<?> pl = Combo.getPackingList(eval);
-			
-			Double value =  eval.evaluate(pl).getObjectives(0);
-			assertEquals(eval.evaluate(scenario.getOptimal()).getObjectives(0),value);
-			
+		for(String pathToFile : SCENARIOS) {
+			KnapsackProblem problem = new KnapsackProblemReader().read(pathToFile);
+			NonDominatedSolutionSet set = new Combo().run(new Evaluator(problem));
+			assertEquals(-problem.getOptimum().get(0).getObjectives(0), set.get(0).getObjectives(0), 0.01);
 		}
 	}
 	

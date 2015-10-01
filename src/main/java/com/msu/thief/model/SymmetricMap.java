@@ -21,6 +21,7 @@ public class SymmetricMap {
 	//! maximal distance
 	protected double max = Double.MIN_VALUE;
 
+	
 	/**
 	 * Construct where all distance are zero.
 	 * @param n
@@ -29,6 +30,7 @@ public class SymmetricMap {
 		super();
 		this.distances = new double[n][n];
 	}
+
 	
 	public double get(int i, int j) {
 		return distances[i][j];

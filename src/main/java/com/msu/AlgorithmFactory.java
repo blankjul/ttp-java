@@ -29,5 +29,7 @@ public class AlgorithmFactory {
 		builder.setName("NSGAII-ST[OX-SWAP]-BP[SPX-BFM]");
 		return builder;
 	}
+	
+	
 
 }

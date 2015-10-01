@@ -24,6 +24,7 @@ public class NearestNeighbourFactoryTest {
 	@Test
 	public void testCorrectResultOnPublicationStarting2() {
 		ThiefProblem ttp = new PublicationScenario().getObject();
+		ttp.setStartingCityIsZero(false);
 		Tour<?> t = NearestNeighbourFactory.create(2, ttp.getMap());
 		assertEquals(Arrays.asList(2,1,0,3), t.encode());
 	}

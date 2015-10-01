@@ -28,7 +28,7 @@ public class RandomTSPScenario {
 	public static <T extends Point2D> SymmetricMap create(List<T> cities, ADistanceCalculator calcDistance) {
 		SymmetricMap m = new SymmetricMap(cities.size());
 		for (int i = 0; i < cities.size(); i++) {
-			for (int j = i; j < cities.size(); j++) {
+			for (int j = i + 1; j < cities.size(); j++) {
 				double distance = calcDistance.getDistance(cities.get(i), cities.get(j));
 				m.set(i, j, distance);
 			}

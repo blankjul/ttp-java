@@ -1,18 +1,16 @@
 package com.msu.experiment;
 
-import java.util.Arrays;
 import java.util.List;
 
 import com.google.common.collect.Multimap;
+import com.msu.io.reader.KnapsackProblemReader;
+import com.msu.knp.KnapsackProblem;
 import com.msu.knp.model.Item;
-import com.msu.knp.model.PackingList;
 import com.msu.knp.model.factory.EmptyPackingListFactory;
 import com.msu.moo.algorithms.NSGAIIBuilder;
 import com.msu.moo.experiment.AExperiment;
 import com.msu.moo.interfaces.IAlgorithm;
 import com.msu.moo.interfaces.IProblem;
-import com.msu.moo.model.solution.NonDominatedSolutionSet;
-import com.msu.moo.model.solution.Solution;
 import com.msu.moo.operators.crossover.HalfUniformCrossover;
 import com.msu.moo.operators.crossover.SinglePointCrossover;
 import com.msu.moo.operators.crossover.UniformCrossover;
@@ -20,21 +18,15 @@ import com.msu.moo.operators.crossover.permutation.OrderedCrossover;
 import com.msu.moo.operators.mutation.BitFlipMutation;
 import com.msu.moo.operators.mutation.SwapMutation;
 import com.msu.moo.report.SingleObjectiveReport;
-import com.msu.moo.util.ObjectFactory;
-import com.msu.moo.util.Pair;
 import com.msu.moo.util.events.FinishedProblemExecution;
 import com.msu.moo.util.events.IEvent;
 import com.msu.moo.util.events.IListener;
-import com.msu.scenarios.AThiefScenario;
 import com.msu.thief.ThiefProblem;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.variable.TTPCrossover;
 import com.msu.thief.variable.TTPMutation;
-import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.TTPVariableFactory;
-import com.msu.tsp.model.StandardTour;
-import com.msu.tsp.model.Tour;
 import com.msu.tsp.model.factory.RandomFactory;
 
 
@@ -42,10 +34,10 @@ public class KNPOperatorExperiment extends AExperiment {
 
 	
 	protected final String[] SCENARIOS = new String[] { 
-			"KNP_13_0020_1000_1", 
-			"KNP_13_0200_1000_1", 
-			"KNP_13_1000_1000_1",
-			"KNP_13_2000_1000_1"
+			"resources/knapPI_13_0020_1000.csv",
+			"resources/knapPI_13_0200_1000.csv",
+			"resources/knapPI_13_1000_1000.csv",
+			"resources/knapPI_13_2000_1000.csv"
 			};
 	
 	@Override
@@ -78,26 +70,17 @@ public class KNPOperatorExperiment extends AExperiment {
 
 	@Override
 	protected void setProblems(List<IProblem> problems) {
-		for (String s : SCENARIOS) {
-			@SuppressWarnings("unchecked")
-			AThiefScenario<Pair<List<Item>,Integer>, PackingList<?>> scenario = 
-			(AThiefScenario<Pair<List<Item>,Integer>, PackingList<?>>) ObjectFactory.create("com.msu.scenarios.knp." + s);
+		
+		for (String scenario : SCENARIOS) {
 			
-			Pair<List<Item>, Integer> obj = scenario.getObject();
+			KnapsackProblem knp = new KnapsackProblemReader().read(scenario);
 
-			// add all to the first city
 			ItemCollection<Item> items = new ItemCollection<>();
-			for (Item i : obj.first)
-				items.add(0, i);
+			for (Item i : knp.getItems()) items.add(0, i);
 
-			ThiefProblem problem = new ThiefProblem(new SymmetricMap(1), items, obj.second);
-			problem.setName(s);
+			ThiefProblem problem = new ThiefProblem(new SymmetricMap(1), items, knp.getMaxWeight());
+			problem.setName(knp.getName());
 			problems.add(problem);
-			
-			Tour<?> t = new StandardTour(Arrays.asList(0));
-			Solution sol = problem.evaluate(new TTPVariable(Pair.create(t, scenario.getOptimal())));
-			NonDominatedSolutionSet set = new NonDominatedSolutionSet(Arrays.asList(sol));
-			problem.setOptimum(set);
 		}
 		
 	}

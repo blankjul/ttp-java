@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.msu.algorithms.ExhaustiveSalesman;
 import com.msu.algorithms.ExhaustiveThief;
+import com.msu.io.reader.JsonThiefReader;
 import com.msu.moo.experiment.AExperiment;
 import com.msu.moo.interfaces.IAlgorithm;
 import com.msu.moo.interfaces.IProblem;
@@ -11,19 +12,18 @@ import com.msu.moo.model.Evaluator;
 import com.msu.moo.report.SolutionSetReport;
 import com.msu.moo.util.events.EventDispatcher;
 import com.msu.moo.util.events.FinishedProblemExecution;
-import com.msu.scenarios.knp.RandomKnapsackScenario.CORRELATION_TYPE;
-import com.msu.scenarios.thief.RandomTTPScenario;
 import com.msu.thief.ThiefProblem;
-import com.msu.thief.evaluator.profit.NoDroppingEvaluator;
 import com.msu.tsp.TravellingSalesmanProblem;
 import com.msu.visualize.ThiefVisualizer;
 
 public class OneScenarioExperiment extends AExperiment {
 
 	
+	final public ThiefProblem PROBLEM = new JsonThiefReader().read("resources/opt_tour_performs_bad.ttp");
+	//final public ThiefProblem PROBLEM  = new RandomTTPScenario(6, 2, 0.5, CORRELATION_TYPE.STRONGLY_CORRELATED).getObject();
+	
 	final public boolean SHOW_ALL = false;
 	
-	final public boolean STARTING_CITY_IS_ZERO = true;
 	
 	@Override
 	public void finalize() {
@@ -49,15 +49,13 @@ public class OneScenarioExperiment extends AExperiment {
 	@Override
 	protected void setAlgorithms(List<IAlgorithm> algorithms) {
 		//algorithms.add(AlgorithmFactory.createNSGAII());
-		algorithms.add(new ExhaustiveThief().setOnlyNonDominatedPoints(!SHOW_ALL).setStartingCityIsZero(STARTING_CITY_IS_ZERO));
+		algorithms.add(new ExhaustiveThief().setOnlyNonDominatedPoints(!SHOW_ALL));
 	}
 
 	@Override
 	protected void setProblems(List<IProblem> problems) {
-		ThiefProblem problem = new RandomTTPScenario(6, 2, 0.5, CORRELATION_TYPE.STRONGLY_CORRELATED).getObject();
-		problem.setProfitEvaluator(new NoDroppingEvaluator());
-		problem.setStartingCityIsZero(STARTING_CITY_IS_ZERO);
-		problems.add(problem);
+		//ThiefProblem problem = new RandomTTPScenario(6, 2, 0.5, CORRELATION_TYPE.STRONGLY_CORRELATED).getObject();
+		problems.add(PROBLEM);
 	}
 
 }

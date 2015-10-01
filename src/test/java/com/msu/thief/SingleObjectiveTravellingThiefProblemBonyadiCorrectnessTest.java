@@ -37,15 +37,6 @@ public class SingleObjectiveTravellingThiefProblemBonyadiCorrectnessTest {
 		assertEquals(-50.0, p.getObjective().get(0), 0.01);
 	}
 
-	@Test
-	public void testEvaluateFunctionNewOptimum() {
-		SingleObjectiveThiefProblem ttp = new PublicationScenarioSingleObjective().getObject();
-		Tour<List<Integer>> tour = new StandardTour(new ArrayList<Integer>(Arrays.asList(3, 0, 1, 2)));
-		PackingList<List<Boolean>> b = new BooleanPackingList(new ArrayList<Boolean>(Arrays.asList(false, true, true, false, false, false)));
-		Solution p = ttp.evaluate(new TTPVariable(Pair.create(tour, b)));
-		assertEquals(-54.0, p.getObjective().get(0), 0.01);
-	}
 
-	// [3, 0, 1, 2];[0, 1, 1, 0, 0, 0]
 
 }
