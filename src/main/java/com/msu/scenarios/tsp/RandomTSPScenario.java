@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.msu.moo.util.Random;
+import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.tsp.util.distances.ADistanceCalculator;
 import com.msu.tsp.util.distances.EuclideanDistance;
@@ -42,10 +43,10 @@ public class RandomTSPScenario {
 		ArrayList<Point2D> cities = new ArrayList<Point2D>(numOfCities);
 		for (int i = 0; i < numOfCities; i++) {
 			Point2D point = new Point2D.Double(rnd.nextInt(0, MAXIMAL_VALUE_ON_MAP), rnd.nextInt(0, MAXIMAL_VALUE_ON_MAP));
-			System.out.println(point);
+			//System.out.println(point);
 			cities.add(point);
 		}
-		return create(cities);
+		return new CoordinateMap(cities);
 	}
 
 

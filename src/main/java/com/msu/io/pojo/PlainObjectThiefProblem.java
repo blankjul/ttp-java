@@ -11,6 +11,7 @@ import com.msu.thief.ThiefProblem;
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
 import com.msu.thief.evaluator.profit.NoDroppingEvaluator;
 import com.msu.thief.model.CoordinateMap;
+import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
 
 public class PlainObjectThiefProblem {
@@ -100,7 +101,52 @@ public class PlainObjectThiefProblem {
 	
 	
 	
-	
+	public ThiefProblem create() {
+		
+		ThiefProblem result = new ThiefProblem();
+		
+		if (problemType == PROBLEM_TYPE.MultiObjective)
+			result = new ThiefProblem();
+		else if (problemType == PROBLEM_TYPE.SingleObjective)
+			result = new SingleObjectiveThiefProblem();
+
+		result.setMinSpeed(minSpeed);
+		result.setMaxSpeed(maxSpeed);
+		result.setMaxWeight(maxWeight);
+		result.setStartingCityIsZero(startingCityIsZero);
+
+		if (droppingType ==DROPPING_TYPE.NO_DROPPING) {
+			result.setProfitEvaluator(new NoDroppingEvaluator());
+		} else if (droppingType ==DROPPING_TYPE.EXPONTENTIAL) {
+			result.setProfitEvaluator(new ExponentialProfitEvaluator(droppingRate, droppingConstant));
+		}
+
+		SymmetricMap map = null;
+		if (cityType == CITY_TYPE.FULL_MATRIX) {
+			map = new SymmetricMap(numOfCities);
+			for (int i = 0; i < cities.size(); i++) {
+				for (int j = 0; j < cities.size(); j++) {
+						map.set(i, j, cities.get(i).get(j));
+				}
+			}
+		} else if (cityType == CITY_TYPE.XY_COORDINATES) {
+			List<Point2D> points = new ArrayList<>();
+			for(List<Double> list : cities) {
+				points.add(new Point2D.Double(list.get(0), list.get(1)));
+			}
+			map = new CoordinateMap(points);
+		}
+		result.setMap(map);
+		
+
+		ItemCollection<Item> items = new ItemCollection<>();
+		for (PlainObjectItem item : this.items) {
+			items.add(item.city, new Item(item.profit, item.weight));
+		}
+		result.setItems(items);
+		result.setName(name);
+		return result;
+	}
 	
 
 	

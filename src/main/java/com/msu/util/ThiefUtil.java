@@ -1,6 +1,7 @@
 package com.msu.util;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -45,6 +46,18 @@ public class ThiefUtil {
 		
 	}
 	
+	public static Object cloneObject(Object obj){
+        try{
+            Object clone = obj.getClass().newInstance();
+            for (Field field : obj.getClass().getDeclaredFields()) {
+                field.setAccessible(true);
+                field.set(clone, field.get(obj));
+            }
+            return clone;
+        }catch(Exception e){
+            return null;
+        }
+    }
 
 
 	
