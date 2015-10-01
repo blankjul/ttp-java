@@ -9,7 +9,7 @@ import com.msu.tsp.ICityProblem;
 import com.msu.tsp.model.StandardTour;
 import com.msu.tsp.model.Tour;
 
-public class RandomFactory extends ATourFactory {
+public class RandomTourFactory extends ATourFactory {
 
 
 	@Override

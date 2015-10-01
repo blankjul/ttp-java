@@ -27,7 +27,7 @@ import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.variable.TTPCrossover;
 import com.msu.thief.variable.TTPMutation;
 import com.msu.thief.variable.TTPVariableFactory;
-import com.msu.tsp.model.factory.RandomFactory;
+import com.msu.tsp.model.factory.RandomTourFactory;
 
 
 public class KNPOperatorExperiment extends AExperiment {
@@ -52,7 +52,7 @@ public class KNPOperatorExperiment extends AExperiment {
 	@Override
 	protected void setAlgorithms(List<IAlgorithm> algorithms) {
 		NSGAIIBuilder builder = new NSGAIIBuilder();
-		builder.setFactory(new TTPVariableFactory(new RandomFactory(), new EmptyPackingListFactory()));
+		builder.setFactory(new TTPVariableFactory(new RandomTourFactory(), new EmptyPackingListFactory()));
 		builder.setMutation(new TTPMutation(new SwapMutation<>(), new BitFlipMutation()));
 		builder.setProbMutation(0.3);
 		
