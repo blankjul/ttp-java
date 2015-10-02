@@ -3,7 +3,6 @@ package com.msu.algorithms;
 import java.util.List;
 
 import com.msu.moo.interfaces.IEvaluator;
-import com.msu.moo.model.AbstractAlgorithm;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.tsp.TravellingSalesmanProblem;
@@ -11,14 +10,14 @@ import com.msu.tsp.model.StandardTour;
 import com.msu.tsp.model.Tour;
 import com.msu.util.CombinatorialUtil;
 
-public class ExhaustiveSalesman extends AbstractAlgorithm {
+public class ExhaustiveSalesman extends AExhaustiveAlgorithm {
 
 
 	@Override
 	public NonDominatedSolutionSet run(IEvaluator eval) {
 
 		TravellingSalesmanProblem problem = (TravellingSalesmanProblem) eval.getProblem();
-		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
+		NonDominatedSolutionSet set = (onlyNonDominatedPoints) ? new NonDominatedSolutionSet() : new ExhaustiveSolutionSet();
 		
 		final int numCities = problem.numOfCities();
 		

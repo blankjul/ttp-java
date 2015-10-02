@@ -1,10 +1,15 @@
-package com.msu.meta;
+package com.msu.experiment;
 
 import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
 
 import com.msu.io.writer.JsonThiefProblemWriter;
+import com.msu.meta.FactoryThiefCrossover;
+import com.msu.meta.FactoryThiefMutation;
+import com.msu.meta.FactoryThiefProblem;
+import com.msu.meta.FactoryThiefVariable;
+import com.msu.meta.FactoryThiefVariableFactory;
 import com.msu.moo.Configuration;
 import com.msu.moo.algorithms.NSGAIIBuilder;
 import com.msu.moo.experiment.AExperiment;

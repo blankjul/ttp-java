@@ -6,16 +6,15 @@ import java.util.List;
 import com.msu.knp.KnapsackProblem;
 import com.msu.knp.model.BooleanPackingList;
 import com.msu.moo.interfaces.IEvaluator;
-import com.msu.moo.model.AbstractAlgorithm;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.util.Combination;
 
-public class ExhaustiveKnapsack extends AbstractAlgorithm {
+public class ExhaustiveKnapsack extends AExhaustiveAlgorithm {
 
 	
 	@Override
 	public NonDominatedSolutionSet run(IEvaluator evaluator) {
-		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
+		NonDominatedSolutionSet set = (onlyNonDominatedPoints) ? new NonDominatedSolutionSet() : new ExhaustiveSolutionSet();
 		KnapsackProblem problem = (KnapsackProblem) evaluator.getProblem();
 		final int n = problem.numOfItems();
 		for (int i = 0; i <= n; i++) {

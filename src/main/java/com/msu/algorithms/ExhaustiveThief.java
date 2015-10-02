@@ -6,7 +6,6 @@ import java.util.List;
 import com.msu.knp.model.BooleanPackingList;
 import com.msu.knp.model.PackingList;
 import com.msu.moo.interfaces.IEvaluator;
-import com.msu.moo.model.AbstractAlgorithm;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.thief.ThiefProblem;
@@ -16,18 +15,9 @@ import com.msu.tsp.model.Tour;
 import com.msu.util.Combination;
 import com.msu.util.CombinatorialUtil;
 
-public class ExhaustiveThief extends AbstractAlgorithm {
+public class ExhaustiveThief extends AExhaustiveAlgorithm {
 
 	protected boolean startingCityIsZero = false;
-	
-	protected boolean onlyNonDominatedPoints = true;
-	
-	private class ExhaustiveSolutionSet extends NonDominatedSolutionSet {
-		@Override
-		public boolean add(Solution solutionToAdd) {
-			return solutions.add(solutionToAdd);
-		}
-	}
 	
 	public static int factorial(int n) {
 		int fact = 1; // this will be the result
@@ -93,10 +83,7 @@ public class ExhaustiveThief extends AbstractAlgorithm {
 		return b;
 	}
 
-	public ExhaustiveThief setOnlyNonDominatedPoints(boolean onlyNonDominatedPoints) {
-		this.onlyNonDominatedPoints = onlyNonDominatedPoints;
-		return this;
-	}
+
 
 	public ExhaustiveThief setStartingCityIsZero(boolean startingCityIsZero) {
 		this.startingCityIsZero = startingCityIsZero;
