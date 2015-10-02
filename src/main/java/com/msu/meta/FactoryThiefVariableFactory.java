@@ -20,6 +20,7 @@ public class FactoryThiefVariableFactory extends AVariableFactory {
 	@Override
 	public IVariable next(IProblem problem) {
 		ThiefProblem result = new RandomTTPScenario(numOfCities, 1, Random.getInstance().nextDouble()).getObject();
+		result.setStartingCityIsZero(true);
 		return new FactoryThiefVariable(new PlainObjectThiefProblem(result));
 	}
 

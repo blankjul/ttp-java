@@ -72,24 +72,8 @@ public class PlainObjectThiefProblem {
 			this.R = ((SingleObjectiveThiefProblem) problem).getR();
 		}
 		
-		SymmetricMap map = problem.getMap();
-		if (map instanceof CoordinateMap) {
-			cityType = CITY_TYPE.XY_COORDINATES;
-			List<Point2D> cityPoints = ((CoordinateMap) map).getCities();
-			for (Point2D point : cityPoints) {
-				this.cities.add(Arrays.asList(point.getX(), point.getY()));
-			}
-			
-		} else {
-			cityType = CITY_TYPE.FULL_MATRIX;
-			for (int i = 0; i < map.getSize(); i++) {
-				List<Double> row = new ArrayList<>();
-				for (int j = 0; j < map.getSize(); j++) {
-					row.add(map.get(i, j));
-				}
-				cities.add(row);
-			}
-		}
+		
+
 		
 		for (int i = 0; i < numOfCities; i++) {
 			for (Item item : problem.getItemCollection().getItemsFromCity(i)) {

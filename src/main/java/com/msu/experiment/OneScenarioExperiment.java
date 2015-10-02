@@ -25,13 +25,14 @@ import com.msu.visualize.ThiefVisualizer;
  * bonyadi_single_publication.ttp
  * opt_tour_performs_bad.ttp
  * my_publication.ttp
+ * EA_example.ttp
  * 
  *
  */
 public class OneScenarioExperiment extends AExperiment {
 
 	
-	final public ThiefProblem PROBLEM = new JsonThiefReader().read("../ttp-benchmark/opt_tour_performs_bad.ttp");
+	final public ThiefProblem PROBLEM = new JsonThiefReader().read("../ttp-benchmark/EA_example01.ttp");
 	//final public ThiefProblem PROBLEM  = new RandomTTPScenario(6, 2, 0.5, CORRELATION_TYPE.STRONGLY_CORRELATED).getObject();
 	
 	final public boolean SHOW_ALL = false;

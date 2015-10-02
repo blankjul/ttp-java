@@ -27,7 +27,7 @@ public abstract class AProblemReader<T extends IProblem> {
 		return problem;
 	}
 
-	public T read(BufferedReader br) {
+	protected T read(BufferedReader br) {
 		try {
 			return read_(br);
 		} catch (IOException e) {

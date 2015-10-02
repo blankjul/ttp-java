@@ -20,7 +20,7 @@ public class ExhaustiveThief extends AbstractAlgorithm {
 
 	protected boolean startingCityIsZero = false;
 	
-	protected boolean onlyNonDominatedPoints = false;
+	protected boolean onlyNonDominatedPoints = true;
 	
 	private class ExhaustiveSolutionSet extends NonDominatedSolutionSet {
 		@Override

@@ -2,7 +2,6 @@ package com.msu.experiment;
 
 import java.util.List;
 
-import com.google.common.collect.Multimap;
 import com.msu.io.reader.KnapsackProblemReader;
 import com.msu.knp.KnapsackProblem;
 import com.msu.knp.model.Item;
@@ -17,10 +16,6 @@ import com.msu.moo.operators.crossover.UniformCrossover;
 import com.msu.moo.operators.crossover.permutation.OrderedCrossover;
 import com.msu.moo.operators.mutation.BitFlipMutation;
 import com.msu.moo.operators.mutation.SwapMutation;
-import com.msu.moo.report.SingleObjectiveReport;
-import com.msu.moo.util.events.FinishedProblemExecution;
-import com.msu.moo.util.events.IEvent;
-import com.msu.moo.util.events.IListener;
 import com.msu.thief.ThiefProblem;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
@@ -40,14 +35,6 @@ public class KNPOperatorExperiment extends AExperiment {
 			"resources/knapPI_13_2000_1000.csv"
 			};
 	
-	@Override
-	protected void setListener(Multimap<Class<?>, IListener<? extends IEvent>> listener) {
-		SingleObjectiveReport sop = new SingleObjectiveReport();
-		sop.set("experiment/TSPOperator_result.csv");
-		sop.setObjective(1);
-		listener.put(FinishedProblemExecution.class, sop);
-	}
-
 	
 	@Override
 	protected void setAlgorithms(List<IAlgorithm> algorithms) {

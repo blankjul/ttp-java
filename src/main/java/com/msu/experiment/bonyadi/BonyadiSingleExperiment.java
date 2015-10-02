@@ -5,15 +5,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.google.common.collect.Multimap;
 import com.msu.algorithms.OnePlusOneEA;
 import com.msu.algorithms.RandomLocalSearch;
 import com.msu.moo.interfaces.IAlgorithm;
 import com.msu.moo.interfaces.IProblem;
-import com.msu.moo.report.SingleObjectiveReport;
-import com.msu.moo.util.events.FinishedProblemExecution;
-import com.msu.moo.util.events.IEvent;
-import com.msu.moo.util.events.IListener;
 import com.msu.moo.visualization.ObjectiveBoxPlot;
 import com.msu.scenarios.thief.bonyadi.BenchmarkSingleObjective;
 import com.msu.thief.SingleObjectiveThiefProblem;
@@ -30,13 +25,6 @@ public class BonyadiSingleExperiment extends ABonyadiBenchmark {
 		new ObjectiveBoxPlot().show(this);
 	}
 	
-
-	@Override
-	protected void setListener(Multimap<Class<?>, IListener<? extends IEvent>> listener) {
-		SingleObjectiveReport report = new SingleObjectiveReport();
-		report.set("experiment/SO_result.csv");
-		listener.put(FinishedProblemExecution.class, report);
-	}
 
 
 	@Override
