@@ -9,7 +9,7 @@ import com.msu.algorithms.OnePlusOneEA;
 import com.msu.algorithms.RandomLocalSearch;
 import com.msu.moo.interfaces.IAlgorithm;
 import com.msu.moo.interfaces.IProblem;
-import com.msu.moo.visualization.ObjectiveBoxPlot;
+import com.msu.moo.visualization.SingleObjectiveBoxPlot;
 import com.msu.scenarios.thief.bonyadi.BenchmarkSingleObjective;
 import com.msu.thief.SingleObjectiveThiefProblem;
 import com.msu.util.ThiefUtil;
@@ -22,7 +22,7 @@ public class BonyadiSingleExperiment extends ABonyadiBenchmark {
 	
 	@Override
 	protected void finalize() {
-		new ObjectiveBoxPlot().show(this);
+		new SingleObjectiveBoxPlot().setVisibility(true);
 	}
 	
 

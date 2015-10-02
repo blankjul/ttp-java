@@ -53,7 +53,7 @@ public class ItemCollection<T extends Item> implements Iterable<T> {
 	/**
 	 * @return items as a vector
 	 */
-	public List<T> getAsList() {
+	public List<T> asList() {
 		return items;
 	}
 	

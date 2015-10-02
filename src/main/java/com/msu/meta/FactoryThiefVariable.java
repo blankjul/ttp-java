@@ -1,19 +1,19 @@
 package com.msu.meta;
 
-import com.msu.io.pojo.PlainObjectThiefProblem;
 import com.msu.moo.interfaces.IVariable;
 import com.msu.moo.model.AVariable;
+import com.msu.thief.ThiefProblem;
 import com.msu.util.ThiefUtil;
 
-public class FactoryThiefVariable extends AVariable<PlainObjectThiefProblem> {
+public class FactoryThiefVariable extends AVariable<ThiefProblem> {
 
-	public FactoryThiefVariable(PlainObjectThiefProblem obj) {
+	public FactoryThiefVariable(ThiefProblem obj) {
 		super(obj);
 	}
 
 	@Override
 	public IVariable copy() {
-		return new FactoryThiefVariable((PlainObjectThiefProblem) ThiefUtil.cloneObject(obj));
+		return new FactoryThiefVariable((ThiefProblem) ThiefUtil.cloneObject(obj));
 	}
 	
 

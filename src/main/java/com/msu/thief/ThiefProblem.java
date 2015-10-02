@@ -156,7 +156,7 @@ public class ThiefProblem extends AProblem<TTPVariable> implements IPackingProbl
 
 	@Override
 	public List<Item> getItems() {
-		return items.getAsList();
+		return items.asList();
 	}
 
 	public boolean isStartingCityIsZero() {

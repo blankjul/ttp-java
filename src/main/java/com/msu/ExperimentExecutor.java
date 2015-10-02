@@ -39,11 +39,6 @@ public class ExperimentExecutor {
 	//! random seed for experiment execution
 	protected final static long SEED = 123456;		
 	
-	//! output directory, if null no output
-	protected final static String OUTPUT_DIR = "experiment";
-	
-	protected final static boolean VISUALIZE = true;
-	
 	
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
@@ -52,8 +47,6 @@ public class ExperimentExecutor {
 		Configuration.PATH_TO_HYPERVOLUME = "../moo-java/vendor/hv-1.3-src/hv";
 		
 		AExperiment experiment = ObjectFactory.create(AExperiment.class,  PREFIX + EXPERIMENT);
-		experiment.setOutputDir(OUTPUT_DIR);
-		experiment.setVisualize(VISUALIZE);
 		experiment.run(MAX_EVALUATIONS, ITERATIONS, SEED);
 		
 		

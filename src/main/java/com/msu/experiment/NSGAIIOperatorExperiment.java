@@ -2,23 +2,21 @@ package com.msu.experiment;
 
 import java.util.List;
 
-import com.msu.AlgorithmFactory;
+import com.msu.NSGAIIFactory;
 import com.msu.algorithms.OnePlusOneEA;
 import com.msu.moo.experiment.AExperiment;
 import com.msu.moo.interfaces.IAlgorithm;
 import com.msu.moo.interfaces.IProblem;
 import com.msu.scenarios.knp.RandomKnapsackScenario.CORRELATION_TYPE;
 import com.msu.scenarios.thief.RandomTTPScenario;
-import com.msu.thief.ThiefProblem;
-import com.msu.visualize.ThiefVisualizer;
 
 public class NSGAIIOperatorExperiment extends AExperiment {
 
 	
 	@Override
 	protected void setAlgorithms(List<IAlgorithm> algorithms) {
-		algorithms.add(AlgorithmFactory.createNSGAIIBuilder("NSGAII-[OPT-RANDOM]-[OX-HUX]-[SWAP-BF]").create());
-		algorithms.add(AlgorithmFactory.createNSGAIIBuilder("NSGAII-[NEAREST-RANDOM]-[OX-HUX]-[SWAP-BF]").create());
+		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[OPT-RANDOM]-[OX-HUX]-[SWAP-BF]").create());
+		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[NEAREST-RANDOM]-[OX-HUX]-[SWAP-BF]").create());
 		algorithms.add(new OnePlusOneEA());
 	}
 
@@ -36,7 +34,7 @@ public class NSGAIIOperatorExperiment extends AExperiment {
 
 
 	public void finalize() {
-		new ThiefVisualizer<ThiefProblem>().show(this);
+		//new ThiefVisualizer<ThiefProblem>().show(this);
 	}
 
 

@@ -24,7 +24,7 @@ public class BonyadiMultiExperiment extends ABonyadiBenchmark {
 	
 	@Override
 	protected void finalize() {
-		new AttainmentSurfacePlot().show(this);
+		new AttainmentSurfacePlot().setVisibility(true);
 	}
 
 	

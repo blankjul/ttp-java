@@ -10,8 +10,6 @@ import com.msu.moo.interfaces.IAlgorithm;
 import com.msu.moo.interfaces.IProblem;
 import com.msu.moo.model.Evaluator;
 import com.msu.moo.report.SolutionSetReport;
-import com.msu.moo.util.events.EventDispatcher;
-import com.msu.moo.util.events.FinishedProblemExecution;
 import com.msu.thief.ThiefProblem;
 import com.msu.tsp.TravellingSalesmanProblem;
 import com.msu.visualize.ThiefVisualizer;
@@ -25,17 +23,17 @@ import com.msu.visualize.ThiefVisualizer;
  * bonyadi_single_publication.ttp
  * opt_tour_performs_bad.ttp
  * my_publication.ttp
- * EA_example.ttp
+ * EA_example00.ttp
  * 
  *
  */
 public class OneScenarioExperiment extends AExperiment {
 
 	
-	final public ThiefProblem PROBLEM = new JsonThiefReader().read("../ttp-benchmark/EA_example01.ttp");
+	final public ThiefProblem PROBLEM = new JsonThiefReader().read("../ttp-benchmark/opt_tour_performs_optimal.ttp");
 	//final public ThiefProblem PROBLEM  = new RandomTTPScenario(6, 2, 0.5, CORRELATION_TYPE.STRONGLY_CORRELATED).getObject();
 	
-	final public boolean SHOW_ALL = false;
+	final public boolean ONLY_PARETO_FRONT = false;
 	
 	
 	@Override
@@ -43,22 +41,20 @@ public class OneScenarioExperiment extends AExperiment {
 		ThiefProblem ttp = (ThiefProblem) problems.get(0);
 		TravellingSalesmanProblem p = new TravellingSalesmanProblem(ttp.getMap());
 		new ExhaustiveSalesman().run(new Evaluator(p));
-		new ThiefVisualizer<ThiefProblem>().show(this);
-
 	}
+	
 	
 	@Override
 	protected void initialize() {
-		SolutionSetReport report = new SolutionSetReport();
-		//report.set("experiment/scenario.csv");
-		EventDispatcher.getInstance().register(FinishedProblemExecution.class, report);
+		new SolutionSetReport();
+		new ThiefVisualizer<>(true).setVisibility(true);
 	}
 
 
 	@Override
 	protected void setAlgorithms(List<IAlgorithm> algorithms) {
 		//algorithms.add(AlgorithmFactory.createNSGAIIBuilder("NSGAII-[OPT-RANDOM]-[OX-HUX]-[SWAP-BF]").create());
-		algorithms.add(new ExhaustiveThief().setOnlyNonDominatedPoints(!SHOW_ALL));
+		algorithms.add(new ExhaustiveThief().setOnlyNonDominatedPoints(ONLY_PARETO_FRONT));
 	}
 
 	@Override

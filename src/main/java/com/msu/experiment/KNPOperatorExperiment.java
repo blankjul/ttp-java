@@ -16,6 +16,7 @@ import com.msu.moo.operators.crossover.UniformCrossover;
 import com.msu.moo.operators.crossover.permutation.OrderedCrossover;
 import com.msu.moo.operators.mutation.BitFlipMutation;
 import com.msu.moo.operators.mutation.SwapMutation;
+import com.msu.moo.report.SolutionSetReport;
 import com.msu.thief.ThiefProblem;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
@@ -33,7 +34,12 @@ public class KNPOperatorExperiment extends AExperiment {
 			"resources/knapPI_13_0200_1000.csv",
 			"resources/knapPI_13_1000_1000.csv",
 			"resources/knapPI_13_2000_1000.csv"
-			};
+	};
+	
+	
+	protected void initialize() {
+		new SolutionSetReport().setPath("experiment/knp_result.csv");
+	};
 	
 	
 	@Override

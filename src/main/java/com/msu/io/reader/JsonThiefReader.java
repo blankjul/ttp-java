@@ -101,8 +101,4 @@ public class JsonThiefReader extends AProblemReader<ThiefProblem> {
 
 	}
 
-	public static void main(String[] args) {
-		new JsonThiefReader().read("../ttp-benchmark/test_XY.ttp");
-	}
-
 }

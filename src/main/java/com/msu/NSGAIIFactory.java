@@ -27,7 +27,7 @@ import com.msu.tsp.model.factory.NearestNeighbourFactory;
 import com.msu.tsp.model.factory.OptimumFactory;
 import com.msu.tsp.model.factory.RandomTourFactory;
 
-public class AlgorithmFactory {
+public class NSGAIIFactory {
 	
 	public static NSGAII createNSGAII() {
 		return createNSGAIIBuilder().create();

@@ -13,7 +13,6 @@ import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.model.solution.SolutionDominator;
-import com.msu.moo.util.Util;
 import com.msu.moo.visualization.AttainmentSurfacePlot;
 import com.msu.scenarios.thief.bonyadi.BenchmarkTSPLIB;
 import com.msu.thief.SingleObjectiveThiefProblem;
@@ -61,7 +60,7 @@ public class BonyadiTSPLIBExperiment extends ABonyadiBenchmark {
 		
 		algorithms.add(0,onePlusOne);
 		
-		new AttainmentSurfacePlot().show(this);
+		new AttainmentSurfacePlot().setVisibility(true);
 		
 		StringBuffer sb = new StringBuffer();
 		sb.append(String.format("%s,%s,%s,%s\n", "problem", "algorithm", "dominates", "isDominated"));
@@ -82,8 +81,8 @@ public class BonyadiTSPLIBExperiment extends ABonyadiBenchmark {
 			}
 		}
 		
-		if (hasOutputDirectory()) Util.write(String.format("%s/%s", getOutputDir(), "TSPLIB_result.csv"),sb);
-		else System.out.println(sb);
+		//if (hasOutputDirectory()) Util.write(String.format("%s/%s", getOutputDir(), "TSPLIB_result.csv"),sb);
+		System.out.println(sb);
 		
 		
 	}

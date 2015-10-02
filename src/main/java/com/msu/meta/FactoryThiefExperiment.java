@@ -13,10 +13,13 @@ import com.msu.moo.interfaces.IProblem;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.report.SolutionSetReport;
 import com.msu.moo.util.events.EventDispatcher;
-import com.msu.moo.util.events.FinishedProblemExecution;
+import com.msu.moo.util.events.ExperimentFininshedEvent;
+import com.msu.moo.util.events.IListener;
 
 public class FactoryThiefExperiment extends AExperiment {
 
+	SolutionSetReport report = null;
+	
 	@Override
 	protected void setAlgorithms(List<IAlgorithm> algorithms) {
 		NSGAIIBuilder builder = new NSGAIIBuilder();
@@ -24,31 +27,34 @@ public class FactoryThiefExperiment extends AExperiment {
 		builder.setCrossover(new FactoryThiefCrossover());
 		builder.setMutation(new FactoryThiefMutation());
 		builder.setProbMutation(0.3);
-		builder.setPopulationSize(20);
+		builder.setPopulationSize(100);
 		algorithms.add(builder.create());
 	}
 	
 
 	@Override
 	protected void initialize() {
-		SolutionSetReport report = new SolutionSetReport();
-		EventDispatcher.getInstance().register(FinishedProblemExecution.class, report);
-	}
-	
-	
-	
-	@Override
-	protected void finalize() {
-		NonDominatedSolutionSet set = result.getFirst(problems.get(0), algorithms.get(0), "");
-		System.out.println(set);
-		for (int i = 0; i < set.size(); i++) {
-			FactoryThiefVariable var = (FactoryThiefVariable) set.get(i).getVariable();
-			new JsonThiefProblemWriter().write(var.get().create(), "../ttp-benchmark/EA_example0" + i + ".ttp");
+		report = new SolutionSetReport();
+		
+		EventDispatcher.getInstance().register(ExperimentFininshedEvent.class, new IListener<ExperimentFininshedEvent>() {
+
+			@Override
+			public void update(ExperimentFininshedEvent event) {
+				System.out.println(report);
+				
+				NonDominatedSolutionSet set = result.getFirst(problems.get(0), algorithms.get(0), "");
+				for (int i = 0; i < set.size(); i++) {
+					FactoryThiefVariable var = (FactoryThiefVariable) set.get(i).getVariable();
+					new JsonThiefProblemWriter().write(var.get(), "../ttp-benchmark/EA_example0" + i + ".ttp");
+				}
+				
+			}
 			
-		}
+		});
 	}
-
-
+	
+	
+	
 	@Override
 	protected void setProblems(List<IProblem> problems) {
 		problems.add(new FactoryThiefProblem());
@@ -62,9 +68,7 @@ public class FactoryThiefExperiment extends AExperiment {
 		Configuration.PATH_TO_HYPERVOLUME = "../moo-java/vendor/hv-1.3-src/hv";
 		
 		AExperiment experiment = new FactoryThiefExperiment();
-		//experiment.setOutputDir(OUTPUT_DIR);
-		experiment.setVisualize(true);
-		experiment.run(10000, 1 , 12345);
+		experiment.run(10000, 1 , 7864876);
 	}
 
 }

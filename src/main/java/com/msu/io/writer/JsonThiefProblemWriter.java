@@ -10,7 +10,6 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.msu.io.AProblemWriter;
 import com.msu.knp.model.Item;
-import com.msu.scenarios.thief.bonyadi.PublicationScenario;
 import com.msu.thief.SingleObjectiveThiefProblem;
 import com.msu.thief.ThiefProblem;
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
@@ -52,6 +51,8 @@ public class JsonThiefProblemWriter extends AProblemWriter<ThiefProblem> {
 			ExponentialProfitEvaluator epe = (ExponentialProfitEvaluator) p.getProfitEvaluator();
 			json.writeObjectField("droppingConstant", epe.getDroppingConstant());
 			json.writeObjectField("droppingRate", epe.getDroppingRate());
+		} else {
+			throw new RuntimeException("Evalator is not implemented to be written to a file!");
 		}
 		json.writeEndObject();
 		
@@ -98,7 +99,7 @@ public class JsonThiefProblemWriter extends AProblemWriter<ThiefProblem> {
 				json.writeStartObject();
 				json.writeObjectField("city", i);
 				json.writeObjectField("weight", item.getWeight());
-				json.writeObjectField("profit", item.getProfit());
+				json.writeObjectField("value", item.getProfit());
 				json.writeEndObject();
 			}
 		}
@@ -108,10 +109,5 @@ public class JsonThiefProblemWriter extends AProblemWriter<ThiefProblem> {
 		json.close();
 	}
 	
-	public static void main(String[] args) {
-		PublicationScenario scenario = new PublicationScenario();
-		ThiefProblem p = scenario.getObject();
-		new JsonThiefProblemWriter().write(p, System.out);
-	}
 
 }

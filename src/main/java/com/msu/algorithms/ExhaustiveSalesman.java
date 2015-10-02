@@ -33,7 +33,7 @@ public class ExhaustiveSalesman extends AbstractAlgorithm {
 			l.add(0,0);
 			Tour<?> t = new StandardTour(l);
 			Solution solutionToAdd = eval.evaluate(t);
-			System.out.println(solutionToAdd);
+			//System.out.println(solutionToAdd);
 			set.add(solutionToAdd);
 			
 		}

@@ -1,45 +1,61 @@
 package com.msu.meta;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.msu.io.pojo.PlainObjectItem;
-import com.msu.io.pojo.PlainObjectThiefProblem;
+import com.msu.knp.model.Item;
 import com.msu.moo.operators.AbstractCrossover;
 import com.msu.moo.util.Random;
+import com.msu.thief.ThiefProblem;
+import com.msu.thief.model.CoordinateMap;
+import com.msu.thief.model.ItemCollection;
 import com.msu.util.ThiefUtil;
 
-public class FactoryThiefCrossover extends AbstractCrossover<PlainObjectThiefProblem>{
+public class FactoryThiefCrossover extends AbstractCrossover<ThiefProblem>{
 
 	@Override
-	protected List<PlainObjectThiefProblem> crossover_(PlainObjectThiefProblem a, PlainObjectThiefProblem b) {
+	protected List<ThiefProblem> crossover_(ThiefProblem a, ThiefProblem b) {
 		return Arrays.asList(crossoverWithOrder(a, b), crossoverWithOrder(b, a));
 	}
 	
-	protected PlainObjectThiefProblem crossoverWithOrder(PlainObjectThiefProblem a, PlainObjectThiefProblem b) {
-		PlainObjectThiefProblem child = (PlainObjectThiefProblem) ThiefUtil.cloneObject(a);
+	protected ThiefProblem crossoverWithOrder(ThiefProblem a, ThiefProblem b) {
+		ThiefProblem child = (ThiefProblem) ThiefUtil.cloneObject(a);
+		Random rnd = Random.getInstance();
 		
-		List<List<Double>> cities = new ArrayList<>();
-		for (int i = 0; i < a.cities.size(); i++) {
+		
+		List<Point2D> paCities = ((CoordinateMap) a.getMap()).getCities();
+		List<Point2D> pbCities = ((CoordinateMap) b.getMap()).getCities();
+		
+		List<Point2D> cities = new ArrayList<>();
+		for (int i = 0; i < a.numOfCities(); i++) {
 			if (Random.getInstance().nextDouble() < 0.5) {
-				cities.add(a.cities.get(i));
+				cities.add(paCities.get(i));
 			} else {
-				cities.add(b.cities.get(i));
+				cities.add(pbCities.get(i));
 			}
 		}
-		child.cities = cities;
-		child.maxWeight = (a.maxWeight + b.maxWeight) / 2;
+		child.setMap(new CoordinateMap(cities));
 		
-		List<PlainObjectItem> items = new ArrayList<>();
-		for (int i = 0; i < a.items.size(); i++) {
-			if (Random.getInstance().nextDouble() < 0.5) {
-				items.add(a.items.get(i));
-			} else {
-				items.add(b.items.get(i));
+		child.setMaxWeight((a.getMaxWeight() + b.getMaxWeight()) / 2);
+		
+		
+		ItemCollection<Item> paItems = a.getItemCollection();
+		ItemCollection<Item> pbItems = b.getItemCollection();
+		ItemCollection<Item> mItems = new ItemCollection<>();
+		for (int i = 0; i < a.numOfCities(); i++) {
+			for (int j = 0; j < paItems.getItemsFromCity(i).size(); j++) {
+				Item item = null;
+				if (rnd.nextDouble() < 0.5) {
+					item = paItems.getItemsFromCity(i).get(j);
+				} else {
+					 item = pbItems.getItemsFromCity(i).get(j);
+				}		
+				mItems.add(i, new Item(item.getProfit(), item.getWeight()));
 			}
 		}
-		child.items = items;
+		a.setItems(mItems);
 		
 		return child;
 	}

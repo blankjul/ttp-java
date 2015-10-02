@@ -22,15 +22,13 @@ public class FactoryThiefProblem extends AProblem<FactoryThiefVariable>{
 
 	@Override
 	protected List<Double> evaluate_(FactoryThiefVariable variable) {
-		ThiefProblem problem = variable.get().create();
+		ThiefProblem problem = variable.get();
 		NonDominatedSolutionSet set = new ExhaustiveThief().run(new Evaluator(problem));
 		Set<List<Integer>> setOfTours = new HashSet<>();
 		for(Solution s : set.getSolutions()) {
 			TTPVariable var = (TTPVariable) s.getVariable();
 			setOfTours.add(var.getTour().encode());
 		}
-		//System.out.println(set);
-		//System.out.println("-------------------------------------------------------------");
 		return Arrays.asList((double) setOfTours.size(), -(double) set.size());
 	}
 	
