@@ -11,15 +11,15 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.msu.io.AWriter;
 import com.msu.knp.model.Item;
-import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
+import com.msu.moo.model.solution.SolutionSet;
 import com.msu.moo.util.Pair;
 import com.msu.thief.ThiefProblem;
 import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.variable.TTPVariable;
 
-public class TTPVariableWriter extends AWriter<Pair<ThiefProblem, NonDominatedSolutionSet>> {
+public class TTPVariableWriter extends AWriter<Pair<ThiefProblem, SolutionSet>> {
 
 	public TTPVariableWriter() {
 		super();
@@ -95,10 +95,10 @@ public class TTPVariableWriter extends AWriter<Pair<ThiefProblem, NonDominatedSo
 	}
 
 	@Override
-	protected void write_(Pair<ThiefProblem, NonDominatedSolutionSet> obj, OutputStream os) throws IOException {
+	protected void write_(Pair<ThiefProblem, SolutionSet> obj, OutputStream os) throws IOException {
 
 		ThiefProblem problem = obj.first;
-		NonDominatedSolutionSet set = obj.second;
+		SolutionSet set = obj.second;
 		JsonGenerator json = new JsonFactory().createGenerator(os, JsonEncoding.UTF8).useDefaultPrettyPrinter();
 
 		json.writeStartObject();
@@ -108,7 +108,7 @@ public class TTPVariableWriter extends AWriter<Pair<ThiefProblem, NonDominatedSo
 		json.writeEndObject();
 
 		int counter = 0;
-		for (Solution s : set.getSolutions()) {
+		for (Solution s : set) {
 			json.writeObjectFieldStart(String.valueOf(counter++));
 			TTPVariable var = (TTPVariable) s.getVariable();
 			add(problem, var, json, false);

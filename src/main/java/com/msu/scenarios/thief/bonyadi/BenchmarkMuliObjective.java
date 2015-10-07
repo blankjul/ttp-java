@@ -32,7 +32,7 @@ public class BenchmarkMuliObjective extends ABenchmarkReader<ThiefProblem> {
 		ttp.setItems(parseItems(br, numOfItems, numOfCities));
 
 		br.close();
-
+		ttp.setStartingCityIsZero(true);
 		return ttp;
 	}
 

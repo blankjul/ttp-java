@@ -15,7 +15,6 @@ import com.msu.moo.model.solution.Solution;
 import com.msu.moo.model.solution.SolutionDominator;
 import com.msu.moo.visualization.AttainmentSurfacePlot;
 import com.msu.scenarios.thief.bonyadi.BenchmarkTSPLIB;
-import com.msu.thief.SingleObjectiveThiefProblem;
 import com.msu.thief.ThiefProblem;
 import com.msu.util.ThiefUtil;
 

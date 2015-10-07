@@ -8,7 +8,6 @@ import java.util.List;
 
 import com.msu.io.AProblemReader;
 import com.msu.knp.model.Item;
-import com.msu.thief.SingleObjectiveThiefProblem;
 import com.msu.thief.ThiefProblem;
 import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.ItemCollection;
@@ -59,6 +58,7 @@ public class BenchmarkTSPLIB extends AProblemReader<ThiefProblem> {
 
 		ttp.setMap(map);
 		ttp.setItems(items);
+		ttp.setStartingCityIsZero(true);
 		return ttp;
 	}
 

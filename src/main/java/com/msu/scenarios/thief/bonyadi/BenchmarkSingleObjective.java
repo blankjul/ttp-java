@@ -27,7 +27,7 @@ public class BenchmarkSingleObjective extends ABenchmarkReader<SingleObjectiveTh
 		ttp.setItems(parseItems(br, numOfItems, numOfCities));
 
 		br.close();
-
+		ttp.setStartingCityIsZero(true);
 		return ttp;
 	}
 

@@ -7,34 +7,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.msu.io.AWriter;
-import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.model.solution.SolutionSet;
 import com.msu.thief.variable.TTPVariable;
 
-public class NonDominatedSetWriter extends AWriter<NonDominatedSolutionSet> {
+public class NonDominatedSetWriter extends AWriter<SolutionSet> {
 
 	@Override
-	protected void write_(NonDominatedSolutionSet set, OutputStream os) throws IOException {
+	protected void write_(SolutionSet set, OutputStream os) throws IOException {
 
 
 		JsonGenerator json;
-		json = new JsonFactory().createGenerator(os, JsonEncoding.UTF8).useDefaultPrettyPrinter();
+		json = new JsonFactory().createGenerator(os).useDefaultPrettyPrinter();
 		json.writeStartObject();
 		
 		
 		Map<Solution, Integer> mID = new HashMap<>();
 		int counter = 0;
-		for(Solution s : set.getSolutions()) mID.put(s, counter++);
+		for(Solution s : set) mID.put(s, counter++);
 		
 		
-		Multimap<List<Integer>, Solution> multi = hashTours(set.getSolutions());
+		Multimap<List<Integer>, Solution> multi = hashTours(set);
 		json.writeFieldName("data");
 		json.writeStartArray();
 		for (List<Integer> tour : multi.keySet()) {

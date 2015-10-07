@@ -81,6 +81,10 @@ public class ThiefProblem extends AProblem<TTPVariable> implements IPackingProbl
 		List<Double> result =  new Evaluator(this, evalProfit, evalTime).evaluate(var.get());
 		for (Double d : result) objectives.add(d);
 		
+		if (evalTime.getWeight() <= getMaxWeight()) constraintViolations.add(0d);
+		else  constraintViolations.add(evalTime.getWeight() - getMaxWeight()); 
+		
+		
 	}
 	
 	public void checkTour(Tour<?> tour) {
@@ -99,7 +103,12 @@ public class ThiefProblem extends AProblem<TTPVariable> implements IPackingProbl
 	public int getNumberOfObjectives() {
 		return 2;
 	}
-
+	
+	
+	@Override
+	public int getNumberOfConstraints() {
+		return 1;
+	}
 
 	public SymmetricMap getMap() {
 		return map;
