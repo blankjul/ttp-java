@@ -7,6 +7,7 @@ import com.msu.knp.model.PackingList;
 import com.msu.moo.util.Pair;
 import com.msu.thief.ThiefProblem;
 import com.msu.thief.model.ItemCollection;
+import com.msu.tsp.TravellingSalesmanProblem;
 import com.msu.tsp.model.Tour;
 
 public class StandardTimeEvaluator extends TimeEvaluator {
@@ -24,6 +25,12 @@ public class StandardTimeEvaluator extends TimeEvaluator {
 		
 		List<Integer> pi = input.first.encode();
 		List<Boolean> b = input.second.encode();
+		
+		// if no item is picked the tsp tour calculator could be used!
+		if (!b.contains(true)) {
+			return new TravellingSalesmanProblem(problem.getMap()).evaluate(pi) * problem.getMaxSpeed();
+		} 
+		
 
 		double speed = problem.getMaxSpeed();
 		// iterate over all possible cities

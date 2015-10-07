@@ -3,10 +3,16 @@ package com.msu.knp.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.msu.util.StringUtil;
+
 public class BooleanPackingList extends PackingList<List<Boolean>>{
 
 	public BooleanPackingList(List<Boolean> l) {
 		super(l);
+	}
+	
+	public BooleanPackingList(String s) {
+		super(StringUtil.parseAsBooleanList(s));
 	}
 
 	@Override

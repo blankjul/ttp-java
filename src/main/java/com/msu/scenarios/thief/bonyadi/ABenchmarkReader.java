@@ -5,11 +5,13 @@ import java.io.IOException;
 
 import org.apache.log4j.Logger;
 
+import com.msu.io.AProblemReader;
 import com.msu.knp.model.Item;
+import com.msu.moo.interfaces.IProblem;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
 
-public class ABenchmarkReader {
+public abstract class ABenchmarkReader<T extends IProblem> extends AProblemReader<T>{
 
 	static final Logger logger = Logger.getLogger(ABenchmarkReader.class);
 

@@ -5,12 +5,12 @@ import java.util.List;
 
 import com.msu.tsp.util.distances.ADistanceCalculator;
 import com.msu.tsp.util.distances.EuclideanDistance;
+import com.msu.tsp.util.rounding.RoundingNearestInt;
 
 public class CoordinateMap extends SymmetricMap {
 
 	// ! if the map is created with coordinates this is known
 	protected List<Point2D> cities = null;
-
 	
 	public CoordinateMap(List<Point2D> cities) {
 		this(cities, new EuclideanDistance());
@@ -30,6 +30,7 @@ public class CoordinateMap extends SymmetricMap {
 				set(i, j, distance);
 			}
 		}
+		round(new RoundingNearestInt());
 	}
 
 	public List<Point2D> getCities() {

@@ -1,0 +1,39 @@
+{
+  "name" : "ThiefProblem",
+  "problemType" : "MultiObjective",
+  "numOfCities" : 5,
+  "numOfItems" : 5,
+  "minSpeed" : 0.1,
+  "maxSpeed" : 1.0,
+  "maxWeight" : 18103,
+  "startingCityIsZero" : true,
+  "profitEvaluator" : {
+    "type" : "NO_DROPPING"
+  },
+  "timeEvaluator" : {
+    "type" : "STANDARD"
+  },
+  "cityType" : "XY_COORDINATES",
+  "cities" : [ [ 498.0, 718.0 ], [ 446.23747663487546, 726.3542216288845 ], [ 173.0, 621.0 ], [ 354.0, 717.0 ], [ 77.84350286353225, 315.9657993942727 ] ],
+  "items" : [ {
+    "city" : 0,
+    "weight" : 425.0,
+    "value" : 985.0
+  }, {
+    "city" : 1,
+    "weight" : 689.0,
+    "value" : 221.0
+  }, {
+    "city" : 2,
+    "weight" : 197.0,
+    "value" : 397.0
+  }, {
+    "city" : 3,
+    "weight" : 131.0,
+    "value" : 113.0
+  }, {
+    "city" : 4,
+    "weight" : 401.0,
+    "value" : 469.0
+  } ]
+}

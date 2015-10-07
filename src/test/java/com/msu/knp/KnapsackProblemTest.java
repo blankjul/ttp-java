@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.msu.knp.KnapsackProblem;
+import com.msu.knp.model.BooleanPackingList;
 import com.msu.knp.model.Item;
 
 public class KnapsackProblemTest {
@@ -29,17 +30,17 @@ public class KnapsackProblemTest {
 
 	@Test
 	public void testEvaluateFunctionIsNonZero() {
-		assertEquals(3, (int) k.evaluate( new ArrayList<Boolean>(Arrays.asList(true, true, false))));
+		assertEquals(3, k.evaluate( new BooleanPackingList(new ArrayList<Boolean>(Arrays.asList(true, true, false)))).getObjectives(0), 0.01);
 	}
 
 	@Test
 	public void testEvaluateFunctionIsZero() {
-		assertEquals(0, (int) k.evaluate( new ArrayList<Boolean>(Arrays.asList(true, true, true))));
+		assertEquals(0, k.evaluate( new BooleanPackingList(new ArrayList<Boolean>(Arrays.asList(true, true, true)))).getObjectives(0), 0.01);
 	}
 
 	@Test (expected=RuntimeException.class) 
 	public void testWrongSizeOfTour() throws RuntimeException {
-		k.evaluate( new ArrayList<Boolean>(Arrays.asList(true, true)));
+		assertEquals(3, k.evaluate( new BooleanPackingList(new ArrayList<Boolean>(Arrays.asList(true, true)))).getObjectives(0), 0.01);
 	}
 	
 	

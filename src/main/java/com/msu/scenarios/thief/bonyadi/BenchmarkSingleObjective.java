@@ -1,51 +1,34 @@
 package com.msu.scenarios.thief.bonyadi;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 
 import org.apache.log4j.Logger;
 
 import com.msu.thief.SingleObjectiveThiefProblem;
 
-public class BenchmarkSingleObjective extends ABenchmarkReader {
+public class BenchmarkSingleObjective extends ABenchmarkReader<SingleObjectiveThiefProblem> {
 
 	static final Logger logger = Logger.getLogger(BenchmarkSingleObjective.class);
 
-	
-	
-	public SingleObjectiveThiefProblem create(String pathToFile) {
+	protected SingleObjectiveThiefProblem read_(BufferedReader br) throws IOException {
 
 		SingleObjectiveThiefProblem ttp = new SingleObjectiveThiefProblem();
 
-		logger.info(String.format("Starting to parse file %s", pathToFile));
+		int numOfCities = parseNumOfCities(br);
+		int numOfItems = parseNumOfItems(br);
 
-		try {
+		ttp.setMaxWeight(parseMaximalWeight(br));
+		ttp.setMaxSpeed(parseMaxVelocity(br));
+		ttp.setMinSpeed(parseMinVelocity(br));
+		ttp.setR(parseSingleObjectiveWeight(br));
 
-			FileReader fileReader = new FileReader(pathToFile);
-			BufferedReader br = new BufferedReader(fileReader);
+		ttp.setMap(parseMap(br, numOfCities));
+		ttp.setItems(parseItems(br, numOfItems, numOfCities));
 
-			int numOfCities = parseNumOfCities(br);
-			int numOfItems =  parseNumOfItems(br);
-			
-			ttp.setMaxWeight(parseMaximalWeight(br));
-			ttp.setMaxSpeed(parseMaxVelocity(br));
-			ttp.setMinSpeed(parseMinVelocity(br));
-			ttp.setR(parseSingleObjectiveWeight(br));
-			
-			ttp.setMap(parseMap(br, numOfCities));
-			ttp.setItems(parseItems(br, numOfItems, numOfCities));
-			ttp.setName(new File(pathToFile).getName());
-
-			br.close();
-		} catch (FileNotFoundException ex) {
-			System.out.println("Unable to open file '" + pathToFile + "'");
-		} catch (IOException ex) {
-			System.out.println("Error reading file '" + pathToFile + "'");
-		}
+		br.close();
 
 		return ttp;
 	}
+
 }

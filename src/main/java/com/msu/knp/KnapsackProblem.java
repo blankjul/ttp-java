@@ -1,7 +1,5 @@
 package com.msu.knp;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
@@ -39,22 +37,6 @@ public class KnapsackProblem  extends AProblem<PackingList<?>> implements IPacki
 		setItems(items);
 	}
 
-	/**
-	 * Evaluate the knapsack problem.
-	 * 
-	 * @param b
-	 *            that defines which items to pick
-	 * @return the profit of the knapsack
-	 */
-	public double evaluate(List<Boolean> b) {
-		if (b.size() != items.size())
-			throw new EvaluationException(String.format("Sizes of the varialbes are different %s != %s", b.size(),  items.size()));
-		double weight = getWeight(items, b);
-		if (weight > maxWeight)
-			return 0;
-		else
-			return getProfit(items, b);
-	}
 
 	/**
 	 * @return sum of weights for given packing list
@@ -95,9 +77,16 @@ public class KnapsackProblem  extends AProblem<PackingList<?>> implements IPacki
 	}
 
 	@Override
-	protected List<Double> evaluate_(PackingList<?> variable) {
-		double profit = evaluate(variable.get());
-		return new ArrayList<Double>(Arrays.asList(-profit));
+	protected void evaluate_(PackingList<?> var, List<Double> objectives, List<Double> constraintViolations) {
+		List<Boolean> b = var.get();
+		if (b.size() != items.size())
+			throw new EvaluationException(String.format("Sizes of the varialbes are different %s != %s", b.size(),  items.size()));
+		double weight = getWeight(items, b);
+		if (weight > maxWeight) {
+			objectives.add(0.0);
+		} else {
+			objectives.add(getProfit(items, b));
+		}
 	}
 	
 	public int numOfItems() {
@@ -120,6 +109,7 @@ public class KnapsackProblem  extends AProblem<PackingList<?>> implements IPacki
 	public void setItems(List<Item> items) {
 		this.items = items;
 	}
+
 
 	
 

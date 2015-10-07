@@ -25,7 +25,7 @@ public class ThiefVisualizer<P extends IProblem> extends AVisualize implements I
 	}
 
 	@Override
-	public void update(ProblemFinishedEvent event) {
+	public void handle(ProblemFinishedEvent event) {
 		AExperiment experiment = event.getExperiment();
 		String title = event.getProblem().toString();
 		

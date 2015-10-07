@@ -1,6 +1,7 @@
 package com.msu.algorithms;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.msu.knp.model.BooleanPackingList;
@@ -55,6 +56,10 @@ public class ExhaustiveThief extends AExhaustiveAlgorithm {
 			if (startingCityIsZero) l.add(0,0);
 			Tour<?> t = new StandardTour(l);
 			
+			if (t.encode().equals(Arrays.asList(0,1,3,2,4))) {
+				System.out.println();
+			}
+			
 			// for all possible item combinations
 			for (int i = 0; i <= numItems; i++) {
 				Combination combination = new Combination(numItems, i);
@@ -66,7 +71,6 @@ public class ExhaustiveThief extends AExhaustiveAlgorithm {
 					set.add(s);
 					if (++counter % 100000 == 0)
 						System.out.println(String.format("%f perc.", (Double.valueOf(counter) / numOfSolution) * 100));
-					//System.out.println(String.format("%s,%s,%s", s.getObjectives(0), s.getObjectives(1), var.getTour().encode()));
 				}
 			}
 		}

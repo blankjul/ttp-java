@@ -1,13 +1,12 @@
 package com.msu.thief;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.msu.knp.model.Item;
 import com.msu.knp.model.PackingList;
 import com.msu.moo.util.Pair;
 import com.msu.thief.evaluator.profit.NoDroppingEvaluator;
+import com.msu.thief.evaluator.time.StandardTimeEvaluator;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.variable.TTPVariable;
@@ -40,30 +39,33 @@ public class SingleObjectiveThiefProblem extends ThiefProblem {
 	}
 
 	@Override
-	protected List<Double> evaluate_(TTPVariable variable) {
+	protected void evaluate_(TTPVariable var, List<Double> objectives, List<Double> constraintViolations) {
 		
 		// always start at city 0
-		if (startingCityIsZero) rotateToCityZero(variable);
+		if (startingCityIsZero) rotateToCityZero(var);
 
 		// check for the correct input before using evaluator
-		Pair<Tour<?>, PackingList<?>> pair = variable.get();
+		Pair<Tour<?>, PackingList<?>> pair = var.get();
 
 		checkTour(pair.first);
 		checkPackingList(pair.second);
 
 		// use the evaluators to calculate the result
+		evalTime = new StandardTimeEvaluator(this);
 		double time = evalTime.evaluate(pair);
 		// check if the maximal weight constraint is violated
 		if (evalTime.getWeight() > getMaxWeight()) {
-			return new ArrayList<Double>(Arrays.asList(Double.MAX_VALUE));
+			objectives.add(Double.MAX_VALUE);
+			return;
 		}
 
 		double profit = evalProfit.evaluate(evalTime.getItemMap());
 		double value = profit - R * time;
 
 		// return the negative because we minimize all!
-		return new ArrayList<>(Arrays.asList(-value));
+		objectives.add(-value);
 	}
+	
 
 	public double getR() {
 		return R;

@@ -1,0 +1,44 @@
+{
+  "name" : "SingleObjectiveThiefProblem",
+  "problemType" : "SingleObjective",
+  "numOfItems" : 6,
+  "numOfCities" : 4,
+  "minSpeed" : 0.1,
+  "maxSpeed" : 1.0,
+  "maxWeight" : 3,
+  "startingCityIsZero" : true,
+  "R" : 1.0,
+  "profitEvaluator" : {
+    "type" : "NO_DROPPING"
+  },
+  "timeEvaluator" : {
+    "type" : "STANDARD"
+  },
+  "cityType" : "FULL_MATRIX",
+  "cities" : [ [ 0.0, 5.0, 6.0, 6.0 ], [ 5.0, 0.0, 5.0, 6.0 ], [ 6.0, 5.0, 0.0, 4.0 ], [ 6.0, 6.0, 4.0, 0.0 ] ],
+  "items" : [ {
+    "city" : 1,
+    "weight" : 2.0,
+    "value" : 20.0
+  }, {
+    "city" : 2,
+    "weight" : 3.0,
+    "value" : 100.0
+  }, {
+    "city" : 2,
+    "weight" : 1.0,
+    "value" : 40.0
+  }, {
+    "city" : 2,
+    "weight" : 1.0,
+    "value" : 40.0
+  }, {
+    "city" : 2,
+    "weight" : 3.0,
+    "value" : 30.0
+  }, {
+    "city" : 3,
+    "weight" : 2.0,
+    "value" : 20.0
+  } ]
+}

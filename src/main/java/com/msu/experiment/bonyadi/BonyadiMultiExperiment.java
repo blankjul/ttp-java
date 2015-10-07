@@ -16,7 +16,7 @@ public class BonyadiMultiExperiment extends ABonyadiBenchmark {
 	@Override
 	protected void setProblems(List<IProblem> problems) {
 		for (String path : ThiefUtil.getFiles(FOLDER)) {
-			ThiefProblem ttp = new BenchmarkMuliObjective().create(path);
+			ThiefProblem ttp = new BenchmarkMuliObjective().read(path);
 			ttp.setName("MO_" + new File(path).getName().split("\\.")[0]);
 			problems.add(ttp);
 		}

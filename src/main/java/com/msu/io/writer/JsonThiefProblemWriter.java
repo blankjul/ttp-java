@@ -59,7 +59,9 @@ public class JsonThiefProblemWriter extends AProblemWriter<ThiefProblem> {
 		json.writeObjectFieldStart("timeEvaluator");
 		if (p.getTimeEvaluator() instanceof StandardTimeEvaluator) {
 			json.writeObjectField("type", "STANDARD");
-		} 
+		} else {
+			throw new RuntimeException("Evalator is not implemented to be written to a file!");
+		}
 		json.writeEndObject();
 		
 		

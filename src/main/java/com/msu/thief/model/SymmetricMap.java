@@ -102,6 +102,11 @@ public class SymmetricMap {
 		}
 	}
 
+
+	public final double[][] getDistances() {
+		return distances;
+	}
+	
 	
 	
 

@@ -48,7 +48,7 @@ public class BonyadiSingleExperiment extends ABonyadiBenchmark {
 			// pattern has to match
 			if (!r.matcher(name).matches())  continue;
 			
-			SingleObjectiveThiefProblem problem = new BenchmarkSingleObjective().create(path);
+			SingleObjectiveThiefProblem problem = new BenchmarkSingleObjective().read(path);
 			problem.setName("SO_" + name);
 			problems.add(problem);
 		}

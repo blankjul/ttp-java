@@ -1,0 +1,140 @@
+<html>
+<head>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
+	<script src="https://dl.dropboxusercontent.com/u/16676685/sigma.min.js"></script>
+	<script src="https://dl.dropboxusercontent.com/u/16676685/sigma.parsers.json.min.js"></script>
+
+	<style type="text/css">
+		#container {
+		    height: 400;
+		    margin: auto;
+		    width: 60%;
+		 }
+	</style>
+
+</head>
+
+
+<body>
+<div id="scatter"></div>
+<div id="container"></div>
+<div id="info"></div>
+<script>
+
+
+
+
+function plot(s, graph, data) {
+	
+	var cNormal = "#708090";
+	var cFirst = "#F00";
+	var cPick = "#000";
+	
+	s.graph.clear();
+
+	var startingCity = true;
+	for (var key in graph.nodes) {
+		var node = graph.nodes[key];
+		s.graph.addNode({
+					id:node.id,
+					label:node.label,
+					x:node.x, 
+					y:node.y,
+					size:1,
+					color: cNormal
+				});
+	}
+
+	if (data) {
+
+		var edges = data.edges;	
+		
+
+		for (var key in edges) {
+			var e = edges[key];
+			s.graph.addEdge({
+					id:e.id,
+					source:e.source,
+					target:e.target, 
+					type:"arrow"
+					});
+		}
+
+		for (var p in data.picks) {
+
+			console.log(data.picks[p]);
+			var n = s.graph.nodes(data.picks[p]);
+
+			n.color = cPick;
+		}
+
+		var firstNode = s.graph.nodes(edges[0].source);
+		if (firstNode.color == cNormal) firstNode.color = cFirst;
+		else firstNode.color = "#8B0000";
+		
+		document.getElementById('info').innerHTML = data.variable;
+
+
+	}
+	
+	s.refresh();
+}
+
+
+$(document).ready(function() {
+
+	
+	var objThief = JSON.parse(document.getElementById('dThief').text);
+	var mydata = JSON.parse(document.getElementById('dScatter').text).data;
+	
+
+	layout = { 
+		hovermode:'closest',
+		title:'Objective Space'
+
+	};
+	Plotly.newPlot('scatter', mydata, layout);
+	
+
+	$('#scatter').bind('plotly_click',
+	    function(event,data){
+		var obj = data.points[0];
+		var n = obj.data.id[obj.pointNumber];
+		plot(s, objThief["graph"], objThief[n]);
+	});
+	
+	var container = document.getElementById('container');
+
+	var s = new sigma({
+	    settings: {},
+	    renderers:  [
+				{                                        
+					container: container,    
+					type: "canvas",
+		    		}
+			]
+	});
+	
+	plot(s, objThief["graph"], null);
+
+
+ });
+</script>
+
+<script id="dScatter" type="application/json">
+{{{ dScatter }}}
+</script>
+
+
+<script id="dThief" type="application/json">
+{{{ dThief }}}
+</script>
+
+
+
+
+
+</body>
+</html>

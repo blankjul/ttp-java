@@ -20,7 +20,11 @@ public abstract class Tour<T> extends AVariable<T> {
 	}
 	
 	abstract public List<Integer> encode();
+
 	
 
+	
+
+	
 	
 }

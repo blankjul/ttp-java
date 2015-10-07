@@ -1,7 +1,5 @@
 package com.msu.tsp;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -96,9 +94,9 @@ public class TravellingSalesmanProblem extends AProblem<Tour<?>> implements ICit
 	}
 
 	@Override
-	protected List<Double> evaluate_(Tour<?> variable) {
-		Double length = evaluate(variable.encode());
-		return new ArrayList<Double>(Arrays.asList(length));
+	protected void evaluate_(Tour<?> var, List<Double> objectives, List<Double> constraintViolations) {
+		Double length = evaluate(var.encode());
+		objectives.add(length);
 	}
 
 	public SymmetricMap getMap() {
@@ -109,7 +107,6 @@ public class TravellingSalesmanProblem extends AProblem<Tour<?>> implements ICit
 	public double getMaxSpeed() {
 		return 1.0;
 	}
-	
 	
 	
 

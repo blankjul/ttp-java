@@ -98,11 +98,11 @@ public class BonyadiTSPLIBExperiment extends ABonyadiBenchmark {
 				if (!r.matcher(name).matches())  continue;
 
 				System.out.println(path);
-				SingleObjectiveThiefProblem sotp = new BenchmarkTSPLIB().create(path);
+				ThiefProblem sotp = new BenchmarkTSPLIB().read(path);
 				sotp.setName("TSPLIB_" + name);
 				sotps.add(sotp);
-				ThiefProblem ttp = sotp.getThiefProblem();
-				problems.add(ttp);
+				//ThiefProblem ttp = sotp.getThiefProblem();
+				problems.add(sotp);
 			}
 		}
 	}

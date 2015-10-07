@@ -9,10 +9,10 @@ import com.msu.knp.model.Item;
 import com.msu.moo.experiment.AExperiment;
 import com.msu.moo.interfaces.IAlgorithm;
 import com.msu.moo.interfaces.IProblem;
-import com.msu.scenarios.tsp.RandomTSPScenario;
 import com.msu.thief.ThiefProblem;
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
 import com.msu.thief.evaluator.time.NotBackHomeTimeEvaluator;
+import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.tsp.util.distances.ManhattenDistance;
@@ -34,7 +34,7 @@ public class GreedyMapExperiment extends AExperiment {
 			cities.add(new Point2D.Double(i, i));
 		}
 
-		SymmetricMap m = RandomTSPScenario.create(cities, new ManhattenDistance());
+		SymmetricMap m = new CoordinateMap(cities, new ManhattenDistance());
 
 		// add one random item to map
 		ItemCollection<Item> items = new ItemCollection<>();

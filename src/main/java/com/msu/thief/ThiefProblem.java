@@ -10,7 +10,7 @@ import com.msu.moo.model.AProblem;
 import com.msu.moo.util.Pair;
 import com.msu.moo.util.exceptions.EvaluationException;
 import com.msu.thief.evaluator.Evaluator;
-import com.msu.thief.evaluator.profit.IndividualProfitEvaluator;
+import com.msu.thief.evaluator.profit.NoDroppingEvaluator;
 import com.msu.thief.evaluator.profit.ProfitEvaluator;
 import com.msu.thief.evaluator.time.StandardTimeEvaluator;
 import com.msu.thief.evaluator.time.TimeEvaluator;
@@ -31,7 +31,7 @@ public class ThiefProblem extends AProblem<TTPVariable> implements IPackingProbl
 	protected double maxSpeed = 1.0d;
 
 	// evaluator objects
-	protected ProfitEvaluator evalProfit = new IndividualProfitEvaluator();
+	protected ProfitEvaluator evalProfit = new NoDroppingEvaluator();
 	protected TimeEvaluator evalTime = new StandardTimeEvaluator(this);
 
 	// ! map where the salesman could visit cities
@@ -66,18 +66,21 @@ public class ThiefProblem extends AProblem<TTPVariable> implements IPackingProbl
 	}
 
 	@Override
-	protected List<Double> evaluate_(TTPVariable variable) {
+	protected void evaluate_(TTPVariable var, List<Double> objectives, List<Double> constraintViolations) {
 		
 		// check for the correct input before using evaluator
-		Pair<Tour<?>, PackingList<?>> pair = variable.get();
+		Pair<Tour<?>, PackingList<?>> pair = var.get();
 		checkTour(pair.first);
 		checkPackingList(pair.second);
 		
 		// fix the starting city if necessary
-		if (startingCityIsZero) rotateToCityZero(variable);
+		if (startingCityIsZero) rotateToCityZero(var);
 		
 		// use the evaluators to calculate the result
-		return new Evaluator(this, evalProfit, evalTime).evaluate(variable.get());
+		evalTime = new StandardTimeEvaluator(this);
+		List<Double> result =  new Evaluator(this, evalProfit, evalTime).evaluate(var.get());
+		for (Double d : result) objectives.add(d);
+		
 	}
 	
 	public void checkTour(Tour<?> tour) {
@@ -177,6 +180,8 @@ public class ThiefProblem extends AProblem<TTPVariable> implements IPackingProbl
 		Collections.rotate(tour, -tour.indexOf(0));
 		pair.first = new StandardTour(tour);
 	}
+
+	
 
 	
 	

@@ -3,6 +3,8 @@ package com.msu.tsp.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.msu.util.StringUtil;
+
 /**
  * The StandardTour provides an implementation of a tour that saves directly the
  * permutation array.
@@ -21,6 +23,15 @@ public class StandardTour extends Tour<List<Integer>> {
 	 */
 	public StandardTour(List<Integer> list) {
 		super(list);
+	}
+	
+	
+	/**
+	 * Create a tour by parsing a string.
+	 * @param s string that contains the tour like [0,3,2,1]
+	 */
+	public StandardTour(String s) {
+		super(StringUtil.parseAsIntegerList(s));
 	}
 
 	
