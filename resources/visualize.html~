@@ -111,6 +111,10 @@ function plot(s, graph, data) {
 		var firstNode = s.graph.nodes(edges[0].source);
 		if (firstNode.color == cNormal) firstNode.color = cFirst;
 		else firstNode.color = "#FF8C00";
+
+		for (i = 0; i < data.picks.length; i++) { 
+		   if (data.picks[i] == true) s.graph.nodes()[i].color = cPick;
+		}
 		
 		document.getElementById('info').innerHTML = data.variable;
 

@@ -59,6 +59,7 @@ public class BenchmarkTSPLIB extends AProblemReader<ThiefProblem> {
 		ttp.setMap(map);
 		ttp.setItems(items);
 		ttp.setStartingCityIsZero(true);
+		
 		return ttp;
 	}
 
