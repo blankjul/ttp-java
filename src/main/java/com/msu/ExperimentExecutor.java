@@ -6,29 +6,29 @@ import com.msu.moo.Configuration;
 import com.msu.moo.experiment.AExperiment;
 import com.msu.moo.util.ObjectFactory;
 
+/**
+ * EXERIMENTS AVAILABLE
+ * GreedyMapExperiment, TSPOperatorExperiment, NSGAIIOperatorExperiment, PublicationExperiment
+ * BonyadiExperiment, NSGAIIOperatorExperiment, OneScenarioExperiment
+ * 
+ * TSP
+ * TSPExperiment
+ * 
+ * KNP
+ * KNPExperiment
+ * 
+ * Bonyadi
+ * BonyadiTSPLIBExperiment, BonyadiSingleExperiment, BonyadiMultiExperiment
+ * 
+ */
 public class ExperimentExecutor {
 
-	/*
-	 * EXERIMENTS AVAILABLE
-	 * GreedyMapExperiment, TSPOperatorExperiment, NSGAIIOperatorExperiment, PublicationExperiment
-	 * BonyadiExperiment, NSGAIIOperatorExperiment, OneScenarioExperiment
-	 * 
-	 * TSP
-	 * TSPExperiment
-	 * 
-	 * KNP
-	 * KNPExperiment
-	 * 
-	 * Bonyadi
-	 * BonyadiTSPLIBExperiment, BonyadiSingleExperiment, BonyadiMultiExperiment
-	 * 
-	 */
 	
 	//! experiment that should be executed
 	protected final static String PREFIX = "com.msu.experiment.";
 	
 	//! experiment that should be executed
-	protected final static String EXPERIMENT = "OneScenarioExperiment";
+	protected final static String EXPERIMENT = "KNPOperatorExperiment";
 	
 	//! number of iterations per experiment
 	protected final static int ITERATIONS = 1;
@@ -48,7 +48,6 @@ public class ExperimentExecutor {
 		
 		AExperiment experiment = ObjectFactory.create(AExperiment.class,  PREFIX + EXPERIMENT);
 		experiment.run(MAX_EVALUATIONS, ITERATIONS, SEED);
-		
 		
 	}
 	

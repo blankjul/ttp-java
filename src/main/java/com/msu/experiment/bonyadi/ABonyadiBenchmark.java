@@ -2,7 +2,7 @@ package com.msu.experiment.bonyadi;
 
 import java.util.List;
 
-import com.msu.NSGAIIFactory;
+import com.msu.algorithms.NSGAIIFactory;
 import com.msu.moo.experiment.AExperiment;
 import com.msu.moo.interfaces.IAlgorithm;
 

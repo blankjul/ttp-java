@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
 
+import com.msu.algorithms.NSGAIIFactory;
 import com.msu.moo.experiment.AExperiment;
 import com.msu.moo.interfaces.IAlgorithm;
 import com.msu.moo.interfaces.IProblem;

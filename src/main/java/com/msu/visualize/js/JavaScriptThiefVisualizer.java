@@ -13,7 +13,6 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
-import com.msu.io.AWriter;
 import com.msu.moo.experiment.AExperiment;
 import com.msu.moo.interfaces.IAlgorithm;
 import com.msu.moo.interfaces.IProblem;
@@ -23,6 +22,7 @@ import com.msu.moo.util.Pair;
 import com.msu.moo.util.events.EventDispatcher;
 import com.msu.moo.util.events.IListener;
 import com.msu.moo.util.events.ProblemFinishedEvent;
+import com.msu.moo.util.io.AWriter;
 import com.msu.thief.ThiefProblem;
 
 public class JavaScriptThiefVisualizer extends AWriter<Pair<AExperiment, IProblem>>implements IListener<ProblemFinishedEvent> {

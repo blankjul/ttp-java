@@ -2,7 +2,7 @@ package com.msu.experiment;
 
 import java.util.List;
 
-import com.msu.NSGAIIFactory;
+import com.msu.algorithms.NSGAIIFactory;
 import com.msu.algorithms.OnePlusOneEA;
 import com.msu.moo.experiment.AExperiment;
 import com.msu.moo.interfaces.IAlgorithm;

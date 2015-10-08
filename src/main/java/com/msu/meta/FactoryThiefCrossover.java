@@ -8,10 +8,10 @@ import java.util.List;
 import com.msu.knp.model.Item;
 import com.msu.moo.operators.AbstractCrossover;
 import com.msu.moo.util.Random;
+import com.msu.moo.util.Util;
 import com.msu.thief.ThiefProblem;
 import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.ItemCollection;
-import com.msu.util.ThiefUtil;
 
 public class FactoryThiefCrossover extends AbstractCrossover<ThiefProblem>{
 
@@ -21,7 +21,7 @@ public class FactoryThiefCrossover extends AbstractCrossover<ThiefProblem>{
 	}
 	
 	protected ThiefProblem crossoverWithOrder(ThiefProblem a, ThiefProblem b) {
-		ThiefProblem child = (ThiefProblem) ThiefUtil.cloneObject(a);
+		ThiefProblem child = Util.cloneObject(a);
 		Random rnd = Random.getInstance();
 		
 		

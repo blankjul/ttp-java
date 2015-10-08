@@ -5,8 +5,8 @@ import java.io.ByteArrayOutputStream;
 import com.msu.io.writer.JsonThiefProblemWriter;
 import com.msu.moo.interfaces.IVariable;
 import com.msu.moo.model.AVariable;
+import com.msu.moo.util.Util;
 import com.msu.thief.ThiefProblem;
-import com.msu.util.ThiefUtil;
 
 public class FactoryThiefVariable extends AVariable<ThiefProblem> {
 
@@ -16,7 +16,7 @@ public class FactoryThiefVariable extends AVariable<ThiefProblem> {
 
 	@Override
 	public IVariable copy() {
-		return new FactoryThiefVariable((ThiefProblem) ThiefUtil.cloneObject(obj));
+		return new FactoryThiefVariable((ThiefProblem) Util.cloneObject(obj));
 	}
 
 	@Override

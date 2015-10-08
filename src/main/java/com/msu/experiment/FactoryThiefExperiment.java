@@ -16,7 +16,6 @@ import com.msu.moo.experiment.AExperiment;
 import com.msu.moo.interfaces.IAlgorithm;
 import com.msu.moo.interfaces.IProblem;
 import com.msu.moo.model.AVisualize;
-import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.util.ObjectFactory;
 import com.msu.thief.ThiefProblem;
@@ -52,8 +51,6 @@ public class FactoryThiefExperiment extends AExperiment  {
 		problems.add(p);
 	}
 	
-	
-
 
 
 	@Override
@@ -61,7 +58,7 @@ public class FactoryThiefExperiment extends AExperiment  {
 		
 		NonDominatedSolutionSet set = result.getFirst(problems.get(0), algorithms.get(0), "");
 		IProblem p = ObjectFactory.create(IProblem.class, PROBLEM);
-		Evaluator eval = new Evaluator(p);
+		//Evaluator eval = new Evaluator(p);
 		System.out.println(set);
 		
 		
@@ -100,7 +97,7 @@ public class FactoryThiefExperiment extends AExperiment  {
 			System.out.println(String.format("FactoryThiefProblem: %s", eval.evaluate(new FactoryThiefVariable(problem))));
 			System.out.println(new ExhaustiveThief().run(problem));
 			*/
-		}
+		}	
 		
 	}
 	

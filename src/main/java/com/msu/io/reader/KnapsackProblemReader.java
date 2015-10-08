@@ -44,7 +44,7 @@ public class KnapsackProblemReader extends AProblemReader<KnapsackProblem> {
 			
 			String[] values = line.split(",");
 			Item item = new Item(Integer.valueOf(values[1]), Integer.valueOf(values[2]));
-			logger.info(String.format("Insert item %s", item));
+			logger.trace(String.format("Insert item %s", item));
 			items.add(item);
 		}
 		

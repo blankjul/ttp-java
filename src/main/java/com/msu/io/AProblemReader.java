@@ -3,6 +3,7 @@ package com.msu.io;
 import java.io.File;
 
 import com.msu.moo.interfaces.IProblem;
+import com.msu.moo.util.io.AReader;
 
 public abstract class AProblemReader<T extends IProblem> extends AReader<T>{
 

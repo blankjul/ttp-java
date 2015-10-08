@@ -4,7 +4,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.msu.NSGAIIFactory;
+import com.msu.algorithms.NSGAIIFactory;
 import com.msu.knp.model.Item;
 import com.msu.moo.experiment.AExperiment;
 import com.msu.moo.interfaces.IAlgorithm;
