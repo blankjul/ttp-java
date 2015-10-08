@@ -1,9 +1,8 @@
 package com.msu.visualize.js;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.StringWriter;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,44 +10,56 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.msu.io.AWriter;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.model.solution.SolutionSet;
 import com.msu.thief.variable.TTPVariable;
 
-public class NonDominatedSetWriter extends AWriter<SolutionSet> {
+public class NonDominatedSetToJson {
 
-	@Override
-	protected void write_(SolutionSet set, OutputStream os) throws IOException {
+	// ! string writer for getting the result
+	protected StringWriter sw = null;
 
+	// ! json generator object
+	protected JsonGenerator json = null;;
 
-		JsonGenerator json;
-		json = new JsonFactory().createGenerator(os).useDefaultPrettyPrinter();
+	public NonDominatedSetToJson() throws IOException {
+		sw = new StringWriter();
+		json = new JsonFactory().createGenerator(sw).useDefaultPrettyPrinter();
 		json.writeStartObject();
+	}
+
+	public NonDominatedSetToJson add(String name, SolutionSet set, boolean colored, Map<Solution, String> mToNode) throws IOException {
 		
-		
-		Map<Solution, Integer> mID = new HashMap<>();
-		int counter = 0;
-		for(Solution s : set) mID.put(s, counter++);
-		
-		
-		Multimap<List<Integer>, Solution> multi = hashTours(set);
-		json.writeFieldName("data");
+		json.writeFieldName(name);
 		json.writeStartArray();
-		for (List<Integer> tour : multi.keySet()) {
-			SolutionSet setToAdd = new SolutionSet(multi.get(tour));
+
+		if (colored) {
+			Multimap<List<Integer>, Solution> multi = hashTours(set);
+			for (List<Integer> tour : multi.keySet()) {
+				SolutionSet setToAdd = new SolutionSet(multi.get(tour));
+				json.writeStartObject();
+				appendNonDominatedSet( setToAdd, mToNode);
+				json.writeObjectField("name", Arrays.toString(tour.toArray()));
+				json.writeEndObject();
+			}
+		} else {
 			json.writeStartObject();
-			appendNonDominatedSet(json, setToAdd, mID);
-			json.writeObjectField("name", Arrays.toString(tour.toArray()));
+			appendNonDominatedSet(set, mToNode);
+			json.writeObjectField("name", name);
 			json.writeEndObject();
-			
 		}
+
 		json.writeEndArray();
 		
-		json.writeEndObject();
-		json.close();
+		
+		return this;
 	}
-	
+
+	public String getResult() throws IOException {
+		json.close();
+		return sw.toString();
+	}
+
 	private Multimap<List<Integer>, Solution> hashTours(SolutionSet set) {
 		Multimap<List<Integer>, Solution> hash = HashMultimap.create();
 		for (Solution s : set) {
@@ -57,18 +68,8 @@ public class NonDominatedSetWriter extends AWriter<SolutionSet> {
 		}
 		return hash;
 	}
-	
-	private Multimap<List<Double>, Solution> hashObjectives(SolutionSet set) {
-		Multimap<List<Double>, Solution> hash = HashMultimap.create();
-		for (Solution s : set) {
-			hash.put(s.getObjective(), s);
-		}
-		return hash;
-	}
-	
 
-	public void appendNonDominatedSet(JsonGenerator json, SolutionSet set, Map<Solution, Integer> mID) throws IOException {
-		
+	public void appendNonDominatedSet(SolutionSet set, Map<Solution, String> mID) throws IOException {
 
 		json.writeArrayFieldStart("x");
 		for (Solution s : set) {
@@ -85,20 +86,16 @@ public class NonDominatedSetWriter extends AWriter<SolutionSet> {
 		json.writeObjectField("type", "scatter");
 		json.writeObjectField("mode", "markers");
 		json.writeObjectFieldStart("marker");
-		
+
 		json.writeObjectField("size", 16);
 		json.writeEndObject();
-		
+
 		json.writeArrayFieldStart("id");
 		for (Solution s : set) {
-			json.writeNumber(mID.get(s));
+			json.writeObject(mID.get(s));
 		}
 		json.writeEndArray();
-		
 
 	}
-
-
-	
 
 }

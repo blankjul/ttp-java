@@ -18,12 +18,57 @@
 
 
 <body>
+<div id="algorithms"></div>
 <div id="scatter"></div>
 <div id="container"></div>
 <div id="info"></div>
 <script>
 
+function addCheckbox(name) {
+   var container = $('#algorithms');
+   var inputs = container.find('input');
+   var id = inputs.length+1;
 
+   $('<input />', { type: 'checkbox', id: name, name : 'algorithm', value: name , onclick: 'update()', checked : true}).appendTo(container);
+	container.append(name);
+	container.append('</br>');
+}
+
+function getCheckedCheckboxesFor(checkboxName) {
+    var checkboxes = document.querySelectorAll('input[name="' + checkboxName + '"]:checked'), values = [];
+    Array.prototype.forEach.call(checkboxes, function(el) {
+        values.push(el.value);
+    });
+    return values;
+}
+
+
+function update() {
+
+	var checkedValue = getCheckedCheckboxesFor('algorithm');
+
+	mydata = [];
+	var objScatter = JSON.parse(document.getElementById('dScatter').text);
+
+
+	if (checkedValue.length == 1) {
+		mydata = objScatter[checkedValue[0] + "_color"];
+	} else {
+		for (var a of checkedValue) {
+			mydata.push(objScatter[a][0]);
+		}
+	}
+	
+
+	layout = { 
+		hovermode:'closest',
+		title:'Objective Space'
+
+	};
+	Plotly.newPlot('scatter', mydata, layout);
+
+
+}
 
 
 function plot(s, graph, data) {
@@ -35,8 +80,8 @@ function plot(s, graph, data) {
 	s.graph.clear();
 
 	var startingCity = true;
-	for (var key in graph.nodes) {
-		var node = graph.nodes[key];
+	for (var key in graph) {
+		var node = graph[key];
 		s.graph.addNode({
 					id:node.id,
 					label:node.label,
@@ -62,17 +107,10 @@ function plot(s, graph, data) {
 					});
 		}
 
-		for (var p in data.picks) {
-
-			console.log(data.picks[p]);
-			var n = s.graph.nodes(data.picks[p]);
-
-			n.color = cPick;
-		}
 
 		var firstNode = s.graph.nodes(edges[0].source);
 		if (firstNode.color == cNormal) firstNode.color = cFirst;
-		else firstNode.color = "#8B0000";
+		else firstNode.color = "#FF8C00";
 		
 		document.getElementById('info').innerHTML = data.variable;
 
@@ -87,26 +125,25 @@ $(document).ready(function() {
 
 	
 	var objThief = JSON.parse(document.getElementById('dThief').text);
-	var mydata = JSON.parse(document.getElementById('dScatter').text).data;
-	
+	var objAlgorithms = JSON.parse(document.getElementById('dAlgorithms').text);
 
-	layout = { 
-		hovermode:'closest',
-		title:'Objective Space'
+	for(var a of objAlgorithms) {
+		addCheckbox(a);
+	}
 
-	};
-	Plotly.newPlot('scatter', mydata, layout);
-	
+	var objScatter = JSON.parse(document.getElementById('dScatter').text);
+
+	update();
+
 
 	$('#scatter').bind('plotly_click',
 	    function(event,data){
 		var obj = data.points[0];
 		var n = obj.data.id[obj.pointNumber];
-		plot(s, objThief["graph"], objThief[n]);
+		plot(s, objThief["nodes"], objThief[n]);
 	});
 	
 	var container = document.getElementById('container');
-
 	var s = new sigma({
 	    settings: {},
 	    renderers:  [
@@ -117,10 +154,14 @@ $(document).ready(function() {
 			]
 	});
 	
-	plot(s, objThief["graph"], null);
+	plot(s, objThief["nodes"], null);
 
 
  });
+</script>
+
+<script id="dAlgorithms" type="application/json">
+{{{ dAlgorithms }}}
 </script>
 
 <script id="dScatter" type="application/json">
