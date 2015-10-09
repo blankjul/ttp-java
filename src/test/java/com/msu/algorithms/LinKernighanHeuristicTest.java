@@ -14,7 +14,7 @@ import org.junit.runners.Parameterized.Parameters;
 import com.msu.io.reader.SalesmanProblemReader;
 import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
-import com.msu.tsp.TravellingSalesmanProblem;
+import com.msu.problems.SalesmanProblem;
 
 /**
  * This test is to prove that that the algorithm is working correctly on the
@@ -44,9 +44,9 @@ public class LinKernighanHeuristicTest {
 
 	@Test
 	public void testCorrectness() {
-		LinKernighanHeuristic lkh = new LinKernighanHeuristic();
+		SalesmanLinKernighanHeuristic lkh = new SalesmanLinKernighanHeuristic();
 		
-		TravellingSalesmanProblem problem = new SalesmanProblemReader().read(pathToFile);
+		SalesmanProblem problem = new SalesmanProblemReader().read(pathToFile);
 		NonDominatedSolutionSet set = lkh.run(new Evaluator(problem));
 		
 		assertEquals(1, set.getSolutions().size());

@@ -12,18 +12,18 @@ import org.apache.log4j.Logger;
 import com.msu.io.AProblemReader;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
+import com.msu.problems.SalesmanProblem;
 import com.msu.thief.model.CoordinateMap;
-import com.msu.tsp.TravellingSalesmanProblem;
-import com.msu.tsp.util.distances.ADistanceCalculator;
-import com.msu.tsp.util.distances.EuclideanDistance;
-import com.msu.tsp.util.rounding.RoundingNearestInt;
+import com.msu.util.distances.ADistanceCalculator;
+import com.msu.util.distances.EuclideanDistance;
+import com.msu.util.rounding.RoundingNearestInt;
 
-public class SalesmanProblemReader extends AProblemReader<TravellingSalesmanProblem> {
+public class SalesmanProblemReader extends AProblemReader<SalesmanProblem> {
 
 	static final Logger logger = Logger.getLogger(SalesmanProblemReader.class);
 
 	@Override
-	public TravellingSalesmanProblem read_(BufferedReader br) throws IOException {
+	public SalesmanProblem read_(BufferedReader br) throws IOException {
 
 		CoordinateMap map = null;
 
@@ -55,7 +55,7 @@ public class SalesmanProblemReader extends AProblemReader<TravellingSalesmanProb
 				String[] values = line.split("\\s+");
 				Point2D point = new Point2D.Double(Double.valueOf(values[1]), Double.valueOf(values[2]));
 				cities.add(point);
-				logger.info(String.format("Insert point %s", point));
+				logger.trace(String.format("Insert point %s", point));
 
 			}
 		} else {
@@ -74,7 +74,7 @@ public class SalesmanProblemReader extends AProblemReader<TravellingSalesmanProb
 		// always round to nearest integer
 		map.round(new RoundingNearestInt());
 		
-		TravellingSalesmanProblem p = new TravellingSalesmanProblem(map);
+		SalesmanProblem p = new SalesmanProblem(map);
 		p.setOptimum(new NonDominatedSolutionSet(Arrays.asList(optimum)));
 		return p;
 	}

@@ -12,17 +12,24 @@ import com.msu.moo.operators.crossover.permutation.EdgeRecombinationCrossover;
 import com.msu.moo.operators.crossover.permutation.OrderedCrossover;
 import com.msu.moo.operators.crossover.permutation.PMXCrossover;
 import com.msu.moo.operators.mutation.SwapMutation;
-import com.msu.tsp.TravellingSalesmanProblem;
-import com.msu.tsp.model.factory.NearestNeighbourFactory;
+import com.msu.moo.util.FileCollectorParser;
+import com.msu.moo.util.io.AReader;
+import com.msu.problems.SalesmanProblem;
+import com.msu.thief.variable.tour.factory.NearestNeighbourFactory;
 
 public class TSPOperatorExperiment extends AExperiment {
 
-	protected final String[] SCENARIOS = new String[] { 
-			"resources/bays29.tsp",
-			"resources/berlin52.tsp",
-			"resources/eil101.tsp",
-			"resources/d198.tsp",
-	};
+	
+	@Override
+	protected void setProblems(List<IProblem> problems) {
+		AReader<SalesmanProblem> r = new SalesmanProblemReader(); 
+		FileCollectorParser<SalesmanProblem> fcp = new FileCollectorParser<>();
+		fcp.add("resources", "bays29.tsp", r);
+		fcp.add("resources", "berlin52.tsp", r);
+		fcp.add("resources", "eil101.tsp", r);
+		fcp.add("resources", "d198.tsp", r);
+		problems.addAll(fcp.collect());
+	}
 	
 
 	@Override
@@ -37,22 +44,5 @@ public class TSPOperatorExperiment extends AExperiment {
 		algorithms.add(builder.setCrossover(new OrderedCrossover<Integer>()).setName("OX").create());
 		algorithms.add(builder.setCrossover(new EdgeRecombinationCrossover<Integer>()).setName("ERC").create());
 	}
-
-	@Override
-	protected void setProblems(List<IProblem> problems) {
-		
-		for (String scenario : SCENARIOS) {
-			TravellingSalesmanProblem tsp = new SalesmanProblemReader().read(scenario);
-			problems.add(tsp);
-			
-			/*
-			ThiefProblem problem = new ThiefProblem(new SymmetricMap(1), new ItemCollection<>(), 0);
-			problem.setName(tsp.getName());
-			problems.add(problem);
-			*/
-		}
-		
-	}
-	
 
 }

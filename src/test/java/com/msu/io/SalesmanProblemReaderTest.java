@@ -7,11 +7,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.msu.io.reader.SalesmanProblemReader;
-import com.msu.tsp.TravellingSalesmanProblem;
+import com.msu.problems.SalesmanProblem;
 
 public class SalesmanProblemReaderTest {
 
-	protected static TravellingSalesmanProblem problem;
+	protected static SalesmanProblem problem;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {

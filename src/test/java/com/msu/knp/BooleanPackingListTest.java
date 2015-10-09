@@ -6,8 +6,8 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import com.msu.knp.model.BooleanPackingList;
-import com.msu.knp.model.PackingList;
+import com.msu.thief.variable.pack.BooleanPackingList;
+import com.msu.thief.variable.pack.PackingList;
 
 public class BooleanPackingListTest {
 

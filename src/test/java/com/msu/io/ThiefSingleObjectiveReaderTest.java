@@ -6,9 +6,9 @@ import org.apache.log4j.BasicConfigurator;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.msu.io.reader.JsonThiefReader;
-import com.msu.thief.SingleObjectiveThiefProblem;
-import com.msu.thief.ThiefProblem;
+import com.msu.io.reader.JsonThiefProblemReader;
+import com.msu.problems.SingleObjectiveThiefProblem;
+import com.msu.problems.ThiefProblem;
 
 public class ThiefSingleObjectiveReaderTest {
 
@@ -17,7 +17,7 @@ public class ThiefSingleObjectiveReaderTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		BasicConfigurator.configure();
-		problem = new JsonThiefReader().read("resources/SO_Boniady_Publication.ttp");
+		problem = new JsonThiefProblemReader().read("resources/SO_Boniady_Publication.ttp");
 	}
 	
 	

@@ -23,7 +23,7 @@ import com.msu.moo.util.events.EventDispatcher;
 import com.msu.moo.util.events.IListener;
 import com.msu.moo.util.events.ProblemFinishedEvent;
 import com.msu.moo.util.io.AWriter;
-import com.msu.thief.ThiefProblem;
+import com.msu.problems.ThiefProblem;
 
 public class JavaScriptThiefVisualizer extends AWriter<Pair<AExperiment, IProblem>>implements IListener<ProblemFinishedEvent> {
 
@@ -39,7 +39,8 @@ public class JavaScriptThiefVisualizer extends AWriter<Pair<AExperiment, IProble
 
 		AExperiment experiment = pair.first;
 		IProblem problem = pair.second;
-
+		
+		
 		StringWriter algorithmsToJson = new StringWriter();
 		JsonGenerator json = new JsonFactory().createGenerator(algorithmsToJson).useDefaultPrettyPrinter();
 		json.writeStartArray();

@@ -8,9 +8,9 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.msu.knp.KnapsackProblem;
-import com.msu.knp.model.BooleanPackingList;
-import com.msu.knp.model.Item;
+import com.msu.problems.KnapsackProblem;
+import com.msu.thief.model.Item;
+import com.msu.thief.variable.pack.BooleanPackingList;
 
 public class KnapsackProblemTest {
 

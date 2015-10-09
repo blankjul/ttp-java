@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.google.common.collect.HashMultimap;
-import com.msu.knp.model.Item;
 
 /**
  * This class represents a ItemCollection that maps each item to a 

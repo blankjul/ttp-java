@@ -38,7 +38,6 @@
 			<artifactId>moo</artifactId>
 			<version>0.1</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>

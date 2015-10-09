@@ -3,12 +3,12 @@ package com.msu.thief.evaluator.time;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.msu.knp.model.Item;
-import com.msu.knp.model.PackingList;
 import com.msu.moo.util.Pair;
-import com.msu.thief.ThiefProblem;
+import com.msu.problems.ThiefProblem;
 import com.msu.thief.evaluator.IEvaluator;
-import com.msu.tsp.model.Tour;
+import com.msu.thief.model.Item;
+import com.msu.thief.variable.pack.PackingList;
+import com.msu.thief.variable.tour.Tour;
 
 /**
  * The TimeCalculator provides an interface for calculating the time of a given

@@ -7,7 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.msu.io.reader.ThiefMultiObjectiveReader;
-import com.msu.thief.ThiefProblem;
+import com.msu.problems.ThiefProblem;
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
 
 public class ThiefMultiObjectiveReaderTest {

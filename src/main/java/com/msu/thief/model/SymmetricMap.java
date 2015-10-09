@@ -1,6 +1,6 @@
 package com.msu.thief.model;
 
-import com.msu.tsp.util.rounding.IRounding;
+import com.msu.util.rounding.IRounding;
 
 /**
  * This class represents a map with a predefined number of cities.

@@ -8,7 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.msu.io.reader.KnapsackProblemReader;
-import com.msu.knp.KnapsackProblem;
+import com.msu.problems.KnapsackProblem;
 
 public class KnapsackProblemReaderTest {
 

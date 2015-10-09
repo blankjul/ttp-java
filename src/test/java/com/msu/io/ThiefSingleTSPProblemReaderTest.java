@@ -8,7 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.msu.io.reader.ThiefSingleTSPLIBProblemReader;
-import com.msu.thief.SingleObjectiveThiefProblem;
+import com.msu.problems.SingleObjectiveThiefProblem;
 
 public class ThiefSingleTSPProblemReaderTest {
 

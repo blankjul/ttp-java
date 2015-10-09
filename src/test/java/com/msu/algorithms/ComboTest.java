@@ -9,11 +9,11 @@ import java.util.List;
 import org.junit.Test;
 
 import com.msu.io.reader.KnapsackProblemReader;
-import com.msu.knp.KnapsackProblem;
-import com.msu.knp.model.Item;
-import com.msu.knp.model.PackingList;
 import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
+import com.msu.problems.KnapsackProblem;
+import com.msu.thief.model.Item;
+import com.msu.thief.variable.pack.PackingList;
 
 public class ComboTest {
 	
@@ -35,7 +35,7 @@ public class ComboTest {
 		
 		KnapsackProblem problem = new KnapsackProblem(10, items);
 		
-		PackingList<?> pl = Combo.getPackingList(new Evaluator(problem));
+		PackingList<?> pl = KnapsackCombo.getPackingList(new Evaluator(problem));
 		assertEquals(Arrays.asList(false, true, true, true), pl.encode());
 	}
 	
@@ -44,7 +44,7 @@ public class ComboTest {
 	public void testKNPScenarios() {
 		for(String pathToFile : SCENARIOS) {
 			KnapsackProblem problem = new KnapsackProblemReader().read(pathToFile);
-			NonDominatedSolutionSet set = new Combo().run(new Evaluator(problem));
+			NonDominatedSolutionSet set = new KnapsackCombo().run(new Evaluator(problem));
 			assertEquals(-problem.getOptimum().get(0).getObjectives(0), set.get(0).getObjectives(0), 0.01);
 		}
 	}

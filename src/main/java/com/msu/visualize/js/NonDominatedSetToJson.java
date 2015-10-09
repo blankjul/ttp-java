@@ -21,7 +21,7 @@ public class NonDominatedSetToJson {
 
 	// ! json generator object
 	protected JsonGenerator json = null;;
-
+	
 	public NonDominatedSetToJson() throws IOException {
 		sw = new StringWriter();
 		json = new JsonFactory().createGenerator(sw).useDefaultPrettyPrinter();
@@ -86,7 +86,6 @@ public class NonDominatedSetToJson {
 		json.writeObjectField("type", "scatter");
 		json.writeObjectField("mode", "markers");
 		json.writeObjectFieldStart("marker");
-
 		json.writeObjectField("size", 16);
 		json.writeEndObject();
 

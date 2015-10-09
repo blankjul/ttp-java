@@ -3,9 +3,6 @@ package com.msu.algorithms;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.msu.knp.model.BooleanPackingList;
-import com.msu.knp.model.PackingList;
-import com.msu.knp.model.factory.EmptyPackingListFactory;
 import com.msu.moo.interfaces.IEvaluator;
 import com.msu.moo.model.AbstractAlgorithm;
 import com.msu.moo.model.Evaluator;
@@ -13,22 +10,25 @@ import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.util.Pair;
 import com.msu.moo.util.Random;
-import com.msu.thief.ThiefProblem;
+import com.msu.problems.ThiefProblem;
+import com.msu.problems.SalesmanProblem;
 import com.msu.thief.variable.TTPVariable;
-import com.msu.tsp.TravellingSalesmanProblem;
-import com.msu.tsp.model.Tour;
+import com.msu.thief.variable.pack.BooleanPackingList;
+import com.msu.thief.variable.pack.PackingList;
+import com.msu.thief.variable.pack.factory.EmptyPackingListFactory;
+import com.msu.thief.variable.tour.Tour;
 
 public class RandomLocalSearch extends AbstractAlgorithm {
 
 	@Override
-	public NonDominatedSolutionSet run(IEvaluator eval) {
+	public NonDominatedSolutionSet run_(IEvaluator eval) {
 
 		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
 
 		ThiefProblem problem = (ThiefProblem) eval.getProblem();
 		
-		TravellingSalesmanProblem tsp = new TravellingSalesmanProblem(problem.getMap());
-		Tour<?> bestTour = new LinKernighanHeuristic().getTour(new Evaluator(tsp), problem.getMaxSpeed());
+		SalesmanProblem tsp = new SalesmanProblem(problem.getMap());
+		Tour<?> bestTour = new SalesmanLinKernighanHeuristic().getTour(new Evaluator(tsp));
 		PackingList<?> bestList = new EmptyPackingListFactory().next(problem);
 
 		while (eval.hasNext()) {

@@ -8,14 +8,15 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.msu.knp.model.BooleanPackingList;
-import com.msu.knp.model.PackingList;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.util.Pair;
-import com.msu.scenarios.thief.bonyadi.PublicationScenarioSingleObjective;
+import com.msu.problems.SingleObjectiveThiefProblem;
+import com.msu.scenarios.PublicationScenarioSingleObjective;
 import com.msu.thief.variable.TTPVariable;
-import com.msu.tsp.model.StandardTour;
-import com.msu.tsp.model.Tour;
+import com.msu.thief.variable.pack.BooleanPackingList;
+import com.msu.thief.variable.pack.PackingList;
+import com.msu.thief.variable.tour.StandardTour;
+import com.msu.thief.variable.tour.Tour;
 
 public class SingleObjectiveTravellingThiefProblemBonyadiCorrectnessTest {
 

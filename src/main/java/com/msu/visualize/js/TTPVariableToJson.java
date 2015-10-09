@@ -3,15 +3,16 @@ package com.msu.visualize.js;
 import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.msu.knp.model.Item;
 import com.msu.moo.model.solution.Solution;
-import com.msu.thief.ThiefProblem;
+import com.msu.problems.ThiefProblem;
 import com.msu.thief.model.CoordinateMap;
+import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.variable.TTPVariable;
 
@@ -30,9 +31,10 @@ public class TTPVariableToJson {
 		sw = new StringWriter();
 		json = new JsonFactory().createGenerator(sw).useDefaultPrettyPrinter();
 		this.problem = problem;
-		
+
 		json.writeStartObject();
-		writeGraph(problem);
+		if (problem.getMap() instanceof CoordinateMap)
+			writeGraph(problem);
 	}
 
 	protected void writeGraph(ThiefProblem problem) throws IOException {
@@ -55,57 +57,60 @@ public class TTPVariableToJson {
 	public void add(Solution s, String name) throws IOException {
 
 		json.writeObjectFieldStart(name);
-		
+
 		TTPVariable var = (TTPVariable) s.getVariable();
-		
 
 		json.writeArrayFieldStart("edges");
-		List<Point2D> cities = ((CoordinateMap) problem.getMap()).getCities();
-		List<Integer> tour = var.getTour().encode();
-		for (int i = 0; i < tour.size(); i++) {
-			json.writeStartObject();
-			json.writeObjectField("id", String.format("e%s", i));
-			json.writeObjectField("source", String.format("n%s", tour.get(i)));
-			json.writeObjectField("target", String.format("n%s", tour.get((i + 1) % cities.size())));
 
-			json.writeObjectField("type", "curve");
-			json.writeObjectField("size", "5");
+		if (problem.getMap() instanceof CoordinateMap) {
+			List<Point2D> cities = ((CoordinateMap) problem.getMap()).getCities();
+			List<Integer> tour = var.getTour().encode();
+			for (int i = 0; i < tour.size(); i++) {
+				json.writeStartObject();
+				json.writeObjectField("id", String.format("e%s", i));
+				json.writeObjectField("source", String.format("n%s", tour.get(i)));
+				json.writeObjectField("target", String.format("n%s", tour.get((i + 1) % cities.size())));
 
-			json.writeEndObject();
-		}
-		json.writeEndArray();
+				json.writeObjectField("type", "curve");
+				json.writeObjectField("size", "5");
 
-		// check if item is picked at city or not
-		json.writeArrayFieldStart("picks");
-		ItemCollection<Item> collection = problem.getItemCollection();
-		List<Boolean> packing = var.getPackingList().encode();
-
-		
-		for (int i = 0; i < problem.numOfCities(); i++) {
-			Set<Integer> l = collection.getItemsFromCityByIndex(i);
-			boolean pickItem = false;
-			for (Integer index : l) {
-				if (packing.get(index) == true) {
-					pickItem = true;
-					break;
-				}
+				json.writeEndObject();
 			}
-			json.writeObject(pickItem);
+			json.writeEndArray();
 
+			// check if item is picked at city or not
+			json.writeArrayFieldStart("picks");
+			ItemCollection<Item> collection = problem.getItemCollection();
+			List<Boolean> packing = var.getPackingList().encode();
+
+			for (int i = 0; i < problem.numOfCities(); i++) {
+				Set<Integer> l = collection.getItemsFromCityByIndex(i);
+				boolean pickItem = false;
+				for (Integer index : l) {
+					if (packing.get(index) == true) {
+						pickItem = true;
+						break;
+					}
+				}
+				json.writeObject(pickItem);
+
+			}
 		}
+
 		json.writeEndArray();
 
-		json.writeObjectField("variable", var.toString());
-		
+		String text = Arrays.toString(s.getObjective().toArray()) + "</br>";
+		text += s.getVariable().toString().replaceAll(";", "</br>");
+		json.writeObjectField("variable", text);
+
 		json.writeEndObject();
 
 	}
-	
+
 	public String getResult() throws IOException {
 		json.writeEndObject();
 		json.close();
 		return sw.toString();
 	}
-
 
 }

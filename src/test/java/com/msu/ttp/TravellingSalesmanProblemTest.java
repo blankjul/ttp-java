@@ -9,18 +9,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.msu.moo.util.exceptions.EvaluationException;
+import com.msu.problems.SalesmanProblem;
 import com.msu.thief.model.SymmetricMap;
-import com.msu.tsp.TravellingSalesmanProblem;
 
 
 public class TravellingSalesmanProblemTest {
 	
-	private TravellingSalesmanProblem tsp;
+	private SalesmanProblem tsp;
 	
 	@Before
 	public void setUp() {
 		SymmetricMap m = new SymmetricMap(3).set(0, 1, 1).set(1, 2, 2).set(2, 0, 3);
-		tsp = new TravellingSalesmanProblem(m);
+		tsp = new SalesmanProblem(m);
 	}
 	
 	

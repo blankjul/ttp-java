@@ -7,7 +7,7 @@ import java.io.IOException;
 import org.apache.log4j.Logger;
 
 import com.msu.io.AProblemReader;
-import com.msu.thief.SingleObjectiveThiefProblem;
+import com.msu.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
 
 public class ThiefMultiObjectiveReader extends AProblemReader<SingleObjectiveThiefProblem> {

@@ -9,12 +9,12 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.msu.io.AProblemReader;
-import com.msu.knp.model.Item;
-import com.msu.thief.SingleObjectiveThiefProblem;
+import com.msu.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.model.CoordinateMap;
+import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
-import com.msu.tsp.util.rounding.IRounding;
-import com.msu.tsp.util.rounding.RoundingCeil;
+import com.msu.util.rounding.IRounding;
+import com.msu.util.rounding.RoundingCeil;
 
 public class ThiefSingleTSPLIBProblemReader extends AProblemReader<SingleObjectiveThiefProblem> {
 

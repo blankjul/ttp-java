@@ -9,10 +9,10 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.msu.io.AProblemReader;
-import com.msu.knp.KnapsackProblem;
-import com.msu.knp.model.Item;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
+import com.msu.problems.KnapsackProblem;
+import com.msu.thief.model.Item;
 
 public class KnapsackProblemReader extends AProblemReader<KnapsackProblem> {
 

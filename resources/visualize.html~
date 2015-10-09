@@ -12,17 +12,44 @@
 		    margin: auto;
 		    width: 60%;
 		 }
+		#info {
+		    height: 100;
+		 }
 	</style>
 
 </head>
 
 
 <body>
-<div id="algorithms"></div>
+
+<div id="algorithms">
+<INPUT type="checkbox" onchange="checkAll(this)" name="chk[]" checked/> All/None</br>
+</div>
+
 <div id="scatter"></div>
-<div id="container"></div>
 <div id="info"></div>
+<div id="container"></div>
+
 <script>
+
+function checkAll(ele) {
+     var checkboxes = document.getElementsByTagName('input');
+     if (ele.checked) {
+         for (var i = 0; i < checkboxes.length; i++) {
+             if (checkboxes[i].type == 'checkbox') {
+                 checkboxes[i].checked = true;
+             }
+         }
+     } else {
+         for (var i = 0; i < checkboxes.length; i++) {
+             console.log(i)
+             if (checkboxes[i].type == 'checkbox') {
+                 checkboxes[i].checked = false;
+             }
+         }
+     }
+     update();
+ }
 
 function addCheckbox(name) {
    var container = $('#algorithms');
@@ -107,17 +134,14 @@ function plot(s, graph, data) {
 					});
 		}
 
-
-		var firstNode = s.graph.nodes(edges[0].source);
-		if (firstNode.color == cNormal) firstNode.color = cFirst;
-		else firstNode.color = "#FF8C00";
-
 		for (i = 0; i < data.picks.length; i++) { 
 		   if (data.picks[i] == true) s.graph.nodes()[i].color = cPick;
 		}
 		
-		document.getElementById('info').innerHTML = data.variable;
 
+		var firstNode = s.graph.nodes(edges[0].source);
+		if (firstNode.color == cNormal) firstNode.color = cFirst;
+		else firstNode.color = "#FF8C00";
 
 	}
 	
@@ -128,7 +152,7 @@ function plot(s, graph, data) {
 $(document).ready(function() {
 
 	
-	var objThief = JSON.parse(document.getElementById('dThief').text);
+	
 	var objAlgorithms = JSON.parse(document.getElementById('dAlgorithms').text);
 
 	for(var a of objAlgorithms) {
@@ -139,11 +163,13 @@ $(document).ready(function() {
 
 	update();
 
+	var objThief = JSON.parse(document.getElementById('dThief').text);
 
 	$('#scatter').bind('plotly_click',
 	    function(event,data){
 		var obj = data.points[0];
 		var n = obj.data.id[obj.pointNumber];
+		document.getElementById('info').innerHTML = objThief[n].variable;
 		plot(s, objThief["nodes"], objThief[n]);
 	});
 	
@@ -163,7 +189,6 @@ $(document).ready(function() {
 
  });
 </script>
-
 <script id="dAlgorithms" type="application/json">
 {{{ dAlgorithms }}}
 </script>

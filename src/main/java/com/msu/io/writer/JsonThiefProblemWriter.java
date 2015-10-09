@@ -9,13 +9,13 @@ import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.msu.io.AProblemWriter;
-import com.msu.knp.model.Item;
-import com.msu.thief.SingleObjectiveThiefProblem;
-import com.msu.thief.ThiefProblem;
+import com.msu.problems.SingleObjectiveThiefProblem;
+import com.msu.problems.ThiefProblem;
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
 import com.msu.thief.evaluator.profit.NoDroppingEvaluator;
 import com.msu.thief.evaluator.time.StandardTimeEvaluator;
 import com.msu.thief.model.CoordinateMap;
+import com.msu.thief.model.Item;
 import com.msu.thief.model.SymmetricMap;
 
 public class JsonThiefProblemWriter extends AProblemWriter<ThiefProblem> {

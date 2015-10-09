@@ -7,7 +7,7 @@ import java.io.IOException;
 import org.apache.log4j.Logger;
 
 import com.msu.io.AProblemReader;
-import com.msu.thief.SingleObjectiveThiefProblem;
+import com.msu.problems.SingleObjectiveThiefProblem;
 
 public class ThiefSingleObjectiveReader extends AProblemReader<SingleObjectiveThiefProblem> {
 

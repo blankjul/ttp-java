@@ -1,14 +1,14 @@
 package com.msu;
 
-import com.msu.algorithms.ExhaustiveThief;
+import com.msu.algorithms.exhaustive.ThiefExhaustive;
 import com.msu.analyze.DifferentToursInFront;
 import com.msu.analyze.TSPTourDominance;
-import com.msu.io.reader.JsonThiefReader;
-import com.msu.meta.FactoryThiefVariable;
-import com.msu.meta.problems.OptimalTourIsDominating;
+import com.msu.evolving.FactoryThiefVariable;
+import com.msu.evolving.measures.OptimalTourIsDominating;
+import com.msu.io.reader.JsonThiefProblemReader;
 import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
-import com.msu.thief.ThiefProblem;
+import com.msu.problems.ThiefProblem;
 
 public class ThiefProblemAnalyzer {
 
@@ -21,8 +21,8 @@ public class ThiefProblemAnalyzer {
 	
 	public static void main(String[] args) {
 		for (String strProblem : PROBLEMS) {
-			ThiefProblem problem = new JsonThiefReader().read(strProblem);
-			NonDominatedSolutionSet set = new ExhaustiveThief().run(problem);
+			ThiefProblem problem = new JsonThiefProblemReader().read(strProblem);
+			NonDominatedSolutionSet set = new ThiefExhaustive().run(problem);
 			System.out.println(strProblem);
 			System.out.println(String.format("DifferentToursInFront: %s", new DifferentToursInFront().analyze(set)));
 			System.out.println(String.format("TSPTourDominance: %s", new TSPTourDominance().analyze(problem)));

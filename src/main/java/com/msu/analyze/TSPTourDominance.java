@@ -1,17 +1,17 @@
 package com.msu.analyze;
 
-import com.msu.algorithms.ExhaustiveSalesman;
+import com.msu.algorithms.exhaustive.SalesmanExhaustive;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
-import com.msu.thief.ThiefProblem;
-import com.msu.tsp.TravellingSalesmanProblem;
+import com.msu.problems.ThiefProblem;
+import com.msu.problems.SalesmanProblem;
 
-public class TSPTourDominance extends AThiefProblemAnalyzer<ThiefProblem, Double> {
+public class TSPTourDominance extends AbstractAnalyzer<ThiefProblem, Double> {
 
 	@Override
 	public Double analyze(ThiefProblem p) {
-		TravellingSalesmanProblem tsp = new TravellingSalesmanProblem(p.getMap());
-		NonDominatedSolutionSet set = new ExhaustiveSalesman().setOnlyNonDominatedPoints(false).run(tsp);
+		SalesmanProblem tsp = new SalesmanProblem(p.getMap());
+		NonDominatedSolutionSet set = new SalesmanExhaustive().setOnlyNonDominatedPoints(false).run(tsp);
 		
 		double min = Double.MAX_VALUE;
 		for (Solution s : set.getSolutions()) {
