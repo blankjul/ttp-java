@@ -1,0 +1,41 @@
+{
+  "name" : "my_publication_coordinates",
+  "problemType" : "MultiObjective",
+  "numOfItems" : 4,
+  "numOfCities" : 4,
+  "minSpeed" : 0.1,
+  "maxSpeed" : 1.0,
+  "maxWeight" : 80,
+  "startingCityIsZero" : true,
+  "profitEvaluator" : {
+    "type" : "EXPONTENTIAL",
+    "droppingConstant" : 10.0,
+    "droppingRate" : 0.9
+  },
+  "timeEvaluator" : {
+    "type" : "STANDARD"
+  },
+  "cityType" : "XY_COORDINATES",
+  "cities" : [  [ 1.0, 1.0 ], 
+		[ 5.0, 1.0 ], 
+		[ 9.0, 4.0 ], 
+		[ 1.0, 4.0 ]
+             ],
+  "items" : [ {
+    "city" : 0,
+    "weight" : 25.0,
+    "value" : 30.0
+  }, {
+    "city" : 1,
+    "weight" : 30.0,
+    "value" : 34.0
+  }, {
+    "city" : 2,
+    "weight" : 40.0,
+    "value" : 40.0
+  }, {
+    "city" : 3,
+    "weight" : 21.0,
+    "value" : 25.0
+  } ]
+}

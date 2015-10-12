@@ -8,7 +8,7 @@ import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.thief.variable.TTPVariable;
 
-public class DifferentToursInFront extends AbstractAnalyzer<NonDominatedSolutionSet, Integer> {
+public class ThiefAmountOfDifferentTours extends AbstractAnalyzer<NonDominatedSolutionSet, Integer> {
 
 	@Override
 	public Integer analyze(NonDominatedSolutionSet set) {

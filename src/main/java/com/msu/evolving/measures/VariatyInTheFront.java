@@ -2,13 +2,11 @@ package com.msu.evolving.measures;
 
 import java.util.List;
 
-import com.msu.algorithms.exhaustive.ThiefExhaustive;
-import com.msu.analyze.DifferentToursInFront;
-import com.msu.evolving.FactoryThiefVariable;
+import com.msu.analyze.ThiefAmountOfOptimalTourInFront;
+import com.msu.evolving.ThiefProblemVariable;
 import com.msu.moo.model.AProblem;
-import com.msu.moo.model.solution.NonDominatedSolutionSet;
 
-public class VariatyInTheFront extends AProblem<FactoryThiefVariable>{
+public class VariatyInTheFront extends AProblem<ThiefProblemVariable>{
 
 	@Override
 	public int getNumberOfObjectives() {
@@ -17,10 +15,11 @@ public class VariatyInTheFront extends AProblem<FactoryThiefVariable>{
 	
 
 	@Override
-	protected void evaluate_(FactoryThiefVariable var, List<Double> objectives, List<Double> constraintViolations) {
-		NonDominatedSolutionSet set = new ThiefExhaustive().run(var.get());
-		int numOfDifferentTour = new DifferentToursInFront().analyze(set);
-		objectives.add(-(double) numOfDifferentTour);
+	protected void evaluate_(ThiefProblemVariable var, List<Double> objectives, List<Double> constraintViolations) {
+		//NonDominatedSolutionSet set = new ThiefExhaustive().run();
+		//objectives.add(-(double) new ThiefAmountOfDifferentTours().analyze(set));
+		objectives.add((double) new ThiefAmountOfOptimalTourInFront().analyze(var.get()));
+		
 	}
 	
 	

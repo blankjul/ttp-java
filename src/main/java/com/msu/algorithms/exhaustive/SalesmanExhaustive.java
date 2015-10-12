@@ -13,6 +13,8 @@ import com.msu.util.CombinatorialUtil;
 public class SalesmanExhaustive extends AExhaustiveAlgorithm {
 
 
+	
+	
 	@Override
 	public NonDominatedSolutionSet run_(IEvaluator eval) {
 

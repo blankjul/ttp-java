@@ -1,9 +1,8 @@
 package com.msu;
 
 import com.msu.algorithms.exhaustive.ThiefExhaustive;
-import com.msu.analyze.DifferentToursInFront;
-import com.msu.analyze.TSPTourDominance;
-import com.msu.evolving.FactoryThiefVariable;
+import com.msu.analyze.ThiefAmountOfDifferentTours;
+import com.msu.evolving.ThiefProblemVariable;
 import com.msu.evolving.measures.OptimalTourIsDominating;
 import com.msu.io.reader.JsonThiefProblemReader;
 import com.msu.moo.model.Evaluator;
@@ -24,10 +23,10 @@ public class ThiefProblemAnalyzer {
 			ThiefProblem problem = new JsonThiefProblemReader().read(strProblem);
 			NonDominatedSolutionSet set = new ThiefExhaustive().run(problem);
 			System.out.println(strProblem);
-			System.out.println(String.format("DifferentToursInFront: %s", new DifferentToursInFront().analyze(set)));
-			System.out.println(String.format("TSPTourDominance: %s", new TSPTourDominance().analyze(problem)));
+			System.out.println(String.format("DifferentToursInFront: %s", new ThiefAmountOfDifferentTours().analyze(set)));
+			//System.out.println(String.format("TSPTourDominance: %s", new TourAverageDistanceToOpt().analyze(problem)));
 			Evaluator eval = new Evaluator(new OptimalTourIsDominating());
-			System.out.println(String.format("FactoryThiefProblem: %s", eval.evaluate(new FactoryThiefVariable(problem))));
+			System.out.println(String.format("FactoryThiefProblem: %s", eval.evaluate(new ThiefProblemVariable(problem))));
 			System.out.println("----------------------------------------");
 		}
 

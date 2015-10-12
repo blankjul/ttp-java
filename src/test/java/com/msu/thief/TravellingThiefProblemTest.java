@@ -9,8 +9,9 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.msu.evolving.FactoryThiefVariable;
+import com.msu.evolving.ThiefProblemVariable;
 import com.msu.io.reader.JsonThiefProblemReader;
+import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.util.Pair;
 import com.msu.moo.util.exceptions.EvaluationException;
@@ -57,16 +58,33 @@ public class TravellingThiefProblemTest {
 	}
 	
 	@Test 
+	public void testEqualVariable() {
+		TTPVariable  t1 = new TTPVariable("[0, 5, 4, 3, 2, 1];[0, 0, 0, 0, 0, 0]");
+		TTPVariable  t2 = new TTPVariable("[0, 5, 4, 3, 2, 1];[0, 0, 0, 0, 0, 0]");
+		assertTrue(t1.equals(t2));
+	}
+	
+	@Test 
+	public void testEqualVariableInsertIntoNonDominatedSet() {
+		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
+		set.add(new Solution( new TTPVariable("[0, 5, 4, 3, 2, 1];[0, 0, 0, 0, 0, 0]") , Arrays.asList(5.0)));
+		set.add(new Solution( new TTPVariable("[0, 5, 4, 3, 2, 1];[0, 0, 0, 0, 0, 0]") , Arrays.asList(5.0)));
+		assertEquals(1, set.size());
+	}
+	
+	
+	
+	@Test 
 	public void testProblemIsEqual() {
-		FactoryThiefVariable var1 = new FactoryThiefVariable(new JsonThiefProblemReader().read("resources/example_symmetric_different.ttp"));
-		FactoryThiefVariable var2 = new FactoryThiefVariable(new JsonThiefProblemReader().read("resources/example_symmetric_different.ttp"));
+		ThiefProblemVariable var1 = new ThiefProblemVariable(new JsonThiefProblemReader().read("resources/example_symmetric_different.ttp"));
+		ThiefProblemVariable var2 = new ThiefProblemVariable(new JsonThiefProblemReader().read("resources/example_symmetric_different.ttp"));
 		assertEquals(var1,var2);
 	}
 	
 	@Test 
 	public void testProblemNotEqual() {
-		FactoryThiefVariable var1 = new FactoryThiefVariable(new JsonThiefProblemReader().read("resources/example_symmetric_different.ttp"));
-		FactoryThiefVariable var2 = new FactoryThiefVariable(new JsonThiefProblemReader().read("resources/bonyadi_single_publication.ttp"));
+		ThiefProblemVariable var1 = new ThiefProblemVariable(new JsonThiefProblemReader().read("resources/example_symmetric_different.ttp"));
+		ThiefProblemVariable var2 = new ThiefProblemVariable(new JsonThiefProblemReader().read("resources/bonyadi_single_publication.ttp"));
 		assertFalse(var1.equals(var2));
 	}
 	

@@ -7,7 +7,7 @@ import java.util.List;
 import com.msu.moo.interfaces.IVariable;
 import com.msu.moo.model.Variable;
 import com.msu.moo.operators.AbstractCrossover;
-import com.msu.moo.operators.crossover.HalfUniformCrossover;
+import com.msu.moo.operators.crossover.SinglePointCrossover;
 import com.msu.moo.util.Random;
 import com.msu.moo.util.Util;
 import com.msu.problems.ThiefProblem;
@@ -15,7 +15,8 @@ import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 
-public class FactoryThiefCrossover extends AbstractCrossover<ThiefProblem>{
+public class ThiefProblemCrossover extends AbstractCrossover<ThiefProblem>{
+
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -28,9 +29,10 @@ public class FactoryThiefCrossover extends AbstractCrossover<ThiefProblem>{
 		
 		Variable<List<Point2D>> paCities = new Variable<List<Point2D>>(((CoordinateMap) a.getMap()).getCities());
 		Variable<List<Point2D>> pbCities = new Variable<List<Point2D>>(((CoordinateMap) b.getMap()).getCities());
-		List<IVariable> offCities = new HalfUniformCrossover<>().crossover(paCities, pbCities);
+		List<IVariable> offCities = new SinglePointCrossover<>().crossover(paCities, pbCities);
 		child1.setMap(new CoordinateMap(((Variable<List<Point2D>>) offCities.get(0)).get()));
 		child2.setMap(new CoordinateMap(((Variable<List<Point2D>>) offCities.get(1)).get()));
+		
 
 		if (rnd.nextDouble() < 0.5) {
 			child1.setMaxWeight(a.getMaxWeight());

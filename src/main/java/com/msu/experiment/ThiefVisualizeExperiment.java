@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.log4j.BasicConfigurator;
 
 import com.msu.NSGAIIFactory;
+import com.msu.algorithms.exhaustive.AExhaustiveAlgorithm;
+import com.msu.algorithms.exhaustive.ThiefExhaustive;
 import com.msu.io.reader.JsonThiefProblemReader;
 import com.msu.moo.experiment.AExperiment;
 import com.msu.moo.interfaces.IAlgorithm;
@@ -23,8 +25,9 @@ public class ThiefVisualizeExperiment extends AExperiment {
 		FileCollectorParser<ThiefProblem> fcp = new FileCollectorParser<>();
 		//fcp.add("../ttp-benchmark/TSPLIB/berlin52-ttp", "berlin52_n51_uncorr_01.ttp", new BonyadiTSPLIBReader());
 		//fcp.add("../ttp-benchmark/SingleObjective/10", "10_*_1_25.txt", new BonyadiSingleObjectiveReader());
+		//fcp.add("../ttp-benchmark/SingleObjective/10", "*.txt", new BonyadiSingleObjectiveReader());
 		//fcp.add("../ttp-benchmark/SingleObjective/100", "100_*_1_25.txt", new BonyadiSingleObjectiveReader());
-		fcp.add("../ttp-benchmark", "opt_tour_performs_optimal_20_cities_clustered.ttp", new JsonThiefProblemReader());
+		fcp.add("../ttp-benchmark", "EA_example00.ttp", new JsonThiefProblemReader());
 		List<ThiefProblem> collected = fcp.collect();
 		
 		collected.forEach((p) -> {
@@ -45,7 +48,13 @@ public class ThiefVisualizeExperiment extends AExperiment {
 
 	@Override
 	protected void setAlgorithms(List<IAlgorithm> algorithms) {
-		//algorithms.add(new ExhaustiveThief());
+		algorithms.add(new ThiefExhaustive());
+		
+		AExhaustiveAlgorithm thief = new ThiefExhaustive().setOnlyNonDominatedPoints(false);
+		thief.setName("ThiefExhaustive_ALL");
+		algorithms.add(thief);
+		
+		
 		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[RANDOM-RANDOM]-[OX-HUX]-[SWAP-BF]").create());
 		//algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[NEAREST-RANDOM]-[OX-HUX]-[SWAP-BF]").create());
 		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[OPT-RANDOM]-[NO-HUX]-[NO-BF]").create());
@@ -58,7 +67,7 @@ public class ThiefVisualizeExperiment extends AExperiment {
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
 		AExperiment experiment = new ThiefVisualizeExperiment();
-		experiment.run(100000, 1, 123456);
+		experiment.run(300000, 1, 654321);
 	}
 
 	

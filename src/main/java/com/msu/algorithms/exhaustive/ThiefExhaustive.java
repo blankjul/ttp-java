@@ -1,7 +1,6 @@
 package com.msu.algorithms.exhaustive;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.msu.moo.interfaces.IEvaluator;
@@ -18,7 +17,6 @@ import com.msu.util.CombinatorialUtil;
 
 public class ThiefExhaustive extends AExhaustiveAlgorithm {
 
-	protected boolean startingCityIsZero = false;
 	
 	public static int factorial(int n) {
 		int fact = 1; // this will be the result
@@ -30,6 +28,9 @@ public class ThiefExhaustive extends AExhaustiveAlgorithm {
 
 	@Override
 	public NonDominatedSolutionSet run_(IEvaluator eval) {
+		
+		boolean startingCityIsZero = ((ThiefProblem)eval.getProblem()).isStartingCityIsZero();
+		
 		NonDominatedSolutionSet set = (onlyNonDominatedPoints) ? new NonDominatedSolutionSet() : new ExhaustiveSolutionSet();
 
 		ThiefProblem problem = (ThiefProblem) eval.getProblem();
@@ -55,10 +56,6 @@ public class ThiefExhaustive extends AExhaustiveAlgorithm {
 			// since permute at one is enabled we need to add 0 as the first city
 			if (startingCityIsZero) l.add(0,0);
 			Tour<?> t = new StandardTour(l);
-			
-			if (t.encode().equals(Arrays.asList(0,1,3,2,4))) {
-				System.out.println();
-			}
 			
 			// for all possible item combinations
 			for (int i = 0; i <= numItems; i++) {
@@ -88,13 +85,6 @@ public class ThiefExhaustive extends AExhaustiveAlgorithm {
 	}
 
 
-
-	public ThiefExhaustive setStartingCityIsZero(boolean startingCityIsZero) {
-		this.startingCityIsZero = startingCityIsZero;
-		return this;
-	}
-	
-	
 
 	
 }

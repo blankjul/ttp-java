@@ -3,40 +3,44 @@ package com.msu.problems.factory;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.msu.moo.util.Pair;
 import com.msu.moo.util.Random;
+import com.msu.problems.KnapsackProblem;
 import com.msu.thief.model.Item;
 
-public class RandomKnapsackScenario  {
+public class RandomKnapsackProblemFactory extends AKnapsackProblemFactory {
 
+	
 	// ! this defines how the items are created dependent on the correlation.
 	public static enum CORRELATION_TYPE {
 		UNCORRELATED, WEAKLY_CORRELATED, STRONGLY_CORRELATED
 	};
-
+	
 	// ! default maximal values for the weight and profit
 	protected int maximalValue = 1000;
 
-	// ! default maximal values for the weight and profit
-	protected int numOfItems = -1;
 
 	// ! default correlation type is uncorrelated
 	protected CORRELATION_TYPE corrType = CORRELATION_TYPE.UNCORRELATED;
 
-	// ! default max weight of knapsack regarding to all items
-	protected double maxWeightPerc = 0.5;
 
-	public RandomKnapsackScenario() {
-		super();
+
+	@Override
+	public KnapsackProblem create(int numOfItems, double maxWeightPerc) {
+		
+		long sumWeight = 0;
+
+		List<Item> items = new ArrayList<>();
+		for (int i = 0; i < numOfItems; i++) {
+			Item item = create(corrType, maximalValue);
+			items.add(item);
+			sumWeight += item.getWeight();
+		}
+
+		int maxWeight = (int) (sumWeight * maxWeightPerc);
+
+		return new KnapsackProblem(maxWeight, items);
 	}
 
-	
-	public RandomKnapsackScenario(int numOfItems, double fillingPercentage, CORRELATION_TYPE corrType) {
-		super();
-		this.numOfItems = numOfItems;
-		this.corrType = corrType;
-		this.maxWeightPerc = fillingPercentage;
-	}
 
 	/**
 	 * Create one item according to the properties which are set.
@@ -76,45 +80,26 @@ public class RandomKnapsackScenario  {
 
 	}
 	
-	public static Item create(CORRELATION_TYPE corrType) {
-		return create(corrType, 1000);
-	}
-	
 
 	public int getMaximalValue() {
 		return maximalValue;
 	}
 
-	public void setMaximalValue(int maximalValue) {
+	public RandomKnapsackProblemFactory setMaximalValue(int maximalValue) {
 		this.maximalValue = maximalValue;
+		return this;
 	}
 
 	public CORRELATION_TYPE getCorrType() {
 		return corrType;
 	}
 
-	public void setCorrType(CORRELATION_TYPE corrType) {
+	public RandomKnapsackProblemFactory setCorrType(CORRELATION_TYPE corrType) {
 		this.corrType = corrType;
+		return this;
 	}
 
-	public Pair<List<Item>, Integer> getObject() {
 
-		if (numOfItems == -1)
-			throw new RuntimeException("Please specify numOfItems before using getObject().");
-
-		long sumWeight = 0;
-
-		List<Item> items = new ArrayList<>();
-		for (int i = 0; i < numOfItems; i++) {
-			Item item = create(corrType, maximalValue);
-			items.add(item);
-			sumWeight += item.getWeight();
-		}
-
-		int maxWeight = (int) (sumWeight * maxWeightPerc);
-
-		return Pair.create(items, maxWeight);
-	}
 
 	
 }

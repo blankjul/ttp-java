@@ -13,14 +13,12 @@ import com.msu.thief.variable.tour.Tour;
 
 public class TTPVariable extends Variable<Pair<Tour<?>, PackingList<?>>> {
 
-	
 	public TTPVariable(String s) {
 		super(null);
 		String[] values = s.split(";");
 		this.obj = Pair.create(new StandardTour(values[0]), new BooleanPackingList(values[1]));
 	}
-	
-	
+
 	public TTPVariable(Tour<?> t, PackingList<?> b) {
 		super(Pair.create(t, b));
 	}
@@ -54,14 +52,9 @@ public class TTPVariable extends Variable<Pair<Tour<?>, PackingList<?>>> {
 		return obj.second;
 	}
 
-
 	@Override
 	public boolean isEqual(Pair<Tour<?>, PackingList<?>> o1, Pair<Tour<?>, PackingList<?>> o2) {
-			return o1.first.encode().equals(o2.first.encode()) && 
-					o1.second.encode().equals(o2.second.encode()) ;
+		return o1.first.encode().equals(o2.first.encode()) && o1.second.encode().equals(o2.second.encode());
 	}
-
-
-
 
 }

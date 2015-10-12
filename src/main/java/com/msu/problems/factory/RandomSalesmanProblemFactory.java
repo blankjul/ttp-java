@@ -4,8 +4,8 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import com.msu.moo.util.Random;
+import com.msu.problems.SalesmanProblem;
 import com.msu.thief.model.CoordinateMap;
-import com.msu.thief.model.SymmetricMap;
 
 /**
  * This class is used to create a Map which only contains a cost matrix. There
@@ -13,24 +13,37 @@ import com.msu.thief.model.SymmetricMap;
  * distance between this points is used as a edge cost value.
  *
  */
-public class RandomSalesmanScenario {
+public class RandomSalesmanProblemFactory extends ASalesmanProblemFactory{
+
 
 	//! max value for a city on a map - X and Y value!
-	public static final int MAXIMAL_VALUE_ON_MAP = 1000;
+	protected int maxCoordinates = 1000;
 
 
-
-	public static SymmetricMap create(int numOfCities) {
+	@Override
+	public SalesmanProblem create(int numOfCities) {
 		Random rnd = Random.getInstance();
 		ArrayList<Point2D> cities = new ArrayList<Point2D>(numOfCities);
 		for (int i = 0; i < numOfCities; i++) {
-			Point2D point = new Point2D.Double(rnd.nextInt(0, MAXIMAL_VALUE_ON_MAP), rnd.nextInt(0, MAXIMAL_VALUE_ON_MAP));
+			Point2D point = new Point2D.Double(rnd.nextInt(0, maxCoordinates), rnd.nextInt(0, maxCoordinates));
 			//System.out.println(point);
 			cities.add(point);
 		}
-		return new CoordinateMap(cities);
+		return new SalesmanProblem(new CoordinateMap(cities));
 	}
 
+
+
+	public int getMaxCoordinates() {
+		return maxCoordinates;
+	}
+
+	public void setMaxCoordinates(int maxCoordinates) {
+		this.maxCoordinates = maxCoordinates;
+	}
+	
+	
+	
 
 
 

@@ -10,7 +10,7 @@ import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 
-public class FactoryThiefMutation extends AbstractMutation<ThiefProblem> {
+public class ThiefProblemMutation extends AbstractMutation<ThiefProblem> {
 
 	@Override
 	protected void mutate_(ThiefProblem a) {
@@ -23,7 +23,7 @@ public class FactoryThiefMutation extends AbstractMutation<ThiefProblem> {
 			}
 		}
 		a.setMap(new CoordinateMap(cities));
-		a.setMaxWeight((int) (a.getMaxWeight() * rnd.nextDouble(0.1, 5)));
+		a.setMaxWeight((int) (a.getMaxWeight() * rnd.nextDouble(0.05, 5)));
 
 		ItemCollection<Item> items = a.getItemCollection();
 		ItemCollection<Item> mItems = new ItemCollection<>();

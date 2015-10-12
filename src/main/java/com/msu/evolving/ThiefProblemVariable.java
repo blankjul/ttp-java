@@ -8,15 +8,15 @@ import com.msu.moo.model.Variable;
 import com.msu.moo.util.Util;
 import com.msu.problems.ThiefProblem;
 
-public class FactoryThiefVariable extends Variable<ThiefProblem> {
+public class ThiefProblemVariable extends Variable<ThiefProblem> {
 
-	public FactoryThiefVariable(ThiefProblem obj) {
+	public ThiefProblemVariable(ThiefProblem obj) {
 		super(obj);
 	}
 
 	@Override
 	public IVariable copy() {
-		return new FactoryThiefVariable((ThiefProblem) Util.cloneObject(obj));
+		return new ThiefProblemVariable((ThiefProblem) Util.cloneObject(obj));
 	}
 
 	@Override

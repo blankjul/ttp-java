@@ -41,7 +41,7 @@ public class ThiefProblem extends AProblem<TTPVariable> implements IPackingProbl
 	protected ItemCollection<Item> items;
 	
 	//! value for fixing the starting city at each evaluation
-	protected boolean startingCityIsZero = false;
+	protected boolean startingCityIsZero = true;
 
 	
 	public ThiefProblem() {

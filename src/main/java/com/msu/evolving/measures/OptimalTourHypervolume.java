@@ -4,14 +4,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.msu.NSGAIIFactory;
-import com.msu.evolving.FactoryThiefVariable;
+import com.msu.evolving.ThiefProblemVariable;
 import com.msu.moo.interfaces.IAlgorithm;
 import com.msu.moo.model.AProblem;
 import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.visualization.HypervolumeBoxPlot;
 
-public class OptimalTourHypervolume extends AProblem<FactoryThiefVariable>{
+public class OptimalTourHypervolume extends AProblem<ThiefProblemVariable>{
 
 	public static final int MAX_EVALUATIONS_OF_THIEF = 4000;
 	
@@ -34,7 +34,7 @@ public class OptimalTourHypervolume extends AProblem<FactoryThiefVariable>{
 
 
 	@Override
-	protected void evaluate_(FactoryThiefVariable var, List<Double> objectives, List<Double> constraintViolations) {
+	protected void evaluate_(ThiefProblemVariable var, List<Double> objectives, List<Double> constraintViolations) {
 		
 		NonDominatedSolutionSet setRandom = aRandom.run(new Evaluator(var.get(), MAX_EVALUATIONS_OF_THIEF));
 		NonDominatedSolutionSet setOptimal = aOptimal.run(new Evaluator(var.get(), MAX_EVALUATIONS_OF_THIEF));
