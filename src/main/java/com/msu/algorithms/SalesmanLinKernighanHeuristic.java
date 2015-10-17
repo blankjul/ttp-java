@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 import com.msu.ThiefConfiguration;
 import com.msu.moo.interfaces.IEvaluator;
@@ -45,7 +47,7 @@ public class SalesmanLinKernighanHeuristic extends AbstractAlgorithm {
 	public SalesmanLinKernighanHeuristic() {
 		if (!Util.doesFileExist(ThiefConfiguration.PATH_TO_LKH))
 			throw new RuntimeException("LinKernighanHeuristic Implementation not found!");
-		timestamp = Util.getTimestamp();
+		timestamp = UUID.randomUUID().toString();
 	}
 
 	
@@ -89,7 +91,7 @@ public class SalesmanLinKernighanHeuristic extends AbstractAlgorithm {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		Collections.rotate(result, -result.indexOf(0));
 		Tour<?> tour = new StandardTour(result);
 		return tour;
 		
@@ -114,7 +116,7 @@ public class SalesmanLinKernighanHeuristic extends AbstractAlgorithm {
 		for (int i = 0; i < map.getSize(); i++) {
 			for (int j = 0; j < map.getSize(); j++) {
 				// multiply the distance because C implementation can only handle Integer!
-				int distance = (int) (map.get(i, j) * 10000);
+				int distance = (int) (map.get(i, j) * 1000);
 				writer.print(distance);
 				writer.print(" ");
 			}

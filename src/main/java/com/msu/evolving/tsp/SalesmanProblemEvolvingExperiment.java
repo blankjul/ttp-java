@@ -4,15 +4,17 @@ import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
 
-import com.msu.evolving.measures.OneDominatingTour;
+import com.msu.analyze.TourAverageDistanceToOpt;
 import com.msu.io.writer.JsonThiefProblemWriter;
 import com.msu.moo.Configuration;
 import com.msu.moo.algorithms.NSGAIIBuilder;
 import com.msu.moo.experiment.AExperiment;
 import com.msu.moo.interfaces.IAlgorithm;
 import com.msu.moo.interfaces.IProblem;
+import com.msu.moo.model.AProblem;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.operators.crossover.SinglePointCrossover;
+import com.msu.problems.SalesmanProblem;
 import com.msu.problems.ThiefProblem;
 import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.ItemCollection;
@@ -33,6 +35,20 @@ public class SalesmanProblemEvolvingExperiment extends AExperiment  {
 	
 	final public static int NUM_OF_INDIVIDUALS = 20;
 	
+	private class EvolvingSalesmanProblem extends AProblem<SalesmanProblemVariable> {
+
+		@Override
+		public int getNumberOfObjectives() {
+			return 1;
+		}
+
+		@Override
+		protected void evaluate_(SalesmanProblemVariable var, List<Double> objectives, List<Double> constraintViolations) {
+			SalesmanProblem tsp = new SalesmanProblem(new CoordinateMap(var.get()));
+			objectives.add(new TourAverageDistanceToOpt().analyze(tsp));
+		}
+		
+	}
 	
 	@Override
 	protected void setAlgorithms(List<IAlgorithm> algorithms) {
@@ -47,7 +63,7 @@ public class SalesmanProblemEvolvingExperiment extends AExperiment  {
 	
 	@Override
 	protected void setProblems(List<IProblem> problems) {
-		problems.add(new OneDominatingTour());
+		problems.add(new EvolvingSalesmanProblem());
 	}
 	
 

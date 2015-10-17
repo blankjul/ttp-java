@@ -7,9 +7,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.math3.util.Precision;
+
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.msu.moo.model.solution.Solution;
+import com.msu.problems.SingleObjectiveThiefProblem;
 import com.msu.problems.ThiefProblem;
 import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.Item;
@@ -100,7 +103,11 @@ public class TTPVariableToJson {
 		json.writeEndArray();
 
 		String text = Arrays.toString(s.getObjective().toArray()) + "</br>";
-		text += s.getVariable().toString().replaceAll(";", "</br>");
+		text += s.getVariable().toString().replaceAll(";", "</br>") + "</br>";
+		if (problem instanceof SingleObjectiveThiefProblem) {
+			double value = (- s.getObjectives(1)) - ((SingleObjectiveThiefProblem)problem).getR() * s.getObjectives(0) ;;
+			text += Precision.round(value, 2);
+		}
 		json.writeObjectField("variable", text);
 
 		json.writeEndObject();

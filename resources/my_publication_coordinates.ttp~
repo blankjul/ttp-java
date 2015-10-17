@@ -7,7 +7,7 @@
   "maxSpeed" : 1.0,
   "maxWeight" : 80,
   "startingCityIsZero" : true,
-  "R" : 1.516103271 ,
+  "R" : 1.670336711 ,
   "profitEvaluator" : {
     "type" : "NO_DROPPING"
   },

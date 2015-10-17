@@ -3,8 +3,8 @@ package com.msu.thief.evaluator.time;
 import java.util.List;
 
 import com.msu.moo.util.Pair;
-import com.msu.problems.ThiefProblem;
 import com.msu.problems.SalesmanProblem;
+import com.msu.problems.ThiefProblem;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.variable.pack.PackingList;
@@ -12,6 +12,7 @@ import com.msu.thief.variable.tour.Tour;
 
 public class StandardTimeEvaluator extends TimeEvaluator {
 
+	
 	
 	public StandardTimeEvaluator(ThiefProblem problem) {
 		super(problem);
@@ -30,6 +31,8 @@ public class StandardTimeEvaluator extends TimeEvaluator {
 		if (!b.contains(true)) {
 			return new SalesmanProblem(problem.getMap()).evaluate(pi) * problem.getMaxSpeed();
 		} 
+		
+		
 		
 
 		double speed = problem.getMaxSpeed();
@@ -54,7 +57,7 @@ public class StandardTimeEvaluator extends TimeEvaluator {
 					// if this is the case the weight is larger than the
 					// maxWeight!
 					speed = Math.max(speed, problem.getMinSpeed());
-
+	
 					// save the picking time!
 					mItem.put(item, time);
 

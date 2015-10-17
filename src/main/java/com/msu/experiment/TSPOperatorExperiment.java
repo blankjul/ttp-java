@@ -1,48 +1,80 @@
 package com.msu.experiment;
 
 import java.util.List;
+import java.util.function.Function;
 
+import com.msu.NSGAIIFactory;
 import com.msu.io.reader.SalesmanProblemReader;
 import com.msu.moo.algorithms.NSGAIIBuilder;
 import com.msu.moo.experiment.AExperiment;
 import com.msu.moo.interfaces.IAlgorithm;
 import com.msu.moo.interfaces.IProblem;
-import com.msu.moo.operators.crossover.permutation.CycleCrossover;
-import com.msu.moo.operators.crossover.permutation.EdgeRecombinationCrossover;
-import com.msu.moo.operators.crossover.permutation.OrderedCrossover;
-import com.msu.moo.operators.crossover.permutation.PMXCrossover;
-import com.msu.moo.operators.mutation.SwapMutation;
+import com.msu.moo.report.AReport;
 import com.msu.moo.util.FileCollectorParser;
-import com.msu.moo.util.io.AReader;
+import com.msu.moo.util.events.EventDispatcher;
+import com.msu.moo.util.events.IListener;
+import com.msu.moo.util.events.RunFinishedEvent;
 import com.msu.problems.SalesmanProblem;
-import com.msu.thief.variable.tour.factory.NearestNeighbourFactory;
+import com.msu.problems.ThiefProblem;
+import com.msu.thief.model.ItemCollection;
 
 public class TSPOperatorExperiment extends AExperiment {
 
 	
+	private class TSPReport extends AReport {
+		public TSPReport(String path) {
+			super(path);
+			pw.println("problem,algorithm,result");
+			EventDispatcher.getInstance().register(RunFinishedEvent.class, new IListener<RunFinishedEvent>() {
+				@Override
+				public void handle(RunFinishedEvent event) {
+					
+					double value = (event.getNonDominatedSolutionSet().size() == 0) ? Double.NEGATIVE_INFINITY
+							: event.getNonDominatedSolutionSet().get(0).getObjectives(0);
+					
+					pw.printf("%s,%s,%s\n", event.getProblem(), event.getAlgorithm(), value);
+				}
+			});
+		}
+	}
+	
+	
+	
+	@Override
+	protected void initialize() {
+		new TSPReport("/home/julesy/publications/ttp-publication-nsgaII/Experiments/proof_of_principle_tsp.csv");
+	}
+
+
 	@Override
 	protected void setProblems(List<IProblem> problems) {
-		AReader<SalesmanProblem> r = new SalesmanProblemReader(); 
-		FileCollectorParser<SalesmanProblem> fcp = new FileCollectorParser<>();
-		fcp.add("resources", "bays29.tsp", r);
-		fcp.add("resources", "berlin52.tsp", r);
-		fcp.add("resources", "eil101.tsp", r);
-		fcp.add("resources", "d198.tsp", r);
+			
+		FileCollectorParser<ThiefProblem> fcp = new FileCollectorParser<>();
+
+		fcp.add("resources", "*.tsp", new Function<String, ThiefProblem>() {
+
+			@Override
+			public ThiefProblem apply(String t) {
+				SalesmanProblem tsp = new SalesmanProblemReader().read(t);
+				ThiefProblem problem = new ThiefProblem(tsp.getMap(), new ItemCollection<>(), 10);
+				problem.setName(tsp.getName());
+				return problem;
+			}
+
+		});
 		problems.addAll(fcp.collect());
+
 	}
 	
 
 	@Override
 	protected void setAlgorithms(List<IAlgorithm> algorithms) {
 		NSGAIIBuilder builder = new NSGAIIBuilder();
-		builder.setFactory(new NearestNeighbourFactory());
-		builder.setMutation(new SwapMutation<>());
-		builder.setProbMutation(0.3);
-		builder.setPopulationSize(1000);
-		algorithms.add(builder.setCrossover(new PMXCrossover<Integer>()).setName("PMX").create());
-		algorithms.add(builder.setCrossover(new CycleCrossover<Integer>()).setName("CX").create());
-		algorithms.add(builder.setCrossover(new OrderedCrossover<Integer>()).setName("OX").create());
-		algorithms.add(builder.setCrossover(new EdgeRecombinationCrossover<Integer>()).setName("ERC").create());
+		builder.setPopulationSize(500);
+		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[RANDOM-RANDOM]-[PMX-NO]-[SWAP-NO]", builder).setName("PMX").create());
+		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[RANDOM-RANDOM]-[CX-NO]-[SWAP-NO]", builder).setName("CX").create());
+		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[RANDOM-RANDOM]-[OX-NO]-[SWAP-NO]", builder).setName("OX").create());
+		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[RANDOM-RANDOM]-[ERX-NO]-[SWAP-NO]", builder).setName("ERX").create());
 	}
 
 }

@@ -35,7 +35,7 @@ public class RandomThiefProblemFactory extends AThiefProblemFactory{
 
 		// create the map
 		ThiefProblem problem = new ThiefProblem();
-		problem.setMap(new RandomSalesmanProblemFactory().create(numOfCities).getMap());
+		problem.setMap(facSalesman.create(numOfCities).getMap());
 
 		// create the items
 		ItemCollection<Item> items = new ItemCollection<Item>();
@@ -45,7 +45,7 @@ public class RandomThiefProblemFactory extends AThiefProblemFactory{
 		Double maximalTourTime = (problem.getMap().getMax() * problem.getMap().getSize()) / problem.getMinSpeed();
 
 		
-		KnapsackProblem knp = new RandomKnapsackProblemFactory().create(numOfCities * itemsPerCity, maxWeightPerc);
+		KnapsackProblem knp = facKnapsack.create(numOfCities * itemsPerCity, maxWeightPerc);
 		Queue<Item> q = new LinkedList<>(knp.getItems());
 		
 		for (int i = 0; i < numOfCities; i++) {

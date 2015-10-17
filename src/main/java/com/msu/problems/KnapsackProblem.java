@@ -44,6 +44,7 @@ public class KnapsackProblem  extends AProblem<PackingList<?>> implements IPacki
 	public static <T extends Item> double getWeight(List<Item> items, List<Boolean> b) {
 		return getSumItemAttribute(items, b, i -> i.getWeight());
 	}
+	
 
 	/**
 	 * @return sum of profits for given packing list
@@ -64,11 +65,11 @@ public class KnapsackProblem  extends AProblem<PackingList<?>> implements IPacki
 	 * @return resulting weight
 	 */
 	public static <T extends Item> double getSumItemAttribute(List<T> items, List<Boolean> b, Function<T, Double> func) {
-		double weight = 0;
+		double value = 0;
 		for (int j = 0; j < b.size(); j++) {
-			if (b.get(j)) weight += func.apply(items.get(j));
+			if (b.get(j)) value += func.apply(items.get(j));
 		}
-		return weight;
+		return value;
 	}
 
 	@Override

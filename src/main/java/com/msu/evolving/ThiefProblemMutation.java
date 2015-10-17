@@ -2,6 +2,7 @@ package com.msu.evolving;
 
 import java.awt.geom.Point2D;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.msu.moo.operators.AbstractMutation;
 import com.msu.moo.util.Random;
@@ -23,13 +24,17 @@ public class ThiefProblemMutation extends AbstractMutation<ThiefProblem> {
 			}
 		}
 		a.setMap(new CoordinateMap(cities));
-		a.setMaxWeight((int) (a.getMaxWeight() * rnd.nextDouble(0.05, 5)));
+
+		if (rnd.nextDouble() < 0.5) {
+			Double maxWeight = a.getItemCollection().asList().stream().collect(Collectors.summingDouble(Item::getWeight));
+			a.setMaxWeight((int) (maxWeight * Random.getInstance().nextDouble()));
+		}
 
 		ItemCollection<Item> items = a.getItemCollection();
 		ItemCollection<Item> mItems = new ItemCollection<>();
 		for (int i = 0; i < a.numOfCities(); i++) {
 			for (int j = 0; j < items.getItemsFromCity(i).size(); j++) {
-				if (rnd.nextDouble() < 0.05) {
+				if (rnd.nextDouble() < 0.2) {
 					mItems.add(i, new Item(rnd.nextInt(1, 1000), rnd.nextInt(1, 1000)));
 				} else {
 					Item item = items.getItemsFromCity(i).get(j);

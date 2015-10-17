@@ -35,7 +35,6 @@ public class KnapsackCombo extends AbstractAlgorithm {
 		String command = getCommand((KnapsackProblem) eval.getProblem());
 		//System.out.println(command);
 		String out = BashExecutor.execute(command);
-		
 		List<Boolean> result = new ArrayList<>();
 		
 		// for each line at the results

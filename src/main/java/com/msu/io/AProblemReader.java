@@ -9,7 +9,8 @@ public abstract class AProblemReader<T extends IProblem> extends AReader<T>{
 
 	public T read(String pathToFile) {
 		T problem = super.read(pathToFile);
-		problem.setName(new File(pathToFile).getName().split("\\.")[0]);
+		String name = new File(pathToFile).getName();
+		problem.setName(name.substring(0, name.length() - 4));
 		return problem;
 	}
 	

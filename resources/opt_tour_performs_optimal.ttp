@@ -1,0 +1,39 @@
+{
+  "name" : "opt_tour_performs_optimal",
+  "problemType" : "MultiObjective",
+  "numOfCities" : 5,
+  "numOfItems" : 5,
+  "minSpeed" : 0.1,
+  "maxSpeed" : 1.0,
+  "maxWeight" : 2268,
+  "startingCityIsZero" : true,
+  "profitEvaluator" : {
+    "type" : "NO_DROPPING"
+  },
+  "timeEvaluator" : {
+    "type" : "STANDARD"
+  },
+  "cityType" : "XY_COORDINATES",
+  "cities" : [ [ 960.0, 46.0 ], [ 245.0, 207.0 ], [ 737.0, 515.0 ], [ 940.0, 207.0 ], [ 125.0, 622.0 ] ],
+  "items" : [ {
+    "city" : 0,
+    "weight" : 926.0,
+    "value" : 950.0
+  }, {
+    "city" : 1,
+    "weight" : 135.0,
+    "value" : 104.0
+  }, {
+    "city" : 2,
+    "weight" : 45.0,
+    "value" : 463.0
+  }, {
+    "city" : 3,
+    "weight" : 220.0,
+    "value" : 933.0
+  }, {
+    "city" : 4,
+    "weight" : 142.0,
+    "value" : 174.0
+  } ]
+}

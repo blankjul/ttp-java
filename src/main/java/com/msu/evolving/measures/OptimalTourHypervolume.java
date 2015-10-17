@@ -13,23 +13,20 @@ import com.msu.moo.visualization.HypervolumeBoxPlot;
 
 public class OptimalTourHypervolume extends AProblem<ThiefProblemVariable>{
 
+	
 	public static final int MAX_EVALUATIONS_OF_THIEF = 4000;
 	
+	public static final int POPULATION_SIZE = 40;
 	
-	IAlgorithm aRandom = NSGAIIFactory.createNSGAIIBuilder("NSGAII-[RANDOM-RANDOM]-[OX-HUX]-[SWAP-BF]").setPopulationSize(40).create();
-	IAlgorithm aOptimal = NSGAIIFactory.createNSGAIIBuilder("NSGAII-[OPT-RANDOM]-[NO-HUX]-[NO-BF]").setPopulationSize(40).create();
+	
+	IAlgorithm aRandom = NSGAIIFactory.createNSGAIIBuilder("NSGAII-[2OPT-RANDOM]-[OX-HUX]-[SWAP-BF]").setPopulationSize(POPULATION_SIZE).create();
+	IAlgorithm aOptimal = NSGAIIFactory.createNSGAIIBuilder("NSGAII-[OPT-RANDOM]-[NO-HUX]-[NO-BF]").setPopulationSize(POPULATION_SIZE).create();
 	
 	int counter = 0;
 	
 	@Override
 	public int getNumberOfObjectives() {
-		return 1;
-	}
-	
-
-	@Override
-	public int getNumberOfConstraints() {
-		return 0;
+		return 2;
 	}
 
 
@@ -54,13 +51,14 @@ public class OptimalTourHypervolume extends AProblem<ThiefProblemVariable>{
 			if (isDominated) ++numOfDominations;
 		}
 		
-		objectives.add((double) numOfDominations);
+		objectives.add((double) numOfDominations / (double) setRandom.size());
+		objectives.add((double) - setRandom.size());
 		*/
 		
-		
 		List<Double> hv = HypervolumeBoxPlot.calc(Arrays.asList(setRandom, setOptimal), null);
-		objectives.add((double) hv.get(1) / hv.get(0));
-		
+		//objectives.add((double) hv.get(1) / hv.get(0));
+		objectives.add((double) hv.get(1) -  hv.get(0));
+		objectives.add((double) - setRandom.size());
 		System.out.println(++counter);
 		
 	}

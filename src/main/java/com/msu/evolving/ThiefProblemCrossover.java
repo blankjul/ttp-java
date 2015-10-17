@@ -3,11 +3,12 @@ package com.msu.evolving;
 import java.awt.geom.Point2D;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.msu.moo.interfaces.IVariable;
 import com.msu.moo.model.Variable;
 import com.msu.moo.operators.AbstractCrossover;
-import com.msu.moo.operators.crossover.SinglePointCrossover;
+import com.msu.moo.operators.crossover.UniformCrossover;
 import com.msu.moo.util.Random;
 import com.msu.moo.util.Util;
 import com.msu.problems.ThiefProblem;
@@ -23,23 +24,23 @@ public class ThiefProblemCrossover extends AbstractCrossover<ThiefProblem>{
 	protected List<ThiefProblem> crossover_(ThiefProblem a, ThiefProblem b) {
 		
 		ThiefProblem child1 = Util.cloneObject(a);
-		ThiefProblem child2 = Util.cloneObject(a);
+		ThiefProblem child2 = Util.cloneObject(b);
 		Random rnd = Random.getInstance();
 		
 		
 		Variable<List<Point2D>> paCities = new Variable<List<Point2D>>(((CoordinateMap) a.getMap()).getCities());
 		Variable<List<Point2D>> pbCities = new Variable<List<Point2D>>(((CoordinateMap) b.getMap()).getCities());
-		List<IVariable> offCities = new SinglePointCrossover<>().crossover(paCities, pbCities);
+		List<IVariable> offCities = new UniformCrossover<>().crossover(paCities, pbCities);
 		child1.setMap(new CoordinateMap(((Variable<List<Point2D>>) offCities.get(0)).get()));
 		child2.setMap(new CoordinateMap(((Variable<List<Point2D>>) offCities.get(1)).get()));
 		
-
 		if (rnd.nextDouble() < 0.5) {
+			Double maxWeight = a.getItemCollection().asList().stream().collect(Collectors.summingDouble(Item::getWeight));
+			child1.setMaxWeight((int) (maxWeight * Random.getInstance().nextDouble()));
+			child2.setMaxWeight((int) (maxWeight * Random.getInstance().nextDouble()));
+		} else {
 			child1.setMaxWeight(a.getMaxWeight());
 			child2.setMaxWeight(b.getMaxWeight());
-		} else {
-			child1.setMaxWeight(b.getMaxWeight());
-			child2.setMaxWeight(a.getMaxWeight());
 		}
 		
 		

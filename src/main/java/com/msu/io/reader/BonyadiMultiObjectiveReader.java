@@ -8,9 +8,9 @@ import org.apache.log4j.Logger;
 import com.msu.problems.ThiefProblem;
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
 
-public class BonyadiMuliObjectiveReader extends ABonyadiReader<ThiefProblem> {
+public class BonyadiMultiObjectiveReader extends ABonyadiReader<ThiefProblem> {
 
-	static final Logger logger = Logger.getLogger(BonyadiMuliObjectiveReader.class);
+	static final Logger logger = Logger.getLogger(BonyadiMultiObjectiveReader.class);
 
 	@Override
 	protected ThiefProblem read_(BufferedReader br) throws IOException {

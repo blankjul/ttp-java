@@ -28,13 +28,13 @@ public class ExperimentExecutor {
 	protected final static String PREFIX = "com.msu.experiment.";
 	
 	//! experiment that should be executed
-	protected final static String EXPERIMENT = "ThiefVisualizeExperiment";
+	protected final static String EXPERIMENT = "TSPOperatorExperiment";
 	
 	//! number of iterations per experiment
 	protected final static int ITERATIONS = 1;
 	
 	//! max evaluations per run
-	protected final static int MAX_EVALUATIONS = 500000;
+	protected final static int MAX_EVALUATIONS = 1000000;
 	
 	//! random seed for experiment execution
 	protected final static long SEED = 123456;		

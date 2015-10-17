@@ -7,15 +7,17 @@ import com.msu.moo.util.Random;
 import com.msu.problems.ThiefProblem;
 import com.msu.problems.factory.AKnapsackProblemFactory;
 import com.msu.problems.factory.ASalesmanProblemFactory;
+import com.msu.problems.factory.ClusteredSalesmanProblemFactory;
 import com.msu.problems.factory.RandomKnapsackProblemFactory;
 import com.msu.problems.factory.RandomKnapsackProblemFactory.CORRELATION_TYPE;
-import com.msu.problems.factory.RandomSalesmanProblemFactory;
 import com.msu.problems.factory.RandomThiefProblemFactory;
 import com.msu.thief.evaluator.profit.NoDroppingEvaluator;
 
 public class ThiefProblemVariableFactory extends AVariableFactory {
 
 	protected int numOfCities;
+	
+	
 
 	public ThiefProblemVariableFactory(int numOfCities) {
 		super();
@@ -25,8 +27,9 @@ public class ThiefProblemVariableFactory extends AVariableFactory {
 	@Override
 	public IVariable next(IProblem problem) {
 		
-		ASalesmanProblemFactory facSalesman = new RandomSalesmanProblemFactory();
-		AKnapsackProblemFactory facKnp = new RandomKnapsackProblemFactory().setCorrType(CORRELATION_TYPE.UNCORRELATED);
+		ASalesmanProblemFactory facSalesman = new ClusteredSalesmanProblemFactory(5);
+		//ASalesmanProblemFactory facSalesman = new ClusteredSalesmanProblemFactory(6);
+		AKnapsackProblemFactory facKnp = new RandomKnapsackProblemFactory().setCorrType(CORRELATION_TYPE.WEAKLY_CORRELATED);
 		RandomThiefProblemFactory facThief = new RandomThiefProblemFactory(facSalesman, facKnp);
 		ThiefProblem result = facThief.create(numOfCities, 1, Random.getInstance().nextDouble());
 		

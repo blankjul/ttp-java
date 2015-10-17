@@ -21,11 +21,13 @@ import com.msu.thief.variable.TTPVariableFactory;
 import com.msu.thief.variable.pack.factory.APackingPlanFactory;
 import com.msu.thief.variable.pack.factory.EmptyPackingListFactory;
 import com.msu.thief.variable.pack.factory.FullPackingListFactory;
+import com.msu.thief.variable.pack.factory.OptimalPackingListFactory;
 import com.msu.thief.variable.pack.factory.RandomPackingListFactory;
 import com.msu.thief.variable.tour.factory.ATourFactory;
 import com.msu.thief.variable.tour.factory.NearestNeighbourFactory;
 import com.msu.thief.variable.tour.factory.OptimumFactory;
 import com.msu.thief.variable.tour.factory.RandomTourFactory;
+import com.msu.thief.variable.tour.factory.TwoOptFactory;
 
 public class NSGAIIFactory {
 
@@ -53,10 +55,13 @@ public class NSGAIIFactory {
 		return builder;
 	}
 	
-
 	public static NSGAIIBuilder createNSGAIIBuilder(String name) {
+		return NSGAIIFactory.createNSGAIIBuilder(name, new NSGAIIBuilder());
+	}
+	
+	
+	public static NSGAIIBuilder createNSGAIIBuilder(String name, NSGAIIBuilder builder) {
 
-		NSGAIIBuilder builder = new NSGAIIBuilder();
 		builder.setName(name);
 
 		String[] values = name.substring(7).replaceAll("\\[", "").replaceAll("\\]", "").split("-");
@@ -76,6 +81,8 @@ public class NSGAIIFactory {
 
 		return builder;
 	}
+	
+	
 
 	protected static AbstractMutation<?> parsePackingMutation(String value) {
 		if (value.equals("BF")) {
@@ -134,6 +141,8 @@ public class NSGAIIFactory {
 			return new NearestNeighbourFactory();
 		} else if (value.equals("RANDOM")) {
 			return new RandomTourFactory();
+		} else if (value.equals("2OPT")) {
+			return new TwoOptFactory();
 		} else {
 			throw new RuntimeException("Unknown Tour factory");
 		}
@@ -146,6 +155,8 @@ public class NSGAIIFactory {
 			return new EmptyPackingListFactory();
 		} else if (value.equals("RANDOM")) {
 			return new RandomPackingListFactory();
+		} else if (value.equals("OPT")) {
+			return new OptimalPackingListFactory();
 		} else {
 			throw new RuntimeException("Unknown Packing factory");
 		}

@@ -1,0 +1,43 @@
+{
+  "name" : "TTP-6-1",
+  "problemType" : "MultiObjective",
+  "numOfCities" : 6,
+  "numOfItems" : 6,
+  "minSpeed" : 0.1,
+  "maxSpeed" : 1.0,
+  "maxWeight" : 1000,
+  "startingCityIsZero" : true,
+  "profitEvaluator" : {
+    "type" : "NO_DROPPING"
+  },
+  "timeEvaluator" : {
+    "type" : "STANDARD"
+  },
+  "cityType" : "XY_COORDINATES",
+  "cities" : [ [ 100.0, 0.0 ], [ 200.0, 100.0 ], [ 200.0, 200.0 ], [ 100.0, 300.0 ], [ 0.0, 200.0 ] , [ 0.0, 100.0 ]],
+  "items" : [ {
+    "city" : 0,
+    "weight" : 322.0,
+    "value" : 708.0
+  }, {
+    "city" : 1,
+    "weight" : 167.0,
+    "value" : 494.0
+  }, {
+    "city" : 2,
+    "weight" : 455.0,
+    "value" : 676.0
+  }, {
+    "city" : 3,
+    "weight" : 948.0,
+    "value" : 876.0
+  }, {
+    "city" : 4,
+    "weight" : 301.0,
+    "value" : 384.0
+  }, {
+    "city" : 5,
+    "weight" : 351.0,
+    "value" : 570.0
+  } ]
+}

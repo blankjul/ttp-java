@@ -5,15 +5,18 @@ import java.util.List;
 import org.apache.log4j.BasicConfigurator;
 
 import com.msu.algorithms.exhaustive.ThiefExhaustive;
+import com.msu.analyze.ThiefAmountOfDifferentTours;
 import com.msu.analyze.ThiefAmountOfOptimalTourInFront;
+import com.msu.evolving.measures.OptimalTourHypervolume;
 import com.msu.io.writer.JsonThiefProblemWriter;
 import com.msu.moo.Configuration;
 import com.msu.moo.algorithms.NSGAIIBuilder;
 import com.msu.moo.experiment.AExperiment;
 import com.msu.moo.interfaces.IAlgorithm;
 import com.msu.moo.interfaces.IProblem;
+import com.msu.moo.model.AProblem;
+import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
-import com.msu.moo.util.ObjectFactory;
 import com.msu.problems.ThiefProblem;
 
 
@@ -25,14 +28,32 @@ import com.msu.problems.ThiefProblem;
  */
 public class ThiefProblemEvolvingExperiment extends AExperiment  {
 
+	final public static int NUM_OF_CITIES = 100;
 	
-	final public static String PROBLEM = "com.msu.evolving.measures.VariatyInTheFront";
+	final public static int NUM_OF_GENERATIONS = 10;
 	
-	final public static int NUM_OF_CITIES = 6;
+	final public static int NUM_OF_INDIVIDUALS = 5;
 	
-	final public static int NUM_OF_GENERATIONS = 50;
 	
-	final public static int NUM_OF_INDIVIDUALS = 10;
+	private class EvolvingProblem extends AProblem<ThiefProblemVariable> {
+
+		@Override
+		public int getNumberOfObjectives() {
+			return 2;
+		}
+
+		@Override
+		protected void evaluate_(ThiefProblemVariable var, List<Double> objectives, List<Double> constraintViolations) {
+			objectives.add((double) new ThiefAmountOfOptimalTourInFront().analyze(var.get()));
+			objectives.add((double) - new ThiefAmountOfDifferentTours().analyze(new ThiefExhaustive().run(new Evaluator(var.get()))));
+		}
+	}
+	
+	
+	@Override
+	protected void setProblems(List<IProblem> problems) {
+		problems.add(new OptimalTourHypervolume());
+	}
 	
 	
 	@Override
@@ -46,12 +67,7 @@ public class ThiefProblemEvolvingExperiment extends AExperiment  {
 	}
 	
 	
-	@Override
-	protected void setProblems(List<IProblem> problems) {
-		IProblem p = ObjectFactory.create(IProblem.class, PROBLEM);
-		problems.add(p);
-	}
-	
+
 
 
 	@Override
@@ -65,16 +81,16 @@ public class ThiefProblemEvolvingExperiment extends AExperiment  {
 		
 		for (int i = 0; i < set.size(); i++) {
 			
-			if (i == 1) break;
+			//if (i == 1) break;
 			
 			ThiefProblemVariable var = (ThiefProblemVariable) set.get(i).getVariable();
 			ThiefProblem best = var.get();
 			String file = "../ttp-benchmark/EA_example0" + i + ".ttp";
 			new JsonThiefProblemWriter().write(best,file );
 			
-			System.out.println(new ThiefExhaustive().run(best));
+			//System.out.println(new ThiefExhaustive().run(best));
 			
-			new ThiefAmountOfOptimalTourInFront().analyze(best);
+			//new ThiefAmountOfOptimalTourInFront().analyze(best);
 			
 			/*
 			
