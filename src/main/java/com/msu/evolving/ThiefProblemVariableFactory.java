@@ -25,13 +25,13 @@ public class ThiefProblemVariableFactory extends AVariableFactory {
 	}
 
 	@Override
-	public IVariable next(IProblem problem) {
+	public IVariable next(IProblem problem, Random rand) {
 		
 		ASalesmanProblemFactory facSalesman = new ClusteredSalesmanProblemFactory(5);
 		//ASalesmanProblemFactory facSalesman = new ClusteredSalesmanProblemFactory(6);
 		AKnapsackProblemFactory facKnp = new RandomKnapsackProblemFactory().setCorrType(CORRELATION_TYPE.WEAKLY_CORRELATED);
 		RandomThiefProblemFactory facThief = new RandomThiefProblemFactory(facSalesman, facKnp);
-		ThiefProblem result = facThief.create(numOfCities, 1, Random.getInstance().nextDouble());
+		ThiefProblem result = facThief.create(numOfCities, 1, rand.nextDouble(), rand);
 		
 		/*
 		ThiefProblem cluster = new JsonThiefProblemReader().read("../ttp-benchmark/max.ttp");

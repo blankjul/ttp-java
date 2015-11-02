@@ -3,6 +3,7 @@ package com.msu.thief.variable;
 import com.msu.moo.interfaces.IVariable;
 import com.msu.moo.operators.AbstractMutation;
 import com.msu.moo.util.Pair;
+import com.msu.moo.util.Random;
 
 public class TTPMutation extends AbstractMutation<Pair<IVariable,IVariable>>{
 
@@ -22,9 +23,9 @@ public class TTPMutation extends AbstractMutation<Pair<IVariable,IVariable>>{
 	
 	
 	@Override
-	protected void mutate_(Pair<IVariable,IVariable> a) {
-		a.first = mTour.mutate(a.first);
-		a.second = mPackingPlan.mutate(a.second);
+	protected void mutate_(Pair<IVariable,IVariable> a, Random rand) {
+		a.first = mTour.mutate(a.first, rand);
+		a.second = mPackingPlan.mutate(a.second, rand);
 	}
 	
 	

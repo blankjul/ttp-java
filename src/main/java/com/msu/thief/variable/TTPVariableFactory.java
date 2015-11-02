@@ -2,6 +2,7 @@ package com.msu.thief.variable;
 
 import com.msu.moo.interfaces.IProblem;
 import com.msu.moo.model.AVariableFactory;
+import com.msu.moo.util.Random;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.pack.factory.APackingPlanFactory;
 import com.msu.thief.variable.tour.Tour;
@@ -19,9 +20,9 @@ public class TTPVariableFactory extends AVariableFactory {
 	}
 
 	@Override
-	public TTPVariable next(IProblem problem) {
-		Tour<?> tour = (Tour<?>) facTour.next(problem);
-		PackingList<?> list = (PackingList<?>) facPlan.next(problem);
+	public TTPVariable next(IProblem problem, Random rand) {
+		Tour<?> tour = (Tour<?>) facTour.next(problem, rand);
+		PackingList<?> list = (PackingList<?>) facPlan.next(problem, rand);
 		return new TTPVariable(tour,list);
 	}
 

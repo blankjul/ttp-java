@@ -14,8 +14,7 @@ import com.msu.thief.model.ItemCollection;
 public class ThiefProblemMutation extends AbstractMutation<ThiefProblem> {
 
 	@Override
-	protected void mutate_(ThiefProblem a) {
-		Random rnd = Random.getInstance();
+	protected void mutate_(ThiefProblem a, Random rnd) {
 
 		List<Point2D> cities = ((CoordinateMap) a.getMap()).getCities();
 		for (int i = 0; i < a.numOfCities(); i++) {
@@ -27,7 +26,7 @@ public class ThiefProblemMutation extends AbstractMutation<ThiefProblem> {
 
 		if (rnd.nextDouble() < 0.5) {
 			Double maxWeight = a.getItemCollection().asList().stream().collect(Collectors.summingDouble(Item::getWeight));
-			a.setMaxWeight((int) (maxWeight * Random.getInstance().nextDouble()));
+			a.setMaxWeight((int) (maxWeight *  rnd.nextDouble()));
 		}
 
 		ItemCollection<Item> items = a.getItemCollection();

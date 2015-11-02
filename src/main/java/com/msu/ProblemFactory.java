@@ -3,6 +3,7 @@ package com.msu;
 import org.apache.log4j.BasicConfigurator;
 
 import com.msu.io.writer.JsonThiefProblemWriter;
+import com.msu.moo.util.Random;
 import com.msu.problems.ThiefProblem;
 import com.msu.problems.factory.AKnapsackProblemFactory;
 import com.msu.problems.factory.ASalesmanProblemFactory;
@@ -22,6 +23,9 @@ public class ProblemFactory {
 
 	final public static CORRELATION_TYPE[] TYPES = new CORRELATION_TYPE[] { CORRELATION_TYPE.UNCORRELATED, CORRELATION_TYPE.WEAKLY_CORRELATED,
 			CORRELATION_TYPE.STRONGLY_CORRELATED };
+	
+	final public static long RANDOM_SEED = 123456;
+	
 
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
@@ -36,7 +40,7 @@ public class ProblemFactory {
 						//ASalesmanProblemFactory facSalesman = new ClusteredSalesmanProblemFactory(3);
 						AKnapsackProblemFactory facKnp = new RandomKnapsackProblemFactory().setCorrType(type);
 						RandomThiefProblemFactory facThief = new RandomThiefProblemFactory(facSalesman, facKnp);
-						ThiefProblem problem = facThief.create(cities, itemsPercity, rate);
+						ThiefProblem problem = facThief.create(cities, itemsPercity, rate, new Random(RANDOM_SEED));
 						problem.setProfitEvaluator(new NoDroppingEvaluator());
 						problem.setName(String.format("%s-%s-%s-%s-%s", "Clustered", cities, itemsPercity, type, rate));
 						new JsonThiefProblemWriter().write(problem, String.format("../ttp-benchmark/MyBenchmark/%s.ttp", problem));

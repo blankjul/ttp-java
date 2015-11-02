@@ -13,12 +13,12 @@ public class RandomTourFactory extends ATourFactory {
 
 
 	@Override
-	public Tour<?> next(IProblem p) {
+	public Tour<?> next_(IProblem p, Random rand) {
 		LinkedList<Integer> indices = new LinkedList<Integer>();
 		for (int i = 0; i < ((ICityProblem) p).numOfCities(); i++) {
 			indices.add(i);
 		}
-		Random.getInstance().shuffle(indices);
+		rand.shuffle(indices);
 		return new StandardTour(new ArrayList<>(indices));
 	}
 

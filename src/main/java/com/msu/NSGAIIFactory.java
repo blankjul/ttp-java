@@ -1,7 +1,6 @@
 package com.msu;
 
-import com.msu.moo.algorithms.NSGAII;
-import com.msu.moo.algorithms.NSGAIIBuilder;
+import com.msu.moo.algorithms.nsgaII.NSGAIIBuilder;
 import com.msu.moo.operators.AbstractCrossover;
 import com.msu.moo.operators.AbstractMutation;
 import com.msu.moo.operators.crossover.HalfUniformCrossover;
@@ -31,19 +30,6 @@ import com.msu.thief.variable.tour.factory.TwoOptFactory;
 
 public class NSGAIIFactory {
 
-	public static NSGAII createNSGAII() {
-		return createNSGAIIBuilder().create();
-	}
-
-	public static NSGAIIBuilder createNSGAIIBuilder() {
-		NSGAIIBuilder builder = new NSGAIIBuilder();
-		builder.setFactory(new TTPVariableFactory(new RandomTourFactory(), new RandomPackingListFactory()));
-		builder.setCrossover(new TTPCrossover(new OrderedCrossover<>(), new SinglePointCrossover<>()));
-		builder.setMutation(new TTPMutation(new SwapMutation<>(), new BitFlipMutation()));
-		builder.setProbMutation(0.3);
-		builder.setName("NSGAII-ST[OX-SWAP]-BP[SPX-BFM]");
-		return builder;
-	}
 
 	public static NSGAIIBuilder createNSGAIIBuilderKnapsack(String name) {
 		NSGAIIBuilder builder = new NSGAIIBuilder();

@@ -17,7 +17,7 @@ public class FullPackingListFactory extends APackingPlanFactory {
 
 
 	@Override
-	public PackingList<?> next(IProblem p) {
+	public PackingList<?> next(IProblem p, Random rand) {
 		
 		// create empty list with no items 
 		List<Boolean> b = new ArrayList<Boolean>();
@@ -28,7 +28,7 @@ public class FullPackingListFactory extends APackingPlanFactory {
 		// create queue with all items indices
 		List<Item> items = problem.getItems();
 		List<Integer> index =  CombinatorialUtil.getIndexVector(items.size());
-		Random.getInstance().shuffle(index);
+		rand.shuffle(index);
 		Queue<Integer> q = new LinkedList<>(index);
 		
 		int weight = 0;

@@ -5,10 +5,11 @@ import java.util.Collections;
 import java.util.List;
 
 import com.msu.moo.interfaces.IProblem;
-import com.msu.moo.interfaces.IVariable;
+import com.msu.moo.util.Pair;
 import com.msu.moo.util.Random;
 import com.msu.problems.ICityProblem;
 import com.msu.problems.SalesmanProblem;
+import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.variable.tour.StandardTour;
 import com.msu.thief.variable.tour.Tour;
 
@@ -16,15 +17,25 @@ public class TwoOptFactory extends ATourFactory{
 
 	
 	@Override
-	public IVariable next(IProblem problem) {
-		Tour<?> tour = new RandomTourFactory().next(problem);
-		Tour<?> optimized = TwoOptFactory.optimize2Opt(new SalesmanProblem(((ICityProblem) problem).getMap()), tour);
+	public Tour<?> next_(IProblem problem, Random rand) {
+		Tour<?> tour = new RandomTourFactory().next_(problem, rand);
+		Tour<?> optimized = TwoOptFactory.optimize2Opt(new SalesmanProblem(((ICityProblem) problem).getMap()), tour, rand);
 		return optimized;
 	}
 
 	
+	public static Pair<List<Integer>, Double> twoOptSwap(List<Integer> var, int i, int k, SymmetricMap map, double time) {
+		List<Integer> tour = twoOptSwap(var, i, k);
+		double resTime = time - map.get(var.get(i-1),var.get(i)) - map.get(var.get(k), var.get(k+1)) +
+				map.get(var.get(i-1), var.get(k)) + map.get(var.get(i), var.get(k+1));
+		return Pair.create(tour, resTime);
+	}
+	
+	
+	
 	public static List<Integer> twoOptSwap(List<Integer> var, int i, int k) {
-
+		if (i <= 0) 
+			throw new RuntimeException(String.format("i=%s has to be lower than 0!", i));
 		if (i > k)
 			throw new RuntimeException(String.format("i=%s has to be lower than k=%s!", i, k));
 		if (k + 1 > var.size())
@@ -45,8 +56,12 @@ public class TwoOptFactory extends ATourFactory{
 	}
 	
 	
-
-	public static Tour<?> optimize2Opt(IProblem p, Tour<?> t) {
+	public static Tour<?> optimize2Opt(SalesmanProblem p, Tour<?> t, Random rand) {
+		return optimize2Opt(p, t, rand, true);
+	}
+	
+	
+	public static Tour<?> optimize2Opt(SalesmanProblem p, Tour<?> t, Random rand, boolean useFastCalc) {
 
 		
 		// always the best value for each iteration
@@ -63,11 +78,13 @@ public class TwoOptFactory extends ATourFactory{
 			hasImproved = false;
 			
 			
-			for (int i = 0; i < bestTour.size() - 1; i++) {
+			for (int i = 1; i < bestTour.size() - 1; i++) {
 				for (int k = i + 2; k < bestTour.size() - 1; k++) {
 					
-					List<Integer> nextTour = twoOptSwap(bestTour,i,k);
-					double nextTime = p.evaluate(new StandardTour(nextTour)).getObjectives(0);
+					Pair<List<Integer>, Double> pair = twoOptSwap(bestTour,i,k, p.getMap(), bestTime);
+					List<Integer> nextTour = pair.first;
+					
+					double nextTime = (useFastCalc) ? pair.second: p.evaluate(new StandardTour(nextTour)).getObjectives(0);
 					
 					if (nextTime < bestTime) {
 						
@@ -89,7 +106,7 @@ public class TwoOptFactory extends ATourFactory{
 		Collections.rotate(bestTour, -bestTour.indexOf(0));
 		StandardTour std = new StandardTour(bestTour);
 		
-		if (Random.getInstance().nextDouble() < 0.5) {
+		if (rand.nextDouble() < 0.5) {
 			return std;
 		} else {
 			return std.getSymmetric();

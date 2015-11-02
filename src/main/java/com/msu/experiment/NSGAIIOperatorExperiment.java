@@ -7,6 +7,7 @@ import com.msu.algorithms.OnePlusOneEA;
 import com.msu.moo.experiment.AExperiment;
 import com.msu.moo.interfaces.IAlgorithm;
 import com.msu.moo.interfaces.IProblem;
+import com.msu.moo.util.Random;
 import com.msu.problems.factory.RandomKnapsackProblemFactory;
 import com.msu.problems.factory.RandomKnapsackProblemFactory.CORRELATION_TYPE;
 import com.msu.problems.factory.RandomSalesmanProblemFactory;
@@ -28,7 +29,7 @@ public class NSGAIIOperatorExperiment extends AExperiment {
 				for (double rate : new Double[] { 0.1, 0.4, 0.6, 0.9 }) {
 					RandomKnapsackProblemFactory knp = new RandomKnapsackProblemFactory().setCorrType(CORRELATION_TYPE.UNCORRELATED);
 					RandomThiefProblemFactory facThief = new RandomThiefProblemFactory(new RandomSalesmanProblemFactory(), knp);
-					problems.add(facThief.create(cities, itemsPercity, rate));
+					problems.add(facThief.create(cities, itemsPercity, rate, new Random(12345)));
 				}
 			}
 		}

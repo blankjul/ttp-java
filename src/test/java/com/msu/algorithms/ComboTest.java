@@ -8,10 +8,12 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.msu.io.reader.BonyadiSingleObjectiveReader;
 import com.msu.io.reader.KnapsackProblemReader;
 import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.problems.KnapsackProblem;
+import com.msu.problems.ThiefProblem;
 import com.msu.thief.model.Item;
 import com.msu.thief.variable.pack.PackingList;
 
@@ -24,6 +26,7 @@ public class ComboTest {
 			"resources/knapPI_13_1000_1000.csv",
 			"resources/knapPI_13_2000_1000.csv"
 			};
+	
 	
 	@Test
 	public void testCorrectResult() {
@@ -45,8 +48,15 @@ public class ComboTest {
 		for(String pathToFile : SCENARIOS) {
 			KnapsackProblem problem = new KnapsackProblemReader().read(pathToFile);
 			NonDominatedSolutionSet set = new KnapsackCombo().run(new Evaluator(problem));
-			assertEquals(-problem.getOptimum().get(0).getObjectives(0), set.get(0).getObjectives(0), 0.01);
+			assertEquals(problem.getOptimum().get(0).getObjectives(0), set.get(0).getObjectives(0), 0.01);
 		}
+	}
+	
+	@Test
+	public void testLargeScaleProblem() {
+		ThiefProblem problem = new BonyadiSingleObjectiveReader().read("resources/100_150_7_25.txt");
+		KnapsackProblem knp = new KnapsackProblem(problem.getMaxWeight(), problem.getItems());
+		new KnapsackCombo().run(new Evaluator(knp));
 	}
 	
 

@@ -6,6 +6,7 @@ import java.util.List;
 import com.msu.moo.interfaces.IEvaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
+import com.msu.moo.util.Random;
 import com.msu.problems.ThiefProblem;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.BooleanPackingList;
@@ -27,7 +28,7 @@ public class ThiefExhaustive extends AExhaustiveAlgorithm {
 	}
 
 	@Override
-	public NonDominatedSolutionSet run_(IEvaluator eval) {
+	public NonDominatedSolutionSet run_(IEvaluator eval, Random rand) {
 		
 		boolean startingCityIsZero = ((ThiefProblem)eval.getProblem()).isStartingCityIsZero();
 		

@@ -10,9 +10,9 @@ import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.util.Pair;
 import com.msu.moo.util.Random;
+import com.msu.problems.SalesmanProblem;
 import com.msu.problems.SingleObjectiveThiefProblem;
 import com.msu.problems.ThiefProblem;
-import com.msu.problems.SalesmanProblem;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.BooleanPackingList;
@@ -38,7 +38,7 @@ public class OnePlusOneEA extends AbstractAlgorithm {
 
 
 	@Override
-	public NonDominatedSolutionSet run_(IEvaluator eval) {
+	public NonDominatedSolutionSet run_(IEvaluator eval, Random rand) {
 
 		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
 
@@ -53,13 +53,13 @@ public class OnePlusOneEA extends AbstractAlgorithm {
 		Tour<?> bestTour = new SalesmanLinKernighanHeuristic().getTour(new Evaluator(tsp));
 		Tour<?> symmetricBest = bestTour.getSymmetric();
 		
-		PackingList<?> bestList = new EmptyPackingListFactory().next(problem);
+		PackingList<?> bestList = new EmptyPackingListFactory().next(problem, rand);
 
 		while (eval.hasNext()) {
 
 			List<Boolean> nextList = new ArrayList<>(bestList.get());
 			for (int i = 0; i < nextList.size(); i++) {
-				if (Random.getInstance().nextDouble() < 1d / nextList.size()) {
+				if (rand.nextDouble() < 1d / nextList.size()) {
 					nextList.set(i, !nextList.get(i));
 				}
 			}

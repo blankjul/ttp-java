@@ -1,6 +1,7 @@
 package com.msu.analyze;
 
 import com.msu.algorithms.exhaustive.SalesmanExhaustive;
+import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.SolutionSet;
 import com.msu.problems.SalesmanProblem;
 
@@ -10,7 +11,7 @@ public class TourMinimalDistanceToOpt extends AbstractAnalyzer<SalesmanProblem, 
 	
 	@Override
 	public Double analyze(SalesmanProblem tsp) {
-		SolutionSet s = new SalesmanExhaustive().setOnlyNonDominatedPoints(false).run(tsp).getSolutions();
+		SolutionSet s = new SalesmanExhaustive().setOnlyNonDominatedPoints(false).run(new Evaluator(tsp)).getSolutions();
 		
 		s.sortByObjective(0);
 		

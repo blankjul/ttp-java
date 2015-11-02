@@ -7,7 +7,7 @@ import org.apache.log4j.BasicConfigurator;
 import com.msu.analyze.TourAverageDistanceToOpt;
 import com.msu.io.writer.JsonThiefProblemWriter;
 import com.msu.moo.Configuration;
-import com.msu.moo.algorithms.NSGAIIBuilder;
+import com.msu.moo.algorithms.nsgaII.NSGAIIBuilder;
 import com.msu.moo.experiment.AExperiment;
 import com.msu.moo.interfaces.IAlgorithm;
 import com.msu.moo.interfaces.IProblem;

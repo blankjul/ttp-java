@@ -13,12 +13,11 @@ public class RandomPackingListFactory extends APackingPlanFactory {
 
 
 	@Override
-	public PackingList<?> next(IProblem p) {
-		Random rnd = Random.getInstance();
-		double pickingProb = rnd.nextDouble();
+	public PackingList<?> next(IProblem p, Random rand) {
+		double pickingProb = rand.nextDouble();
 		List<Boolean> b = new ArrayList<Boolean>();
 		for (int i = 0; i < ((IPackingProblem) p).numOfItems(); i++) {
-			b.add(rnd.nextDouble() < pickingProb);
+			b.add(rand.nextDouble() < pickingProb);
 		}
 		return new BooleanPackingList(b);
 	}

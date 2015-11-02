@@ -3,6 +3,7 @@ package com.msu.problems.factory;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import com.msu.moo.util.Random;
 import com.msu.problems.KnapsackProblem;
 import com.msu.problems.ThiefProblem;
 import com.msu.thief.evaluator.profit.IndividualProfitEvaluator;
@@ -31,11 +32,11 @@ public class RandomThiefProblemFactory extends AThiefProblemFactory{
 
 
 	@Override
-	public ThiefProblem create(int numOfCities, int itemsPerCity, double maxWeightPerc) {
+	public ThiefProblem create(int numOfCities, int itemsPerCity, double maxWeightPerc, Random rand) {
 
 		// create the map
 		ThiefProblem problem = new ThiefProblem();
-		problem.setMap(facSalesman.create(numOfCities).getMap());
+		problem.setMap(facSalesman.create(numOfCities, rand).getMap());
 
 		// create the items
 		ItemCollection<Item> items = new ItemCollection<Item>();
@@ -45,7 +46,7 @@ public class RandomThiefProblemFactory extends AThiefProblemFactory{
 		Double maximalTourTime = (problem.getMap().getMax() * problem.getMap().getSize()) / problem.getMinSpeed();
 
 		
-		KnapsackProblem knp = facKnapsack.create(numOfCities * itemsPerCity, maxWeightPerc);
+		KnapsackProblem knp = facKnapsack.create(numOfCities * itemsPerCity, maxWeightPerc, rand);
 		Queue<Item> q = new LinkedList<>(knp.getItems());
 		
 		for (int i = 0; i < numOfCities; i++) {

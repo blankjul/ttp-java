@@ -58,10 +58,8 @@ public class SingleObjectiveThiefProblem extends ThiefProblem {
 		}
 		
 		// always start at city 0
-		if (startingCityIsZero) rotateToCityZero(var);
-
-		// check for the correct input before using evaluator
 		Pair<Tour<?>, PackingList<?>> pair = var.get();
+		if (startingCityIsZero) pair.first = ThiefProblem.rotateToCityZero(pair.first, true);
 
 		checkTour(pair.first);
 		checkPackingList(pair.second);

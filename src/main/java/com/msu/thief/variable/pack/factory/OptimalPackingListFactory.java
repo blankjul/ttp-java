@@ -12,11 +12,11 @@ public class OptimalPackingListFactory extends APackingPlanFactory {
 
 
 	@Override
-	public PackingList<?> next(IProblem p) {
+	public PackingList<?> next(IProblem p, Random rand) {
 		
 		IPackingProblem packProblem = (IPackingProblem) p;
 		
-		double weight = Random.getInstance().nextDouble() * packProblem.getMaxWeight();
+		double weight = rand.nextDouble() * packProblem.getMaxWeight();
 		KnapsackProblem knp = new KnapsackProblem((int) weight, packProblem.getItems());
 		
 		PackingList<?> l = KnapsackCombo.getPackingList(new Evaluator(knp));

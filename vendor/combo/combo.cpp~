@@ -2,10 +2,13 @@ extern "C"
 {
 #include "combo.h"
 }
+#include <istream>
+#include <ostream>
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <algorithm> 
+#include <string>
 
 
 struct IDgreater
@@ -18,11 +21,30 @@ struct IDgreater
 
 int main(int argc, char* argv[]) {
 
+	std::istream *in;
+	std::ifstream fin;
+	std::ostream  *out;
+	std::ofstream  fout;
+
+	if (argc==2) {
+	     fin.open(argv[1]);
+	     in=&fin;
+
+	     std::string file(argv[1]);
+	     std::string postfix(".sol");
+	     fout.open((file + postfix).c_str());
+             out = &fout;
+	} else {
+	     in=&std::cin;
+             out =&std::cout;
+	}
+
+
      long maxWeight;
-     std::cin >> maxWeight;
+     (*in) >> maxWeight;
 
     long numOfItems;
-    std::cin >> numOfItems;
+    (*in) >> numOfItems;
 
 
 
@@ -30,7 +52,7 @@ int main(int argc, char* argv[]) {
     std::vector<item> items;
 
     int counter = 0;
-    while (std::cin >> p >> w)
+    while ((*in) >> p >> w)
     {
         item i;
         i.p = p;
@@ -46,20 +68,29 @@ int main(int argc, char* argv[]) {
      }
 
      item *f = &(*items.begin());
-     item *l = &(*items.end() - 1);
+     item *l = &(*(items.end() - 1));
 
    
      long objValue = combo(f,l, maxWeight,0, 45654646464645, true, false);
 
-     std::cout << "#" << objValue << "\n";
+     (*out) << "#" << objValue << "\n";
 
      std::sort( items.begin(), items.end(), IDgreater() );     
 
      for(std::vector<item>::iterator it = items.begin(); it != items.end(); ++it) {
-          std::cout << "#" << it->id << " - " << it->p << " - " << it-> w << " - " << it->x << "\n";
-          std::cout << it->x << "\n";
+          (*out) << "#" << it->id << " - " << it->p << " - " << it-> w << " - " << it->x << "\n";
+          (*out) << it->x << "\n";
+std::cout<<it->x << "\n";
 
      }
+
+	if (argc==2) {
+		fin.close();
+		fout.close();
+	}
+
+
+	return 0;
 
 }
 

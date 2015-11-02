@@ -31,7 +31,7 @@ public class ExperimentExecutor {
 	protected final static String EXPERIMENT = "TSPOperatorExperiment";
 	
 	//! number of iterations per experiment
-	protected final static int ITERATIONS = 1;
+	protected final static int ITERATIONS = 10;
 	
 	//! max evaluations per run
 	protected final static int MAX_EVALUATIONS = 1000000;

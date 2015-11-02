@@ -16,6 +16,7 @@ import com.msu.moo.interfaces.IEvaluator;
 import com.msu.moo.model.AbstractAlgorithm;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.util.BashExecutor;
+import com.msu.moo.util.Random;
 import com.msu.moo.util.Util;
 import com.msu.problems.ICityProblem;
 import com.msu.thief.model.SymmetricMap;
@@ -98,7 +99,7 @@ public class SalesmanLinKernighanHeuristic extends AbstractAlgorithm {
 	}
 	
 	@Override
-	public NonDominatedSolutionSet run_(IEvaluator eval) {
+	public NonDominatedSolutionSet run_(IEvaluator eval, Random rand) {
 		NonDominatedSolutionSet result = new NonDominatedSolutionSet();
 		result.add(eval.evaluate(getTour(eval)));
 		return result;

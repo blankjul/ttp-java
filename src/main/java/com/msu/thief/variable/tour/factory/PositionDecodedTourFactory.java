@@ -19,10 +19,10 @@ import com.msu.thief.variable.tour.Tour;
 public class PositionDecodedTourFactory<P extends ICityProblem> extends ATourFactory {
 
 	@Override
-	public Tour<?> next(IProblem p) {
+	public Tour<?> next_(IProblem p, Random rand) {
 		LinkedList<Integer> indices = new LinkedList<Integer>();
 		for (int i = 0; i < ((ICityProblem) p).numOfCities(); i++) {
-			indices.add(Random.getInstance().nextInt(0, i));
+			indices.add(rand.nextInt(0, i));
 		}
 		return new PositionDecodedTour(new ArrayList<>(indices));
 	}

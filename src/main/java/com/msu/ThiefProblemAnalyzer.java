@@ -7,8 +7,10 @@ import org.apache.log4j.BasicConfigurator;
 import com.msu.algorithms.KnapsackCombo;
 import com.msu.algorithms.SalesmanLinKernighanHeuristic;
 import com.msu.io.reader.BonyadiSingleObjectiveReader;
+import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.util.FileCollectorParser;
+import com.msu.moo.util.Random;
 import com.msu.problems.KnapsackProblem;
 import com.msu.problems.SalesmanProblem;
 import com.msu.problems.SingleObjectiveThiefProblem;
@@ -43,10 +45,10 @@ public class ThiefProblemAnalyzer {
 			KnapsackProblem knp = new KnapsackProblem(problem.getMaxWeight(), problem.getItems());
 			
 			
-			NonDominatedSolutionSet set = new KnapsackCombo().run(knp);
+			NonDominatedSolutionSet set = new KnapsackCombo().run(new Evaluator(knp), new Random());
 			System.out.println(set);
 			
-			NonDominatedSolutionSet set2 = new SalesmanLinKernighanHeuristic().run(new SalesmanProblem(problem.getMap()));
+			NonDominatedSolutionSet set2 = new SalesmanLinKernighanHeuristic().run(new Evaluator(new SalesmanProblem(problem.getMap())), new Random());
 			System.out.println(set2);
 			
 			Tour<?> bestTour = (Tour<?>) set2.get(0).getVariable();

@@ -58,7 +58,7 @@ public class NearestNeighbourFactory extends ATourFactory {
 
 
 	@Override
-	public Tour<?> next(IProblem p) {
+	public Tour<?> next_(IProblem p, Random rand) {
 		
 		// if there is a new problem!
 		if (problem != p) {
@@ -70,7 +70,7 @@ public class NearestNeighbourFactory extends ATourFactory {
 			pool = new ArrayList<>();
 			SymmetricMap map = ((ICityProblem) problem).getMap();
 			List<Integer> startingCities = CombinatorialUtil.getIndexVector(map.getSize());
-			Random.getInstance().shuffle(startingCities);
+			rand.shuffle(startingCities);
 			Queue<Integer> q = new LinkedList<>(startingCities);
 			
 			final int poolSize = Math.min(maxPoolSize, startingCities.size());
@@ -81,7 +81,7 @@ public class NearestNeighbourFactory extends ATourFactory {
 		}
 		
 		
-		return pool.get(Random.getInstance().nextInt(pool.size()));
+		return pool.get(rand.nextInt(pool.size()));
 	}
 
 }

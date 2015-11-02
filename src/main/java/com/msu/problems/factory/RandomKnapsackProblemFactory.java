@@ -25,13 +25,13 @@ public class RandomKnapsackProblemFactory extends AKnapsackProblemFactory {
 
 
 	@Override
-	public KnapsackProblem create(int numOfItems, double maxWeightPerc) {
+	public KnapsackProblem create(int numOfItems, double maxWeightPerc, Random rand) {
 		
 		long sumWeight = 0;
 
 		List<Item> items = new ArrayList<>();
 		for (int i = 0; i < numOfItems; i++) {
-			Item item = create(corrType, maximalValue);
+			Item item = create(corrType, maximalValue, rand);
 			items.add(item);
 			sumWeight += item.getWeight();
 		}
@@ -45,9 +45,8 @@ public class RandomKnapsackProblemFactory extends AKnapsackProblemFactory {
 	/**
 	 * Create one item according to the properties which are set.
 	 */
-	public static Item create(CORRELATION_TYPE corrType, int maximalValue) {
+	public static Item create(CORRELATION_TYPE corrType, int maximalValue, Random rnd) {
 
-		Random rnd = Random.getInstance();
 
 		// fix the weight value
 		int weight = rnd.nextInt(1, maximalValue);

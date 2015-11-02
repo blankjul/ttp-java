@@ -21,8 +21,7 @@ public class RandomSalesmanProblemFactory extends ASalesmanProblemFactory{
 
 
 	@Override
-	public SalesmanProblem create(int numOfCities) {
-		Random rnd = Random.getInstance();
+	public SalesmanProblem create(int numOfCities, Random rnd) {
 		ArrayList<Point2D> cities = new ArrayList<Point2D>(numOfCities);
 		for (int i = 0; i < numOfCities; i++) {
 			Point2D point = new Point2D.Double(rnd.nextInt(0, maxCoordinates), rnd.nextInt(0, maxCoordinates));

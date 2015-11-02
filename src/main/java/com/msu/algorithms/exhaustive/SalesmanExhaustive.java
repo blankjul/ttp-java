@@ -5,6 +5,7 @@ import java.util.List;
 import com.msu.moo.interfaces.IEvaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
+import com.msu.moo.util.Random;
 import com.msu.problems.SalesmanProblem;
 import com.msu.thief.variable.tour.StandardTour;
 import com.msu.thief.variable.tour.Tour;
@@ -16,7 +17,7 @@ public class SalesmanExhaustive extends AExhaustiveAlgorithm {
 	
 	
 	@Override
-	public NonDominatedSolutionSet run_(IEvaluator eval) {
+	public NonDominatedSolutionSet run_(IEvaluator eval, Random rand) {
 
 		SalesmanProblem problem = (SalesmanProblem) eval.getProblem();
 		NonDominatedSolutionSet set = (onlyNonDominatedPoints) ? new NonDominatedSolutionSet() : new ExhaustiveSolutionSet();

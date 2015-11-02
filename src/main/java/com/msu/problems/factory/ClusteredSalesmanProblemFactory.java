@@ -29,9 +29,8 @@ public class ClusteredSalesmanProblemFactory extends RandomSalesmanProblemFactor
 
 
 	@Override
-	public SalesmanProblem create(int numOfCities) {
+	public SalesmanProblem create(int numOfCities, Random rnd) {
 		
-		Random rnd = Random.getInstance();
 		
 		List<Point2D> clusters = new ArrayList<>();
 		for (int i = 0; i < numOfClusters; i++) {

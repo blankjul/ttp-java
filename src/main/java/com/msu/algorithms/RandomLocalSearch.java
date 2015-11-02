@@ -10,8 +10,8 @@ import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.util.Pair;
 import com.msu.moo.util.Random;
-import com.msu.problems.ThiefProblem;
 import com.msu.problems.SalesmanProblem;
+import com.msu.problems.ThiefProblem;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
@@ -21,7 +21,7 @@ import com.msu.thief.variable.tour.Tour;
 public class RandomLocalSearch extends AbstractAlgorithm {
 
 	@Override
-	public NonDominatedSolutionSet run_(IEvaluator eval) {
+	public NonDominatedSolutionSet run_(IEvaluator eval, Random rand) {
 
 		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
 
@@ -29,13 +29,13 @@ public class RandomLocalSearch extends AbstractAlgorithm {
 		
 		SalesmanProblem tsp = new SalesmanProblem(problem.getMap());
 		Tour<?> bestTour = new SalesmanLinKernighanHeuristic().getTour(new Evaluator(tsp));
-		PackingList<?> bestList = new EmptyPackingListFactory().next(problem);
+		PackingList<?> bestList = new EmptyPackingListFactory().next(problem, rand);
 
 		while (eval.hasNext()) {
 
 			// copy the list
 			List<Boolean> nextList = new ArrayList<>(bestList.get());
-			int position = Random.getInstance().nextInt(nextList.size());
+			int position = rand.nextInt(nextList.size());
 
 			// change the bit
 			nextList.set(position, !nextList.get(position));

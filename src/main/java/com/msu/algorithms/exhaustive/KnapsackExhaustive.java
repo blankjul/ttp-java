@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.msu.moo.interfaces.IEvaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
+import com.msu.moo.util.Random;
 import com.msu.problems.KnapsackProblem;
 import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.util.Combination;
@@ -13,7 +14,7 @@ public class KnapsackExhaustive extends AExhaustiveAlgorithm {
 
 	
 	@Override
-	public NonDominatedSolutionSet run_(IEvaluator evaluator) {
+	public NonDominatedSolutionSet run_(IEvaluator evaluator, Random rand) {
 		NonDominatedSolutionSet set = (onlyNonDominatedPoints) ? new NonDominatedSolutionSet() : new ExhaustiveSolutionSet();
 		KnapsackProblem problem = (KnapsackProblem) evaluator.getProblem();
 		final int n = problem.numOfItems();

@@ -3,6 +3,8 @@ package com.msu.problems;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.msu.moo.model.AProblem;
 import com.msu.moo.util.Pair;
 import com.msu.moo.util.exceptions.EvaluationException;
@@ -20,6 +22,8 @@ import com.msu.thief.variable.tour.StandardTour;
 import com.msu.thief.variable.tour.Tour;
 
 public class ThiefProblem extends AProblem<TTPVariable> implements IPackingProblem, ICityProblem{
+	
+	static final Logger logger = Logger.getLogger(ThiefProblem.class);
 	
 	// ! minimal speed of the salesman
 	protected double minSpeed = 0.1d;
@@ -71,7 +75,7 @@ public class ThiefProblem extends AProblem<TTPVariable> implements IPackingProbl
 		checkPackingList(pair.second);
 		
 		// fix the starting city if necessary
-		if (startingCityIsZero) rotateToCityZero(var);
+		if (startingCityIsZero) pair.first = rotateToCityZero(pair.first, true);
 		
 		// use the evaluators to calculate the result
 		evalTime = new StandardTimeEvaluator(this);
@@ -107,7 +111,6 @@ public class ThiefProblem extends AProblem<TTPVariable> implements IPackingProbl
 		return 1;
 	}
 
-	
 	
 	
 	public SymmetricMap getMap() {
@@ -179,17 +182,21 @@ public class ThiefProblem extends AProblem<TTPVariable> implements IPackingProbl
 		this.startingCityIsZero = fixStartingCitiy;
 	}
 	
-	protected void rotateToCityZero(TTPVariable var) {
-		Pair<Tour<?>, PackingList<?>> pair = var.get();
-		List<Integer> tour = pair.first.encode();
+
+	
+	public static StandardTour rotateToCityZero(Tour<?> var, boolean log) {
+		List<Integer> tour = var.encode();
 		
 		if (!tour.contains(0)) 
 			throw new RuntimeException("Failed to start at city 0. It's not included at the tour!");
+		int index = tour.indexOf(0);
 		
-		Collections.rotate(tour, -tour.indexOf(0));
-		pair.first = new StandardTour(tour);
+		if (index != 0) {
+			if (log) logger.info(String.format("Rotating city 0 to the first position: %s", tour));
+			Collections.rotate(tour, -index);
+		}
+		return new StandardTour(tour);
 	}
-
 	
 
 	

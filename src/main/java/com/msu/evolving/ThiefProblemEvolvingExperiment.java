@@ -10,7 +10,7 @@ import com.msu.analyze.ThiefAmountOfOptimalTourInFront;
 import com.msu.evolving.measures.OptimalTourHypervolume;
 import com.msu.io.writer.JsonThiefProblemWriter;
 import com.msu.moo.Configuration;
-import com.msu.moo.algorithms.NSGAIIBuilder;
+import com.msu.moo.algorithms.nsgaII.NSGAIIBuilder;
 import com.msu.moo.experiment.AExperiment;
 import com.msu.moo.interfaces.IAlgorithm;
 import com.msu.moo.interfaces.IProblem;
@@ -35,6 +35,7 @@ public class ThiefProblemEvolvingExperiment extends AExperiment  {
 	final public static int NUM_OF_INDIVIDUALS = 5;
 	
 	
+	@SuppressWarnings("unused")
 	private class EvolvingProblem extends AProblem<ThiefProblemVariable> {
 
 		@Override

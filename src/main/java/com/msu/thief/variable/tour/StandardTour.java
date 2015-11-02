@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.msu.moo.interfaces.IVariable;
 import com.msu.util.StringUtil;
 
 /**
@@ -17,7 +18,8 @@ public class StandardTour extends Tour<List<Integer>> {
 
 	
 	/**
-	 * Create a Tour using a permutation vector
+	 * Create a Tour using a permutation vector. Starting city is not given!!
+	 * So the zero is added to the beginning.
 	 * 
 	 * @param list
 	 *            tour represented by permutation vector
@@ -37,11 +39,6 @@ public class StandardTour extends Tour<List<Integer>> {
 
 	
 	@Override
-	public StandardTour copy() {
-		return new StandardTour(new ArrayList<Integer>(obj));
-	}
-
-	@Override
 	public List<Integer> encode() {
 		return obj;
 	}
@@ -55,6 +52,36 @@ public class StandardTour extends Tour<List<Integer>> {
 		return new StandardTour(tour);
 	}
 
+
+	@Override
+	public IVariable copy() {
+		return new StandardTour(new ArrayList<>(obj));
+	}
+
+
+	@Override
+	public List<Integer> get() {
+		//return new ArrayList<>(obj);
+		return new ArrayList<>(obj.subList(1, obj.size()));
+	}
+
+
+	@Override
+	public void set(Object obj) {
+		try {
+			@SuppressWarnings("unchecked")
+			List<Integer> l = (List<Integer>) obj;
+			l.add(0,0);
+			this.obj = l;
+		} catch (Exception e){
+			throw new RuntimeException("Object could not be set for variable");
+		}
+	
+	}
+
+	
+	
+	
 	
 	
 

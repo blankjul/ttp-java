@@ -14,7 +14,7 @@ public class OptimumFactory extends ATourFactory {
 	Tour<?> optimum = null;
 
 	@Override
-	public Tour<?> next(IProblem p) {
+	public Tour<?> next_(IProblem p, Random rand) {
 		if (problem != p)
 			problem = p;
 			optimum = null;
@@ -24,7 +24,7 @@ public class OptimumFactory extends ATourFactory {
 			optimum = new SalesmanLinKernighanHeuristic().getTour(new Evaluator(tsp));
 		}
 		
-		if (Random.getInstance().nextDouble() < 0.5) {
+		if (rand.nextDouble() < 0.5) {
 			return optimum;
 		} else {
 			return optimum.getSymmetric();
