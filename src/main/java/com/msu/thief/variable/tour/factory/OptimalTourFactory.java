@@ -8,7 +8,7 @@ import com.msu.problems.ICityProblem;
 import com.msu.problems.SalesmanProblem;
 import com.msu.thief.variable.tour.Tour;
 
-public class OptimumFactory extends ATourFactory {
+public class OptimalTourFactory extends ATourFactory {
 
 	IProblem problem = null;
 	Tour<?> optimum = null;

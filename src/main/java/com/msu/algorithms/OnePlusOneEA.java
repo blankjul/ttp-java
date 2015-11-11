@@ -1,6 +1,5 @@
 package com.msu.algorithms;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.msu.moo.interfaces.IEvaluator;
@@ -8,6 +7,7 @@ import com.msu.moo.model.AbstractAlgorithm;
 import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
+import com.msu.moo.operators.mutation.BitFlipMutation;
 import com.msu.moo.util.Pair;
 import com.msu.moo.util.Random;
 import com.msu.problems.SalesmanProblem;
@@ -57,13 +57,14 @@ public class OnePlusOneEA extends AbstractAlgorithm {
 
 		while (eval.hasNext()) {
 
-			List<Boolean> nextList = new ArrayList<>(bestList.get());
+	/*		List<Boolean> nextList = new ArrayList<>(bestList.get());
 			for (int i = 0; i < nextList.size(); i++) {
 				if (rand.nextDouble() < 1d / nextList.size()) {
 					nextList.set(i, !nextList.get(i));
 				}
-			}
+			}*/
 			
+			List<Boolean> nextList = ((PackingList<?>) new BitFlipMutation().mutate(bestList.copy(), rand)).encode();
 			Pair<Tour<?>, PackingList<?>> p = Pair.create(bestTour, new BooleanPackingList(nextList));
 			
 			// check if this solution is better

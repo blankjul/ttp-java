@@ -1,6 +1,8 @@
 package com.msu.thief;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,6 +16,7 @@ import com.msu.io.reader.JsonThiefProblemReader;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.util.Pair;
+import com.msu.moo.util.Random;
 import com.msu.moo.util.exceptions.EvaluationException;
 import com.msu.problems.ThiefProblem;
 import com.msu.scenarios.PublicationScenario;
@@ -88,6 +91,18 @@ public class TravellingThiefProblemTest {
 		assertFalse(var1.equals(var2));
 	}
 	
+	
+	@Test 
+	public void testProblemSeveralEvaluationsSameResult() {
+		Random rand = new Random();
+		for (int i = 0; i < 10; i++) {
+			
+		}
+		
+		ThiefProblemVariable var1 = new ThiefProblemVariable(new JsonThiefProblemReader().read("resources/example_symmetric_different.ttp"));
+		ThiefProblemVariable var2 = new ThiefProblemVariable(new JsonThiefProblemReader().read("resources/bonyadi_single_publication.ttp"));
+		assertFalse(var1.equals(var2));
+	}
 
 
 }

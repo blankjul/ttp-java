@@ -19,11 +19,8 @@ public abstract class Tour<T> extends Variable<T> {
 		return obj.toString();
 	}
 	
-
-	
 	abstract public List<Integer> encode();
 
-	
 	abstract public Tour<T> getSymmetric();
 	
 

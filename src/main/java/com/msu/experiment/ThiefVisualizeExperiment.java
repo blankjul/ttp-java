@@ -5,7 +5,7 @@ import java.util.List;
 import com.msu.NSGAIIFactory;
 import com.msu.algorithms.BiLevelAlgorithm;
 import com.msu.algorithms.OnePlusOneEA;
-import com.msu.algorithms.TwoOptLocalSearch;
+import com.msu.algorithms.util.TwoOptLocalSearch;
 import com.msu.io.reader.BonyadiSingleObjectiveReader;
 import com.msu.moo.algorithms.nsgaII.NSGAIIBuilder;
 import com.msu.moo.experiment.AExperiment;

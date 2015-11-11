@@ -41,7 +41,7 @@ public class TTPVariable extends Variable<Pair<Tour<?>, PackingList<?>>> {
 
 	@Override
 	public IVariable copy() {
-		return new TTPVariable(obj);
+		return new TTPVariable((Tour<?>) obj.first.copy(), (PackingList<?>) obj.second.copy());
 	}
 
 	public Tour<?> getTour() {

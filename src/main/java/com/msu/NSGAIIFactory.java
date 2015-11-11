@@ -24,7 +24,7 @@ import com.msu.thief.variable.pack.factory.OptimalPackingListFactory;
 import com.msu.thief.variable.pack.factory.RandomPackingListFactory;
 import com.msu.thief.variable.tour.factory.ATourFactory;
 import com.msu.thief.variable.tour.factory.NearestNeighbourFactory;
-import com.msu.thief.variable.tour.factory.OptimumFactory;
+import com.msu.thief.variable.tour.factory.OptimalTourFactory;
 import com.msu.thief.variable.tour.factory.RandomTourFactory;
 import com.msu.thief.variable.tour.factory.TwoOptFactory;
 
@@ -122,7 +122,7 @@ public class NSGAIIFactory {
 
 	protected static ATourFactory parseTourFactory(String value) {
 		if (value.equals("OPT")) {
-			return new OptimumFactory();
+			return new OptimalTourFactory();
 		} else if (value.equals("NEAREST")) {
 			return new NearestNeighbourFactory();
 		} else if (value.equals("RANDOM")) {

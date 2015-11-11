@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.function.Function;
 
 import com.msu.NSGAIIFactory;
-import com.msu.algorithms.TwoOptLocalSearch;
+import com.msu.algorithms.util.TwoOptLocalSearch;
 import com.msu.io.reader.SalesmanProblemReader;
 import com.msu.moo.algorithms.nsgaII.NSGAIIBuilder;
 import com.msu.moo.experiment.AExperiment;

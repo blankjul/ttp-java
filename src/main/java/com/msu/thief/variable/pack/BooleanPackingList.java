@@ -17,8 +17,7 @@ public class BooleanPackingList extends PackingList<List<Boolean>>{
 
 	@Override
 	public PackingList<List<Boolean>> copy() {
-		BooleanPackingList p = new BooleanPackingList(new ArrayList<Boolean>(obj));
-		return p;
+		return new BooleanPackingList(new ArrayList<Boolean>(obj));
 	}
 
 	@Override

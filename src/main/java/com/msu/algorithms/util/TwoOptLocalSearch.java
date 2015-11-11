@@ -1,4 +1,4 @@
-package com.msu.algorithms;
+package com.msu.algorithms.util;
 
 import com.msu.moo.algorithms.nsgaII.INSGAIIModifactor;
 import com.msu.moo.interfaces.IEvaluator;
