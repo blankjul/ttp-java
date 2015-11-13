@@ -3,13 +3,13 @@ package com.msu.thief.variable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.msu.moo.interfaces.IVariable;
-import com.msu.moo.model.Variable;
-import com.msu.moo.util.Pair;
+import com.msu.interfaces.IVariable;
+import com.msu.model.Variable;
 import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.tour.StandardTour;
 import com.msu.thief.variable.tour.Tour;
+import com.msu.util.Pair;
 
 public class TTPVariable extends Variable<Pair<Tour<?>, PackingList<?>>> {
 

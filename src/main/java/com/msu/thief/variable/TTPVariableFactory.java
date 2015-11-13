@@ -1,12 +1,12 @@
 package com.msu.thief.variable;
 
-import com.msu.moo.interfaces.IProblem;
-import com.msu.moo.model.AVariableFactory;
-import com.msu.moo.util.Random;
+import com.msu.interfaces.IProblem;
+import com.msu.model.AVariableFactory;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.pack.factory.APackingPlanFactory;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.thief.variable.tour.factory.ATourFactory;
+import com.msu.util.Random;
 
 public class TTPVariableFactory extends AVariableFactory {
 

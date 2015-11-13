@@ -1,6 +1,6 @@
 package com.msu.algorithms.exhaustive;
 
-import com.msu.moo.model.AbstractAlgorithm;
+import com.msu.model.AbstractAlgorithm;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 

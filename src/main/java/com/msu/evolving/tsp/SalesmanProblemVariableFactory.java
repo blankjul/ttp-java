@@ -1,11 +1,11 @@
 package com.msu.evolving.tsp;
 
-import com.msu.moo.interfaces.IProblem;
-import com.msu.moo.interfaces.IVariable;
-import com.msu.moo.model.AVariableFactory;
-import com.msu.moo.util.Random;
+import com.msu.interfaces.IProblem;
+import com.msu.interfaces.IVariable;
+import com.msu.model.AVariableFactory;
 import com.msu.problems.factory.RandomSalesmanProblemFactory;
 import com.msu.thief.model.CoordinateMap;
+import com.msu.util.Random;
 
 public class SalesmanProblemVariableFactory extends AVariableFactory {
 

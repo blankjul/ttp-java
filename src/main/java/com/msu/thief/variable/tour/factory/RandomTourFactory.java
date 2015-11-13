@@ -3,11 +3,11 @@ package com.msu.thief.variable.tour.factory;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import com.msu.moo.interfaces.IProblem;
-import com.msu.moo.util.Random;
+import com.msu.interfaces.IProblem;
 import com.msu.problems.ICityProblem;
 import com.msu.thief.variable.tour.StandardTour;
 import com.msu.thief.variable.tour.Tour;
+import com.msu.util.Random;
 
 public class RandomTourFactory extends ATourFactory {
 

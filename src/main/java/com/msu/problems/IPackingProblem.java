@@ -2,7 +2,7 @@ package com.msu.problems;
 
 import java.util.List;
 
-import com.msu.moo.interfaces.IProblem;
+import com.msu.interfaces.IProblem;
 import com.msu.thief.model.Item;
 
 public interface IPackingProblem  extends IProblem {

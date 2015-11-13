@@ -2,12 +2,12 @@ package com.msu.thief.evaluator.time;
 
 import java.util.List;
 
-import com.msu.moo.util.Pair;
 import com.msu.problems.ThiefProblem;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.tour.Tour;
+import com.msu.util.Pair;
 
 public class NotBackHomeTimeEvaluator extends TimeEvaluator {
 

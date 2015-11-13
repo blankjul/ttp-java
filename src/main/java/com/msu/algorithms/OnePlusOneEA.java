@@ -2,14 +2,13 @@ package com.msu.algorithms;
 
 import java.util.List;
 
-import com.msu.moo.interfaces.IEvaluator;
-import com.msu.moo.model.AbstractAlgorithm;
-import com.msu.moo.model.Evaluator;
+import com.msu.interfaces.IEvaluator;
+import com.msu.interfaces.IProblem;
+import com.msu.model.AbstractAlgorithm;
+import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
-import com.msu.moo.operators.mutation.BitFlipMutation;
-import com.msu.moo.util.Pair;
-import com.msu.moo.util.Random;
+import com.msu.operators.mutation.BitFlipMutation;
 import com.msu.problems.SalesmanProblem;
 import com.msu.problems.SingleObjectiveThiefProblem;
 import com.msu.problems.ThiefProblem;
@@ -19,6 +18,8 @@ import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.pack.factory.EmptyPackingListFactory;
 import com.msu.thief.variable.tour.Tour;
+import com.msu.util.Pair;
+import com.msu.util.Random;
 
 public class OnePlusOneEA extends AbstractAlgorithm {
 
@@ -38,11 +39,11 @@ public class OnePlusOneEA extends AbstractAlgorithm {
 
 
 	@Override
-	public NonDominatedSolutionSet run_(IEvaluator eval, Random rand) {
+	public NonDominatedSolutionSet run_(IProblem p, IEvaluator eval, Random rand) {
 
 		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
 
-		ThiefProblem problem =(ThiefProblem) eval.getProblem();
+		ThiefProblem problem =(ThiefProblem) p;
 		if (solveSingleObjective) ((SingleObjectiveThiefProblem) problem).setToMultiObjective(false);
 		
 		SymmetricMap map = problem.getMap();
@@ -50,32 +51,25 @@ public class OnePlusOneEA extends AbstractAlgorithm {
 		
 		SalesmanProblem tsp = new SalesmanProblem(map);
 		
-		Tour<?> bestTour = new SalesmanLinKernighanHeuristic().getTour(new Evaluator(tsp));
+		Tour<?> bestTour = new SalesmanLinKernighanHeuristic().getTour(tsp, new Evaluator(Integer.MAX_VALUE));
 		Tour<?> symmetricBest = bestTour.getSymmetric();
 		
 		PackingList<?> bestList = new EmptyPackingListFactory().next(problem, rand);
 
 		while (eval.hasNext()) {
-
-	/*		List<Boolean> nextList = new ArrayList<>(bestList.get());
-			for (int i = 0; i < nextList.size(); i++) {
-				if (rand.nextDouble() < 1d / nextList.size()) {
-					nextList.set(i, !nextList.get(i));
-				}
-			}*/
 			
 			List<Boolean> nextList = ((PackingList<?>) new BitFlipMutation().mutate(bestList.copy(), rand)).encode();
-			Pair<Tour<?>, PackingList<?>> p = Pair.create(bestTour, new BooleanPackingList(nextList));
+			Pair<Tour<?>, PackingList<?>> pair = Pair.create(bestTour, new BooleanPackingList(nextList));
 			
 			// check if this solution is better
-			Solution s = eval.evaluate(new TTPVariable(p));
+			Solution s = eval.evaluate(problem, new TTPVariable(pair));
 			boolean isOptimal = set.add(s);
 
 			if (isOptimal)
 				bestList = new BooleanPackingList(nextList);
 			
 			// check also for the symmetric solution
-			Solution s2 = eval.evaluate(new TTPVariable(Pair.create(symmetricBest, new BooleanPackingList(nextList))));
+			Solution s2 = eval.evaluate(problem, new TTPVariable(Pair.create(symmetricBest, new BooleanPackingList(nextList))));
 			isOptimal = set.add(s2);
 
 			if (isOptimal)
@@ -88,7 +82,7 @@ public class OnePlusOneEA extends AbstractAlgorithm {
 		} else {
 			if (solveSingleObjective) ((SingleObjectiveThiefProblem) problem).setToMultiObjective(true);
 			NonDominatedSolutionSet result = new NonDominatedSolutionSet();
-			Solution best = eval.evaluate(set.get(0).getVariable());
+			Solution best = eval.evaluate(problem, set.get(0).getVariable());
 			result.add(best);
 			return result;
 		}

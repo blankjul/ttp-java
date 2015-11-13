@@ -3,13 +3,12 @@ package com.msu.algorithms;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.msu.moo.interfaces.IEvaluator;
-import com.msu.moo.model.AbstractAlgorithm;
-import com.msu.moo.model.Evaluator;
+import com.msu.interfaces.IEvaluator;
+import com.msu.interfaces.IProblem;
+import com.msu.model.AbstractAlgorithm;
+import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
-import com.msu.moo.util.Pair;
-import com.msu.moo.util.Random;
 import com.msu.problems.SalesmanProblem;
 import com.msu.problems.ThiefProblem;
 import com.msu.thief.variable.TTPVariable;
@@ -17,18 +16,20 @@ import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.pack.factory.EmptyPackingListFactory;
 import com.msu.thief.variable.tour.Tour;
+import com.msu.util.Pair;
+import com.msu.util.Random;
 
 public class RandomLocalSearch extends AbstractAlgorithm {
 
 	@Override
-	public NonDominatedSolutionSet run_(IEvaluator eval, Random rand) {
+	public NonDominatedSolutionSet run_(IProblem p, IEvaluator eval, Random rand) {
 
 		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
 
-		ThiefProblem problem = (ThiefProblem) eval.getProblem();
+		ThiefProblem problem = (ThiefProblem) p;
 		
 		SalesmanProblem tsp = new SalesmanProblem(problem.getMap());
-		Tour<?> bestTour = new SalesmanLinKernighanHeuristic().getTour(new Evaluator(tsp));
+		Tour<?> bestTour = new SalesmanLinKernighanHeuristic().getTour(tsp ,new Evaluator(Integer.MAX_VALUE));
 		PackingList<?> bestList = new EmptyPackingListFactory().next(problem, rand);
 
 		while (eval.hasNext()) {
@@ -40,9 +41,9 @@ public class RandomLocalSearch extends AbstractAlgorithm {
 			// change the bit
 			nextList.set(position, !nextList.get(position));
 
-			Pair<Tour<?>, PackingList<?>> p = Pair.create(bestTour, new BooleanPackingList(nextList));
+			Pair<Tour<?>, PackingList<?>> pair = Pair.create(bestTour, new BooleanPackingList(nextList));
 
-			Solution s = eval.evaluate(new TTPVariable(p));
+			Solution s = eval.evaluate(problem, new TTPVariable(pair));
 			boolean isOptimal = set.add(s);
 
 			if (isOptimal)

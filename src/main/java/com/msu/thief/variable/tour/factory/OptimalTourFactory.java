@@ -1,12 +1,12 @@
 package com.msu.thief.variable.tour.factory;
 
 import com.msu.algorithms.SalesmanLinKernighanHeuristic;
-import com.msu.moo.interfaces.IProblem;
-import com.msu.moo.model.Evaluator;
-import com.msu.moo.util.Random;
+import com.msu.interfaces.IProblem;
+import com.msu.model.Evaluator;
 import com.msu.problems.ICityProblem;
 import com.msu.problems.SalesmanProblem;
 import com.msu.thief.variable.tour.Tour;
+import com.msu.util.Random;
 
 public class OptimalTourFactory extends ATourFactory {
 
@@ -21,7 +21,7 @@ public class OptimalTourFactory extends ATourFactory {
 		if (optimum == null) {
 			ICityProblem cityProblem = (ICityProblem) p;
 			SalesmanProblem tsp = new SalesmanProblem(cityProblem.getMap());
-			optimum = new SalesmanLinKernighanHeuristic().getTour(new Evaluator(tsp));
+			optimum = new SalesmanLinKernighanHeuristic().getTour(tsp, new Evaluator(Integer.MAX_VALUE));
 		}
 		
 		if (rand.nextDouble() < 0.5) {

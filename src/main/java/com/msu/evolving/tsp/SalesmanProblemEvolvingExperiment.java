@@ -4,16 +4,16 @@ import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
 
+import com.msu.Configuration;
 import com.msu.analyze.TourAverageDistanceToOpt;
+import com.msu.interfaces.IAlgorithm;
+import com.msu.interfaces.IProblem;
 import com.msu.io.writer.JsonThiefProblemWriter;
-import com.msu.moo.Configuration;
+import com.msu.model.AProblem;
 import com.msu.moo.algorithms.nsgaII.NSGAIIBuilder;
 import com.msu.moo.experiment.AExperiment;
-import com.msu.moo.interfaces.IAlgorithm;
-import com.msu.moo.interfaces.IProblem;
-import com.msu.moo.model.AProblem;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
-import com.msu.moo.operators.crossover.SinglePointCrossover;
+import com.msu.operators.crossover.SinglePointCrossover;
 import com.msu.problems.SalesmanProblem;
 import com.msu.problems.ThiefProblem;
 import com.msu.thief.model.CoordinateMap;

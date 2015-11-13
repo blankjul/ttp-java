@@ -7,10 +7,8 @@ import org.apache.log4j.BasicConfigurator;
 import com.msu.algorithms.KnapsackCombo;
 import com.msu.algorithms.SalesmanLinKernighanHeuristic;
 import com.msu.io.reader.BonyadiSingleObjectiveReader;
-import com.msu.moo.model.Evaluator;
+import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
-import com.msu.moo.util.FileCollectorParser;
-import com.msu.moo.util.Random;
 import com.msu.problems.KnapsackProblem;
 import com.msu.problems.SalesmanProblem;
 import com.msu.problems.SingleObjectiveThiefProblem;
@@ -18,6 +16,8 @@ import com.msu.problems.ThiefProblem;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.tour.Tour;
+import com.msu.util.FileCollectorParser;
+import com.msu.util.Random;
 
 public class ThiefProblemAnalyzer {
 
@@ -45,10 +45,10 @@ public class ThiefProblemAnalyzer {
 			KnapsackProblem knp = new KnapsackProblem(problem.getMaxWeight(), problem.getItems());
 			
 			
-			NonDominatedSolutionSet set = new KnapsackCombo().run(new Evaluator(knp), new Random());
+			NonDominatedSolutionSet set = new KnapsackCombo().run(knp, new Evaluator(Integer.MAX_VALUE), new Random());
 			System.out.println(set);
 			
-			NonDominatedSolutionSet set2 = new SalesmanLinKernighanHeuristic().run(new Evaluator(new SalesmanProblem(problem.getMap())), new Random());
+			NonDominatedSolutionSet set2 = new SalesmanLinKernighanHeuristic().run(new SalesmanProblem(problem.getMap()), new Evaluator(Integer.MAX_VALUE), new Random());
 			System.out.println(set2);
 			
 			Tour<?> bestTour = (Tour<?>) set2.get(0).getVariable();
@@ -57,11 +57,6 @@ public class ThiefProblemAnalyzer {
 			System.out.println(problem.evaluate(new TTPVariable(bestTour,bestList )));
 			System.out.println(problem.evaluate(new TTPVariable(bestTour.getSymmetric(),bestList )));
 			
-			//NonDominatedSolutionSet set = new ThiefExhaustive().run(problem);
-			//System.out.println(String.format("DifferentToursInFront: %s", new ThiefAmountOfDifferentTours().analyze(set)));
-			//System.out.println(String.format("TSPTourDominance: %s", new TourAverageDistanceToOpt().analyze(problem)));
-			//Evaluator eval = new Evaluator(new OptimalTourIsDominating());
-			//System.out.println(String.format("FactoryThiefProblem: %s", eval.evaluate(new ThiefProblemVariable(problem))));
 			System.out.println("----------------------------------------");
 		}
 

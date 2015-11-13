@@ -4,20 +4,21 @@ import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
 
+import com.msu.Configuration;
 import com.msu.algorithms.exhaustive.ThiefExhaustive;
 import com.msu.analyze.ThiefAmountOfDifferentTours;
 import com.msu.analyze.ThiefAmountOfOptimalTourInFront;
 import com.msu.evolving.measures.OptimalTourHypervolume;
+import com.msu.interfaces.IAlgorithm;
+import com.msu.interfaces.IProblem;
 import com.msu.io.writer.JsonThiefProblemWriter;
-import com.msu.moo.Configuration;
+import com.msu.model.AProblem;
+import com.msu.model.Evaluator;
 import com.msu.moo.algorithms.nsgaII.NSGAIIBuilder;
 import com.msu.moo.experiment.AExperiment;
-import com.msu.moo.interfaces.IAlgorithm;
-import com.msu.moo.interfaces.IProblem;
-import com.msu.moo.model.AProblem;
-import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.problems.ThiefProblem;
+import com.msu.util.Random;
 
 
 /**
@@ -46,7 +47,7 @@ public class ThiefProblemEvolvingExperiment extends AExperiment  {
 		@Override
 		protected void evaluate_(ThiefProblemVariable var, List<Double> objectives, List<Double> constraintViolations) {
 			objectives.add((double) new ThiefAmountOfOptimalTourInFront().analyze(var.get()));
-			objectives.add((double) - new ThiefAmountOfDifferentTours().analyze(new ThiefExhaustive().run(new Evaluator(var.get()))));
+			objectives.add((double) - new ThiefAmountOfDifferentTours().analyze(new ThiefExhaustive().run(var.get(), new Evaluator(Integer.MAX_VALUE), new Random())));
 		}
 	}
 	

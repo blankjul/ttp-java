@@ -5,20 +5,20 @@ import java.util.function.Function;
 
 import com.msu.NSGAIIFactory;
 import com.msu.algorithms.util.TwoOptLocalSearch;
+import com.msu.interfaces.IAlgorithm;
+import com.msu.interfaces.IProblem;
 import com.msu.io.reader.SalesmanProblemReader;
+import com.msu.model.AReport;
 import com.msu.moo.algorithms.nsgaII.NSGAIIBuilder;
 import com.msu.moo.experiment.AExperiment;
-import com.msu.moo.interfaces.IAlgorithm;
-import com.msu.moo.interfaces.IProblem;
-import com.msu.moo.report.AReport;
-import com.msu.moo.util.FileCollectorParser;
-import com.msu.moo.util.events.EventDispatcher;
-import com.msu.moo.util.events.IListener;
-import com.msu.moo.util.events.RunFinishedEvent;
 import com.msu.problems.ICityProblem;
 import com.msu.problems.SalesmanProblem;
 import com.msu.problems.ThiefProblem;
 import com.msu.thief.model.ItemCollection;
+import com.msu.util.FileCollectorParser;
+import com.msu.util.events.IListener;
+import com.msu.util.events.impl.EventDispatcher;
+import com.msu.util.events.impl.RunFinishedEvent;
 
 public class TSPOperatorExperiment extends AExperiment {
 

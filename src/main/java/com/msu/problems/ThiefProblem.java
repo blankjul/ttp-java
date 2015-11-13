@@ -5,9 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.msu.moo.model.AProblem;
-import com.msu.moo.util.Pair;
-import com.msu.moo.util.exceptions.EvaluationException;
+import com.msu.model.AProblem;
 import com.msu.thief.evaluator.Evaluator;
 import com.msu.thief.evaluator.profit.NoDroppingEvaluator;
 import com.msu.thief.evaluator.profit.ProfitEvaluator;
@@ -20,6 +18,8 @@ import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.tour.StandardTour;
 import com.msu.thief.variable.tour.Tour;
+import com.msu.util.Pair;
+import com.msu.util.exceptions.EvaluationException;
 
 public class ThiefProblem extends AProblem<TTPVariable> implements IPackingProblem, ICityProblem{
 	

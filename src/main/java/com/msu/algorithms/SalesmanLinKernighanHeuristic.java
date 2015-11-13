@@ -12,16 +12,17 @@ import java.util.List;
 import java.util.UUID;
 
 import com.msu.ThiefConfiguration;
-import com.msu.moo.interfaces.IEvaluator;
-import com.msu.moo.model.AbstractAlgorithm;
+import com.msu.interfaces.IEvaluator;
+import com.msu.interfaces.IProblem;
+import com.msu.model.AbstractAlgorithm;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
-import com.msu.moo.util.BashExecutor;
-import com.msu.moo.util.Random;
-import com.msu.moo.util.Util;
 import com.msu.problems.ICityProblem;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.variable.tour.StandardTour;
 import com.msu.thief.variable.tour.Tour;
+import com.msu.util.BashExecutor;
+import com.msu.util.Random;
+import com.msu.util.Util;
 
 /**
  * http://www.akira.ruc.dk/~keld/research/LKH/
@@ -54,10 +55,10 @@ public class SalesmanLinKernighanHeuristic extends AbstractAlgorithm {
 	
 	
 	
-	public Tour<?> getTour(IEvaluator eval) {
+	public Tour<?> getTour(IProblem p, IEvaluator eval) {
 		
 		List<Integer> result = new ArrayList<>();
-		ICityProblem problem = (ICityProblem)eval.getProblem();
+		ICityProblem problem = (ICityProblem) p;
 		SymmetricMap map = problem.getMap();
 		
 		try {
@@ -99,9 +100,9 @@ public class SalesmanLinKernighanHeuristic extends AbstractAlgorithm {
 	}
 	
 	@Override
-	public NonDominatedSolutionSet run_(IEvaluator eval, Random rand) {
+	public NonDominatedSolutionSet run_(IProblem p, IEvaluator eval, Random rand) {
 		NonDominatedSolutionSet result = new NonDominatedSolutionSet();
-		result.add(eval.evaluate(getTour(eval)));
+		result.add(eval.evaluate(p, getTour(p, eval)));
 		return result;
 	}
 

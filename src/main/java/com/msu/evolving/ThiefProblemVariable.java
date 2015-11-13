@@ -2,11 +2,11 @@ package com.msu.evolving;
 
 import java.io.ByteArrayOutputStream;
 
+import com.msu.interfaces.IVariable;
 import com.msu.io.writer.JsonThiefProblemWriter;
-import com.msu.moo.interfaces.IVariable;
-import com.msu.moo.model.Variable;
-import com.msu.moo.util.Util;
+import com.msu.model.Variable;
 import com.msu.problems.ThiefProblem;
+import com.msu.util.Util;
 
 public class ThiefProblemVariable extends Variable<ThiefProblem> {
 

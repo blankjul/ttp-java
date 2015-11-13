@@ -1,14 +1,14 @@
 package com.msu.visualize;
 
+import com.msu.interfaces.IAlgorithm;
+import com.msu.interfaces.IProblem;
+import com.msu.model.AVisualize;
 import com.msu.moo.experiment.AExperiment;
-import com.msu.moo.interfaces.IAlgorithm;
-import com.msu.moo.interfaces.IProblem;
-import com.msu.moo.model.AVisualize;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
-import com.msu.moo.util.events.EventDispatcher;
-import com.msu.moo.util.events.IListener;
-import com.msu.moo.util.events.ProblemFinishedEvent;
-import com.msu.moo.util.plots.ScatterPlot;
+import com.msu.util.events.IListener;
+import com.msu.util.events.impl.EventDispatcher;
+import com.msu.util.events.impl.ProblemFinishedEvent;
+import com.msu.util.plots.ScatterPlot;
 
 public class ThiefVisualizer<P extends IProblem> extends AVisualize implements IListener<ProblemFinishedEvent>{
 

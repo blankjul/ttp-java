@@ -1,7 +1,7 @@
 package com.msu.problems.factory;
 
-import com.msu.moo.util.Random;
 import com.msu.problems.ThiefProblem;
+import com.msu.util.Random;
 
 public abstract class AThiefProblemFactory {
 

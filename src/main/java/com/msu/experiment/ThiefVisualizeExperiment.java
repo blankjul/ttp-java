@@ -6,14 +6,14 @@ import com.msu.NSGAIIFactory;
 import com.msu.algorithms.BiLevelAlgorithm;
 import com.msu.algorithms.OnePlusOneEA;
 import com.msu.algorithms.util.TwoOptLocalSearch;
+import com.msu.interfaces.IAlgorithm;
+import com.msu.interfaces.IProblem;
 import com.msu.io.reader.BonyadiSingleObjectiveReader;
 import com.msu.moo.algorithms.nsgaII.NSGAIIBuilder;
 import com.msu.moo.experiment.AExperiment;
-import com.msu.moo.interfaces.IAlgorithm;
-import com.msu.moo.interfaces.IProblem;
-import com.msu.moo.util.FileCollectorParser;
 import com.msu.problems.SingleObjectiveThiefProblem;
 import com.msu.problems.ThiefProblem;
+import com.msu.util.FileCollectorParser;
 import com.msu.visualize.js.JavaScriptThiefVisualizer;
 
 public class ThiefVisualizeExperiment extends AExperiment {

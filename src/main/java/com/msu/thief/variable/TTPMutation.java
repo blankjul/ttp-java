@@ -1,9 +1,9 @@
 package com.msu.thief.variable;
 
-import com.msu.moo.interfaces.IVariable;
-import com.msu.moo.operators.AbstractMutation;
-import com.msu.moo.util.Pair;
-import com.msu.moo.util.Random;
+import com.msu.interfaces.IVariable;
+import com.msu.operators.AbstractMutation;
+import com.msu.util.Pair;
+import com.msu.util.Random;
 
 public class TTPMutation extends AbstractMutation<Pair<IVariable,IVariable>>{
 

@@ -11,16 +11,17 @@ import java.util.List;
 import java.util.UUID;
 
 import com.msu.ThiefConfiguration;
-import com.msu.moo.interfaces.IEvaluator;
-import com.msu.moo.model.AbstractAlgorithm;
+import com.msu.interfaces.IEvaluator;
+import com.msu.interfaces.IProblem;
+import com.msu.model.AbstractAlgorithm;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
-import com.msu.moo.util.BashExecutor;
-import com.msu.moo.util.Random;
-import com.msu.moo.util.Util;
 import com.msu.problems.KnapsackProblem;
 import com.msu.thief.model.Item;
 import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
+import com.msu.util.BashExecutor;
+import com.msu.util.Random;
+import com.msu.util.Util;
 
 public class KnapsackCombo extends AbstractAlgorithm {
 
@@ -32,20 +33,20 @@ public class KnapsackCombo extends AbstractAlgorithm {
 	}
 
 	@Override
-	public NonDominatedSolutionSet run_(IEvaluator eval, Random rand) {
+	public NonDominatedSolutionSet run_(IProblem problem, IEvaluator eval, Random rand) {
 		NonDominatedSolutionSet result = new NonDominatedSolutionSet();
-		result.add(eval.evaluate(KnapsackCombo.getPackingList(eval)));
+		result.add(eval.evaluate(problem, KnapsackCombo.getPackingList(problem, eval)));
 		return result;
 	}
 	
 	
-	public static PackingList<?> getPackingList(IEvaluator eval) {
+	public static PackingList<?> getPackingList(IProblem problem, IEvaluator eval) {
 		//String command = getCommand((KnapsackProblem) eval.getProblem());
 		
 		try {
 			String file = String.format("%s.knp", UUID.randomUUID().toString()) ;
 			
-			writeProblemFile((KnapsackProblem) eval.getProblem(), file);
+			writeProblemFile((KnapsackProblem) problem, file);
 			BashExecutor.execute(String.format("vendor/combo/combo %s", file));
 			List<Boolean> result = new ArrayList<>();
 			

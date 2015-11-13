@@ -9,7 +9,6 @@ import java.util.List;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 
-import com.msu.moo.util.io.AReader;
 import com.msu.problems.SingleObjectiveThiefProblem;
 import com.msu.problems.ThiefProblem;
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
@@ -19,6 +18,7 @@ import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
+import com.msu.util.io.AReader;
 
 public class JsonThiefProblemReader extends AReader<ThiefProblem> {
 

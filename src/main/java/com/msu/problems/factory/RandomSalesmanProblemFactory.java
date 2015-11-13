@@ -3,9 +3,9 @@ package com.msu.problems.factory;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import com.msu.moo.util.Random;
 import com.msu.problems.SalesmanProblem;
 import com.msu.thief.model.CoordinateMap;
+import com.msu.util.Random;
 
 /**
  * This class is used to create a Map which only contains a cost matrix. There

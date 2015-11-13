@@ -1,10 +1,10 @@
 package com.msu.thief.variable.tour.factory;
 
-import com.msu.moo.interfaces.IProblem;
-import com.msu.moo.model.AVariableFactory;
-import com.msu.moo.util.Random;
+import com.msu.interfaces.IProblem;
+import com.msu.model.AVariableFactory;
 import com.msu.problems.ThiefProblem;
 import com.msu.thief.variable.tour.Tour;
+import com.msu.util.Random;
 
 public abstract class ATourFactory extends AVariableFactory {
 

@@ -7,13 +7,13 @@ import java.util.List;
 import org.junit.Test;
 
 import com.msu.io.reader.SalesmanProblemReader;
-import com.msu.moo.util.Pair;
-import com.msu.moo.util.Random;
 import com.msu.problems.SalesmanProblem;
 import com.msu.thief.variable.tour.StandardTour;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.thief.variable.tour.factory.RandomTourFactory;
 import com.msu.thief.variable.tour.factory.TwoOptFactory;
+import com.msu.util.Pair;
+import com.msu.util.Random;
 
 public class TwoOptAlgorithmTest {
 

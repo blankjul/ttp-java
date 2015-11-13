@@ -3,9 +3,9 @@ package com.msu.problems.factory;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.msu.moo.util.Random;
 import com.msu.problems.KnapsackProblem;
 import com.msu.thief.model.Item;
+import com.msu.util.Random;
 
 public class RandomKnapsackProblemFactory extends AKnapsackProblemFactory {
 

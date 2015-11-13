@@ -9,13 +9,13 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.msu.moo.interfaces.IVariable;
-import com.msu.moo.operators.crossover.SinglePointCrossover;
-import com.msu.moo.util.Random;
+import com.msu.interfaces.IVariable;
+import com.msu.operators.crossover.SinglePointCrossover;
 import com.msu.problems.ThiefProblem;
 import com.msu.thief.variable.tour.PositionDecodedTour;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.thief.variable.tour.factory.PositionDecodedTourFactory;
+import com.msu.util.Random;
 
 public class PositionDecodedTourTest {
 

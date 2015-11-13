@@ -4,12 +4,12 @@ import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.msu.moo.operators.AbstractMutation;
-import com.msu.moo.util.Random;
+import com.msu.operators.AbstractMutation;
 import com.msu.problems.ThiefProblem;
 import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
+import com.msu.util.Random;
 
 public class ThiefProblemMutation extends AbstractMutation<ThiefProblem> {
 

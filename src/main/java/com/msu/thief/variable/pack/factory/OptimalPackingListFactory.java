@@ -1,12 +1,12 @@
 package com.msu.thief.variable.pack.factory;
 
 import com.msu.algorithms.KnapsackCombo;
-import com.msu.moo.interfaces.IProblem;
-import com.msu.moo.model.Evaluator;
-import com.msu.moo.util.Random;
+import com.msu.interfaces.IProblem;
+import com.msu.model.Evaluator;
 import com.msu.problems.IPackingProblem;
 import com.msu.problems.KnapsackProblem;
 import com.msu.thief.variable.pack.PackingList;
+import com.msu.util.Random;
 
 public class OptimalPackingListFactory extends APackingPlanFactory {
 
@@ -19,7 +19,7 @@ public class OptimalPackingListFactory extends APackingPlanFactory {
 		double weight = rand.nextDouble() * packProblem.getMaxWeight();
 		KnapsackProblem knp = new KnapsackProblem((int) weight, packProblem.getItems());
 		
-		PackingList<?> l = KnapsackCombo.getPackingList(new Evaluator(knp));
+		PackingList<?> l = KnapsackCombo.getPackingList(knp, new Evaluator(Integer.MAX_VALUE));
 		return l;
 	}
 

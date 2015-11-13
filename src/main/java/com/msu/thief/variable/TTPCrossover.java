@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.msu.moo.interfaces.IVariable;
-import com.msu.moo.operators.AbstractCrossover;
-import com.msu.moo.util.Pair;
-import com.msu.moo.util.Random;
+import com.msu.interfaces.IVariable;
+import com.msu.operators.AbstractCrossover;
+import com.msu.util.Pair;
+import com.msu.util.Random;
 
 public class TTPCrossover extends AbstractCrossover<Pair<IVariable,IVariable>>{
 

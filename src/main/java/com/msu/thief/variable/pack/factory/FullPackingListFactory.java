@@ -5,13 +5,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import com.msu.moo.interfaces.IProblem;
-import com.msu.moo.util.Random;
+import com.msu.interfaces.IProblem;
 import com.msu.problems.IPackingProblem;
 import com.msu.thief.model.Item;
 import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.util.CombinatorialUtil;
+import com.msu.util.Random;
 
 public class FullPackingListFactory extends APackingPlanFactory {
 

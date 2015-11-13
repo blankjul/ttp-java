@@ -3,10 +3,10 @@ package com.msu.problems;
 import java.util.List;
 import java.util.function.Function;
 
-import com.msu.moo.model.AProblem;
-import com.msu.moo.util.exceptions.EvaluationException;
+import com.msu.model.AProblem;
 import com.msu.thief.model.Item;
 import com.msu.thief.variable.pack.PackingList;
+import com.msu.util.exceptions.EvaluationException;
 
 /**
  * This class represents the knapsack problem.

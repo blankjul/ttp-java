@@ -4,17 +4,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import com.msu.NSGAIIFactory;
+import com.msu.interfaces.IEvaluator;
+import com.msu.interfaces.IProblem;
+import com.msu.model.AbstractAlgorithm;
+import com.msu.model.Evaluator;
 import com.msu.moo.algorithms.nsgaII.INSGAIIModifactor;
 import com.msu.moo.algorithms.nsgaII.NSGAII;
 import com.msu.moo.algorithms.nsgaII.NSGAIIBuilder;
-import com.msu.moo.interfaces.IEvaluator;
-import com.msu.moo.interfaces.IProblem;
-import com.msu.moo.model.AbstractAlgorithm;
-import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.model.solution.SolutionSet;
-import com.msu.moo.util.Random;
 import com.msu.problems.SalesmanProblem;
 import com.msu.problems.ThiefProblem;
 import com.msu.thief.model.SymmetricMap;
@@ -23,6 +22,7 @@ import com.msu.thief.variable.TTPVariableFactory;
 import com.msu.thief.variable.pack.factory.OptimalPackingListFactory;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.thief.variable.tour.factory.ATourFactory;
+import com.msu.util.Random;
 
 public class BiLevelAlgorithm extends AbstractAlgorithm {
 
@@ -45,15 +45,15 @@ public class BiLevelAlgorithm extends AbstractAlgorithm {
 	}
 	
 	@Override
-	public NonDominatedSolutionSet run_(IEvaluator eval, Random rand) {
+	public NonDominatedSolutionSet run_(IProblem p, IEvaluator eval, Random rand) {
 
 		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
 
 		Collection<Tour<?>> tours = new ArrayList<>();
-		ThiefProblem problem = (ThiefProblem) eval.getProblem();
+		ThiefProblem problem = (ThiefProblem) p;
 		SymmetricMap map = problem.getMap();
 		SalesmanProblem tsp = new SalesmanProblem(map);
-		Tour<?> bestTour = new SalesmanLinKernighanHeuristic().getTour(new Evaluator(tsp));
+		Tour<?> bestTour = new SalesmanLinKernighanHeuristic().getTour(tsp, new Evaluator(Integer.MAX_VALUE));
 
 		// add good tours!
 		tours.add(bestTour);
@@ -81,7 +81,7 @@ public class BiLevelAlgorithm extends AbstractAlgorithm {
 		class CheckSymmetric implements INSGAIIModifactor {
 
 			@Override
-			public void modify(IEvaluator eval, SolutionSet population, Random rand) {
+			public void modify(IProblem problem, IEvaluator eval, SolutionSet population, Random rand) {
 				
 				Collection<Solution> symmetric = new ArrayList<>();
 				final int numOfSymmetric = population.size() / 10;
@@ -91,7 +91,7 @@ public class BiLevelAlgorithm extends AbstractAlgorithm {
 					Solution s = population.get(rand.nextInt(population.size()));
 					TTPVariable parent = (TTPVariable) s.getVariable();
 					TTPVariable var = new TTPVariable(parent.getTour().getSymmetric(), parent.getPackingList());
-					symmetric.add(eval.evaluate(var));
+					symmetric.add(eval.evaluate(problem, var));
 				}
 				population.addAll(symmetric);
 			}
@@ -111,10 +111,10 @@ public class BiLevelAlgorithm extends AbstractAlgorithm {
 			
 			//int evals = eval.getMaxEvaluations() / tours.size();
 			
-			NonDominatedSolutionSet lowerSet = nsgaII.run(eval);
+			NonDominatedSolutionSet lowerSet = nsgaII.run(problem, eval, rand);
 			
 			for (Solution solution : lowerSet) {
-				set.add(eval.evaluate(solution.getVariable()));
+				set.add(eval.evaluate(problem, solution.getVariable()));
 			}
 		}
 		return set;

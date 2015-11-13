@@ -2,9 +2,8 @@ package com.msu;
 
 import org.apache.log4j.BasicConfigurator;
 
-import com.msu.moo.Configuration;
 import com.msu.moo.experiment.AExperiment;
-import com.msu.moo.util.ObjectFactory;
+import com.msu.util.ObjectFactory;
 
 /**
  * EXERIMENTS AVAILABLE
@@ -31,7 +30,7 @@ public class ExperimentExecutor {
 	protected final static String EXPERIMENT = "FinalExperiment2";
 	
 	//! number of iterations per experiment
-	protected final static int ITERATIONS = 1;
+	protected final static int ITERATIONS = 10;
 	
 	//! max evaluations per run
 	protected final static int MAX_EVALUATIONS = 500000;

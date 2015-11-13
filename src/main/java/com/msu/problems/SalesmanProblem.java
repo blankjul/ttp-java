@@ -3,11 +3,11 @@ package com.msu.problems;
 import java.util.HashSet;
 import java.util.List;
 
-import com.msu.moo.model.AProblem;
-import com.msu.moo.util.exceptions.EvaluationException;
+import com.msu.model.AProblem;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.util.ThiefUtil;
+import com.msu.util.exceptions.EvaluationException;
 
 /**
  * This class defines the TravellingSalesmanProblem which aims to minimize the

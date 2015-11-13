@@ -5,8 +5,8 @@ import java.io.IOException;
 
 import org.apache.log4j.Logger;
 
+import com.msu.interfaces.IProblem;
 import com.msu.io.AProblemReader;
-import com.msu.moo.interfaces.IProblem;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;

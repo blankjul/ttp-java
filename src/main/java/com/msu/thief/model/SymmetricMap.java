@@ -108,6 +108,17 @@ public class SymmetricMap {
 	}
 	
 	
+	public SymmetricMap copy() {
+		SymmetricMap result = new SymmetricMap(this.getSize());
+		for (int i = 0; i < distances.length; i++) {
+			for (int j = i; j < distances.length; j++) {
+				 result.set(i, j, distances[i][j]);
+			}
+		}
+		return result;
+	}
+	
+	
 	
 
 

@@ -1,9 +1,8 @@
 package com.msu.evolving;
 
-import com.msu.moo.interfaces.IProblem;
-import com.msu.moo.interfaces.IVariable;
-import com.msu.moo.model.AVariableFactory;
-import com.msu.moo.util.Random;
+import com.msu.interfaces.IProblem;
+import com.msu.interfaces.IVariable;
+import com.msu.model.AVariableFactory;
 import com.msu.problems.ThiefProblem;
 import com.msu.problems.factory.AKnapsackProblemFactory;
 import com.msu.problems.factory.ASalesmanProblemFactory;
@@ -12,6 +11,7 @@ import com.msu.problems.factory.RandomKnapsackProblemFactory;
 import com.msu.problems.factory.RandomKnapsackProblemFactory.CORRELATION_TYPE;
 import com.msu.problems.factory.RandomThiefProblemFactory;
 import com.msu.thief.evaluator.profit.NoDroppingEvaluator;
+import com.msu.util.Random;
 
 public class ThiefProblemVariableFactory extends AVariableFactory {
 

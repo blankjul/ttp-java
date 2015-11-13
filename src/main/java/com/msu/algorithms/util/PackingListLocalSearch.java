@@ -4,24 +4,25 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import com.msu.interfaces.IEvaluator;
+import com.msu.interfaces.IProblem;
 import com.msu.moo.algorithms.moead.MOEADUtil;
 import com.msu.moo.algorithms.nsgaII.INSGAIIModifactor;
-import com.msu.moo.interfaces.IEvaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.model.solution.SolutionSet;
-import com.msu.moo.operators.mutation.BitFlipMutation;
-import com.msu.moo.util.Random;
-import com.msu.moo.util.Range;
+import com.msu.operators.mutation.BitFlipMutation;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.PackingList;
+import com.msu.util.Random;
+import com.msu.util.Range;
 
 public class PackingListLocalSearch implements INSGAIIModifactor {
 	
 	protected int iterations = 100;
 	
 	@Override
-	public void modify(IEvaluator eval, SolutionSet population, Random rand) {
+	public void modify(IProblem p, IEvaluator eval, SolutionSet population, Random rand) {
 		
 		NonDominatedSolutionSet front = new NonDominatedSolutionSet(population);
 		Solution s = front.get(rand.nextInt(front.size()));
@@ -41,7 +42,7 @@ public class PackingListLocalSearch implements INSGAIIModifactor {
 		for (int i = 0; i < iterations; i++) {
 			
 			PackingList<?> next = (PackingList<?>) new BitFlipMutation().mutate(b.copy(), rand);
-			Solution nextSolution = eval.evaluate(new TTPVariable(var.getTour(), next));
+			Solution nextSolution = eval.evaluate(p,new TTPVariable(var.getTour(), next));
 			double nextFitness = MOEADUtil.calcWeightedSum(nextSolution.normalize(range.get()).getObjective(), weights);
 			
 			if (Collections.max(nextSolution.getConstraintViolations()) <= Collections.max(s.getConstraintViolations())) {

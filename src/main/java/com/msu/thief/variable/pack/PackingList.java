@@ -2,7 +2,7 @@ package com.msu.thief.variable.pack;
 
 import java.util.List;
 
-import com.msu.moo.model.Variable;
+import com.msu.model.Variable;
 
 public abstract class PackingList<T> extends Variable<List<Boolean>> {
 

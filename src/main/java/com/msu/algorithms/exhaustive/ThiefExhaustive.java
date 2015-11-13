@@ -3,10 +3,10 @@ package com.msu.algorithms.exhaustive;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.msu.moo.interfaces.IEvaluator;
+import com.msu.interfaces.IEvaluator;
+import com.msu.interfaces.IProblem;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
-import com.msu.moo.util.Random;
 import com.msu.problems.ThiefProblem;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.BooleanPackingList;
@@ -15,6 +15,7 @@ import com.msu.thief.variable.tour.StandardTour;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.util.Combination;
 import com.msu.util.CombinatorialUtil;
+import com.msu.util.Random;
 
 public class ThiefExhaustive extends AExhaustiveAlgorithm {
 
@@ -28,13 +29,13 @@ public class ThiefExhaustive extends AExhaustiveAlgorithm {
 	}
 
 	@Override
-	public NonDominatedSolutionSet run_(IEvaluator eval, Random rand) {
+	public NonDominatedSolutionSet run_(IProblem p, IEvaluator eval, Random rand) {
 		
-		boolean startingCityIsZero = ((ThiefProblem)eval.getProblem()).isStartingCityIsZero();
+		boolean startingCityIsZero = ((ThiefProblem)p).isStartingCityIsZero();
 		
 		NonDominatedSolutionSet set = (onlyNonDominatedPoints) ? new NonDominatedSolutionSet() : new ExhaustiveSolutionSet();
 
-		ThiefProblem problem = (ThiefProblem) eval.getProblem();
+		ThiefProblem problem = (ThiefProblem) p;
 
 		final int numItems = problem.numOfItems();
 		final int numCities = problem.numOfCities();
@@ -65,7 +66,7 @@ public class ThiefExhaustive extends AExhaustiveAlgorithm {
 					int[] entries = combination.next();
 					PackingList<?> b = new BooleanPackingList(convert(entries, numItems));
 					TTPVariable var = new TTPVariable(t, b);
-					Solution s = eval.evaluate(var);
+					Solution s = eval.evaluate(p, var);
 					set.add(s);
 					if (++counter % 100000 == 0)
 						System.out.println(String.format("%f perc.", (Double.valueOf(counter) / numOfSolution) * 100));

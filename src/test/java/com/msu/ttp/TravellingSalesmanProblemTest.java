@@ -8,9 +8,9 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.msu.moo.util.exceptions.EvaluationException;
 import com.msu.problems.SalesmanProblem;
 import com.msu.thief.model.SymmetricMap;
+import com.msu.util.exceptions.EvaluationException;
 
 
 public class TravellingSalesmanProblemTest {

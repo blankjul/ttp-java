@@ -5,16 +5,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.msu.moo.interfaces.IVariable;
-import com.msu.moo.model.Variable;
-import com.msu.moo.operators.AbstractCrossover;
-import com.msu.moo.operators.crossover.UniformCrossover;
-import com.msu.moo.util.Random;
-import com.msu.moo.util.Util;
+import com.msu.interfaces.IVariable;
+import com.msu.model.Variable;
+import com.msu.operators.AbstractCrossover;
+import com.msu.operators.crossover.UniformCrossover;
 import com.msu.problems.ThiefProblem;
 import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
+import com.msu.util.Random;
+import com.msu.util.Util;
 
 public class ThiefProblemCrossover extends AbstractCrossover<ThiefProblem>{
 

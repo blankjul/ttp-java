@@ -12,9 +12,10 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import com.msu.io.reader.SalesmanProblemReader;
-import com.msu.moo.model.Evaluator;
+import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.problems.SalesmanProblem;
+import com.msu.util.Random;
 
 /**
  * This test is to prove that that the algorithm is working correctly on the
@@ -47,7 +48,7 @@ public class LinKernighanHeuristicTest {
 		SalesmanLinKernighanHeuristic lkh = new SalesmanLinKernighanHeuristic();
 		
 		SalesmanProblem problem = new SalesmanProblemReader().read(pathToFile);
-		NonDominatedSolutionSet set = lkh.run(new Evaluator(problem));
+		NonDominatedSolutionSet set = lkh.run(problem, new Evaluator(Integer.MAX_VALUE), new Random());
 		
 		assertEquals(1, set.getSolutions().size());
 		assertEquals(problem.getOptimum().get(0).getObjectives(0), set.getSolutions().get(0).getObjectives(0), 0.01);

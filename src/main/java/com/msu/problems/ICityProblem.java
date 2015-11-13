@@ -1,6 +1,6 @@
 package com.msu.problems;
 
-import com.msu.moo.interfaces.IProblem;
+import com.msu.interfaces.IProblem;
 import com.msu.thief.model.SymmetricMap;
 
 /**

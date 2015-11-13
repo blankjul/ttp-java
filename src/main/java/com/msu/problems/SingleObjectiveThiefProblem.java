@@ -2,7 +2,6 @@ package com.msu.problems;
 
 import java.util.List;
 
-import com.msu.moo.util.Pair;
 import com.msu.thief.evaluator.profit.NoDroppingEvaluator;
 import com.msu.thief.evaluator.time.StandardTimeEvaluator;
 import com.msu.thief.model.Item;
@@ -11,6 +10,7 @@ import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.tour.Tour;
+import com.msu.util.Pair;
 
 public class SingleObjectiveThiefProblem extends ThiefProblem {
 

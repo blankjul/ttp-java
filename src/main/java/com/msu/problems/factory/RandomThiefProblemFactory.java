@@ -3,12 +3,12 @@ package com.msu.problems.factory;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import com.msu.moo.util.Random;
 import com.msu.problems.KnapsackProblem;
 import com.msu.problems.ThiefProblem;
 import com.msu.thief.evaluator.profit.IndividualProfitEvaluator;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
+import com.msu.util.Random;
 
 /**
  * This class represents a thief factory which allows to create a
