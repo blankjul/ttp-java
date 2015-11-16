@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.msu.NSGAIIFactory;
 import com.msu.algorithms.OnePlusOneEA;
+import com.msu.experiment.AExperiment;
 import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IProblem;
-import com.msu.moo.experiment.AExperiment;
 import com.msu.problems.factory.RandomKnapsackProblemFactory;
 import com.msu.problems.factory.RandomKnapsackProblemFactory.CORRELATION_TYPE;
 import com.msu.problems.factory.RandomSalesmanProblemFactory;

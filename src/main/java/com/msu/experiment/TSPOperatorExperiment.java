@@ -5,12 +5,12 @@ import java.util.function.Function;
 
 import com.msu.NSGAIIFactory;
 import com.msu.algorithms.util.TwoOptLocalSearch;
+import com.msu.experiment.AExperiment;
 import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IProblem;
 import com.msu.io.reader.SalesmanProblemReader;
 import com.msu.model.AReport;
 import com.msu.moo.algorithms.nsgaII.NSGAIIBuilder;
-import com.msu.moo.experiment.AExperiment;
 import com.msu.problems.ICityProblem;
 import com.msu.problems.SalesmanProblem;
 import com.msu.problems.ThiefProblem;

@@ -1,27 +1,21 @@
 package com.msu.algorithms;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
 
-import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IEvaluator;
 import com.msu.interfaces.IProblem;
 import com.msu.io.reader.BonyadiSingleObjectiveReader;
-import com.msu.model.AbstractDomainAlgorithm;
 import com.msu.model.Evaluator;
-import com.msu.moo.algorithms.moead.MOEADUtil;
+import com.msu.moo.algorithms.DecomposedAlgorithm;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
-import com.msu.moo.model.solution.Solution;
 import com.msu.operators.AbstractMutation;
 import com.msu.operators.mutation.BitFlipMutation;
 import com.msu.problems.KnapsackProblem;
 import com.msu.problems.SalesmanProblem;
 import com.msu.problems.SingleObjectiveThiefProblem;
 import com.msu.problems.ThiefProblem;
-import com.msu.soo.SingleObjectiveDecomposedProblem;
 import com.msu.soo.algorithms.HillClimbing;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.variable.TTPVariable;
@@ -32,7 +26,7 @@ import com.msu.util.Pair;
 import com.msu.util.Random;
 import com.msu.util.Range;
 
-public class DecomposedAlgorithm extends AbstractDomainAlgorithm<ThiefProblem> {
+public class ThiefDecomposedAlgorithm extends DecomposedAlgorithm {
 
 	// ! number of decomposed problem that are solved
 	protected int numOfRuns = 50;
@@ -50,15 +44,10 @@ public class DecomposedAlgorithm extends AbstractDomainAlgorithm<ThiefProblem> {
 	}
 
 	@Override
-	public NonDominatedSolutionSet run__(ThiefProblem problem, IEvaluator eval, Random rand) {
-
-		// the final result
-		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
-
-		// weights to be used for decomposition
-		List<List<Double>> weights = MOEADUtil.getUniformDistributedWeights(rand, numOfRuns, 2);
+	protected void initialize(IProblem p, IEvaluator eval, Random rand) {
 
 		// subproblems
+		ThiefProblem problem = (ThiefProblem) p;
 		SalesmanProblem tsp = new SalesmanProblem(problem.getMap());
 		KnapsackProblem knp = new KnapsackProblem((int) problem.getMaxWeight(), problem.getItems());
 
@@ -73,48 +62,22 @@ public class DecomposedAlgorithm extends AbstractDomainAlgorithm<ThiefProblem> {
 		r.add(Arrays.asList(tsp.evaluate(bestTour).getObjectives(0), 0d));
 		r.add(Arrays.asList(tsp.evaluate(slowestTour).getObjectives(0), -knp.evaluate(bestPacking).getObjectives(0)));
 
-		// starting point for hill climbing
-		List<TTPVariable> starting = new ArrayList<>();
-		starting.add(new TTPVariable(bestTour, new EmptyPackingListFactory().next(problem, rand)));
-		starting.add(new TTPVariable(bestTour.getSymmetric(), new EmptyPackingListFactory().next(problem, rand)));
-
+		PackingList<?> b = new EmptyPackingListFactory().next(problem, rand);
 		
-		// for each decomposed weight
-		for (List<Double> w : weights) {
-
-			for (TTPVariable start : starting) {
-
-				// create algorithm with starting point
-				IAlgorithm algorithm = new HillClimbing(start.copy(), new Mutation());
-
-				// solve the single-objective normalized problem
-				IProblem singleObjProblem = new SingleObjectiveDecomposedProblem<>(problem, w, r);
-
-				NonDominatedSolutionSet result = algorithm.run(singleObjProblem,
-						new Evaluator(eval.getMaxEvaluations()), rand);
-
-				if (!result.getSolutions().isEmpty()) {
-					Solution solutionToAdd = eval.evaluate(problem, result.get(0).getVariable());
-					set.add(solutionToAdd);
-				} else {
-					System.err.println("No feasible solution found!");
-				}
-			}
-
-		}
-
-		return set;
-
+		algorithms.add(new HillClimbing(new TTPVariable(bestTour, b), new Mutation()));
+		algorithms.add(new HillClimbing(new TTPVariable(bestTour.getSymmetric(), b) , new Mutation()));
+		
 	}
+
+
 
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
 		SingleObjectiveThiefProblem p = new BonyadiSingleObjectiveReader()
 				.read("../ttp-benchmark/SingleObjective/10/10_15_10_75.txt");
 		p.setToMultiObjective(true);
-		// NonDominatedSolutionSet set = new DecomposedAlgorithm().run(p, new
-		// Evaluator(10000), new Random());
-		// System.out.println(set);
+		NonDominatedSolutionSet set = new ThiefDecomposedAlgorithm().run(p, new Evaluator(10000), new Random());
+		System.out.println(set);
 
 	}
 

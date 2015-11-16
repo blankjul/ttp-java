@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.function.Function;
 
 import com.msu.NSGAIIFactory;
+import com.msu.experiment.AExperiment;
 import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IProblem;
 import com.msu.io.reader.KnapsackProblemReader;
 import com.msu.model.AReport;
-import com.msu.moo.experiment.AExperiment;
 import com.msu.problems.KnapsackProblem;
 import com.msu.problems.ThiefProblem;
 import com.msu.thief.model.Item;

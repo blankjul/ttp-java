@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.commons.lang3.NotImplementedException;
-
 /**
  * The StandardTour provides an implementation of a tour that saves directly the
  * permutation array.
@@ -50,7 +48,7 @@ public class PositionDecodedTour extends Tour<List<Integer>> {
 
 	@Override
 	public Tour<List<Integer>> getSymmetric() {
-		throw new NotImplementedException("Not implemented so far!");
+		throw new RuntimeException("Not implemented so far!");
 	}
 
 

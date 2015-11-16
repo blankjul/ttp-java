@@ -4,12 +4,12 @@ import java.util.List;
 
 import com.msu.NSGAIIFactory;
 import com.msu.algorithms.util.TwoOptLocalSearch;
+import com.msu.experiment.AExperiment;
 import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IProblem;
 import com.msu.io.reader.BonyadiSingleObjectiveReader;
 import com.msu.model.AReport;
 import com.msu.moo.algorithms.nsgaII.NSGAIIBuilder;
-import com.msu.moo.experiment.AExperiment;
 import com.msu.problems.SingleObjectiveThiefProblem;
 import com.msu.problems.ThiefProblem;
 import com.msu.util.FileCollectorParser;

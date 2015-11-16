@@ -2,7 +2,8 @@ package com.msu.experiment;
 
 import java.util.List;
 
-import com.msu.algorithms.DecomposedAlgorithm;
+import com.msu.NSGAIIFactory;
+import com.msu.algorithms.ThiefDecomposedAlgorithm;
 import com.msu.algorithms.MicroEvoluationaryAlgorithm;
 import com.msu.algorithms.OnePlusOneEA;
 import com.msu.algorithms.util.SymmetricTour;
@@ -12,8 +13,6 @@ import com.msu.io.reader.BonyadiSingleObjectiveReader;
 import com.msu.model.AReport;
 import com.msu.moo.algorithms.moead.MOEADBuilder;
 import com.msu.moo.algorithms.nsgaII.NSGAIIBuilder;
-import com.msu.moo.experiment.AExperiment;
-import com.msu.moo.experiment.ExperimentResult;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.model.solution.SolutionDominator;
@@ -87,15 +86,17 @@ public class FinalExperiment2 extends AExperiment {
 
 	protected void initialize() {
 		// new HypervolumeReport("../ttp-benchmark/ttp-ea/hypervolume.csv");
-		new ThiefReport("../ttp-benchmark/ttp-ea-multi2/result.csv");
-		new JavaScriptThiefVisualizer("../ttp-benchmark/ttp-ea-multi2");
+		new ThiefReport("../ttp-benchmark/ttp-ea-multi/result.csv");
+		new JavaScriptThiefVisualizer("../ttp-benchmark/ttp-ea-multi");
 	};
 
 	@Override
 	protected void setProblems(List<IProblem> problems) {
 		FileCollectorParser<ThiefProblem> fcp = new FileCollectorParser<>();
 
-		fcp.add("../ttp-benchmark/SingleObjective/10", "10_5_6_25.txt", new BonyadiSingleObjectiveReader());
+		fcp.add("../ttp-benchmark/SingleObjective/10", "10_10_2_50.txt", new BonyadiSingleObjectiveReader());
+		
+/*		fcp.add("../ttp-benchmark/SingleObjective/10", "10_5_6_25.txt", new BonyadiSingleObjectiveReader());
 		fcp.add("../ttp-benchmark/SingleObjective/10", "10_10_2_50.txt", new BonyadiSingleObjectiveReader());
 		fcp.add("../ttp-benchmark/SingleObjective/10", "10_15_10_75.txt", new BonyadiSingleObjectiveReader());
 
@@ -109,7 +110,7 @@ public class FinalExperiment2 extends AExperiment {
 
 		fcp.add("../ttp-benchmark/SingleObjective/100", "100_5_10_50.txt", new BonyadiSingleObjectiveReader());
 		fcp.add("../ttp-benchmark/SingleObjective/100", "100_50_5_75.txt", new BonyadiSingleObjectiveReader());
-		fcp.add("../ttp-benchmark/SingleObjective/100", "100_150_10_25.txt", new BonyadiSingleObjectiveReader());
+		fcp.add("../ttp-benchmark/SingleObjective/100", "100_150_10_25.txt", new BonyadiSingleObjectiveReader());*/
 
 		List<ThiefProblem> collected = fcp.collect();
 
@@ -193,13 +194,14 @@ public class FinalExperiment2 extends AExperiment {
 		 * builder).setName("OPT-EMPTY-NO").create());
 		 */
 
-		// algorithms.add(new DecomposedAlgorithm());
 
 		// algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[OPT-OPT]-[NO-HUX]-[SWAP-BF]",
 		// builder).setName("OPT-OPT-NO").create());
-
-		// algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[OPT-OPT]-[NO-HUX]-[SWAP-BF]",
-		// builder).setName("OPT-OPT-NO-SYM").create());
+		
+		NSGAIIBuilder builder = new NSGAIIBuilder();
+		builder.setFuncModify(new SymmetricTour());
+		builder.setPopulationSize(50);
+		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[OPT-OPT]-[NO-HUX]-[SWAP-BF]",builder).setName("OPT-OPT-NO-SYM").create());
 
 		/*
 		 * class SymmetricMutation extends AbstractMutation<List<Integer>> {
@@ -214,9 +216,8 @@ public class FinalExperiment2 extends AExperiment {
 		// a.setName("MicroEvoluationaryAlgorithm-2OPT");
 		// algorithms.add(a);
 
-		NSGAIIBuilder builder = new NSGAIIBuilder();
-		builder.setFuncModify(new SymmetricTour());
-		builder.setPopulationSize(50);
+		
+		algorithms.add(new ThiefDecomposedAlgorithm());
 		
 
 		MOEADBuilder b = new MOEADBuilder();
@@ -228,7 +229,7 @@ public class FinalExperiment2 extends AExperiment {
 		algorithms.add(b.create());
 
 		
-		algorithms.add(new DecomposedAlgorithm());
+		//algorithms.add(new DecomposedAlgorithm());
 
 		
 		IAlgorithm ea = new OnePlusOneEA(true);

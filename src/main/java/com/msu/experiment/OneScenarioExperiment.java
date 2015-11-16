@@ -6,11 +6,11 @@ import java.util.List;
 
 import com.msu.algorithms.exhaustive.SalesmanExhaustive;
 import com.msu.algorithms.exhaustive.ThiefExhaustive;
+import com.msu.experiment.AExperiment;
 import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IProblem;
 import com.msu.io.reader.JsonThiefProblemReader;
 import com.msu.model.Evaluator;
-import com.msu.moo.experiment.AExperiment;
 import com.msu.problems.SalesmanProblem;
 import com.msu.problems.ThiefProblem;
 import com.msu.report.SolutionSetReport;

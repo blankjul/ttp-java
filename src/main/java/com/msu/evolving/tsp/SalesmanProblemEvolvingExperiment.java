@@ -6,12 +6,12 @@ import org.apache.log4j.BasicConfigurator;
 
 import com.msu.Configuration;
 import com.msu.analyze.TourAverageDistanceToOpt;
+import com.msu.experiment.AExperiment;
 import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IProblem;
 import com.msu.io.writer.JsonThiefProblemWriter;
 import com.msu.model.AProblem;
 import com.msu.moo.algorithms.nsgaII.NSGAIIBuilder;
-import com.msu.moo.experiment.AExperiment;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.operators.crossover.SinglePointCrossover;
 import com.msu.problems.SalesmanProblem;
