@@ -3,7 +3,7 @@ package com.msu.thief.variable.pack;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.msu.util.StringUtil;
+import com.msu.thief.util.StringUtil;
 
 public class BooleanPackingList extends PackingList<List<Boolean>>{
 

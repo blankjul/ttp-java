@@ -11,12 +11,12 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.msu.evolving.ThiefProblemVariable;
-import com.msu.io.reader.JsonThiefProblemReader;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
-import com.msu.problems.ThiefProblem;
 import com.msu.scenarios.PublicationScenario;
+import com.msu.thief.evolving.ThiefProblemVariable;
+import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
+import com.msu.thief.problems.ThiefProblem;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;

@@ -3,9 +3,9 @@ package com.msu.thief.model;
 import java.awt.geom.Point2D;
 import java.util.List;
 
-import com.msu.util.distances.ADistanceCalculator;
-import com.msu.util.distances.EuclideanDistance;
-import com.msu.util.rounding.RoundingNearestInt;
+import com.msu.thief.util.distances.ADistanceCalculator;
+import com.msu.thief.util.distances.EuclideanDistance;
+import com.msu.thief.util.rounding.RoundingNearestInt;
 
 public class CoordinateMap extends SymmetricMap {
 

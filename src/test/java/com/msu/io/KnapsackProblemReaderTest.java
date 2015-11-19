@@ -7,8 +7,8 @@ import org.apache.log4j.BasicConfigurator;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.msu.io.reader.KnapsackProblemReader;
-import com.msu.problems.KnapsackProblem;
+import com.msu.thief.io.thief.reader.KnapsackProblemReader;
+import com.msu.thief.problems.KnapsackProblem;
 
 public class KnapsackProblemReaderTest {
 

@@ -9,8 +9,8 @@ import java.util.List;
 import org.junit.Test;
 
 import com.msu.moo.model.solution.Solution;
-import com.msu.problems.SingleObjectiveThiefProblem;
 import com.msu.scenarios.PublicationScenarioSingleObjective;
+import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;

@@ -1,9 +1,9 @@
 package com.msu.scenarios;
 
-import com.msu.problems.SingleObjectiveThiefProblem;
-import com.msu.problems.ThiefProblem;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
+import com.msu.thief.problems.SingleObjectiveThiefProblem;
+import com.msu.thief.problems.ThiefProblem;
 
 public class PublicationScenarioSingleObjective extends AThiefScenario<SingleObjectiveThiefProblem, Object> {
 

@@ -1,10 +1,10 @@
 package com.msu.scenarios;
 
-import com.msu.problems.ThiefProblem;
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
+import com.msu.thief.problems.ThiefProblem;
 
 public class PublicationScenario extends AThiefScenario<ThiefProblem, Object>{
 

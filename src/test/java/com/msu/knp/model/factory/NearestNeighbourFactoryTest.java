@@ -6,8 +6,8 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import com.msu.problems.ThiefProblem;
 import com.msu.scenarios.BonyadiPublicationScenario;
+import com.msu.thief.problems.ThiefProblem;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.thief.variable.tour.factory.NearestNeighbourFactory;
 

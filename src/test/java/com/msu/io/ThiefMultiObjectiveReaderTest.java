@@ -6,9 +6,9 @@ import org.apache.log4j.BasicConfigurator;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.msu.io.reader.ThiefMultiObjectiveReader;
-import com.msu.problems.ThiefProblem;
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
+import com.msu.thief.io.thief.reader.ThiefMultiObjectiveReader;
+import com.msu.thief.problems.ThiefProblem;
 
 public class ThiefMultiObjectiveReaderTest {
 

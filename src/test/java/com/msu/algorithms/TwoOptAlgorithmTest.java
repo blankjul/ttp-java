@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.msu.io.reader.SalesmanProblemReader;
-import com.msu.problems.SalesmanProblem;
+import com.msu.thief.io.thief.reader.SalesmanProblemReader;
+import com.msu.thief.problems.SalesmanProblem;
 import com.msu.thief.variable.tour.StandardTour;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.thief.variable.tour.factory.RandomTourFactory;

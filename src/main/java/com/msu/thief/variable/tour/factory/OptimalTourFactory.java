@@ -1,10 +1,10 @@
 package com.msu.thief.variable.tour.factory;
 
-import com.msu.algorithms.SalesmanLinKernighanHeuristic;
 import com.msu.interfaces.IProblem;
 import com.msu.model.Evaluator;
-import com.msu.problems.ICityProblem;
-import com.msu.problems.SalesmanProblem;
+import com.msu.thief.algorithms.SalesmanLinKernighanHeuristic;
+import com.msu.thief.problems.ICityProblem;
+import com.msu.thief.problems.SalesmanProblem;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.util.Random;
 

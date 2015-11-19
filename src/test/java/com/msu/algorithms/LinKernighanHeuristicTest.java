@@ -11,10 +11,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import com.msu.io.reader.SalesmanProblemReader;
 import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
-import com.msu.problems.SalesmanProblem;
+import com.msu.thief.algorithms.SalesmanLinKernighanHeuristic;
+import com.msu.thief.io.thief.reader.SalesmanProblemReader;
+import com.msu.thief.problems.SalesmanProblem;
 import com.msu.util.Random;
 
 /**

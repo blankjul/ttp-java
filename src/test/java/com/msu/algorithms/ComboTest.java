@@ -8,13 +8,14 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.msu.io.reader.BonyadiSingleObjectiveReader;
-import com.msu.io.reader.KnapsackProblemReader;
 import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
-import com.msu.problems.KnapsackProblem;
-import com.msu.problems.ThiefProblem;
+import com.msu.thief.algorithms.KnapsackCombo;
+import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
+import com.msu.thief.io.thief.reader.KnapsackProblemReader;
 import com.msu.thief.model.Item;
+import com.msu.thief.problems.KnapsackProblem;
+import com.msu.thief.problems.ThiefProblem;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.util.Random;
 

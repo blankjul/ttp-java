@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.msu.interfaces.IVariable;
-import com.msu.model.Variable;
+import com.msu.model.variables.Variable;
 import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.tour.StandardTour;

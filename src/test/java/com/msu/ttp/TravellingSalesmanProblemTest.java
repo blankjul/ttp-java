@@ -8,8 +8,8 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.msu.problems.SalesmanProblem;
 import com.msu.thief.model.SymmetricMap;
+import com.msu.thief.problems.SalesmanProblem;
 import com.msu.util.exceptions.EvaluationException;
 
 

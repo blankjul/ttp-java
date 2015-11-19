@@ -2,7 +2,7 @@ package com.msu.thief.variable.tour;
 
 import java.util.List;
 
-import com.msu.model.Variable;
+import com.msu.model.variables.Variable;
 
 /**
  * This class represents the interface of a tour. Since there are different representation of tours 

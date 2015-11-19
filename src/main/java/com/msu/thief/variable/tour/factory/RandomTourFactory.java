@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import com.msu.interfaces.IProblem;
-import com.msu.problems.ICityProblem;
+import com.msu.thief.problems.ICityProblem;
 import com.msu.thief.variable.tour.StandardTour;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.util.Random;

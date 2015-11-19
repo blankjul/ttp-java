@@ -10,11 +10,11 @@ import java.util.Queue;
 import java.util.Set;
 
 import com.msu.interfaces.IProblem;
-import com.msu.problems.ICityProblem;
 import com.msu.thief.model.SymmetricMap;
+import com.msu.thief.problems.ICityProblem;
+import com.msu.thief.util.CombinatorialUtil;
 import com.msu.thief.variable.tour.StandardTour;
 import com.msu.thief.variable.tour.Tour;
-import com.msu.util.CombinatorialUtil;
 import com.msu.util.Random;
 
 public class NearestNeighbourFactory extends ATourFactory {

@@ -7,8 +7,8 @@ import org.apache.log4j.BasicConfigurator;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.msu.io.reader.ThiefSingleTSPLIBProblemReader;
-import com.msu.problems.SingleObjectiveThiefProblem;
+import com.msu.thief.io.thief.reader.ThiefSingleTSPLIBProblemReader;
+import com.msu.thief.problems.SingleObjectiveThiefProblem;
 
 public class ThiefSingleTSPProblemReaderTest {
 

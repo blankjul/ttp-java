@@ -8,8 +8,8 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.msu.problems.KnapsackProblem;
 import com.msu.thief.model.Item;
+import com.msu.thief.problems.KnapsackProblem;
 import com.msu.thief.variable.pack.BooleanPackingList;
 
 public class KnapsackProblemTest {

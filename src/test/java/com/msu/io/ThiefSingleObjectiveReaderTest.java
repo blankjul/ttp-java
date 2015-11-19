@@ -6,9 +6,9 @@ import org.apache.log4j.BasicConfigurator;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.msu.io.reader.JsonThiefProblemReader;
-import com.msu.problems.SingleObjectiveThiefProblem;
-import com.msu.problems.ThiefProblem;
+import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
+import com.msu.thief.problems.SingleObjectiveThiefProblem;
+import com.msu.thief.problems.ThiefProblem;
 
 public class ThiefSingleObjectiveReaderTest {
 

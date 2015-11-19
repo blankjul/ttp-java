@@ -6,8 +6,8 @@ import org.apache.log4j.BasicConfigurator;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.msu.io.reader.SalesmanProblemReader;
-import com.msu.problems.SalesmanProblem;
+import com.msu.thief.io.thief.reader.SalesmanProblemReader;
+import com.msu.thief.problems.SalesmanProblem;
 
 public class SalesmanProblemReaderTest {
 

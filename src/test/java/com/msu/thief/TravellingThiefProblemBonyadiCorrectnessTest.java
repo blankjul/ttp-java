@@ -10,8 +10,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.msu.moo.model.solution.Solution;
-import com.msu.problems.ThiefProblem;
 import com.msu.scenarios.PublicationScenario;
+import com.msu.thief.problems.ThiefProblem;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;

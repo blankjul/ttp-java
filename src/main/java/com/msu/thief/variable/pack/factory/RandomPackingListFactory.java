@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.msu.interfaces.IProblem;
-import com.msu.problems.IPackingProblem;
+import com.msu.thief.problems.IPackingProblem;
 import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.util.Random;

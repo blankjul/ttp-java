@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.msu.interfaces.IVariable;
-import com.msu.util.StringUtil;
+import com.msu.thief.util.StringUtil;
 
 /**
  * The StandardTour provides an implementation of a tour that saves directly the
@@ -61,7 +61,7 @@ public class StandardTour extends Tour<List<Integer>> {
 
 	@Override
 	public List<Integer> get() {
-		//return new ArrayList<>(obj);
+		//return obj;
 		return new ArrayList<>(obj.subList(1, obj.size()));
 	}
 
@@ -72,15 +72,17 @@ public class StandardTour extends Tour<List<Integer>> {
 			@SuppressWarnings("unchecked")
 			List<Integer> l = (List<Integer>) obj;
 			l.add(0,0);
+			
 			this.obj = l;
+			//this.obj = (List<Integer>) obj;
 		} catch (Exception e){
 			throw new RuntimeException("Object could not be set for variable");
 		}
 	
 	}
 
-	
-	
+
+
 	
 	
 	

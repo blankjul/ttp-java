@@ -1,10 +1,10 @@
 package com.msu.thief.variable.pack.factory;
 
-import com.msu.algorithms.KnapsackCombo;
 import com.msu.interfaces.IProblem;
 import com.msu.model.Evaluator;
-import com.msu.problems.IPackingProblem;
-import com.msu.problems.KnapsackProblem;
+import com.msu.thief.algorithms.KnapsackCombo;
+import com.msu.thief.problems.IPackingProblem;
+import com.msu.thief.problems.KnapsackProblem;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.util.Random;
 

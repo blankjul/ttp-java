@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import com.msu.interfaces.IVariable;
 import com.msu.operators.crossover.SinglePointCrossover;
-import com.msu.problems.ThiefProblem;
+import com.msu.thief.problems.ThiefProblem;
 import com.msu.thief.variable.tour.PositionDecodedTour;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.thief.variable.tour.factory.PositionDecodedTourFactory;
