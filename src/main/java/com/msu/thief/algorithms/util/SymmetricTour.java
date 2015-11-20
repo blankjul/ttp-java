@@ -8,13 +8,13 @@ import com.msu.moo.model.solution.Solution;
 import com.msu.moo.model.solution.SolutionSet;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.util.Pair;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class SymmetricTour implements INSGAIIModifactor {
 	
 	
 	@Override
-	public void modify(IProblem p, IEvaluator eval, SolutionSet population, Random rand) {
+	public void modify(IProblem p, IEvaluator eval, SolutionSet population, MyRandom rand) {
 		
 		NonDominatedSolutionSet front = new NonDominatedSolutionSet(population);
 		Solution s = front.get(rand.nextInt(front.size()));

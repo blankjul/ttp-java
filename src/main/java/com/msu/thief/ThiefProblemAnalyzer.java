@@ -17,7 +17,7 @@ import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.util.FileCollectorParser;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class ThiefProblemAnalyzer {
 
@@ -45,10 +45,10 @@ public class ThiefProblemAnalyzer {
 			KnapsackProblem knp = new KnapsackProblem(problem.getMaxWeight(), problem.getItems());
 			
 			
-			NonDominatedSolutionSet set = new KnapsackCombo().run(knp, new Evaluator(Integer.MAX_VALUE), new Random());
+			NonDominatedSolutionSet set = new KnapsackCombo().run(knp, new Evaluator(Integer.MAX_VALUE), new MyRandom());
 			System.out.println(set);
 			
-			NonDominatedSolutionSet set2 = new SalesmanLinKernighanHeuristic().run(new SalesmanProblem(problem.getMap()), new Evaluator(Integer.MAX_VALUE), new Random());
+			NonDominatedSolutionSet set2 = new SalesmanLinKernighanHeuristic().run(new SalesmanProblem(problem.getMap()), new Evaluator(Integer.MAX_VALUE), new MyRandom());
 			System.out.println(set2);
 			
 			Tour<?> bestTour = (Tour<?>) set2.get(0).getVariable();

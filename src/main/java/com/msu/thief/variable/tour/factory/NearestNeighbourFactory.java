@@ -15,7 +15,7 @@ import com.msu.thief.problems.ICityProblem;
 import com.msu.thief.util.CombinatorialUtil;
 import com.msu.thief.variable.tour.StandardTour;
 import com.msu.thief.variable.tour.Tour;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class NearestNeighbourFactory extends ATourFactory {
 
@@ -58,7 +58,7 @@ public class NearestNeighbourFactory extends ATourFactory {
 
 
 	@Override
-	public Tour<?> next_(IProblem p, Random rand) {
+	public Tour<?> next_(IProblem p, MyRandom rand) {
 		
 		// if there is a new problem!
 		if (problem != p) {

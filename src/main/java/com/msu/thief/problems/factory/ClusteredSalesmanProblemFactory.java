@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.problems.SalesmanProblem;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 /**
  * This class is used to create a Map which only contains a cost matrix. There
@@ -29,7 +29,7 @@ public class ClusteredSalesmanProblemFactory extends RandomSalesmanProblemFactor
 
 
 	@Override
-	public SalesmanProblem create(int numOfCities, Random rnd) {
+	public SalesmanProblem create(int numOfCities, MyRandom rnd) {
 		
 		
 		List<Point2D> clusters = new ArrayList<>();

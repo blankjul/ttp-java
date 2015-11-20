@@ -2,17 +2,18 @@ package com.msu.thief.experiment;
 
 import java.util.List;
 
+import com.msu.builder.Builder;
 import com.msu.builder.NSGAIIBuilder;
 import com.msu.experiment.AExperiment;
 import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IProblem;
-import com.msu.model.AReport;
-import com.msu.thief.NSGAIIFactory;
-import com.msu.thief.algorithms.OnePlusOneEA;
+import com.msu.model.Report;
+import com.msu.thief.algorithms.AntColonyOptimisation;
+import com.msu.thief.algorithms.ThiefSingleObjectiveEvolutionaryAlgorithm;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
-import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.problems.ThiefProblem;
-import com.msu.thief.visualize.js.JavaScriptThiefVisualizer;
+import com.msu.thief.variable.pack.factory.OneItemPackingListFactory;
+import com.msu.thief.variable.pack.factory.OptimalPackingListFactory;
 import com.msu.util.FileCollectorParser;
 import com.msu.util.events.IListener;
 import com.msu.util.events.impl.EventDispatcher;
@@ -21,7 +22,7 @@ import com.msu.util.events.impl.RunFinishedEvent;
 public class FinalExperiment extends AExperiment {
 
 
-	private class ThiefReport extends AReport {
+	private class ThiefReport extends Report {
 		public ThiefReport(String path) {
 			super(path);
 			pw.println("problem,algorithm,result");
@@ -39,7 +40,7 @@ public class FinalExperiment extends AExperiment {
 
 	protected void initialize() {
 		//new HypervolumeReport("../ttp-benchmark/ttp-ea/hypervolume.csv");
-		new ThiefReport("../ttp-benchmark/ttp-pi-new/hypervolume_new.csv");
+		new ThiefReport("../ttp-benchmark/ttp-pi-new/hypervolume_aco.csv");
 		//new JavaScriptThiefVisualizer("../ttp-benchmark/ttp-pi-new");
 	};
 	
@@ -49,6 +50,7 @@ public class FinalExperiment extends AExperiment {
 	protected void setProblems(List<IProblem> problems) {
 		FileCollectorParser<ThiefProblem> fcp = new FileCollectorParser<>();
 		
+	
 		fcp.add("../ttp-benchmark/SingleObjective/10", "10_5_6_25.txt", new BonyadiSingleObjectiveReader());
 		fcp.add("../ttp-benchmark/SingleObjective/10", "10_10_2_50.txt", new BonyadiSingleObjectiveReader());
 		fcp.add("../ttp-benchmark/SingleObjective/10", "10_15_10_75.txt", new BonyadiSingleObjectiveReader());
@@ -65,7 +67,6 @@ public class FinalExperiment extends AExperiment {
 		fcp.add("../ttp-benchmark/SingleObjective/100", "100_50_5_75.txt", new BonyadiSingleObjectiveReader());
 		fcp.add("../ttp-benchmark/SingleObjective/100", "100_150_10_25.txt", new BonyadiSingleObjectiveReader());
 		
-		
 		List<ThiefProblem> collected = fcp.collect();
 		
 		problems.addAll(collected);
@@ -79,7 +80,7 @@ public class FinalExperiment extends AExperiment {
 		builder.set("populationSize", 50);
 		
 		
-		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[RANDOM-RANDOM]-[OX-SPX]-[SWAP-BF]", builder).build());
+	/*	algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[RANDOM-RANDOM]-[OX-SPX]-[SWAP-BF]", builder).build());
 		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[RANDOM-RANDOM]-[OX-UX]-[SWAP-BF]", builder).build());
 		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[RANDOM-RANDOM]-[OX-HUX]-[SWAP-BF]", builder).build());
 		
@@ -115,7 +116,9 @@ public class FinalExperiment extends AExperiment {
 		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[OPT-OPT]-[PMX-HUX]-[SWAP-BF]", builder).build());
 		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[OPT-OPT]-[NO-HUX]-[NO-BF]", builder).build());
 		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[OPT-EMPTY]-[NO-HUX]-[NO-BF]", builder).build());
+			*/
 		
+/*		
 		IAlgorithm ea = new OnePlusOneEA(false);
 		ea.setName("1+1-EA");
 		algorithms.add(ea);
@@ -124,8 +127,47 @@ public class FinalExperiment extends AExperiment {
 		OnePlusOneEA eaSym = new OnePlusOneEA(false);
 		eaSym.checkSymmetric = true;
 		eaSym.setName("1+1-EA-SYM");
-		algorithms.add(eaSym);
+		algorithms.add(eaSym);*/
 	
+		
+/*		Builder<SingleObjectiveEvolutionaryAlgorithm> singleEAFrame = new Builder<>(SingleObjectiveEvolutionaryAlgorithm.class);
+		singleEAFrame
+			.set("populationSize", 50)
+			.set("probMutation", 0.3)
+			.set("factory", new TTPVariableFactory(new OptimalTourFactory(), new EmptyPackingListFactory()))
+			.set("crossover", new TTPCrossover(new NoCrossover<>(), new SinglePointCrossover<>()))
+			.set("mutation", new TTPMutation(new NoMutation<>(), new BitFlipMutation()))
+			.set("name", "SingleObjectiveEvolutionaryAlgorithm-EMPTY");
+		algorithms.add(singleEAFrame.build());
+		
+		
+		singleEAFrame
+			.set("factory", new TTPVariableFactory(new OptimalTourFactory(), new OptimalPackingListFactory()))
+			.set("name", "SingleObjectiveEvolutionaryAlgorithm-OPT");
+		algorithms.add(singleEAFrame.build());*/
+		
+		
+/*		Builder<ThiefSingleObjectiveEvolutionaryAlgorithm> singleEA = new Builder<>(ThiefSingleObjectiveEvolutionaryAlgorithm.class);
+		singleEA
+			.set("populationSize", 50)
+			.set("probMutation", 0.8)
+			.set("factory", new OptimalPackingListFactory())
+			.set("name", "ThiefSingleObjectiveEvolutionary-MICRO-SWAP-PROB-OPT");
+		algorithms.add(singleEA.build());*/
+		
+		/*
+		singleEA
+			.set("factory", new TTPVariableFactory(new OptimalTourFactory(), new OptimalPackingListFactory()))
+			.set("name", "ThiefSingleObjectiveEvolutionary-ONLY-MUTATION-OPT");
+		algorithms.add(singleEA.build());
+		
+		*/
+		Builder<AntColonyOptimisation> singleEA = new Builder<>(AntColonyOptimisation.class);
+		singleEA
+			.set("name", "AntColonyOptimisation");
+		algorithms.add(singleEA.build());
+		
+		
 	}
 
 

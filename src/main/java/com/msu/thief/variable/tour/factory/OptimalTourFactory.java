@@ -6,7 +6,7 @@ import com.msu.thief.algorithms.SalesmanLinKernighanHeuristic;
 import com.msu.thief.problems.ICityProblem;
 import com.msu.thief.problems.SalesmanProblem;
 import com.msu.thief.variable.tour.Tour;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class OptimalTourFactory extends ATourFactory {
 
@@ -14,7 +14,7 @@ public class OptimalTourFactory extends ATourFactory {
 	Tour<?> optimum = null;
 
 	@Override
-	public Tour<?> next_(IProblem p, Random rand) {
+	public Tour<?> next_(IProblem p, MyRandom rand) {
 		if (problem != p)
 			problem = p;
 			optimum = null;

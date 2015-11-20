@@ -14,7 +14,7 @@ import com.msu.thief.problems.SalesmanProblem;
 import com.msu.thief.problems.ThiefProblem;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.tour.Tour;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class ThiefAmountOfOptimalTourInFront extends AbstractAnalyzer<ThiefProblem, Double> {
 
@@ -23,7 +23,7 @@ public class ThiefAmountOfOptimalTourInFront extends AbstractAnalyzer<ThiefProbl
 		
 		Evaluator eval = new Evaluator(Integer.MAX_VALUE);
 		
-		SolutionSet salesmanSet = new SalesmanExhaustive().run(new SalesmanProblem(problem.getMap()), eval, new Random()).getSolutions();
+		SolutionSet salesmanSet = new SalesmanExhaustive().run(new SalesmanProblem(problem.getMap()), eval, new MyRandom()).getSolutions();
 		salesmanSet.sortByObjective(0);
 		
 		Set<List<Integer>> hash = new HashSet<>();
@@ -31,7 +31,7 @@ public class ThiefAmountOfOptimalTourInFront extends AbstractAnalyzer<ThiefProbl
 		hash.add(best.encode());
 		hash.add(best.getSymmetric().encode());
 		
-		NonDominatedSolutionSet set = new ThiefExhaustive().run(problem, new Evaluator(Integer.MAX_VALUE), new Random());
+		NonDominatedSolutionSet set = new ThiefExhaustive().run(problem, new Evaluator(Integer.MAX_VALUE), new MyRandom());
 		
 		int counter = 0;
 		for (Solution s : set.getSolutions()) {

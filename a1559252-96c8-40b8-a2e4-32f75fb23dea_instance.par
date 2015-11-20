@@ -1,4 +1,0 @@
-PROBLEM_FILE = a1559252-96c8-40b8-a2e4-32f75fb23dea_problem.tsp
-RUNS = 1
-TRACE_LEVEL = 0
-TOUR_FILE = a1559252-96c8-40b8-a2e4-32f75fb23dea_tour.opt

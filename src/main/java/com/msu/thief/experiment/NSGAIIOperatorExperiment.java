@@ -11,7 +11,7 @@ import com.msu.thief.problems.factory.RandomKnapsackProblemFactory;
 import com.msu.thief.problems.factory.RandomSalesmanProblemFactory;
 import com.msu.thief.problems.factory.RandomThiefProblemFactory;
 import com.msu.thief.problems.factory.RandomKnapsackProblemFactory.CORRELATION_TYPE;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class NSGAIIOperatorExperiment extends AExperiment {
 
@@ -29,7 +29,7 @@ public class NSGAIIOperatorExperiment extends AExperiment {
 				for (double rate : new Double[] { 0.1, 0.4, 0.6, 0.9 }) {
 					RandomKnapsackProblemFactory knp = new RandomKnapsackProblemFactory().setCorrType(CORRELATION_TYPE.UNCORRELATED);
 					RandomThiefProblemFactory facThief = new RandomThiefProblemFactory(new RandomSalesmanProblemFactory(), knp);
-					problems.add(facThief.create(cities, itemsPercity, rate, new Random(12345)));
+					problems.add(facThief.create(cities, itemsPercity, rate, new MyRandom(12345)));
 				}
 			}
 		}

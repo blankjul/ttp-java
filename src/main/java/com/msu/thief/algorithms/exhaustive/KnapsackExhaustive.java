@@ -9,13 +9,13 @@ import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.thief.problems.KnapsackProblem;
 import com.msu.thief.util.Combination;
 import com.msu.thief.variable.pack.BooleanPackingList;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class KnapsackExhaustive extends AExhaustiveAlgorithm {
 
 	
 	@Override
-	public NonDominatedSolutionSet run_(IProblem p, IEvaluator evaluator, Random rand) {
+	public NonDominatedSolutionSet run_(IProblem p, IEvaluator evaluator, MyRandom rand) {
 		NonDominatedSolutionSet set = (onlyNonDominatedPoints) ? new NonDominatedSolutionSet() : new ExhaustiveSolutionSet();
 		KnapsackProblem problem = (KnapsackProblem) p;
 		final int n = problem.numOfItems();

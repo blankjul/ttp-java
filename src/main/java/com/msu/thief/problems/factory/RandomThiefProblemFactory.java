@@ -8,7 +8,7 @@ import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.problems.KnapsackProblem;
 import com.msu.thief.problems.ThiefProblem;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 /**
  * This class represents a thief factory which allows to create a
@@ -32,7 +32,7 @@ public class RandomThiefProblemFactory extends AThiefProblemFactory{
 
 
 	@Override
-	public ThiefProblem create(int numOfCities, int itemsPerCity, double maxWeightPerc, Random rand) {
+	public ThiefProblem create(int numOfCities, int itemsPerCity, double maxWeightPerc, MyRandom rand) {
 
 		// create the map
 		ThiefProblem problem = new ThiefProblem();

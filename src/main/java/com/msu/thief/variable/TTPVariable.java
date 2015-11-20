@@ -19,6 +19,10 @@ public class TTPVariable extends Variable<Pair<Tour<?>, PackingList<?>>> {
 		this.obj = Pair.create(new StandardTour(values[0]), new BooleanPackingList(values[1]));
 	}
 
+	public TTPVariable(List<Integer> t, List<Boolean> b) {
+		super(Pair.create(new StandardTour(t), new BooleanPackingList(b)));
+	}
+	
 	public TTPVariable(Tour<?> t, PackingList<?> b) {
 		super(Pair.create(t, b));
 	}

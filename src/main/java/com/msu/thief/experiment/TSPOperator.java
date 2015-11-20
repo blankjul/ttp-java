@@ -7,7 +7,7 @@ import com.msu.builder.NSGAIIBuilder;
 import com.msu.experiment.AExperiment;
 import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IProblem;
-import com.msu.model.AReport;
+import com.msu.model.Report;
 import com.msu.thief.NSGAIIFactory;
 import com.msu.thief.io.thief.reader.SalesmanProblemReader;
 import com.msu.thief.model.ItemCollection;
@@ -21,7 +21,7 @@ import com.msu.util.events.impl.RunFinishedEvent;
 
 public class TSPOperator extends AExperiment {
 
-	private class TSPReport extends AReport {
+	private class TSPReport extends Report {
 		public TSPReport(String path) {
 			super(path);
 			pw.println("problem,algorithm,result");

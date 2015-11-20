@@ -10,7 +10,7 @@ import com.msu.thief.problems.SalesmanProblem;
 import com.msu.thief.util.CombinatorialUtil;
 import com.msu.thief.variable.tour.StandardTour;
 import com.msu.thief.variable.tour.Tour;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class SalesmanExhaustive extends AExhaustiveAlgorithm {
 
@@ -18,7 +18,7 @@ public class SalesmanExhaustive extends AExhaustiveAlgorithm {
 	
 	
 	@Override
-	public NonDominatedSolutionSet run_(IProblem p, IEvaluator eval, Random rand) {
+	public NonDominatedSolutionSet run_(IProblem p, IEvaluator eval, MyRandom rand) {
 
 		SalesmanProblem problem = (SalesmanProblem) p;
 		NonDominatedSolutionSet set = (onlyNonDominatedPoints) ? new NonDominatedSolutionSet() : new ExhaustiveSolutionSet();

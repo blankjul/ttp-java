@@ -15,7 +15,7 @@ import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.tour.StandardTour;
 import com.msu.thief.variable.tour.Tour;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class ThiefExhaustive extends AExhaustiveAlgorithm {
 
@@ -29,7 +29,7 @@ public class ThiefExhaustive extends AExhaustiveAlgorithm {
 	}
 
 	@Override
-	public NonDominatedSolutionSet run_(IProblem p, IEvaluator eval, Random rand) {
+	public NonDominatedSolutionSet run_(IProblem p, IEvaluator eval, MyRandom rand) {
 		
 		boolean startingCityIsZero = ((ThiefProblem)p).isStartingCityIsZero();
 		

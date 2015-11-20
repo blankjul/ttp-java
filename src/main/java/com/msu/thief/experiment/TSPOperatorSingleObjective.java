@@ -6,7 +6,7 @@ import com.msu.builder.Builder;
 import com.msu.experiment.AExperiment;
 import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IProblem;
-import com.msu.model.AReport;
+import com.msu.model.Report;
 import com.msu.operators.crossover.permutation.CycleCrossover;
 import com.msu.operators.crossover.permutation.EdgeRecombinationCrossover;
 import com.msu.operators.crossover.permutation.OrderedCrossover;
@@ -24,7 +24,7 @@ import com.msu.util.events.impl.RunFinishedEvent;
 
 public class TSPOperatorSingleObjective extends AExperiment {
 
-	private class TSPReport extends AReport {
+	private class TSPReport extends Report {
 		public TSPReport(String path) {
 			super(path);
 			pw.println("problem,algorithm,result");

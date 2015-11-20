@@ -7,13 +7,13 @@ import com.msu.interfaces.IProblem;
 import com.msu.thief.problems.ICityProblem;
 import com.msu.thief.variable.tour.StandardTour;
 import com.msu.thief.variable.tour.Tour;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class RandomTourFactory extends ATourFactory {
 
 
 	@Override
-	public Tour<?> next_(IProblem p, Random rand) {
+	public Tour<?> next_(IProblem p, MyRandom rand) {
 		LinkedList<Integer> indices = new LinkedList<Integer>();
 		for (int i = 0; i < ((ICityProblem) p).numOfCities(); i++) {
 			indices.add(i);

@@ -5,7 +5,7 @@ import com.msu.interfaces.IVariable;
 import com.msu.model.AVariableFactory;
 import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.problems.factory.RandomSalesmanProblemFactory;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class SalesmanProblemVariableFactory extends AVariableFactory {
 
@@ -17,7 +17,7 @@ public class SalesmanProblemVariableFactory extends AVariableFactory {
 	}
 
 	@Override
-	public IVariable next(IProblem problem, Random rand) {
+	public IVariable next(IProblem problem, MyRandom rand) {
 		CoordinateMap map = (CoordinateMap) new RandomSalesmanProblemFactory().create(numOfCities, rand).getMap();
 		return new SalesmanProblemVariable(map.getCities());
 	}

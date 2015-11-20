@@ -9,12 +9,12 @@ import com.msu.thief.problems.SalesmanProblem;
 import com.msu.thief.problems.ThiefProblem;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.thief.variable.tour.factory.TwoOptFactory;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class TwoOptMutation extends AbstractMutation<List<Integer>> {
 
 	
-	public IVariable mutate(IVariable a, IProblem problem, Random rand) {
+	public IVariable mutate(IVariable a, IProblem problem, MyRandom rand) {
 		
 		SalesmanProblem tsp = null;
 		if (problem instanceof SalesmanProblem) tsp = (SalesmanProblem) problem;
@@ -26,7 +26,7 @@ public class TwoOptMutation extends AbstractMutation<List<Integer>> {
 	
 
 	@Override
-	protected List<Integer> mutate_(List<Integer> element, IProblem problem, Random rand) {
+	protected List<Integer> mutate_(List<Integer> element, IProblem problem, MyRandom rand) {
 		return null;
 	}
 }

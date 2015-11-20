@@ -10,7 +10,7 @@ import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.visualization.HypervolumeBoxPlot;
 import com.msu.thief.NSGAIIFactory;
 import com.msu.thief.evolving.ThiefProblemVariable;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class OptimalTourHypervolume extends AProblem<ThiefProblemVariable>{
 
@@ -34,8 +34,8 @@ public class OptimalTourHypervolume extends AProblem<ThiefProblemVariable>{
 	@Override
 	protected void evaluate_(ThiefProblemVariable var, List<Double> objectives, List<Double> constraintViolations) {
 		
-		NonDominatedSolutionSet setRandom = aRandom.run(var.get(), new Evaluator(MAX_EVALUATIONS_OF_THIEF), new Random());
-		NonDominatedSolutionSet setOptimal = aOptimal.run(var.get(), new Evaluator(MAX_EVALUATIONS_OF_THIEF), new Random());
+		NonDominatedSolutionSet setRandom = aRandom.run(var.get(), new Evaluator(MAX_EVALUATIONS_OF_THIEF), new MyRandom());
+		NonDominatedSolutionSet setOptimal = aOptimal.run(var.get(), new Evaluator(MAX_EVALUATIONS_OF_THIEF), new MyRandom());
 		
 		/*
 		int numOfDominations = 0;

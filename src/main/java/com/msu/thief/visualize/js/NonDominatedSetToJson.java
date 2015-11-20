@@ -79,7 +79,8 @@ public class NonDominatedSetToJson {
 
 		json.writeArrayFieldStart("y");
 		for (Solution s : set) {
-			json.writeNumber(s.getObjectives(1));
+			if (s.countObjectives() == 1) json.writeNumber(0d);
+			else json.writeNumber(s.getObjectives(1));
 		}
 		json.writeEndArray();
 

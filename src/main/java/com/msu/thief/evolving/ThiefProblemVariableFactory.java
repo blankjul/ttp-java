@@ -11,7 +11,7 @@ import com.msu.thief.problems.factory.ClusteredSalesmanProblemFactory;
 import com.msu.thief.problems.factory.RandomKnapsackProblemFactory;
 import com.msu.thief.problems.factory.RandomThiefProblemFactory;
 import com.msu.thief.problems.factory.RandomKnapsackProblemFactory.CORRELATION_TYPE;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class ThiefProblemVariableFactory extends AVariableFactory {
 
@@ -25,7 +25,7 @@ public class ThiefProblemVariableFactory extends AVariableFactory {
 	}
 
 	@Override
-	public IVariable next(IProblem problem, Random rand) {
+	public IVariable next(IProblem problem, MyRandom rand) {
 		
 		ASalesmanProblemFactory facSalesman = new ClusteredSalesmanProblemFactory(5);
 		//ASalesmanProblemFactory facSalesman = new ClusteredSalesmanProblemFactory(6);

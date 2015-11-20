@@ -11,7 +11,7 @@ import com.msu.thief.problems.factory.ClusteredSalesmanProblemFactory;
 import com.msu.thief.problems.factory.RandomKnapsackProblemFactory;
 import com.msu.thief.problems.factory.RandomThiefProblemFactory;
 import com.msu.thief.problems.factory.RandomKnapsackProblemFactory.CORRELATION_TYPE;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class ProblemFactory {
 
@@ -40,7 +40,7 @@ public class ProblemFactory {
 						//ASalesmanProblemFactory facSalesman = new ClusteredSalesmanProblemFactory(3);
 						AKnapsackProblemFactory facKnp = new RandomKnapsackProblemFactory().setCorrType(type);
 						RandomThiefProblemFactory facThief = new RandomThiefProblemFactory(facSalesman, facKnp);
-						ThiefProblem problem = facThief.create(cities, itemsPercity, rate, new Random(RANDOM_SEED));
+						ThiefProblem problem = facThief.create(cities, itemsPercity, rate, new MyRandom(RANDOM_SEED));
 						problem.setProfitEvaluator(new NoDroppingEvaluator());
 						problem.setName(String.format("%s-%s-%s-%s-%s", "Clustered", cities, itemsPercity, type, rate));
 						new JsonThiefProblemWriter().write(problem, String.format("../ttp-benchmark/MyBenchmark/%s.ttp", problem));

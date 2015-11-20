@@ -16,7 +16,7 @@ import com.msu.thief.variable.pack.factory.OptimalPackingListFactory;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.thief.variable.tour.factory.FixedTourFactory;
 import com.msu.thief.variable.tour.factory.TwoOptFactory;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class BiLevel extends AbstractDomainAlgorithm<ThiefProblem> {
 
@@ -35,7 +35,7 @@ public class BiLevel extends AbstractDomainAlgorithm<ThiefProblem> {
 
 	
 	@Override
-	public NonDominatedSolutionSet run__(ThiefProblem problem, IEvaluator eval, Random rand) {
+	public NonDominatedSolutionSet run__(ThiefProblem problem, IEvaluator eval, MyRandom rand) {
 		
 		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
 		
@@ -66,7 +66,8 @@ public class BiLevel extends AbstractDomainAlgorithm<ThiefProblem> {
 		}
 		return set;
 	}
-	
+
+
 	
 	
 

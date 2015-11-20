@@ -21,7 +21,7 @@ import com.msu.thief.evolving.tsp.SalesmanProblemMutation;
 import com.msu.thief.evolving.tsp.SalesmanProblemVariableFactory;
 import com.msu.thief.io.writer.JsonThiefProblemWriter;
 import com.msu.thief.problems.ThiefProblem;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 
 /**
@@ -50,7 +50,7 @@ public class ThiefProblemEvolvingExperiment extends AExperiment  {
 		@Override
 		protected void evaluate_(ThiefProblemVariable var, List<Double> objectives, List<Double> constraintViolations) {
 			objectives.add((double) new ThiefAmountOfOptimalTourInFront().analyze(var.get()));
-			objectives.add((double) - new ThiefAmountOfDifferentTours().analyze(new ThiefExhaustive().run(var.get(), new Evaluator(Integer.MAX_VALUE), new Random())));
+			objectives.add((double) - new ThiefAmountOfDifferentTours().analyze(new ThiefExhaustive().run(var.get(), new Evaluator(Integer.MAX_VALUE), new MyRandom())));
 		}
 	}
 	

@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.msu.thief.model.Item;
 import com.msu.thief.problems.KnapsackProblem;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class RandomKnapsackProblemFactory extends AKnapsackProblemFactory {
 
@@ -25,7 +25,7 @@ public class RandomKnapsackProblemFactory extends AKnapsackProblemFactory {
 
 
 	@Override
-	public KnapsackProblem create(int numOfItems, double maxWeightPerc, Random rand) {
+	public KnapsackProblem create(int numOfItems, double maxWeightPerc, MyRandom rand) {
 		
 		long sumWeight = 0;
 
@@ -45,7 +45,7 @@ public class RandomKnapsackProblemFactory extends AKnapsackProblemFactory {
 	/**
 	 * Create one item according to the properties which are set.
 	 */
-	public static Item create(CORRELATION_TYPE corrType, int maximalValue, Random rnd) {
+	public static Item create(CORRELATION_TYPE corrType, int maximalValue, MyRandom rnd) {
 
 
 		// fix the weight value

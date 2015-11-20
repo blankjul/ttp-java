@@ -8,7 +8,7 @@ import com.msu.experiment.AExperiment;
 import com.msu.experiment.ExperimentResult;
 import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IProblem;
-import com.msu.model.AReport;
+import com.msu.model.Report;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.model.solution.SolutionDominator;
@@ -35,7 +35,7 @@ import com.msu.util.events.impl.ProblemFinishedEvent;
 
 public class FinalExperiment2 extends AExperiment {
 
-	private class ThiefReport extends AReport {
+	private class ThiefReport extends Report {
 		public ThiefReport(String path) {
 			super(path);
 			pw.println("problem,algorithm,run,popSize,isDominating,isDominated");

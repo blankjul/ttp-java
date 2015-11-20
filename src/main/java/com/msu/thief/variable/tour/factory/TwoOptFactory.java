@@ -11,13 +11,13 @@ import com.msu.thief.problems.SalesmanProblem;
 import com.msu.thief.variable.tour.StandardTour;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.util.Pair;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class TwoOptFactory extends ATourFactory{
 
 	
 	@Override
-	public Tour<?> next_(IProblem problem, Random rand) {
+	public Tour<?> next_(IProblem problem, MyRandom rand) {
 		Tour<?> tour = new RandomTourFactory().next_(problem, rand);
 		Tour<?> optimized = TwoOptFactory.optimize2Opt(new SalesmanProblem(((ICityProblem) problem).getMap()), tour, rand);
 		return optimized;
@@ -56,12 +56,12 @@ public class TwoOptFactory extends ATourFactory{
 	}
 	
 	
-	public static Tour<?> optimize2Opt(SalesmanProblem p, Tour<?> t, Random rand) {
+	public static Tour<?> optimize2Opt(SalesmanProblem p, Tour<?> t, MyRandom rand) {
 		return optimize2Opt(p, t, rand, true);
 	}
 	
 	
-	public static Tour<?> optimize2Opt(SalesmanProblem p, Tour<?> t, Random rand, boolean useFastCalc) {
+	public static Tour<?> optimize2Opt(SalesmanProblem p, Tour<?> t, MyRandom rand, boolean useFastCalc) {
 
 		
 		// always the best value for each iteration

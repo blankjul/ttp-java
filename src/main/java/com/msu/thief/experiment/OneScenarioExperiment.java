@@ -17,7 +17,7 @@ import com.msu.thief.problems.SalesmanProblem;
 import com.msu.thief.problems.ThiefProblem;
 import com.msu.thief.visualize.ThiefVisualizer;
 import com.msu.util.FileCollectorParser;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 
 /**
@@ -50,7 +50,7 @@ public class OneScenarioExperiment extends AExperiment {
 	public void finalize() {
 		ThiefProblem ttp = (ThiefProblem) problems.get(0);
 		SalesmanProblem p = new SalesmanProblem(ttp.getMap());
-		new SalesmanExhaustive().run(p, new Evaluator(Integer.MAX_VALUE), new Random());
+		new SalesmanExhaustive().run(p, new Evaluator(Integer.MAX_VALUE), new MyRandom());
 		for(double[] row : ttp.getMap().getDistances()) {
 			System.out.println(Arrays.toString(row));
 		}

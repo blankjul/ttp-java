@@ -17,7 +17,7 @@ import com.msu.thief.model.Item;
 import com.msu.thief.problems.KnapsackProblem;
 import com.msu.thief.problems.ThiefProblem;
 import com.msu.thief.variable.pack.PackingList;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class ComboTest {
 	
@@ -49,7 +49,7 @@ public class ComboTest {
 	public void testKNPScenarios() {
 		for(String pathToFile : SCENARIOS) {
 			KnapsackProblem problem = new KnapsackProblemReader().read(pathToFile);
-			NonDominatedSolutionSet set = new KnapsackCombo().run(problem, new Evaluator(Integer.MAX_VALUE), new Random());
+			NonDominatedSolutionSet set = new KnapsackCombo().run(problem, new Evaluator(Integer.MAX_VALUE), new MyRandom());
 			assertEquals(problem.getOptimum().get(0).getObjectives(0), set.get(0).getObjectives(0), 0.01);
 		}
 	}
@@ -58,7 +58,7 @@ public class ComboTest {
 	public void testLargeScaleProblem() {
 		ThiefProblem problem = new BonyadiSingleObjectiveReader().read("resources/100_150_7_25.txt");
 		KnapsackProblem knp = new KnapsackProblem(problem.getMaxWeight(), problem.getItems());
-		new KnapsackCombo().run(knp, new Evaluator(Integer.MAX_VALUE),  new Random());
+		new KnapsackCombo().run(knp, new Evaluator(Integer.MAX_VALUE),  new MyRandom());
 	}
 	
 

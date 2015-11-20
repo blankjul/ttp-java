@@ -16,7 +16,7 @@ import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.thief.algorithms.SalesmanLinKernighanHeuristic;
 import com.msu.thief.io.thief.reader.SalesmanProblemReader;
 import com.msu.thief.problems.SalesmanProblem;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 /**
  * This test is to prove that that the algorithm is working correctly on the
@@ -49,7 +49,7 @@ public class LinKernighanHeuristicTest {
 		SalesmanLinKernighanHeuristic lkh = new SalesmanLinKernighanHeuristic();
 		
 		SalesmanProblem problem = new SalesmanProblemReader().read(pathToFile);
-		NonDominatedSolutionSet set = lkh.run(problem, new Evaluator(Integer.MAX_VALUE), new Random());
+		NonDominatedSolutionSet set = lkh.run(problem, new Evaluator(Integer.MAX_VALUE), new MyRandom());
 		
 		assertEquals(1, set.getSolutions().size());
 		assertEquals(problem.getOptimum().get(0).getObjectives(0), set.getSolutions().get(0).getObjectives(0), 0.01);

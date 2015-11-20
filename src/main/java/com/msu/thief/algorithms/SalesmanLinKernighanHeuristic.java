@@ -21,7 +21,7 @@ import com.msu.thief.problems.ICityProblem;
 import com.msu.thief.variable.tour.StandardTour;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.util.BashExecutor;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 import com.msu.util.Util;
 
 /**
@@ -100,7 +100,7 @@ public class SalesmanLinKernighanHeuristic extends AbstractAlgorithm {
 	}
 	
 	@Override
-	public NonDominatedSolutionSet run_(IProblem p, IEvaluator eval, Random rand) {
+	public NonDominatedSolutionSet run_(IProblem p, IEvaluator eval, MyRandom rand) {
 		NonDominatedSolutionSet result = new NonDominatedSolutionSet();
 		result.add(eval.evaluate(p, getTour(p, eval)));
 		return result;

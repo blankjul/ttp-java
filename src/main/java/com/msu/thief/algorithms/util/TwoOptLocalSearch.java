@@ -11,12 +11,12 @@ import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.thief.variable.tour.factory.TwoOptFactory;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class TwoOptLocalSearch implements INSGAIIModifactor {
 	
 	@Override
-	public void modify(IProblem p, IEvaluator eval, SolutionSet population, Random rand) {
+	public void modify(IProblem p, IEvaluator eval, SolutionSet population, MyRandom rand) {
 		Solution s = population.get(rand.nextInt(population.size()));
 		TTPVariable var = (TTPVariable) s.getVariable();
 

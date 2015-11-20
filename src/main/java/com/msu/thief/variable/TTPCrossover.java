@@ -8,7 +8,7 @@ import com.msu.interfaces.IProblem;
 import com.msu.interfaces.IVariable;
 import com.msu.operators.AbstractCrossover;
 import com.msu.util.Pair;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class TTPCrossover extends AbstractCrossover<Pair<IVariable,IVariable>>{
 
@@ -27,7 +27,7 @@ public class TTPCrossover extends AbstractCrossover<Pair<IVariable,IVariable>>{
 	
 	
 	@Override
-	protected List<Pair<IVariable,IVariable>> crossover_(Pair<IVariable,IVariable> a, Pair<IVariable,IVariable> b, IProblem problem,  Random rand) {
+	protected List<Pair<IVariable,IVariable>> crossover_(Pair<IVariable,IVariable> a, Pair<IVariable,IVariable> b, IProblem problem,  MyRandom rand) {
 		List<IVariable> offTours = cTour.crossover(a.first, b.first, problem,rand);
 		List<IVariable> offPlans = cPackingPlan.crossover(a.second, b.second, problem, rand);
 		

@@ -21,7 +21,7 @@ import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.pack.factory.EmptyPackingListFactory;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.util.Pair;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 import com.msu.util.Range;
 
 public class ThiefDecomposedAlgorithm extends DecomposedAlgorithm {
@@ -32,7 +32,7 @@ public class ThiefDecomposedAlgorithm extends DecomposedAlgorithm {
 	class Mutation extends AbstractMutation<Pair<Tour<?>, PackingList<?>>> {
 
 		@Override
-		protected Pair<Tour<?>, PackingList<?>> mutate_(Pair<Tour<?>, PackingList<?>> pair, IProblem problem, Random rand) {
+		protected Pair<Tour<?>, PackingList<?>> mutate_(Pair<Tour<?>, PackingList<?>> pair, IProblem problem, MyRandom rand) {
 			if (rand.nextDouble() < 0.1) {
 				return Pair.create(pair.first.getSymmetric(), pair.second);
 			} else {
@@ -42,7 +42,7 @@ public class ThiefDecomposedAlgorithm extends DecomposedAlgorithm {
 	}
 
 	@Override
-	protected void initialize(IProblem p, IEvaluator eval, Random rand) {
+	protected void initialize(IProblem p, IEvaluator eval, MyRandom rand) {
 
 		// subproblems
 		ThiefProblem problem = (ThiefProblem) p;
@@ -77,7 +77,7 @@ public class ThiefDecomposedAlgorithm extends DecomposedAlgorithm {
 		SingleObjectiveThiefProblem p = new BonyadiSingleObjectiveReader()
 				.read("../ttp-benchmark/SingleObjective/10/10_15_10_75.txt");
 		p.setToMultiObjective(true);
-		NonDominatedSolutionSet set = new ThiefDecomposedAlgorithm().run(p, new Evaluator(10000), new Random());
+		NonDominatedSolutionSet set = new ThiefDecomposedAlgorithm().run(p, new Evaluator(10000), new MyRandom());
 		System.out.println(set);
 
 	}

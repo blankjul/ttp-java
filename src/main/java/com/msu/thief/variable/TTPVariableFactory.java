@@ -6,7 +6,7 @@ import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.pack.factory.APackingPlanFactory;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.thief.variable.tour.factory.ATourFactory;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class TTPVariableFactory extends AVariableFactory {
 
@@ -20,7 +20,7 @@ public class TTPVariableFactory extends AVariableFactory {
 	}
 
 	@Override
-	public TTPVariable next(IProblem problem, Random rand) {
+	public TTPVariable next(IProblem problem, MyRandom rand) {
 		Tour<?> tour = (Tour<?>) facTour.next(problem, rand);
 		PackingList<?> list = (PackingList<?>) facPlan.next(problem, rand);
 		return new TTPVariable(tour,list);

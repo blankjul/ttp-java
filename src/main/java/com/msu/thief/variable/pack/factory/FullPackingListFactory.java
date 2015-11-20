@@ -11,13 +11,13 @@ import com.msu.thief.problems.IPackingProblem;
 import com.msu.thief.util.CombinatorialUtil;
 import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class FullPackingListFactory extends APackingPlanFactory {
 
 
 	@Override
-	public PackingList<?> next(IProblem p, Random rand) {
+	public PackingList<?> next(IProblem p, MyRandom rand) {
 		
 		// create empty list with no items 
 		List<Boolean> b = new ArrayList<Boolean>();

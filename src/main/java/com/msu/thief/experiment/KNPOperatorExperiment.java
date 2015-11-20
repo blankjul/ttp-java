@@ -6,7 +6,7 @@ import java.util.function.Function;
 import com.msu.experiment.AExperiment;
 import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IProblem;
-import com.msu.model.AReport;
+import com.msu.model.Report;
 import com.msu.thief.NSGAIIFactory;
 import com.msu.thief.io.thief.reader.KnapsackProblemReader;
 import com.msu.thief.model.Item;
@@ -21,7 +21,7 @@ import com.msu.util.events.impl.RunFinishedEvent;
 
 public class KNPOperatorExperiment extends AExperiment {
 
-	private class KnpReport extends AReport {
+	private class KnpReport extends Report {
 		public KnpReport() {
 			super();
 			pw.println("problem,algorithm,result");

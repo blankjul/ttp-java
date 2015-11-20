@@ -14,7 +14,7 @@ import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.problems.ThiefProblem;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 import com.msu.util.Util;
 
 public class ThiefProblemCrossover extends AbstractCrossover<ThiefProblem>{
@@ -22,7 +22,7 @@ public class ThiefProblemCrossover extends AbstractCrossover<ThiefProblem>{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected List<ThiefProblem> crossover_(ThiefProblem a, ThiefProblem b, IProblem problem, Random rand) {
+	protected List<ThiefProblem> crossover_(ThiefProblem a, ThiefProblem b, IProblem problem, MyRandom rand) {
 		
 		ThiefProblem child1 = Util.cloneObject(a);
 		ThiefProblem child2 = Util.cloneObject(b);

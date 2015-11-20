@@ -20,7 +20,7 @@ import com.msu.thief.problems.KnapsackProblem;
 import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.util.BashExecutor;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 import com.msu.util.Util;
 
 public class KnapsackCombo extends AbstractAlgorithm {
@@ -33,7 +33,7 @@ public class KnapsackCombo extends AbstractAlgorithm {
 	}
 
 	@Override
-	public NonDominatedSolutionSet run_(IProblem problem, IEvaluator eval, Random rand) {
+	public NonDominatedSolutionSet run_(IProblem problem, IEvaluator eval, MyRandom rand) {
 		NonDominatedSolutionSet result = new NonDominatedSolutionSet();
 		result.add(eval.evaluate(problem, KnapsackCombo.getPackingList(problem, eval)));
 		return result;

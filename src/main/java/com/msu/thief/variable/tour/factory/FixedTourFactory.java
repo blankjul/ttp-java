@@ -2,7 +2,7 @@ package com.msu.thief.variable.tour.factory;
 
 import com.msu.interfaces.IProblem;
 import com.msu.thief.variable.tour.Tour;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class FixedTourFactory extends ATourFactory {
 
@@ -14,7 +14,7 @@ public class FixedTourFactory extends ATourFactory {
 	}
 
 	@Override
-	protected Tour<?> next_(IProblem problem, Random rand) {
+	protected Tour<?> next_(IProblem problem, MyRandom rand) {
 		return t;
 	}
 

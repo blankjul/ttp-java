@@ -7,13 +7,13 @@ import com.msu.interfaces.IProblem;
 import com.msu.thief.problems.IPackingProblem;
 import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class RandomPackingListFactory extends APackingPlanFactory {
 
 
 	@Override
-	public PackingList<?> next(IProblem p, Random rand) {
+	public PackingList<?> next(IProblem p, MyRandom rand) {
 		double pickingProb = rand.nextDouble();
 		List<Boolean> b = new ArrayList<Boolean>();
 		for (int i = 0; i < ((IPackingProblem) p).numOfItems(); i++) {

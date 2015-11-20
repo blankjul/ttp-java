@@ -13,7 +13,7 @@ import com.msu.thief.variable.tour.Tour;
 import com.msu.thief.variable.tour.factory.RandomTourFactory;
 import com.msu.thief.variable.tour.factory.TwoOptFactory;
 import com.msu.util.Pair;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class TwoOptAlgorithmTest {
 
@@ -29,7 +29,7 @@ public class TwoOptAlgorithmTest {
 	public void testPublicationScenario() {
 		SalesmanProblem tsp = new SalesmanProblemReader().read("resources/bays29.tsp");
 		
-		Tour<?> t = new RandomTourFactory().next(tsp, new Random(1));
+		Tour<?> t = new RandomTourFactory().next(tsp, new MyRandom(1));
 		double time = tsp.evaluate(t).getObjectives(0) ;
 		
 		assertEquals(new StandardTour("[0, 26, 3, 1, 11, 5, 22, 20, 13, 25, 17, 21, 6, 15, 28, 2, 12, 18, 7, 8, 10, 14, 24, 16, 27, 9, 19, 4, 23]").encode(), t.encode());
@@ -42,9 +42,9 @@ public class TwoOptAlgorithmTest {
 	@Test
 	public void testFastCalcEqualToSlowVersion() {
 		SalesmanProblem tsp = new SalesmanProblemReader().read("resources/bays29.tsp");
-		Tour<?> t = new RandomTourFactory().next(tsp, new Random(1));
-		Tour<?> fast = TwoOptFactory.optimize2Opt(tsp, t, new Random(1), true);
-		Tour<?> slow = TwoOptFactory.optimize2Opt(tsp, t, new Random(1), false);
+		Tour<?> t = new RandomTourFactory().next(tsp, new MyRandom(1));
+		Tour<?> fast = TwoOptFactory.optimize2Opt(tsp, t, new MyRandom(1), true);
+		Tour<?> slow = TwoOptFactory.optimize2Opt(tsp, t, new MyRandom(1), false);
 		assertEquals(fast.encode(), slow.encode());
 	}
 	

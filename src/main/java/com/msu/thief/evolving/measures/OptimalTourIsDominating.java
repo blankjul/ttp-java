@@ -8,7 +8,7 @@ import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.thief.algorithms.exhaustive.ThiefExhaustive;
 import com.msu.thief.analyze.ThiefAmountOfDifferentTours;
 import com.msu.thief.evolving.ThiefProblemVariable;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class OptimalTourIsDominating extends AProblem<ThiefProblemVariable>{
 
@@ -28,7 +28,7 @@ public class OptimalTourIsDominating extends AProblem<ThiefProblemVariable>{
 
 	@Override
 	protected void evaluate_(ThiefProblemVariable var, List<Double> objectives, List<Double> constraintViolations) {
-		NonDominatedSolutionSet set = new ThiefExhaustive().run(var.get(), new Evaluator(Integer.MAX_VALUE), new Random());
+		NonDominatedSolutionSet set = new ThiefExhaustive().run(var.get(), new Evaluator(Integer.MAX_VALUE), new MyRandom());
 		int numOfDifferentTour = new ThiefAmountOfDifferentTours().analyze(set);
 		
 		constraintViolations.add((double) numOfDifferentTour - 2);

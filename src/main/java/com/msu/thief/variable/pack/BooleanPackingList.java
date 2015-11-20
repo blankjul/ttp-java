@@ -25,6 +25,13 @@ public class BooleanPackingList extends PackingList<List<Boolean>>{
 		return obj;
 	}
 
+	public List<Integer> toIndexList() {
+		List<Integer> indices = new ArrayList<>();
+		for (int i = 0; i < obj.size(); i++) {
+			if (obj.get(i) == true) indices.add(i);
+		}
+		return indices;
+	}
 
 
 }

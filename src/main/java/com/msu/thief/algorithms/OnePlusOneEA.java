@@ -14,7 +14,7 @@ import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.pack.factory.EmptyPackingListFactory;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.util.Pair;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class OnePlusOneEA extends AbstractDomainAlgorithm<SingleObjectiveThiefProblem> {
 
@@ -33,7 +33,7 @@ public class OnePlusOneEA extends AbstractDomainAlgorithm<SingleObjectiveThiefPr
 
 
 	@Override
-	public NonDominatedSolutionSet run__(SingleObjectiveThiefProblem problem, IEvaluator eval, Random rand) {
+	public NonDominatedSolutionSet run__(SingleObjectiveThiefProblem problem, IEvaluator eval, MyRandom rand) {
 
 
 		boolean original = problem.isSwtichedToMultiObjective();

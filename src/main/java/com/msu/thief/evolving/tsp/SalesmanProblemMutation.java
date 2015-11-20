@@ -6,12 +6,12 @@ import java.util.List;
 
 import com.msu.interfaces.IProblem;
 import com.msu.operators.AbstractMutation;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class SalesmanProblemMutation extends AbstractMutation<List<Point2D>> {
 
 	@Override
-	protected List<Point2D> mutate_(List<Point2D> cities, IProblem problem, Random rand) {
+	protected List<Point2D> mutate_(List<Point2D> cities, IProblem problem, MyRandom rand) {
 		List<Point2D> result = new ArrayList<>();
 		final double prob = 1 / (double) cities.size();
 		for (int i = 0; i < cities.size(); i++) {

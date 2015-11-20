@@ -15,7 +15,7 @@ import com.msu.thief.problems.ThiefProblem;
 import com.msu.thief.variable.tour.PositionDecodedTour;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.thief.variable.tour.factory.PositionDecodedTourFactory;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class PositionDecodedTourTest {
 
@@ -34,7 +34,7 @@ public class PositionDecodedTourTest {
 	@Test
 	public void testRandomCreation() {
 		for (int i = 0; i < 100; i++) {
-			Tour<?> t = new PositionDecodedTourFactory<>().next(new TTPMOCK(), new Random());
+			Tour<?> t = new PositionDecodedTourFactory<>().next(new TTPMOCK(), new MyRandom());
 			@SuppressWarnings("unchecked")
 			ArrayList<Integer> list = (ArrayList<Integer>) t.get();
 			assertTrue(list.get(0) == 0);
@@ -69,7 +69,7 @@ public class PositionDecodedTourTest {
 		System.out.println("SinglePointCrossover");
 		PositionDecodedTour p1 = new PositionDecodedTour(new ArrayList<Integer>(Arrays.asList(0,0,0,3,0)));
 		PositionDecodedTour p2 = new PositionDecodedTour(new ArrayList<Integer>(Arrays.asList(0,1,1,2,4)));
-		List<IVariable> offs = new SinglePointCrossover<Integer> ().crossover(p1,p2, new Random());
+		List<IVariable> offs = new SinglePointCrossover<Integer> ().crossover(p1,p2, new MyRandom());
 		
 		System.out.println(p1.get() + " -> " + p1.encode());
 		System.out.println(p2.get() + " -> " + p2.encode());

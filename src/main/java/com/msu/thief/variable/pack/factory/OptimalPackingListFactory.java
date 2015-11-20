@@ -6,13 +6,13 @@ import com.msu.thief.algorithms.KnapsackCombo;
 import com.msu.thief.problems.IPackingProblem;
 import com.msu.thief.problems.KnapsackProblem;
 import com.msu.thief.variable.pack.PackingList;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class OptimalPackingListFactory extends APackingPlanFactory {
 
 
 	@Override
-	public PackingList<?> next(IProblem p, Random rand) {
+	public PackingList<?> next(IProblem p, MyRandom rand) {
 		
 		IPackingProblem packProblem = (IPackingProblem) p;
 		

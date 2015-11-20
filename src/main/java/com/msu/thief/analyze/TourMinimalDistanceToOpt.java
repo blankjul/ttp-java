@@ -5,7 +5,7 @@ import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.SolutionSet;
 import com.msu.thief.algorithms.exhaustive.SalesmanExhaustive;
 import com.msu.thief.problems.SalesmanProblem;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 public class TourMinimalDistanceToOpt extends AbstractAnalyzer<SalesmanProblem, Double> {
 
@@ -14,7 +14,7 @@ public class TourMinimalDistanceToOpt extends AbstractAnalyzer<SalesmanProblem, 
 	@Override
 	public Double analyze(SalesmanProblem tsp) {
 		SolutionSet s = new SalesmanExhaustive().setOnlyNonDominatedPoints(false)
-				.run(tsp, new Evaluator(Integer.MAX_VALUE), new Random()).getSolutions();
+				.run(tsp, new Evaluator(Integer.MAX_VALUE), new MyRandom()).getSolutions();
 		
 		s.sortByObjective(0);
 		

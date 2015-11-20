@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.problems.SalesmanProblem;
-import com.msu.util.Random;
+import com.msu.util.MyRandom;
 
 /**
  * This class is used to create a Map which only contains a cost matrix. There
@@ -21,7 +21,7 @@ public class RandomSalesmanProblemFactory extends ASalesmanProblemFactory{
 
 
 	@Override
-	public SalesmanProblem create(int numOfCities, Random rnd) {
+	public SalesmanProblem create(int numOfCities, MyRandom rnd) {
 		ArrayList<Point2D> cities = new ArrayList<Point2D>(numOfCities);
 		for (int i = 0; i < numOfCities; i++) {
 			Point2D point = new Point2D.Double(rnd.nextInt(0, maxCoordinates), rnd.nextInt(0, maxCoordinates));
