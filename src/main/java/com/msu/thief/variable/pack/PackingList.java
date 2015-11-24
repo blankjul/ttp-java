@@ -1,6 +1,7 @@
 package com.msu.thief.variable.pack;
 
 import java.util.List;
+import java.util.Set;
 
 import com.msu.model.variables.Variable;
 
@@ -18,6 +19,7 @@ public abstract class PackingList<T> extends Variable<List<Boolean>> {
 	abstract public List<Boolean> encode();
 	
 
+	abstract public Set<Integer> toIndexSet();
 	
 	
 }

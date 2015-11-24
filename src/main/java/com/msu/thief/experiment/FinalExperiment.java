@@ -8,12 +8,9 @@ import com.msu.experiment.AExperiment;
 import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IProblem;
 import com.msu.model.Report;
-import com.msu.thief.algorithms.AntColonyOptimisation;
-import com.msu.thief.algorithms.ThiefSingleObjectiveEvolutionaryAlgorithm;
+import com.msu.thief.algorithms.divide.DivideAndConquerAlgorithm;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.problems.ThiefProblem;
-import com.msu.thief.variable.pack.factory.OneItemPackingListFactory;
-import com.msu.thief.variable.pack.factory.OptimalPackingListFactory;
 import com.msu.util.FileCollectorParser;
 import com.msu.util.events.IListener;
 import com.msu.util.events.impl.EventDispatcher;
@@ -40,7 +37,7 @@ public class FinalExperiment extends AExperiment {
 
 	protected void initialize() {
 		//new HypervolumeReport("../ttp-benchmark/ttp-ea/hypervolume.csv");
-		new ThiefReport("../ttp-benchmark/ttp-pi-new/hypervolume_aco.csv");
+		new ThiefReport("../ttp-benchmark/ttp-pi-new/hypervolume_DivideAndConquerAlgorithm.csv");
 		//new JavaScriptThiefVisualizer("../ttp-benchmark/ttp-pi-new");
 	};
 	
@@ -161,12 +158,17 @@ public class FinalExperiment extends AExperiment {
 			.set("name", "ThiefSingleObjectiveEvolutionary-ONLY-MUTATION-OPT");
 		algorithms.add(singleEA.build());
 		
-		*/
+		
 		Builder<AntColonyOptimisation> singleEA = new Builder<>(AntColonyOptimisation.class);
 		singleEA
 			.set("name", "AntColonyOptimisation");
 		algorithms.add(singleEA.build());
+		*/
 		
+		Builder<DivideAndConquerAlgorithm> heur = new Builder<>(DivideAndConquerAlgorithm.class);
+		heur
+			.set("name", "DivideAndConquerAlgorithm");
+		algorithms.add(heur.build());
 		
 	}
 

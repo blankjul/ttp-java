@@ -51,7 +51,7 @@ public class ThiefDecomposedAlgorithm extends DecomposedAlgorithm {
 
 		// calculate best and worst tour, and best picking plan
 		Tour<?> bestTour = AlgorithmUtil.calcBestTour(problem);
-		PackingList<?> bestPacking = AlgorithmUtil.calcBestPackingPlan(problem, 1);
+		PackingList<?> bestPacking = AlgorithmUtil.calcBestPackingPlan(problem);
 
 		// set the range for normalization
 		range = new Range<>(2, null, null);

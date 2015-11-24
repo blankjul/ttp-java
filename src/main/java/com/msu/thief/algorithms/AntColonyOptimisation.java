@@ -33,7 +33,7 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 
 	protected double beta = 0.0;
 
-	protected int batchSize = 20;
+	protected int batchSize = 50;
 
 	public Double[] heuristic;
 
@@ -150,11 +150,25 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 				
 
 
-				System.out.println(Arrays.toString(packingIndex.toArray()));
+				//System.out.println(Arrays.toString(packingIndex.toArray()));
 
 			}
-			System.out.println("--------------------------------");
+/*			
+			for (int i = 0; i < problem.numOfItems(); i++) {
+				if (mStart[i] < 0.001) System.out.print("0 ");
+				else System.out.print(mStart[i] + " ");
+			}
+			for (int i = 0; i < problem.numOfItems(); i++) {
+				for (int j = 0; j < problem.numOfItems(); j++) {
+					if (mPheromone[i][j] < 0.001) System.out.print("0 ");
+					else System.out.print(mPheromone[i][j] + " ");
+				}
+				System.out.println();
+			}
 			
+			
+			System.out.println("--------------------------------");
+			*/
 	
 			/*
 			 * 
@@ -166,18 +180,7 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 		}
 
 		
-		for (int i = 0; i < problem.numOfItems(); i++) {
-			if (mStart[i] < 0.001) System.out.print("0 ");
-			else System.out.print(mStart[i] + " ");
-		}
-		for (int i = 0; i < problem.numOfItems(); i++) {
-			for (int j = 0; j < problem.numOfItems(); j++) {
-				if (mPheromone[i][j] < 0.001) System.out.print("0 ");
-				else System.out.print(mPheromone[i][j] + " ");
-			}
-			System.out.println();
-		}
-		
+
 		
 		return best;
 	}
@@ -287,14 +290,17 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 		
 		
 		BooleanPackingList tmp = (BooleanPackingList)(((TTPVariable) set.get(0).getVariable()).getPackingList());
-		System.out.println(Arrays.toString(tmp.toIndexList().toArray()));
-		System.out.println(Arrays.toString(bpl.toIndexList().toArray()));
+		System.out.println(Arrays.toString(tmp.toIndexSet().toArray()));
+		System.out.println(Arrays.toString(bpl.toIndexSet().toArray()));
 		System.out.println(set);
 		
 		Double[] heuristic = aco.heuristic;
 		for (int i = 0; i < heuristic.length; i++) {
 			//System.out.println(i + " " + heuristic[i]);
 		}
+		Tour<?> bestTour = AlgorithmUtil.calcBestTour(p);
+		System.out.println(p.evaluate(new TTPVariable(bestTour, bpl)));
+		System.out.println(Arrays.toString(bpl.toIndexSet().toArray()));
 	}
 
 }

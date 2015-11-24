@@ -59,9 +59,18 @@ public class ItemCollection<T extends Item> implements Iterable<T> {
 	/**
 	 * @return true if item is at the specific city, otherwise false
 	 */
-	public boolean isItemAtCity(int city, T item) {
-		return mapFromItemToCity.get(item) == city;
+	public boolean isItemAtCity(int city, int indexOfItem) {
+		return mapFromItemToCity.get(indexOfItem) == city;
 	}
+	
+	
+	/**
+	 * @return city where you can pick the item
+	 */
+	public Integer getCityOfItem(int indexOfItem) {
+		return mapFromItemToCity.get(indexOfItem);
+	}
+	
 	
 	/**
 	 * @return all items that are at the specific city.

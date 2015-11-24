@@ -31,10 +31,10 @@ public class ExperimentExecutor {
 	protected final static String EXPERIMENT = "FinalExperiment";
 	
 	//! number of iterations per experiment
-	protected final static int ITERATIONS = 10;
+	protected final static int ITERATIONS = 1;
 	
 	//! number of threads
-	protected final static int NUM_OF_THREADS = 8;
+	protected final static int NUM_OF_THREADS = 1;
 	
 	//! max evaluations per run
 	protected final static int MAX_EVALUATIONS = 500000;

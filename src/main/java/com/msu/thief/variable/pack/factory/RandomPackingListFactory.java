@@ -12,9 +12,11 @@ import com.msu.util.MyRandom;
 public class RandomPackingListFactory extends APackingPlanFactory {
 
 
+	
+	
 	@Override
 	public PackingList<?> next(IProblem p, MyRandom rand) {
-		double pickingProb = rand.nextDouble();
+		final double pickingProb = rand.nextDouble();
 		List<Boolean> b = new ArrayList<Boolean>();
 		for (int i = 0; i < ((IPackingProblem) p).numOfItems(); i++) {
 			b.add(rand.nextDouble() < pickingProb);

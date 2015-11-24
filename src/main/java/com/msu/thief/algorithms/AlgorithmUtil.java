@@ -20,12 +20,12 @@ public class AlgorithmUtil {
 		return bestTour;
 	}
 	
-	public static PackingList<?> calcBestPackingPlan(ThiefProblem problem, double maxWeightPerc) {
+	public static PackingList<?> calcBestPackingPlan(ThiefProblem problem) {
 		KnapsackProblem knp = new KnapsackProblem((int) problem.getMaxWeight(), problem.getItems());
-		return calcBestPackingPlan(knp, maxWeightPerc);
+		return calcBestPackingPlan(knp);
 	}
 	
-	public static PackingList<?> calcBestPackingPlan(KnapsackProblem problem, double maxWeightPerc) {
+	public static PackingList<?> calcBestPackingPlan(KnapsackProblem problem) {
 		PackingList<?> bestPackingPlan = KnapsackCombo.getPackingList(problem, new Evaluator(Integer.MAX_VALUE));
 		return bestPackingPlan;
 	}
