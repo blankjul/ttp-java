@@ -30,7 +30,7 @@ public class ThiefProblemCrossover extends AbstractCrossover<ThiefProblem>{
 		
 		Variable<List<Point2D>> paCities = new Variable<List<Point2D>>(((CoordinateMap) a.getMap()).getCities());
 		Variable<List<Point2D>> pbCities = new Variable<List<Point2D>>(((CoordinateMap) b.getMap()).getCities());
-		List<IVariable> offCities = new UniformCrossover<>().crossover(paCities, pbCities, rand);
+		List<IVariable> offCities = new UniformCrossover<>().crossover(paCities, pbCities, problem, rand);
 		child1.setMap(new CoordinateMap(((Variable<List<Point2D>>) offCities.get(0)).get()));
 		child2.setMap(new CoordinateMap(((Variable<List<Point2D>>) offCities.get(1)).get()));
 		

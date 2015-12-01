@@ -8,9 +8,13 @@ import com.msu.experiment.AExperiment;
 import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IProblem;
 import com.msu.model.Report;
-import com.msu.thief.algorithms.divide.DivideAndConquerAlgorithm;
+import com.msu.operators.crossover.HalfUniformCrossover;
+import com.msu.operators.crossover.UniformCrossover;
+import com.msu.thief.algorithms.OnePlusOneEA;
+import com.msu.thief.algorithms.ThiefSingleObjectiveEvolutionaryAlgorithm;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.variable.pack.factory.OptimalPackingListFactory;
 import com.msu.util.FileCollectorParser;
 import com.msu.util.events.IListener;
 import com.msu.util.events.impl.EventDispatcher;
@@ -37,7 +41,7 @@ public class FinalExperiment extends AExperiment {
 
 	protected void initialize() {
 		//new HypervolumeReport("../ttp-benchmark/ttp-ea/hypervolume.csv");
-		new ThiefReport("../ttp-benchmark/ttp-pi-new/hypervolume_DivideAndConquerAlgorithm.csv");
+		new ThiefReport("../ttp-results/hypervolume_ea_fac_one_pool.csv");
 		//new JavaScriptThiefVisualizer("../ttp-benchmark/ttp-pi-new");
 	};
 	
@@ -115,8 +119,8 @@ public class FinalExperiment extends AExperiment {
 		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[OPT-EMPTY]-[NO-HUX]-[NO-BF]", builder).build());
 			*/
 		
-/*		
-		IAlgorithm ea = new OnePlusOneEA(false);
+	
+/*		IAlgorithm ea = new OnePlusOneEA(false);
 		ea.setName("1+1-EA");
 		algorithms.add(ea);
 		
@@ -165,10 +169,27 @@ public class FinalExperiment extends AExperiment {
 		algorithms.add(singleEA.build());
 		*/
 		
-		Builder<DivideAndConquerAlgorithm> heur = new Builder<>(DivideAndConquerAlgorithm.class);
+		Builder<ThiefSingleObjectiveEvolutionaryAlgorithm> heur = new Builder<>(ThiefSingleObjectiveEvolutionaryAlgorithm.class);
+		/*heur
+			.set("populationSize", 50)
+			.set("probMutation", 0.3)
+			.set("factory", new OptimalPackingListFactory())
+			.set("cross", new HalfUniformCrossover<>())
+			.set("name", "ThiefSingleObjectiveEvolutionaryAlgorithm-HUX-OPT");
+		algorithms.add(heur.build());*/
+		
+		
 		heur
-			.set("name", "DivideAndConquerAlgorithm");
+			.set("populationSize", 50)
+			.set("probMutation", 0.3)
+			.set("factory", new OptimalPackingListFactory())
+			.set("cross", new UniformCrossover<>())
+			.set("name", "ThiefSingleObjectiveEvolutionaryAlgorithm-UX-OPT");
 		algorithms.add(heur.build());
+		
+		System.out.println();
+		
+		
 		
 	}
 

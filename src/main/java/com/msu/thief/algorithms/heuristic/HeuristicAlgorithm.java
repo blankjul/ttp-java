@@ -22,9 +22,7 @@ import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.pack.factory.EmptyPackingListFactory;
-import com.msu.thief.variable.pack.factory.FullPackingListFactory;
 import com.msu.thief.variable.tour.Tour;
-import com.msu.thief.variable.tour.factory.TwoOptFactory;
 import com.msu.util.MyRandom;
 
 public class HeuristicAlgorithm extends AbstractSingleObjectiveDomainAlgorithm<SingleObjectiveThiefProblem> {

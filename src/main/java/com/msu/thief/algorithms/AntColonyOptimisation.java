@@ -29,9 +29,9 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 
 	protected double evaporationRate = 0.80;
 
-	protected double alpha = 1;
+	protected double alpha = 0.5;
 
-	protected double beta = 0.0;
+	protected double beta = 0.5;
 
 	protected int batchSize = 50;
 
@@ -82,9 +82,9 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 				}
 
 				// virtual last node is first decision
-				//int currentIndex = selectNext(mStart, rand, hash);
-				int currentIndex = selectNext(heuristic, rand, hash);
-				// int currentIndex = rand.nextInt(problem.numOfItems());
+				int currentIndex = selectNext(mStart, rand, hash);
+				//int currentIndex = selectNext(heuristic, rand, hash);
+				//int currentIndex = rand.nextInt(problem.numOfItems());
 
 				packingIndex.add(currentIndex);
 				hash.remove(currentIndex);
@@ -153,22 +153,9 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 				//System.out.println(Arrays.toString(packingIndex.toArray()));
 
 			}
-/*			
-			for (int i = 0; i < problem.numOfItems(); i++) {
-				if (mStart[i] < 0.001) System.out.print("0 ");
-				else System.out.print(mStart[i] + " ");
-			}
-			for (int i = 0; i < problem.numOfItems(); i++) {
-				for (int j = 0; j < problem.numOfItems(); j++) {
-					if (mPheromone[i][j] < 0.001) System.out.print("0 ");
-					else System.out.print(mPheromone[i][j] + " ");
-				}
-				System.out.println();
-			}
 			
+
 			
-			System.out.println("--------------------------------");
-			*/
 	
 			/*
 			 * 
@@ -180,7 +167,20 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 		}
 
 		
-
+		for (int i = 0; i < problem.numOfItems(); i++) {
+			if (mStart[i] < 0.001) System.out.print("0 ");
+			else System.out.print(mStart[i] + " ");
+		}
+		for (int i = 0; i < problem.numOfItems(); i++) {
+			for (int j = 0; j < problem.numOfItems(); j++) {
+				if (mPheromone[i][j] < 0.001) System.out.print("0 ");
+				else System.out.print(mPheromone[i][j] + " ");
+			}
+			System.out.println();
+		}
+		
+		
+		System.out.println("--------------------------------");
 		
 		return best;
 	}
@@ -286,12 +286,11 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 		SingleObjectiveThiefProblem p = new BonyadiSingleObjectiveReader()
 				.read("../ttp-benchmark/SingleObjective/10/10_10_2_50.txt");
 		AntColonyOptimisation aco = new AntColonyOptimisation();
-		NonDominatedSolutionSet set = aco.run(p, new Evaluator(10000), new MyRandom());
+		NonDominatedSolutionSet set = aco.run(p, new Evaluator(500000), new MyRandom(123456));
 		
 		
 		BooleanPackingList tmp = (BooleanPackingList)(((TTPVariable) set.get(0).getVariable()).getPackingList());
 		System.out.println(Arrays.toString(tmp.toIndexSet().toArray()));
-		System.out.println(Arrays.toString(bpl.toIndexSet().toArray()));
 		System.out.println(set);
 		
 		Double[] heuristic = aco.heuristic;

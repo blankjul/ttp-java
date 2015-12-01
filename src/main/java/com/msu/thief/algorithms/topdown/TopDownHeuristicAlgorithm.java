@@ -31,6 +31,8 @@ public class TopDownHeuristicAlgorithm extends AbstractSingleObjectiveDomainAlgo
 
 	protected Set<HeuristicNode> visited = new HashSet<>();
 	
+	final int NUM_OF_NEIGHBOURS = 12;
+	
 	@Override
 	public Solution run___(SingleObjectiveThiefProblem problem, IEvaluator eval, MyRandom rand) {
 
@@ -85,7 +87,7 @@ public class TopDownHeuristicAlgorithm extends AbstractSingleObjectiveDomainAlgo
 			
 			for (HeuristicNode child : children) {
 				Set<Integer> next = new HashSet<>();
-				final int numOfNext = Math.min(nextIndices.size(), 20);
+				final int numOfNext = Math.min(nextIndices.size(), NUM_OF_NEIGHBOURS);
 				for (int i = 0; i < numOfNext; i++) {
 					if (nextIndices.get(i).second < 0) next.add(nextIndices.get(i).first);
 				}
@@ -108,7 +110,7 @@ public class TopDownHeuristicAlgorithm extends AbstractSingleObjectiveDomainAlgo
 		SingleObjectiveThiefProblem p = new BonyadiSingleObjectiveReader()
 				.read("../ttp-benchmark/SingleObjective/10/10_10_2_50.txt");
 		TopDownHeuristicAlgorithm heuristic = new TopDownHeuristicAlgorithm();
-		NonDominatedSolutionSet set = heuristic.run(p, new Evaluator(500000), new MyRandom());
+		NonDominatedSolutionSet set = heuristic.run(p, new Evaluator(Integer.MAX_VALUE), new MyRandom());
 
 		System.out.println(set);
 		System.out.println(

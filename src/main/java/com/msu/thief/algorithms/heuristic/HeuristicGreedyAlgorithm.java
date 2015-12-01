@@ -46,13 +46,11 @@ public class HeuristicGreedyAlgorithm extends AbstractSingleObjectiveDomainAlgor
 			double calcDeltaSpeed = HeuristicUtil.calcDeltaVelocity(problem, i);
 			double deltaWorstTime = HeuristicUtil.calcDeltaTime(problem, bestTour, i, problem.getMinSpeed() + calcDeltaSpeed);
 			
-			List<Integer> pi = bestTour.encode();
-			int tourIndexOfPick = pi.indexOf(problem.getItemCollection().getCityOfItem(i));
 			double bestDelta = HeuristicUtil.calcDeltaSingleObjective(problem, deltaBestTime, deltaProfit);
+			double worstDelta = HeuristicUtil.calcDeltaSingleObjective(problem, deltaWorstTime, deltaProfit);
 			
-			mBestCaseDelta.put(i, bestDelta / (problem.numOfCities() - tourIndexOfPick));
-			
-			mWorstCaseDelta.put(i, HeuristicUtil.calcDeltaSingleObjective(problem, deltaWorstTime, deltaProfit));
+			mBestCaseDelta.put(i, bestDelta);
+			mWorstCaseDelta.put(i, worstDelta);
 		}
 		
 		for (int i = 0; i < items.size(); i++) {

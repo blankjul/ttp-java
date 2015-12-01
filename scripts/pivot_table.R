@@ -1,8 +1,9 @@
 
-dir <- "/home/julesy/workspace/ttp-benchmark/ttp-pi-new/";
-file <- "hypervolume_test.csv";
+dir <- "/home/julesy/workspace/ttp-results/";
+file <- "hypervolume_ea_fac.csv";
 
 csv <- read.csv(paste0(dir, file),  sep = ",")
+csv$result <- round(csv$result, 4)
 csv$problem <- factor(csv$problem, levels(csv$problem)[unique(csv$problem)] )
 
 df_min <- aggregate(csv$result, by=list(csv$problem), FUN=min)
@@ -13,7 +14,9 @@ colnames(df_max) <- c("problem","value")
 
 csv$min <- apply(csv, 1, function(x) df_min[df_min$problem==x[1],]$value)
 csv$max <- apply(csv, 1, function(x) df_max[df_max$problem==x[1],]$value)
-csv$norm <- (csv$result - csv$min) / (csv$max - csv$min) 
+
+
+csv$norm <- (csv$result - csv$min) / (csv$max - csv$min)
 
 
 library(reshape)
