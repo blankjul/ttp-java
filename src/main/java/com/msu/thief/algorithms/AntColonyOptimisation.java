@@ -149,12 +149,15 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 				
 				
 
-
-				//System.out.println(Arrays.toString(packingIndex.toArray()));
+				
+				System.out.println(Arrays.toString(packingIndex.toArray()));
 
 			}
 			
-
+			for (int i = 0; i < problem.numOfItems(); i++) {
+				if (mStart[i] < 0.001) System.out.print("0 ");
+				else System.out.print(mStart[i] + " ");
+			}
 			
 	
 			/*

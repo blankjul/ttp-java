@@ -1,6 +1,7 @@
 package com.msu.thief.algorithms.topdown;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import com.msu.interfaces.IEvaluator;
@@ -21,10 +22,10 @@ public class HeuristicNode {
 	protected int idx = -1;
 	
 	// ! packing list for evaluating
-	protected Set<Integer> currentIndices  = new HashSet<>();
+	protected Set<Integer> currentIndices  = new LinkedHashSet<>();
 
 	// ! all next indices
-	protected Set<Integer> nextIndices = new HashSet<>();
+	protected Set<Integer> nextIndices = new LinkedHashSet<>();
 
 	// ! father where this node was created from
 	protected HeuristicNode father = null;
@@ -42,7 +43,6 @@ public class HeuristicNode {
 		this.idx = -1;
 		this.father = null;
 		this.nextIndices = nextIndices;
-		this.currentIndices = new HashSet<>();
 	}
 	
 
@@ -54,7 +54,7 @@ public class HeuristicNode {
 		this.idx = idx;
 		this.father = father;
 
-		currentIndices = new HashSet<>(father.currentIndices);
+		if (father != null) currentIndices = new LinkedHashSet<>(father.currentIndices);
 		boolean isAdded = currentIndices.add(idx);
 		if (!isAdded) throw new RuntimeException("Item already contained.");
 	}

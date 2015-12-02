@@ -1,6 +1,7 @@
 package com.msu.thief.variable.pack;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -45,6 +46,20 @@ public class BooleanPackingList extends PackingList<List<Boolean>>{
 		return indices;
 	}
 
+	
+	@Override
+	public String toString() {
+		List<Integer> p = new ArrayList<>();
+		for (boolean b : obj) {
+			if (b == true)
+				p.add(1);
+			else
+				p.add(0);
+		}
+		return Arrays.toString(p.toArray());
+	}
+
+	
 
 
 }

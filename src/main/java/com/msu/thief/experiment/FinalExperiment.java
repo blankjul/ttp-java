@@ -8,13 +8,11 @@ import com.msu.experiment.AExperiment;
 import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IProblem;
 import com.msu.model.Report;
-import com.msu.operators.crossover.HalfUniformCrossover;
-import com.msu.operators.crossover.UniformCrossover;
 import com.msu.thief.algorithms.OnePlusOneEA;
 import com.msu.thief.algorithms.ThiefSingleObjectiveEvolutionaryAlgorithm;
+import com.msu.thief.algorithms.topdown.AprioriAlgorithm;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.problems.ThiefProblem;
-import com.msu.thief.variable.pack.factory.OptimalPackingListFactory;
 import com.msu.util.FileCollectorParser;
 import com.msu.util.events.IListener;
 import com.msu.util.events.impl.EventDispatcher;
@@ -123,12 +121,12 @@ public class FinalExperiment extends AExperiment {
 /*		IAlgorithm ea = new OnePlusOneEA(false);
 		ea.setName("1+1-EA");
 		algorithms.add(ea);
-		
+		*/
 		
 		OnePlusOneEA eaSym = new OnePlusOneEA(false);
 		eaSym.checkSymmetric = true;
 		eaSym.setName("1+1-EA-SYM");
-		algorithms.add(eaSym);*/
+		algorithms.add(eaSym);
 	
 		
 /*		Builder<SingleObjectiveEvolutionaryAlgorithm> singleEAFrame = new Builder<>(SingleObjectiveEvolutionaryAlgorithm.class);
@@ -178,7 +176,7 @@ public class FinalExperiment extends AExperiment {
 			.set("name", "ThiefSingleObjectiveEvolutionaryAlgorithm-HUX-OPT");
 		algorithms.add(heur.build());*/
 		
-		
+/*		
 		heur
 			.set("populationSize", 50)
 			.set("probMutation", 0.3)
@@ -186,6 +184,9 @@ public class FinalExperiment extends AExperiment {
 			.set("cross", new UniformCrossover<>())
 			.set("name", "ThiefSingleObjectiveEvolutionaryAlgorithm-UX-OPT");
 		algorithms.add(heur.build());
+		*/
+		Builder<AprioriAlgorithm> apriori = new Builder<>(AprioriAlgorithm.class);
+		algorithms.add(apriori.build());
 		
 		System.out.println();
 		

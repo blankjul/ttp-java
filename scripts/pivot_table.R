@@ -1,6 +1,6 @@
 
 dir <- "/home/julesy/workspace/ttp-results/";
-file <- "hypervolume_ea_fac.csv";
+file <- "hypervolume_test.csv";
 
 csv <- read.csv(paste0(dir, file),  sep = ",")
 csv$result <- round(csv$result, 4)

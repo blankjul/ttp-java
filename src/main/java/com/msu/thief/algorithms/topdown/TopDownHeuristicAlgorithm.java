@@ -31,7 +31,7 @@ public class TopDownHeuristicAlgorithm extends AbstractSingleObjectiveDomainAlgo
 
 	protected Set<HeuristicNode> visited = new HashSet<>();
 	
-	final int NUM_OF_NEIGHBOURS = 12;
+	final int NUM_OF_NEIGHBOURS = 7;
 	
 	@Override
 	public Solution run___(SingleObjectiveThiefProblem problem, IEvaluator eval, MyRandom rand) {
@@ -92,6 +92,7 @@ public class TopDownHeuristicAlgorithm extends AbstractSingleObjectiveDomainAlgo
 					if (nextIndices.get(i).second < 0) next.add(nextIndices.get(i).first);
 				}
 				child.setNextIndices(next);
+				System.out.println(String.format("%s %s -> %s", Arrays.toString(child.currentIndices.toArray()), child.solution.getObjectives(0),Arrays.toString(next.toArray())));
 			}
 			
 			// System.out.println(open.size());
