@@ -97,7 +97,7 @@ public class ThiefProblem extends AProblem<TTPVariable> implements IPackingProbl
     public void checkPackingList(PackingList<?> list) {
     	final int length = list.encode().size();
 		if (length != numOfItems()) 
-			throw new EvaluationException(String.format("Probem has %s items but picking vector only %s", numOfItems(), length));
+			throw new EvaluationException(String.format("Problem has %s items but picking vector only %s", numOfItems(), length));
 	}
 
 	@Override

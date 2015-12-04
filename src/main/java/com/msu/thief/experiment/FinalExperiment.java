@@ -10,7 +10,7 @@ import com.msu.interfaces.IProblem;
 import com.msu.model.Report;
 import com.msu.thief.algorithms.OnePlusOneEA;
 import com.msu.thief.algorithms.ThiefSingleObjectiveEvolutionaryAlgorithm;
-import com.msu.thief.algorithms.topdown.AprioriAlgorithm;
+import com.msu.thief.algorithms.frequent.FrequentPatternMiningAlgorithm;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.problems.ThiefProblem;
 import com.msu.util.FileCollectorParser;
@@ -185,7 +185,7 @@ public class FinalExperiment extends AExperiment {
 			.set("name", "ThiefSingleObjectiveEvolutionaryAlgorithm-UX-OPT");
 		algorithms.add(heur.build());
 		*/
-		Builder<AprioriAlgorithm> apriori = new Builder<>(AprioriAlgorithm.class);
+		Builder<FrequentPatternMiningAlgorithm> apriori = new Builder<>(FrequentPatternMiningAlgorithm.class);
 		algorithms.add(apriori.build());
 		
 		System.out.println();
