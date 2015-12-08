@@ -5,7 +5,7 @@ import com.msu.operators.mutation.BitFlipMutation;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.util.MyRandom;
 
-public class OneItemPackingListFactory extends APackingPlanFactory {
+public class OneItemPackingListFactory extends APackingListFactory {
 
 
 	@Override

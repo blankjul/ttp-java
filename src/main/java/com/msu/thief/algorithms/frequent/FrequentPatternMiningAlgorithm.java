@@ -1,6 +1,5 @@
 package com.msu.thief.algorithms.frequent;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -30,7 +29,7 @@ import com.msu.util.MyRandom;
 public class FrequentPatternMiningAlgorithm
 		extends AbstractSingleObjectiveDomainAlgorithm<SingleObjectiveThiefProblem> {
 
-	final public int NUM_OF_POPULATION = -1;
+	final public int NUM_OF_POPULATION = 500;
 
 	// ! evaluator for this problem. set for every run
 	protected IEvaluator eval;
@@ -79,35 +78,17 @@ public class FrequentPatternMiningAlgorithm
 			
 		}
 		
+		
 		while (eval.hasNext() && !entries.isEmpty()) {
 			
-			if (NUM_OF_POPULATION != -1) {
-				//System.out.println(String.format("Pruned from %s to %s", entries.size(),  Math.min(entries.size(), NUM_OF_POPULATION)));
-				//Collections.shuffle(entries);
-				//rand.shuffle(entries);
-				entries = new FastList<>(entries.subList(0, Math.min(entries.size(), NUM_OF_POPULATION)));
-			}
 			
-			for (FrequentItemSetSolution s : entries) s.singleObjective = false;
-			
-			NonDominatedSolutionSet tmp = new NonDominatedSolutionSet();
-			for (FrequentItemSetSolution s : entries) tmp.add(s);
-			for (FrequentItemSetSolution s : entries) s.singleObjective = true;
-			
-			System.out.println(String.format("%s / %s", tmp.size(), entries.size()));
-			/*
-			entries.clear();
-			for (Solution solution : tmp) {
-				entries.add((FrequentItemSetSolution)solution);
-			}
-			*/
-	
 			// generate a hash set with all possible items
-			Set<Integer> hash = new HashSet<>();
+			Set<Integer> hash = new HashSet<>(problem.numOfItems());
+			//for (int i = 0; i < problem.numOfItems(); i++) hash.add(i);
 			for (FrequentItemSetSolution e : entries) hash.addAll(e.items);
 
 			// the resulting hash map that has upper bounds for every entry
-			Map<FrequentItemSetSolution, Double> next = new HashMap<>();
+			Map<FrequentItemSetSolution, Double> next = new HashMap<>(40000);
 
 			// for every entry of the last level
 			for (FrequentItemSetSolution e : entries) {
@@ -121,7 +102,7 @@ public class FrequentPatternMiningAlgorithm
 					Set<Integer> items = new HashSet<>(e.items);
 					items.add(i);
 
-					FrequentItemSetSolution entry = FrequentItemSetSolution.create(eval, problem, tour, items);
+					FrequentItemSetSolution entry = FrequentItemSetSolution.create(new Evaluator(Integer.MAX_VALUE), problem, tour, items);
 					set.add(entry);
 
 					// if new found index list or if better upper bound is better
@@ -136,9 +117,23 @@ public class FrequentPatternMiningAlgorithm
 				if (e.getKey().getObjectives(0) < e.getValue()) entries.add(e.getKey());
 			}
 
+			Collections.sort(entries, (FrequentItemSetSolution s1, FrequentItemSetSolution s2) -> s1.getObjectives(0).compareTo(s2.getObjectives(0)));
+			//entries = new FastList<>(entries.subList(0, Math.min(entries.size(), NUM_OF_POPULATION)));
+			
+/*			MutableList<FrequentItemSetSolution> nextTmp = new FastList<>();
+			for (FrequentItemSetSolution s : entries) s.singleObjective = false;
+			for(NonDominatedSolutionSet front : new NaiveNonDominatedSorting().run(entries)) {
+				for (Solution solution : front) {
+					nextTmp.add((FrequentItemSetSolution) solution);
+				}
+				if (nextTmp.size() > NUM_OF_POPULATION) break;
+			}
+			for (FrequentItemSetSolution s : entries) s.singleObjective = true;
+			entries = nextTmp;
+			*/
 			
 			//System.out.println(Arrays.toString(hash.toArray()));
-			report(entries, 300);
+			report(entries, 10);
 			//System.out.println();
 			
 		}
@@ -152,10 +147,10 @@ public class FrequentPatternMiningAlgorithm
 		if (n == null) n = entries.size();
 		Collections.sort(entries, (e1, e2) -> Double.compare(e1.getObjectives(0), e2.getObjectives(0)));
 		for (FrequentItemSetSolution e : entries.subList(0, Math.min(entries.size(), n))) {
-			//System.out.println(String.format("%s -> %s", e.getObjectives(0), Arrays.toString(e.items.toArray())));
+			System.out.println(String.format("%s -> %s", e.getObjectives(0), Arrays.toString(e.items.toArray())));
 		
 			e.singleObjective = false;
-			System.out.println(String.format("%s,%s", e.getObjectives(0), e.getObjectives(1)));
+			//System.out.println(String.format("%s,%s", e.getObjectives(0), e.getObjectives(1)));
 			e.singleObjective = true;
 		
 		}
@@ -169,9 +164,10 @@ public class FrequentPatternMiningAlgorithm
 		SingleObjectiveThiefProblem p = new BonyadiSingleObjectiveReader()
 				//.read("../ttp-benchmark/SingleObjective/10/10_5_6_25.txt");
 				//.read("../ttp-benchmark/SingleObjective/10/10_10_2_50.txt");
-				.read("../ttp-benchmark/SingleObjective/10/10_15_10_75.txt");
+				//.read("../ttp-benchmark/SingleObjective/10/10_15_10_75.txt");
 				//.read("../ttp-benchmark/SingleObjective/20/20_5_6_75.txt");
-		//.read("../ttp-benchmark/SingleObjective/20/20_30_9_25.txt");
+				//.read("../ttp-benchmark/SingleObjective/20/20_20_7_50.txt");
+				.read("../ttp-benchmark/SingleObjective/20/20_30_9_25.txt");
 		// .read("../ttp-benchmark/SingleObjective/50/50_15_8_50.txt");
 		// .read("../ttp-benchmark/SingleObjective/100/100_5_10_50.txt");
 

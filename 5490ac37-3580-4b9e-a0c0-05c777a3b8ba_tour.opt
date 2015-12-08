@@ -1,0 +1,18 @@
+NAME : Unnamed.27046.tour
+COMMENT : Length = 27046
+COMMENT : Found by LKH [Keld Helsgaun] Tue Dec  8 11:31:44 2015
+TYPE : TOUR
+DIMENSION : 10
+TOUR_SECTION
+1
+3
+10
+9
+4
+7
+8
+6
+2
+5
+-1
+EOF

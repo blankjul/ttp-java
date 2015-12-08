@@ -16,7 +16,6 @@ import com.msu.operators.crossover.NoCrossover;
 import com.msu.operators.crossover.UniformCrossover;
 import com.msu.operators.mutation.BitFlipMutation;
 import com.msu.operators.mutation.NoMutation;
-import com.msu.thief.algorithms.BiLevel;
 import com.msu.thief.algorithms.OnePlusOneEA;
 import com.msu.thief.algorithms.ThiefDecomposedAlgorithm;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
@@ -139,8 +138,6 @@ public class FinalExperiment2 extends AExperiment {
 	@Override
 	protected void setAlgorithms(List<IAlgorithm> algorithms) {
 
-
-		algorithms.add(new BiLevel());
 
 		algorithms.add(new ThiefDecomposedAlgorithm());
 

@@ -13,7 +13,7 @@ import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.util.MyRandom;
 
-public class FullPackingListFactory extends APackingPlanFactory {
+public class FullPackingListFactory extends APackingListFactory {
 
 
 	@Override

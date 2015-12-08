@@ -15,7 +15,7 @@ import com.msu.soo.ASingleObjectiveAlgorithm;
 import com.msu.thief.problems.ThiefProblem;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.PackingList;
-import com.msu.thief.variable.pack.factory.APackingPlanFactory;
+import com.msu.thief.variable.pack.factory.APackingListFactory;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.util.MyRandom;
 
@@ -28,10 +28,11 @@ public class ThiefSingleObjectiveEvolutionaryAlgorithm extends ASingleObjectiveA
 	protected Double probMutation;
 
 	// ! factory for creating new instances
-	protected APackingPlanFactory factory;
+	protected APackingListFactory factory;
 	
 	protected AbstractCrossover<?> cross;
 
+	
 	@Override
 	public Solution run__(IProblem p, IEvaluator evaluator, MyRandom rand) {
 

@@ -75,7 +75,7 @@ public class KnapsackProblem  extends ASingleObjectiveProblem<PackingList<?>> im
 
 	@Override
 	protected void evaluate_(PackingList<?> var, List<Double> objectives, List<Double> constraintViolations) {
-		List<Boolean> b = var.get();
+		List<Boolean> b = var.encode();
 		if (b.size() != items.size())
 			throw new EvaluationException(String.format("Sizes of the varialbes are different %s != %s", b.size(),  items.size()));
 		double weight = getWeight(items, b);

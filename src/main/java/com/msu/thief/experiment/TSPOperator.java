@@ -8,7 +8,7 @@ import com.msu.experiment.AExperiment;
 import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IProblem;
 import com.msu.model.Report;
-import com.msu.thief.NSGAIIFactory;
+import com.msu.thief.algorithm.factory.NSGAIIFactory;
 import com.msu.thief.io.thief.reader.SalesmanProblemReader;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.problems.ICityProblem;

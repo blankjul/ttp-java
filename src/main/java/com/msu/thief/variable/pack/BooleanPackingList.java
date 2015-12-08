@@ -8,22 +8,28 @@ import java.util.Set;
 
 import com.msu.thief.util.StringUtil;
 
+/**
+ * Boolean packing list e.g. [0,0,1,0,0,1,0,1,0,0,0]
+ *
+ */
 public class BooleanPackingList extends PackingList<List<Boolean>>{
 
+	/**
+	 * Initialize a packing list from boolean packing plan
+	 */
 	public BooleanPackingList(List<Boolean> l) {
 		super(l);
 	}
 	
+	/**
+	 * Initialize from a string
+	 */
 	public BooleanPackingList(String s) {
 		super(StringUtil.parseAsBooleanList(s));
 	}
 	
-	public BooleanPackingList(Set<Integer> indices, int numOfItems) {
-		super(new ArrayList<>());
-		for (int i = 0; i < numOfItems; i++) {
-			if (indices.contains(i)) obj.add(true);
-			else obj.add(false);
-		}
+	public BooleanPackingList(Set<Integer> hash, int numOfItems) {
+		super(new IntegerSetPackingList(hash, numOfItems).encode());
 	}
 
 	@Override
@@ -51,14 +57,31 @@ public class BooleanPackingList extends PackingList<List<Boolean>>{
 	public String toString() {
 		List<Integer> p = new ArrayList<>();
 		for (boolean b : obj) {
-			if (b == true)
-				p.add(1);
-			else
-				p.add(0);
+			int i = (b == true) ? 1 : 0;
+			p.add(i);
 		}
 		return Arrays.toString(p.toArray());
 	}
 
+	@Override
+	public boolean isPicked(int index) {
+		return obj.get(index);
+	}
+
+	
+	@Override
+	public boolean isAnyPicked() {
+		return obj.contains(true);
+	}
+
+	@Override
+	public Set<Integer> getNotPickedItems() {
+		Set<Integer> hash = new HashSet<>();
+		for (int i = 0; i < obj.size(); i++) {
+			if (!obj.get(i)) hash.add(i);
+		}
+		return hash;
+	}
 	
 
 

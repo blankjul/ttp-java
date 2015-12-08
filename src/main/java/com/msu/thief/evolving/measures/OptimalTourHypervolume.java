@@ -8,7 +8,7 @@ import com.msu.model.AProblem;
 import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.visualization.HypervolumeBoxPlot;
-import com.msu.thief.NSGAIIFactory;
+import com.msu.thief.algorithm.factory.NSGAIIFactory;
 import com.msu.thief.evolving.ThiefProblemVariable;
 import com.msu.util.MyRandom;
 

@@ -25,14 +25,12 @@ public class StandardTimeEvaluator extends TimeEvaluator {
 		ItemCollection<Item> items = problem.getItemCollection();
 		
 		List<Integer> pi = input.first.encode();
-		List<Boolean> b = input.second.encode();
+		PackingList<?> b = input.second;
 		
 		// if no item is picked the tsp tour calculator could be used!
-		if (!b.contains(true)) {
+		if (!b.isAnyPicked()) {
 			return new SalesmanProblem(problem.getMap()).evaluate(pi) * problem.getMaxSpeed();
 		} 
-		
-		
 		
 
 		double speed = problem.getMaxSpeed();
@@ -43,7 +41,7 @@ public class StandardTimeEvaluator extends TimeEvaluator {
 			for (Integer index : items.getItemsFromCityByIndex(pi.get(i))) {
 
 				// if we pick that item
-				if (b.get(index)) {
+				if (b.isPicked(index)) {
 
 					Item item = items.get(index);
 					

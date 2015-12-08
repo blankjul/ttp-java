@@ -34,7 +34,7 @@ public class ExperimentExecutor {
 	protected final static int ITERATIONS = 1;
 	
 	//! number of threads
-	protected final static int NUM_OF_THREADS = 4;
+	protected final static int NUM_OF_THREADS = 8;
 	
 	//! max evaluations per run
 	protected final static int MAX_EVALUATIONS = 500000;

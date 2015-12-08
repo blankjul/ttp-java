@@ -6,7 +6,6 @@ import java.util.Set;
 import com.msu.interfaces.IEvaluator;
 import com.msu.interfaces.IVariable;
 import com.msu.moo.model.solution.Solution;
-import com.msu.thief.algorithms.apriori.AprioriEntry;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.BooleanPackingList;

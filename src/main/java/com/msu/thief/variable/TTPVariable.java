@@ -40,7 +40,8 @@ public class TTPVariable extends Variable<Pair<Tour<?>, PackingList<?>>> {
 			else
 				p.add(0);
 		}
-		return String.format("%s;%s", obj.first.toString(), p.toString());
+		String tour = (obj.first == null) ? "" :  obj.first.toString();
+		return String.format("%s;%s", tour ,obj.second.toString());
 	}
 
 	@Override
@@ -58,7 +59,11 @@ public class TTPVariable extends Variable<Pair<Tour<?>, PackingList<?>>> {
 
 	@Override
 	public boolean isEqual(Pair<Tour<?>, PackingList<?>> o1, Pair<Tour<?>, PackingList<?>> o2) {
-		return o1.first.encode().equals(o2.first.encode()) && o1.second.encode().equals(o2.second.encode());
+		// dirty but works for null tour problem;
+		if (o1.first == null && o2.first == null) {
+			return o1.second.encode().equals(o2.second.encode());
+		} else 
+			return o1.first.encode().equals(o2.first.encode()) && o1.second.encode().equals(o2.second.encode());
 	}
 
 }

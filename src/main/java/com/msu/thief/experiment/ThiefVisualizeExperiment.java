@@ -6,8 +6,7 @@ import com.msu.builder.NSGAIIBuilder;
 import com.msu.experiment.AExperiment;
 import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IProblem;
-import com.msu.thief.NSGAIIFactory;
-import com.msu.thief.algorithms.BiLevel;
+import com.msu.thief.algorithm.factory.NSGAIIFactory;
 import com.msu.thief.algorithms.OnePlusOneEA;
 import com.msu.thief.algorithms.util.TwoOptLocalSearch;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
@@ -69,7 +68,6 @@ public class ThiefVisualizeExperiment extends AExperiment {
 		//thief.setName("ThiefExhaustive_ALL");
 		// algorithms.add(thief);
 		
-		algorithms.add(new BiLevel());
 
 		// algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[RANDOM-RANDOM]-[OX-HUX]-[SWAP-BF]").create());
 		// algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[NEAREST-RANDOM]-[OX-HUX]-[SWAP-BF]").create());

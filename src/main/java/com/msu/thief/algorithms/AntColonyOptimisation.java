@@ -73,7 +73,7 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 			for (int a = 0; a < batchSize; a++) {
 
 				List<Integer> packingIndex = new ArrayList<>();
-				List<Boolean> packingPlan = new ArrayList<>(emptyList.get());
+				List<Boolean> packingPlan = new ArrayList<>(emptyList.encode());
 
 				// hash with all further available nodes
 				Set<Integer> hash = new HashSet<>();

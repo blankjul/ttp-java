@@ -9,7 +9,7 @@ import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.util.MyRandom;
 
-public class RandomPackingListFactory extends APackingPlanFactory {
+public class RandomPackingListFactory extends APackingListFactory {
 
 
 	

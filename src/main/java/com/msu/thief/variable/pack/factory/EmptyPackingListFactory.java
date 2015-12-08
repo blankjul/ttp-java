@@ -9,8 +9,7 @@ import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.util.MyRandom;
 
-public class EmptyPackingListFactory extends APackingPlanFactory {
-
+public class EmptyPackingListFactory extends APackingListFactory {
 
 	@Override
 	public PackingList<?> next(IProblem p, MyRandom rand) {
@@ -20,7 +19,6 @@ public class EmptyPackingListFactory extends APackingPlanFactory {
 		}
 		return new BooleanPackingList(b);
 	}
-
 
 
 }

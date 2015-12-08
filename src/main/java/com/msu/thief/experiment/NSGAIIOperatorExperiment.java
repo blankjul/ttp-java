@@ -5,7 +5,7 @@ import java.util.List;
 import com.msu.experiment.AExperiment;
 import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IProblem;
-import com.msu.thief.NSGAIIFactory;
+import com.msu.thief.algorithm.factory.NSGAIIFactory;
 import com.msu.thief.algorithms.OnePlusOneEA;
 import com.msu.thief.problems.factory.RandomKnapsackProblemFactory;
 import com.msu.thief.problems.factory.RandomSalesmanProblemFactory;

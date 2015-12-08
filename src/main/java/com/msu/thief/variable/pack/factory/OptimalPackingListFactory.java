@@ -8,7 +8,7 @@ import com.msu.thief.problems.KnapsackProblem;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.util.MyRandom;
 
-public class OptimalPackingListFactory extends APackingPlanFactory {
+public class OptimalPackingListFactory extends APackingListFactory {
 
 
 	@Override

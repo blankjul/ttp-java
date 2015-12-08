@@ -3,7 +3,7 @@ package com.msu.thief.variable;
 import com.msu.interfaces.IProblem;
 import com.msu.model.AVariableFactory;
 import com.msu.thief.variable.pack.PackingList;
-import com.msu.thief.variable.pack.factory.APackingPlanFactory;
+import com.msu.thief.variable.pack.factory.APackingListFactory;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.thief.variable.tour.factory.ATourFactory;
 import com.msu.util.MyRandom;
@@ -11,9 +11,9 @@ import com.msu.util.MyRandom;
 public class TTPVariableFactory extends AVariableFactory {
 
 	protected ATourFactory facTour;
-	protected APackingPlanFactory facPlan;
+	protected APackingListFactory facPlan;
 
-	public TTPVariableFactory(ATourFactory facTour, APackingPlanFactory	 facPlan) {
+	public TTPVariableFactory(ATourFactory facTour, APackingListFactory	 facPlan) {
 		super();
 		this.facTour = facTour;
 		this.facPlan = facPlan;

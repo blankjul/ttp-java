@@ -13,8 +13,8 @@ import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.pack.factory.EmptyPackingListFactory;
 import com.msu.thief.variable.tour.Tour;
-import com.msu.util.Pair;
 import com.msu.util.MyRandom;
+import com.msu.util.Pair;
 
 public class OnePlusOneEA extends AbstractDomainAlgorithm<SingleObjectiveThiefProblem> {
 

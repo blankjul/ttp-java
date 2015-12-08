@@ -35,7 +35,7 @@ public class RandomLocalSearch extends AbstractAlgorithm {
 		while (eval.hasNext()) {
 
 			// copy the list
-			List<Boolean> nextList = new ArrayList<>(bestList.get());
+			List<Boolean> nextList = new ArrayList<>(bestList.encode());
 			int position = rand.nextInt(nextList.size());
 
 			// change the bit

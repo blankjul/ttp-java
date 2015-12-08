@@ -10,6 +10,7 @@ import com.msu.thief.model.ItemCollection;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.problems.ThiefProblem;
 import com.msu.thief.variable.TTPVariable;
+import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.pack.factory.EmptyPackingListFactory;
 import com.msu.thief.variable.tour.Tour;
@@ -23,6 +24,8 @@ public class HeuristicUtil {
 	
 	
 	public static List<Double> calcDeltaObjectives(ThiefProblem problem, IEvaluator evaluator, Tour<?> tour, PackingList<?> b, int indexOfItem) {
+		
+		b = (BooleanPackingList) b;
 		
 		Solution before = evaluator.evaluate(problem, new TTPVariable(tour, b));
 		b.get().set(indexOfItem, !b.get().get(indexOfItem));

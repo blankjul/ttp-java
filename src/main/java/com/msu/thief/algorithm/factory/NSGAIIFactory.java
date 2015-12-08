@@ -1,4 +1,4 @@
-package com.msu.thief;
+package com.msu.thief.algorithm.factory;
 
 import com.msu.builder.NSGAIIBuilder;
 import com.msu.operators.AbstractCrossover;
@@ -18,7 +18,7 @@ import com.msu.thief.util.TwoOptMutation;
 import com.msu.thief.variable.TTPCrossover;
 import com.msu.thief.variable.TTPMutation;
 import com.msu.thief.variable.TTPVariableFactory;
-import com.msu.thief.variable.pack.factory.APackingPlanFactory;
+import com.msu.thief.variable.pack.factory.APackingListFactory;
 import com.msu.thief.variable.pack.factory.EmptyPackingListFactory;
 import com.msu.thief.variable.pack.factory.FullPackingListFactory;
 import com.msu.thief.variable.pack.factory.OptimalPackingListFactory;
@@ -52,7 +52,7 @@ public class NSGAIIFactory {
 		String[] values = name.substring(7).replaceAll("\\[", "").replaceAll("\\]", "").split("-");
 
 		ATourFactory facTour = parseTourFactory(values[0]);
-		APackingPlanFactory facPlan = parsePackingFactory(values[1]);
+		APackingListFactory facPlan = parsePackingFactory(values[1]);
 		builder.set("factory", new TTPVariableFactory(facTour, facPlan));
 
 		AbstractCrossover<?> cTour = parseTourCrossover(values[2]);
@@ -132,7 +132,7 @@ public class NSGAIIFactory {
 		}
 	}
 
-	protected static APackingPlanFactory parsePackingFactory(String value) {
+	protected static APackingListFactory parsePackingFactory(String value) {
 		if (value.equals("FULL")) {
 			return new FullPackingListFactory();
 		} else if (value.equals("EMPTY")) {
