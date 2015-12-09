@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms;
+package com.msu.thief.algorithms.fixed;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,8 +14,10 @@ import com.msu.model.AbstractSingleObjectiveDomainAlgorithm;
 import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
+import com.msu.thief.algorithms.AlgorithmUtil;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
+import com.msu.thief.problems.SingleObjectiveThiefProblemWithFixedTour;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
@@ -25,7 +27,7 @@ import com.msu.util.MyRandom;
 import com.msu.util.Pair;
 import com.msu.util.Range;
 
-public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorithm<SingleObjectiveThiefProblem> {
+public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorithm<SingleObjectiveThiefProblemWithFixedTour> {
 
 	protected double evaporationRate = 0.80;
 
@@ -38,15 +40,14 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 	public Double[] heuristic;
 
 	@Override
-	public Solution run___(SingleObjectiveThiefProblem problem, IEvaluator evaluator, MyRandom rand) {
+	public Solution run___(SingleObjectiveThiefProblemWithFixedTour problem, IEvaluator evaluator, MyRandom rand) {
 
 		Range<Double> range = new Range<>();
 
-		Tour<?> bestTour = AlgorithmUtil.calcBestTour(problem);
 		PackingList<?> emptyList = new EmptyPackingListFactory().next(problem, rand);
-		Solution empty = evaluator.evaluate(problem, new TTPVariable(bestTour, emptyList));
+		Solution empty = evaluator.evaluate(problem, emptyList);
 
-		heuristic = calcItemHeuristic(problem, evaluator, rand, bestTour);
+		heuristic = calcItemHeuristic(problem, evaluator, rand);
 		heuristic = normalize(heuristic);
 
 		// in the beginning the best is the empty one
@@ -97,8 +98,6 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 				// create a new picking plan
 				do {
 
-					Tour<?> tour = (rand.nextDouble() < 0.5) ? bestTour : bestTour.getSymmetric();
-
 					currentSolution = (currentSolution == null) ? empty : nextSolution;
 
 					// first selection random, else look at pheromone matrix
@@ -108,8 +107,7 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 					packingPlan.set(nextIndex, true);
 					hash.remove(nextIndex);
 
-					nextSolution = evaluator.evaluate(problem,
-							new TTPVariable(tour, new BooleanPackingList(packingPlan)));
+					nextSolution = evaluator.evaluate(problem, new BooleanPackingList(packingPlan));
 
 					// while not getting worse
 				} while (nextSolution.getObjectives(0) < currentSolution.getObjectives(0));
@@ -225,9 +223,9 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 
 	}
 
-	public Double[] calcItemHeuristic(SingleObjectiveThiefProblem p, IEvaluator evaluator, MyRandom rand, Tour<?> t) {
+	public Double[] calcItemHeuristic(SingleObjectiveThiefProblemWithFixedTour p, IEvaluator evaluator, MyRandom rand) {
 
-		Solution empty = evaluator.evaluate(p, new TTPVariable(t, new EmptyPackingListFactory().next(p, rand)));
+		Solution empty = evaluator.evaluate(p, new EmptyPackingListFactory().next(p, rand));
 		
 		Double[] h = new Double[p.numOfItems()];
 
@@ -238,7 +236,7 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 			}
 			b.set(i, true);
 			
-			Solution sol = evaluator.evaluate(p, new TTPVariable(t, new BooleanPackingList(b)));
+			Solution sol = evaluator.evaluate(p, new BooleanPackingList(b));
 			
 			h[i] = empty.getObjectives(0) - sol.getObjectives(0);
 			

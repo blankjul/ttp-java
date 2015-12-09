@@ -32,6 +32,8 @@ public class SingleExperimentExecutor {
 			"../ttp-benchmark/SingleObjective/100/100_5_10_50.txt";
 		
 		ALGORITHMS: 
+			bilevel.BiLevelEvoluationaryAlgorithm
+			fixed.AntColonyOptimisation
 			fixed.apriori.AprioriAlgorithm
 			fixed.frequent.FrequentPatternMiningAlgorithm
 			fixed.divide.DivideAndConquerAlgorithm
@@ -39,9 +41,9 @@ public class SingleExperimentExecutor {
 		
 	*/
 	
-	final public static boolean FIXED_TOUR_PROBLEM = true;
+	final public static boolean FIXED_TOUR_PROBLEM = false;
 	final public static String PROBLEM = "../ttp-benchmark/SingleObjective/10/10_10_2_50.txt";
-	final public static String ALGORITHM = "fixed.topdown.TopDownHeuristicAlgorithm";
+	final public static String ALGORITHM = "bilevel.BiLevelEvoluationaryAlgorithm";
 	
 	
 	public static void main(String[] args) {
@@ -66,7 +68,7 @@ public class SingleExperimentExecutor {
 		
 		PackingList<?> b = null;
 		if (FIXED_TOUR_PROBLEM) b = (PackingList<?>) set.get(0).getVariable();
-		else ((TTPVariable) set.get(0).getVariable()).getPackingList();
+		else b = ((TTPVariable) set.get(0).getVariable()).getPackingList();
 			
 		System.out.println(Arrays.toString(b.toIndexSet().toArray()));
 
