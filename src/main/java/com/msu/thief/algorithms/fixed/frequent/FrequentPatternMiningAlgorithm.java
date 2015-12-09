@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.frequent;
+package com.msu.thief.algorithms.fixed.frequent;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -8,8 +8,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.apache.log4j.BasicConfigurator;
-
 import com.gs.collections.api.list.MutableList;
 import com.gs.collections.impl.list.mutable.FastList;
 import com.msu.interfaces.IEvaluator;
@@ -17,17 +15,12 @@ import com.msu.model.AbstractSingleObjectiveDomainAlgorithm;
 import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
-import com.msu.thief.algorithms.AlgorithmUtil;
-import com.msu.thief.algorithms.OnePlusOneEA;
-import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
-import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.thief.variable.TTPVariable;
+import com.msu.thief.problems.SingleObjectiveThiefProblemWithFixedTour;
 import com.msu.thief.variable.pack.factory.EmptyPackingListFactory;
-import com.msu.thief.variable.tour.Tour;
 import com.msu.util.MyRandom;
 
 public class FrequentPatternMiningAlgorithm
-		extends AbstractSingleObjectiveDomainAlgorithm<SingleObjectiveThiefProblem> {
+		extends AbstractSingleObjectiveDomainAlgorithm<SingleObjectiveThiefProblemWithFixedTour> {
 
 	final public int NUM_OF_POPULATION = 500;
 
@@ -35,41 +28,33 @@ public class FrequentPatternMiningAlgorithm
 	protected IEvaluator eval;
 
 	// ! problem for this run
-	protected SingleObjectiveThiefProblem problem;
+	protected SingleObjectiveThiefProblemWithFixedTour problem;
 
 	// ! random generator
 	protected MyRandom rand;
 
 	@Override
-	public Solution run___(SingleObjectiveThiefProblem problem, IEvaluator eval, MyRandom rand) {
+	public Solution run___(SingleObjectiveThiefProblemWithFixedTour problem, IEvaluator eval, MyRandom rand) {
 
 		// initialize the variables
 		this.problem = problem;
 		this.eval = eval;
 		this.rand = rand;
 		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
-
-		// calculate best tours
-		Tour<?> tour = AlgorithmUtil.calcBestTour(problem).getSymmetric();
-		Tour<?> symmetricTour = tour.getSymmetric();
-
-		solve(tour, set);
-		solve(symmetricTour, set);
-
+		solve(set);
 		return set.get(0);
 	}
 
-	private void solve(Tour<?> tour, NonDominatedSolutionSet set) {
+	private void solve(NonDominatedSolutionSet set) {
 
-		Solution empty = eval.evaluate(problem,
-				new TTPVariable(tour, new EmptyPackingListFactory().next(problem, rand)));
+		Solution empty = eval.evaluate(problem,new EmptyPackingListFactory().next(problem, rand));
 		set.add(empty);
 
 		
 		MutableList<FrequentItemSetSolution> entries = new FastList<>();
 		for (int i = 0; i < problem.numOfItems(); i++) {
 			if (!eval.hasNext()) break;
-			FrequentItemSetSolution entry = FrequentItemSetSolution.create(eval, problem, tour, new HashSet<>(Arrays.asList(i)));
+			FrequentItemSetSolution entry = FrequentItemSetSolution.create(eval, problem, new HashSet<>(Arrays.asList(i)));
 			set.add(entry);
 			
 			if (empty.getObjectives(0) > entry.getObjectives(0)) {
@@ -102,7 +87,7 @@ public class FrequentPatternMiningAlgorithm
 					Set<Integer> items = new HashSet<>(e.items);
 					items.add(i);
 
-					FrequentItemSetSolution entry = FrequentItemSetSolution.create(new Evaluator(Integer.MAX_VALUE), problem, tour, items);
+					FrequentItemSetSolution entry = FrequentItemSetSolution.create(new Evaluator(Integer.MAX_VALUE), problem, items);
 					set.add(entry);
 
 					// if new found index list or if better upper bound is better
@@ -158,35 +143,6 @@ public class FrequentPatternMiningAlgorithm
 		System.out.println("---------------------------");
 	}
 
-	public static void main(String[] args) {
-		BasicConfigurator.configure();
 
-		SingleObjectiveThiefProblem p = new BonyadiSingleObjectiveReader()
-				//.read("../ttp-benchmark/SingleObjective/10/10_5_6_25.txt");
-				//.read("../ttp-benchmark/SingleObjective/10/10_10_2_50.txt");
-				//.read("../ttp-benchmark/SingleObjective/10/10_15_10_75.txt");
-				//.read("../ttp-benchmark/SingleObjective/20/20_5_6_75.txt");
-				//.read("../ttp-benchmark/SingleObjective/20/20_20_7_50.txt");
-				.read("../ttp-benchmark/SingleObjective/20/20_30_9_25.txt");
-		// .read("../ttp-benchmark/SingleObjective/50/50_15_8_50.txt");
-		// .read("../ttp-benchmark/SingleObjective/100/100_5_10_50.txt");
-
-		OnePlusOneEA ea = new OnePlusOneEA(false);
-		ea.checkSymmetric = true;
-		ea.setName("1+1-EA-SYM");
-		
-		FrequentPatternMiningAlgorithm heuristic = new FrequentPatternMiningAlgorithm();
-		NonDominatedSolutionSet set = heuristic.run(p, new Evaluator(Integer.MAX_VALUE), new MyRandom(123456));
-
-		System.out.println(set.size());
-		System.out.println(set);
-		System.out.println(
-				Arrays.toString(((TTPVariable) set.get(0).getVariable()).getPackingList().toIndexSet().toArray()));
-
-	}
-	
-	
-	
-	
 	
 }

@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.divide;
+package com.msu.thief.algorithms.fixed.divide;
 
 import java.util.ArrayList;
 import java.util.Arrays;

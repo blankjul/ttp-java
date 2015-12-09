@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.frequent;
+package com.msu.thief.algorithms.fixed.frequent;
 
 import java.util.List;
 import java.util.Set;
@@ -6,11 +6,9 @@ import java.util.Set;
 import com.msu.interfaces.IEvaluator;
 import com.msu.interfaces.IVariable;
 import com.msu.moo.model.solution.Solution;
-import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.thief.variable.TTPVariable;
+import com.msu.thief.problems.SingleObjectiveThiefProblemWithFixedTour;
 import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
-import com.msu.thief.variable.tour.Tour;
 
 public class FrequentItemSetSolution extends Solution {
 
@@ -29,16 +27,16 @@ public class FrequentItemSetSolution extends Solution {
 	public Set<Integer> items;
 	
 	
-	public static FrequentItemSetSolution create(IEvaluator eval, SingleObjectiveThiefProblem problem, Tour<?> tour, Set<Integer> items) {
+	public static FrequentItemSetSolution create(IEvaluator eval, SingleObjectiveThiefProblemWithFixedTour problem, Set<Integer> items) {
 		
 		PackingList<?> b = new BooleanPackingList(items, problem.numOfItems());
-		FrequentItemSetSolution s = new FrequentItemSetSolution(new TTPVariable(tour,b), null);
+		FrequentItemSetSolution s = new FrequentItemSetSolution(b, null);
 		
 		s.items = items;
-		s.single = eval.evaluate(problem, new TTPVariable(tour, b));
+		s.single = eval.evaluate(problem, b);
 		
 		problem.setToMultiObjective(true);
-		s.multi = eval.evaluate(problem, new TTPVariable(tour, b));
+		s.multi = eval.evaluate(problem, b);
 		problem.setToMultiObjective(false);
 		
 		return s;

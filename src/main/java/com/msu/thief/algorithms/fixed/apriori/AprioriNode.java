@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.apriori;
+package com.msu.thief.algorithms.fixed.apriori;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -9,8 +9,7 @@ import com.gs.collections.api.list.MutableList;
 import com.gs.collections.impl.list.mutable.FastList;
 import com.msu.interfaces.IEvaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
-import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.thief.variable.tour.Tour;
+import com.msu.thief.problems.SingleObjectiveThiefProblemWithFixedTour;
 
 public class AprioriNode {
 
@@ -45,7 +44,7 @@ public class AprioriNode {
 	
 		
 	
-	public List<AprioriNode> expand(IEvaluator eval, SingleObjectiveThiefProblem problem, Tour<?> tour, NonDominatedSolutionSet set) {
+	public List<AprioriNode> expand(IEvaluator eval, SingleObjectiveThiefProblemWithFixedTour problem, NonDominatedSolutionSet set) {
 		
 		MutableList<AprioriNode> result = new FastList<>();
 		
@@ -65,7 +64,7 @@ public class AprioriNode {
 				nextItems.add(second.idx);
 				
 				AprioriEntry e = new AprioriEntry(second.idx, nextItems);
-				e.evaluate(eval, problem, tour);
+				e.evaluate(eval, problem);
 				set.add(e.solution);
 				
 				// add only if node is better than father

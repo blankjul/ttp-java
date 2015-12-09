@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.divide;
+package com.msu.thief.algorithms.fixed;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +16,7 @@ import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.thief.algorithms.AlgorithmUtil;
 import com.msu.thief.algorithms.KnapsackCombo;
+import com.msu.thief.algorithms.fixed.divide.DivideAndConquerUtil;
 import com.msu.thief.algorithms.util.HeuristicUtil;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.model.Item;

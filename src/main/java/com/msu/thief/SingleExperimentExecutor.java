@@ -4,64 +4,71 @@ import java.util.Arrays;
 
 import org.apache.log4j.BasicConfigurator;
 
-import com.msu.builder.Builder;
 import com.msu.interfaces.IAlgorithm;
+import com.msu.interfaces.IProblem;
 import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
-import com.msu.operators.crossover.HalfUniformCrossover;
-import com.msu.operators.crossover.NoCrossover;
-import com.msu.operators.mutation.BitFlipMutation;
-import com.msu.operators.mutation.SwapMutation;
-import com.msu.soo.SingleObjectiveEvolutionaryAlgorithm;
-import com.msu.thief.algorithms.ThiefSingleObjectiveEvolutionaryAsSetAlgorithm;
+import com.msu.thief.algorithms.AlgorithmUtil;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.thief.variable.TTPCrossover;
-import com.msu.thief.variable.TTPMutation;
+import com.msu.thief.problems.SingleObjectiveThiefProblemWithFixedTour;
 import com.msu.thief.variable.TTPVariable;
-import com.msu.thief.variable.TTPVariableFactory;
-import com.msu.thief.variable.pack.factory.OptimalPackingListFactory;
-import com.msu.thief.variable.tour.factory.OptimalTourFactory;
+import com.msu.thief.variable.pack.PackingList;
+import com.msu.thief.variable.tour.Tour;
 import com.msu.util.MyRandom;
+import com.msu.util.ObjectFactory;
 
 public class SingleExperimentExecutor {
 	
-	/*
-	"../ttp-benchmark/SingleObjective/10/10_5_6_25.txt";
-	"../ttp-benchmark/SingleObjective/10/10_10_2_50.txt";
-	"../ttp-benchmark/SingleObjective/10/10_15_10_75.txt";
-	"../ttp-benchmark/SingleObjective/20/20_5_6_75.txt";
-	"../ttp-benchmark/SingleObjective/20/20_20_7_50.txt";
-	"../ttp-benchmark/SingleObjective/20/20_30_9_25.txt";
-	"../ttp-benchmark/SingleObjective/50/50_15_8_50.txt";
-	"../ttp-benchmark/SingleObjective/100/100_5_10_50.txt";
+	/**
+		PROBLEMS
+			"../ttp-benchmark/SingleObjective/10/10_5_6_25.txt";
+			"../ttp-benchmark/SingleObjective/10/10_10_2_50.txt";
+			"../ttp-benchmark/SingleObjective/10/10_15_10_75.txt";
+			"../ttp-benchmark/SingleObjective/20/20_5_6_75.txt";
+			"../ttp-benchmark/SingleObjective/20/20_20_7_50.txt";
+			"../ttp-benchmark/SingleObjective/20/20_30_9_25.txt";
+			"../ttp-benchmark/SingleObjective/50/50_15_8_50.txt";
+			"../ttp-benchmark/SingleObjective/100/100_5_10_50.txt";
+		
+		ALGORITHMS: 
+			fixed.apriori.AprioriAlgorithm
+			fixed.frequent.FrequentPatternMiningAlgorithm
+			fixed.divide.DivideAndConquerAlgorithm
+			fixed.topdown.TopDownHeuristicAlgorithm
+		
 	*/
 	
-	final public static String PROBLEM = "../ttp-benchmark/SingleObjective/10/10_5_6_25.txt";
+	final public static boolean FIXED_TOUR_PROBLEM = true;
+	final public static String PROBLEM = "../ttp-benchmark/SingleObjective/10/10_10_2_50.txt";
+	final public static String ALGORITHM = "fixed.topdown.TopDownHeuristicAlgorithm";
 	
-	public static IAlgorithm ALGORITHM = new ThiefSingleObjectiveEvolutionaryAsSetAlgorithm();
 	
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
 		
-		Builder<SingleObjectiveEvolutionaryAlgorithm> singleEAFrame = new Builder<>(SingleObjectiveEvolutionaryAlgorithm.class);
-		singleEAFrame
-			.set("populationSize", 50)
-			.set("probMutation", 0.3)
-			.set("factory", new TTPVariableFactory(new OptimalTourFactory(), new OptimalPackingListFactory()))
-			.set("crossover", new TTPCrossover(new NoCrossover<>(), new HalfUniformCrossover<>()))
-			.set("mutation", new TTPMutation(new SwapMutation<>(), new BitFlipMutation()))
-			.set("name", "EA-HUX");
-		ALGORITHM = singleEAFrame.build();
-	
-	
-		SingleObjectiveThiefProblem p = new BonyadiSingleObjectiveReader().read(PROBLEM);
-		NonDominatedSolutionSet set = ALGORITHM.run(p, new Evaluator(500000), new MyRandom(123456));
+		IAlgorithm a = ObjectFactory.create(IAlgorithm.class,  "com.msu.thief.algorithms." + ALGORITHM);
+		
+		IProblem problem = null;
+		
+		SingleObjectiveThiefProblem thief = new BonyadiSingleObjectiveReader().read(PROBLEM);
+		problem = thief;
+		if (FIXED_TOUR_PROBLEM) {
+			Tour<?> tour = AlgorithmUtil.calcBestTour(thief);
+			problem = new SingleObjectiveThiefProblemWithFixedTour(thief, tour);
+		}
+		
+		NonDominatedSolutionSet set = a.run(problem, new Evaluator(500000), new MyRandom(123456));
 
-		System.out.println(p);
+		System.out.println(problem);
 		System.out.println(set.size());
 		System.out.println(set);
-		System.out.println(Arrays.toString(((TTPVariable) set.get(0).getVariable()).getPackingList().toIndexSet().toArray()));
+		
+		PackingList<?> b = null;
+		if (FIXED_TOUR_PROBLEM) b = (PackingList<?>) set.get(0).getVariable();
+		else ((TTPVariable) set.get(0).getVariable()).getPackingList();
+			
+		System.out.println(Arrays.toString(b.toIndexSet().toArray()));
 
 	}
 

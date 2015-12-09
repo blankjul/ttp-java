@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.topdown;
+package com.msu.thief.algorithms.fixed.topdown;
 
 public class HeuristicTree {
 

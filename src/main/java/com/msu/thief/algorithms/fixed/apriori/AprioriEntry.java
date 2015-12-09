@@ -1,14 +1,12 @@
-package com.msu.thief.algorithms.apriori;
+package com.msu.thief.algorithms.fixed.apriori;
 
 import java.util.Set;
 
 import com.msu.interfaces.IEvaluator;
 import com.msu.moo.model.solution.Solution;
-import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.thief.variable.TTPVariable;
+import com.msu.thief.problems.SingleObjectiveThiefProblemWithFixedTour;
 import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
-import com.msu.thief.variable.tour.Tour;
 
 public class AprioriEntry {
 	public Solution solution;
@@ -22,13 +20,13 @@ public class AprioriEntry {
 		this.items = items;
 	}
 
-	public Solution evaluate(IEvaluator eval, SingleObjectiveThiefProblem problem, Tour<?> tour) {
+	public Solution evaluate(IEvaluator eval, SingleObjectiveThiefProblemWithFixedTour problem) {
 		if (solution == null) {
 			PackingList<?> b = new BooleanPackingList(items, problem.numOfItems());
-			this.solution = eval.evaluate(problem, new TTPVariable(tour, b));
+			this.solution = eval.evaluate(problem, b);
 			
 			problem.setToMultiObjective(true);
-			Solution multi = problem.evaluate(new TTPVariable(tour, b));
+			Solution multi = problem.evaluate(b);
 			time = multi.getObjectives(0);
 			profit = multi.getObjectives(1);
 			problem.setToMultiObjective(false);

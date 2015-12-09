@@ -2,7 +2,7 @@ package com.msu.thief.problems;
 
 import java.util.List;
 
-import com.msu.soo.ASingleObjectiveProblem;
+import com.msu.model.AProblem;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.variable.TTPVariable;
@@ -15,7 +15,7 @@ import com.msu.thief.variable.tour.Tour;
  * provided.
  *
  */
-public class SingleObjectiveThiefProblemWithFixedTour extends ASingleObjectiveProblem<PackingList<?>>  implements IPackingProblem, ICityProblem{
+public class SingleObjectiveThiefProblemWithFixedTour extends AProblem<PackingList<?>>  implements IPackingProblem, ICityProblem{
 
 	//! tour which is used for evaluations
 	protected Tour<?> tour;
@@ -32,6 +32,11 @@ public class SingleObjectiveThiefProblemWithFixedTour extends ASingleObjectivePr
 		problem.evaluate_(new TTPVariable(tour, var), objectives, constraintViolations);
 	}
 
+
+	@Override
+	public int getNumberOfObjectives() {
+		return problem.getNumberOfObjectives();
+	}
 
 	@Override
 	public int getNumberOfConstraints() {
@@ -74,6 +79,10 @@ public class SingleObjectiveThiefProblemWithFixedTour extends ASingleObjectivePr
 
 	public Tour<?> getTour() {
 		return tour;
+	}
+
+	public void setToMultiObjective(boolean b) {
+		problem.setToMultiObjective(b);
 	}
 
 	
