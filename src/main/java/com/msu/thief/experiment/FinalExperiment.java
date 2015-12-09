@@ -8,13 +8,23 @@ import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IProblem;
 import com.msu.model.Report;
 import com.msu.operators.crossover.HalfUniformCrossover;
+import com.msu.operators.crossover.NoCrossover;
+import com.msu.operators.crossover.SinglePointCrossover;
+import com.msu.operators.crossover.UniformCrossover;
 import com.msu.operators.mutation.BitFlipMutation;
+import com.msu.operators.mutation.NoMutation;
+import com.msu.operators.mutation.SwapMutation;
 import com.msu.soo.SingleObjectiveEvolutionaryAlgorithm;
+import com.msu.thief.algorithms.OnePlusOneEA;
+import com.msu.thief.algorithms.OnePlusOneEAFixedTour;
 import com.msu.thief.algorithms.bilevel.BiLevelSingleObjectiveAlgorithms;
-import com.msu.thief.algorithms.recombinations.LocalOptimaCrossover;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.variable.TTPCrossover;
+import com.msu.thief.variable.TTPMutation;
+import com.msu.thief.variable.TTPVariableFactory;
 import com.msu.thief.variable.pack.factory.OptimalPackingListFactory;
+import com.msu.thief.variable.tour.factory.OptimalTourFactory;
 import com.msu.util.FileCollectorParser;
 import com.msu.util.events.IListener;
 import com.msu.util.events.impl.EventDispatcher;
@@ -189,28 +199,38 @@ public class FinalExperiment extends AExperiment {
 		
 		*/
 		
-/*		
+	
 		IAlgorithm ea = new OnePlusOneEA(false);
 		ea.setName("1+1-EA");
 		algorithms.add(ea);
+		
 		
 		OnePlusOneEA eaSym = new OnePlusOneEA(false);
 		eaSym.checkSymmetric = true;
 		eaSym.setName("1+1-EA-SYM");
 		algorithms.add(eaSym);
-	*/
-/*		
-		Builder<BiLevelSingleObjectiveAlgorithms> bilevel = new Builder<>(BiLevelSingleObjectiveAlgorithms.class);
-		bilevel
-			.set("algorithm", new OnePlusOneEAFixedTour())
-			.set("name", "BILEVEL-1+1-EA");
-		algorithms.add(bilevel.build());
-		*/
 		
-		/*
-		 * Builder<SingleObjectiveEvolutionaryAlgorithm> algorithm = new Builder<>(SingleObjectiveEvolutionaryAlgorithm.class);
-				
+		Builder<SingleObjectiveEvolutionaryAlgorithm> singleEAFrame = new Builder<>(SingleObjectiveEvolutionaryAlgorithm.class);
+		singleEAFrame
+			.set("populationSize", 50)
+			.set("probMutation", 0.3)
+			.set("factory", new TTPVariableFactory(new OptimalTourFactory(), new OptimalPackingListFactory()))
+			.set("crossover", new TTPCrossover(new NoCrossover<>(), new HalfUniformCrossover<>()))
+			.set("mutation", new TTPMutation(new NoMutation<>(), new BitFlipMutation()))
+			.set("name", "EA-HUX");
+		algorithms.add(singleEAFrame.build());
 		
+		singleEAFrame
+			.set("crossover", new TTPCrossover(new NoCrossover<>(), new UniformCrossover<>()))
+			.set("name", "EA-UX");
+		algorithms.add(singleEAFrame.build());
+		
+		singleEAFrame
+			.set("crossover", new TTPCrossover(new NoCrossover<>(), new SinglePointCrossover<>()))
+			.set("name", "EA-SPX");
+		algorithms.add(singleEAFrame.build());
+		
+		Builder<SingleObjectiveEvolutionaryAlgorithm> algorithm = new Builder<>(SingleObjectiveEvolutionaryAlgorithm.class);
 		algorithm
 			.set("populationSize", 50)
 			.set("probMutation", 0.3)
@@ -219,13 +239,11 @@ public class FinalExperiment extends AExperiment {
 			.set("mutation", new BitFlipMutation())
 			.set("name", "EA-HUX");
 		algorithms.add(new BiLevelSingleObjectiveAlgorithms(algorithm.build()));
-		
-		
+				
 		algorithm
 		.set("crossover", new UniformCrossover<>())
 		.set("name", "EA-UX");
 		algorithms.add(new BiLevelSingleObjectiveAlgorithms(algorithm.build()));
-		
 		
 		algorithm
 		.set("crossover", new SinglePointCrossover<>())
@@ -237,19 +255,16 @@ public class FinalExperiment extends AExperiment {
 		algorithms.add(new BiLevelSingleObjectiveAlgorithms(a));
 		
 		
-		*/
+		Builder<SingleObjectiveEvolutionaryAlgorithm> changeTour = new Builder<>(SingleObjectiveEvolutionaryAlgorithm.class);
+		changeTour
+			.set("populationSize", 50)
+			.set("probMutation", 0.3)
+			.set("factory", new TTPVariableFactory(new OptimalTourFactory(), new OptimalPackingListFactory()))
+			.set("crossover", new TTPCrossover(new NoCrossover<>(), new HalfUniformCrossover<>()))
+			.set("mutation", new TTPMutation(new SwapMutation<>(), new BitFlipMutation()))
+			.set("name", "EA-HUX-SWAP");
 		
-		Builder<SingleObjectiveEvolutionaryAlgorithm> algorithm = new Builder<>(SingleObjectiveEvolutionaryAlgorithm.class);
-		algorithm
-		.set("populationSize", 50)
-		.set("probMutation", 0.3)
-		.set("factory", new OptimalPackingListFactory())
-		.set("crossover", new LocalOptimaCrossover())
-		.set("mutation", new BitFlipMutation())
-		.set("name", "EA-LOCAL-OPT");
-	algorithms.add(new BiLevelSingleObjectiveAlgorithms(algorithm.build()));
-	
-		
+		algorithms.add(changeTour.build());
 	}
 
 

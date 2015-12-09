@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.heuristic;
+package com.msu.thief.algorithms.util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,17 +25,17 @@ public class HeuristicUtil {
 	
 	public static List<Double> calcDeltaObjectives(ThiefProblem problem, IEvaluator evaluator, Tour<?> tour, PackingList<?> b, int indexOfItem) {
 		
-		b = (BooleanPackingList) b;
+		BooleanPackingList pack = (BooleanPackingList) b;
 		
-		Solution before = evaluator.evaluate(problem, new TTPVariable(tour, b));
-		b.get().set(indexOfItem, !b.get().get(indexOfItem));
-		Solution after = evaluator.evaluate(problem, new TTPVariable(tour, b));
+		Solution before = evaluator.evaluate(problem, new TTPVariable(tour, pack));
+		pack.get().set(indexOfItem, !pack.get().get(indexOfItem));
+		Solution after = evaluator.evaluate(problem, new TTPVariable(tour, pack));
 		
 		List<Double> v = new ArrayList<>();
 		for (int i = 0; i < problem.getNumberOfObjectives(); i++) {
 			v.add(after.getObjectives(i) - before.getObjectives(i));
 		}
-		b.get().set(indexOfItem, !b.get().get(indexOfItem));
+		pack.get().set(indexOfItem, !pack.get().get(indexOfItem));
 		return v;
 	}
 	

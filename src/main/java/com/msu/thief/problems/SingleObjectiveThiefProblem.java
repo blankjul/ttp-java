@@ -62,7 +62,7 @@ public class SingleObjectiveThiefProblem extends ThiefProblem {
 		if (startingCityIsZero) pair.first = ThiefProblem.rotateToCityZero(pair.first, true);
 
 		checkTour(pair.first);
-		//checkPackingList(pair.second);
+		checkPackingList(pair.second);
 
 		// use the evaluators to calculate the result
 		evalTime = new StandardTimeEvaluator(this);

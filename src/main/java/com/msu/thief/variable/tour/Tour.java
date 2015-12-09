@@ -23,6 +23,7 @@ public abstract class Tour<T> extends Variable<T> {
 
 	abstract public Tour<T> getSymmetric();
 	
+	
 
 	
 	

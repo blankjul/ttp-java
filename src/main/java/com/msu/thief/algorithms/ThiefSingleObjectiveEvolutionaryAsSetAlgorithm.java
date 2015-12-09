@@ -17,7 +17,7 @@ import com.msu.moo.model.solution.SolutionSet;
 import com.msu.operators.mutation.BitFlipMutation;
 import com.msu.operators.selection.RandomSelection;
 import com.msu.soo.ASingleObjectiveAlgorithm;
-import com.msu.thief.algorithms.recombinations.LocalOptimaCrossover;
+import com.msu.thief.algorithms.recombinations.LocalOptimaCrossoverByAdding;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.problems.SingleObjectiveThiefProblemWithFixedTour;
@@ -88,7 +88,7 @@ public class ThiefSingleObjectiveEvolutionaryAsSetAlgorithm extends ASingleObjec
 			PackingList<?> l1 = (PackingList<?>) selector.next().getVariable();
 			PackingList<?> l2 = (PackingList<?>) selector.next().getVariable();
 
-			List<IVariable> vars = new LocalOptimaCrossover().crossover(l1, l2, problem, rand);
+			List<IVariable> vars = new LocalOptimaCrossoverByAdding().crossover(l1, l2, problem, rand);
 
 			for (IVariable v : vars) {
 				if (rand.nextDouble() < probMutation)

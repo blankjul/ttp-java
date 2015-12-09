@@ -13,7 +13,7 @@ import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.IntegerSetPackingList;
 import com.msu.util.MyRandom;
 
-public class LocalOptimaCrossover extends AbstractCrossover<List<Boolean>> {
+public class LocalOptimaCrossoverByPruning extends AbstractCrossover<List<Boolean>> {
 
 	@Override
 	protected List<List<Boolean>> crossover_(List<Boolean> a, List<Boolean> b, IProblem problem, MyRandom rand) {

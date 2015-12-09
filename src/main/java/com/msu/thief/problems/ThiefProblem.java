@@ -19,6 +19,7 @@ import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.tour.StandardTour;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.util.Pair;
+import com.msu.util.exceptions.EvaluationException;
 
 public class ThiefProblem extends AProblem<TTPVariable> implements IPackingProblem, ICityProblem {
 	
@@ -71,7 +72,7 @@ public class ThiefProblem extends AProblem<TTPVariable> implements IPackingProbl
 		// check for the correct input before using evaluator
 		Pair<Tour<?>, PackingList<?>> pair = var.get();
 		checkTour(pair.first);
-		//checkPackingList(pair.second);
+		checkPackingList(pair.second);
 		
 		// fix the starting city if necessary
 		if (startingCityIsZero) pair.first = rotateToCityZero(pair.first, true);
@@ -93,6 +94,11 @@ public class ThiefProblem extends AProblem<TTPVariable> implements IPackingProbl
 		SalesmanProblem.checkTourValidtiy(pi);
 	}
 	
+	public void checkPackingList(PackingList<?> list) {
+    	final int length = list.encode().size();
+		if (length != numOfItems()) 
+			throw new EvaluationException(String.format("Probem has %s items but picking vector only %s", numOfItems(), length));
+	}
   
 	@Override
 	public int getNumberOfObjectives() {

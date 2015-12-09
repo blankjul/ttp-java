@@ -19,19 +19,27 @@ public class ThiefProblemVariable extends Variable<ThiefProblem> {
 		return new ThiefProblemVariable((ThiefProblem) Util.cloneObject(obj));
 	}
 
+	
 	@Override
-	public boolean isEqual(ThiefProblem o1, ThiefProblem o2) {
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((obj == null) ? 0 : obj.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		ThiefProblemVariable o2 = (ThiefProblemVariable) obj;
 		ByteArrayOutputStream bao1 = new ByteArrayOutputStream();
-		new JsonThiefProblemWriter().write(o1, bao1);
+		new JsonThiefProblemWriter().write(this.obj, bao1);
 		
 		ByteArrayOutputStream bao2 = new ByteArrayOutputStream();
-		new JsonThiefProblemWriter().write(o2, bao2);
+		new JsonThiefProblemWriter().write(o2.obj, bao2);
 		
 		return bao1.toString().equals(bao2.toString());
 	}
-	
 
-	
 	
 
 

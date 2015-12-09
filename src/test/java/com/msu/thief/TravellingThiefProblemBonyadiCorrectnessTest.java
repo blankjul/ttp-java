@@ -64,7 +64,7 @@ public class TravellingThiefProblemBonyadiCorrectnessTest {
 		PackingList<List<Boolean>> b = new BooleanPackingList(
 				new ArrayList<Boolean>(Arrays.asList(true, true, true, false, true, true)));
 		Solution p = ttp.evaluate(new TTPVariable(Pair.create(tour, b)));
-		assertEquals(0.0, p.getObjective().get(1), 0.01);
+		assertEquals(-12.11, p.getObjective().get(1), 0.01);
 	}
 
 	@Test

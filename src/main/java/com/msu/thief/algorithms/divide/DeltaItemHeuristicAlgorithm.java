@@ -16,7 +16,7 @@ import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.thief.algorithms.AlgorithmUtil;
 import com.msu.thief.algorithms.KnapsackCombo;
-import com.msu.thief.algorithms.heuristic.HeuristicUtil;
+import com.msu.thief.algorithms.util.HeuristicUtil;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.model.Item;
 import com.msu.thief.problems.KnapsackProblem;
@@ -77,7 +77,7 @@ public class DeltaItemHeuristicAlgorithm extends AbstractSingleObjectiveDomainAl
 		}
 		
 		
-		TTPVariable var = (TTPVariable) set.get(0).getVariable();
+		//TTPVariable var = (TTPVariable) set.get(0).getVariable();
 		//DivideAndConquerUtil.reportFinalState(problem, eval, var.getTour(), var.getPackingList().toIndexSet());
 		
 		return set.get(0);

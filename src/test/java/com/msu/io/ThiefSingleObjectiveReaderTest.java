@@ -17,7 +17,7 @@ public class ThiefSingleObjectiveReaderTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		BasicConfigurator.configure();
-		problem = new JsonThiefProblemReader().read("resources/SO_Boniady_Publication.ttp");
+		problem = new JsonThiefProblemReader().read("resources/bonyadi_single_publication.ttp");
 	}
 	
 	

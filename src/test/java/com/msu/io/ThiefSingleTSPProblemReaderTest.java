@@ -34,7 +34,7 @@ public class ThiefSingleTSPProblemReaderTest {
 	
 	@Test
 	public void testDistanceBetweenFirstAndSecondCorrect() {
-		assertEquals(667, problem.getMap().get(0, 1),0.01);
+		assertEquals(666, problem.getMap().get(0, 1),0.01);
 	}
 	
 	@Test

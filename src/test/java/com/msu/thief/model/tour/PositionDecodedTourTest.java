@@ -1,7 +1,6 @@
 package com.msu.thief.model.tour;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,8 +12,6 @@ import com.msu.interfaces.IVariable;
 import com.msu.operators.crossover.SinglePointCrossover;
 import com.msu.thief.problems.ThiefProblem;
 import com.msu.thief.variable.tour.PositionDecodedTour;
-import com.msu.thief.variable.tour.Tour;
-import com.msu.thief.variable.tour.factory.PositionDecodedTourFactory;
 import com.msu.util.MyRandom;
 
 public class PositionDecodedTourTest {
@@ -31,18 +28,7 @@ public class PositionDecodedTourTest {
 		
 	}
 
-	@Test
-	public void testRandomCreation() {
-		for (int i = 0; i < 100; i++) {
-			Tour<?> t = new PositionDecodedTourFactory<>().next(new TTPMOCK(), new MyRandom());
-			@SuppressWarnings("unchecked")
-			ArrayList<Integer> list = (ArrayList<Integer>) t.get();
-			assertTrue(list.get(0) == 0);
-			assertTrue(list.get(1) <= 1);
-			assertTrue(list.get(2) <= 2);
-			assertTrue(list.get(3) <= 3);
-		}
-	}
+
 	
 	@Test
 	public void testEncoding1() {

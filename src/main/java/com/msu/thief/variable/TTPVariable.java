@@ -13,6 +13,8 @@ import com.msu.util.Pair;
 
 public class TTPVariable extends Variable<Pair<Tour<?>, PackingList<?>>> {
 
+
+	
 	public TTPVariable(String s) {
 		super(null);
 		String[] values = s.split(";");
@@ -57,13 +59,44 @@ public class TTPVariable extends Variable<Pair<Tour<?>, PackingList<?>>> {
 		return obj.second;
 	}
 
+
+	
 	@Override
-	public boolean isEqual(Pair<Tour<?>, PackingList<?>> o1, Pair<Tour<?>, PackingList<?>> o2) {
-		// dirty but works for null tour problem;
-		if (o1.first == null && o2.first == null) {
-			return o1.second.encode().equals(o2.second.encode());
-		} else 
-			return o1.first.encode().equals(o2.first.encode()) && o1.second.encode().equals(o2.second.encode());
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((obj.first == null) ? 0 : obj.first.hashCode());
+		result = prime * result + ((obj.second == null) ? 0 : obj.second.hashCode());
+		return result;
 	}
+
+	
+	@Override
+	public boolean equals(Object otherObject) {
+		if (this == otherObject)
+			return true;
+		if (!super.equals(otherObject))
+			return false;
+		if (getClass() != otherObject.getClass())
+			return false;
+		TTPVariable other = (TTPVariable) otherObject;
+		if (obj.second == null) {
+			if (other.obj.second != null)
+				return false;
+		} else if (!obj.second.equals(other.obj.second))
+			return false;
+		if (obj.first == null) {
+			if (other.obj.first != null)
+				return false;
+		} else if (!obj.first.equals(other.obj.first))
+			return false;
+		return true;
+	}
+
+
+	
+	
+	
+	
 
 }

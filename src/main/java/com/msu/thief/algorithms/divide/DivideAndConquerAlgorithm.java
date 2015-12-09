@@ -14,7 +14,7 @@ import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.thief.algorithms.AlgorithmUtil;
-import com.msu.thief.algorithms.heuristic.HeuristicUtil;
+import com.msu.thief.algorithms.util.HeuristicUtil;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.variable.TTPVariable;

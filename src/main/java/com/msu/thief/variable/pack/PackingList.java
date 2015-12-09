@@ -22,6 +22,7 @@ public abstract class PackingList<T> extends Variable<T> {
 	public PackingList(T obj) {
 		super(obj);
 	}
+	
 
 	/**
 	 * Every PackingList could be encoded to an binary decision vector.
