@@ -6,7 +6,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.msu.model.AProblem;
-import com.msu.thief.evaluator.Evaluator;
+import com.msu.thief.evaluator.PackingInformation;
+import com.msu.thief.evaluator.TourInformation;
 import com.msu.thief.evaluator.profit.NoDroppingEvaluator;
 import com.msu.thief.evaluator.profit.ProfitEvaluator;
 import com.msu.thief.evaluator.time.StandardTimeEvaluator;
@@ -18,7 +19,6 @@ import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.tour.StandardTour;
 import com.msu.thief.variable.tour.Tour;
-import com.msu.util.Pair;
 import com.msu.util.exceptions.EvaluationException;
 
 public class ThiefProblem extends AProblem<TTPVariable> implements IPackingProblem, ICityProblem {
@@ -33,7 +33,7 @@ public class ThiefProblem extends AProblem<TTPVariable> implements IPackingProbl
 
 	// evaluator objects
 	protected ProfitEvaluator evalProfit = new NoDroppingEvaluator();
-	protected TimeEvaluator evalTime = new StandardTimeEvaluator(this);
+	protected TimeEvaluator evalTime = new StandardTimeEvaluator();
 
 	// ! map where the salesman could visit cities
 	protected SymmetricMap map = null;
@@ -70,21 +70,27 @@ public class ThiefProblem extends AProblem<TTPVariable> implements IPackingProbl
 	protected void evaluate_(TTPVariable var, List<Double> objectives, List<Double> constraintViolations) {
 		
 		// check for the correct input before using evaluator
-		Pair<Tour<?>, PackingList<?>> pair = var.get();
-		checkTour(pair.first);
-		checkPackingList(pair.second);
+		Tour<?> tour = var.getTour();
+		PackingList<?> pack = var.getPackingList();
+		
+		checkTour(tour);
+		checkPackingList(pack);
 		
 		// fix the starting city if necessary
-		if (startingCityIsZero) pair.first = rotateToCityZero(pair.first, true);
+		if (startingCityIsZero) tour = rotateToCityZero(tour, true);
 		
 		// use the evaluators to calculate the result
-		evalTime = new StandardTimeEvaluator(this);
-		List<Double> result =  new Evaluator(this, evalProfit, evalTime).evaluate(var.get());
-		for (Double d : result) objectives.add(d);
 		
-		if (evalTime.getWeight() <= getMaxWeight()) constraintViolations.add(0d);
-		else  constraintViolations.add(evalTime.getWeight() - getMaxWeight()); 
+		TourInformation tourInfo = evalTime.evaluate_(this, tour, pack);
+		objectives.add(tourInfo.getTime());
 		
+		PackingInformation packInfo = evalProfit.evaluate_(this, tour, pack, tourInfo);
+		objectives.add(- packInfo.getProfit());
+		
+		// look for constraints
+		final double weight = packInfo.getWeight();
+		if (weight <= getMaxWeight()) constraintViolations.add(0d);
+		else  constraintViolations.add(weight - getMaxWeight()); 
 		
 	}
 	
@@ -171,6 +177,10 @@ public class ThiefProblem extends AProblem<TTPVariable> implements IPackingProbl
 	@Override
 	public List<Item> getItems() {
 		return items.asList();
+	}
+	
+	public Item getItem(int idx) {
+		return items.asList().get(idx);
 	}
 
 	public boolean isStartingCityIsZero() {

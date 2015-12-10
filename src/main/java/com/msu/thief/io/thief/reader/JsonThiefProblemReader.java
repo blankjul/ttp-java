@@ -65,7 +65,7 @@ public class JsonThiefProblemReader extends AReader<ThiefProblem> {
 		JsonNode timeNode = root.findValue("timeEvaluator");
 		String timeEval = timeNode.findValue("type").asText();
 		if (timeEval.equals("STANDARD")) {
-			p.setTimeEvaluator(new StandardTimeEvaluator(p));
+			p.setTimeEvaluator(new StandardTimeEvaluator());
 		} else {
 			throw new RuntimeException(String.format("TimeEvaluator %s is unknown.", timeEval));
 		}

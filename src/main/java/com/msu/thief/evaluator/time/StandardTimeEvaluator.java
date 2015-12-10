@@ -3,56 +3,46 @@ package com.msu.thief.evaluator.time;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.msu.thief.evaluator.TourInformation;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
-import com.msu.thief.problems.SalesmanProblem;
 import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.tour.Tour;
-import com.msu.util.Pair;
 
 public class StandardTimeEvaluator extends TimeEvaluator {
 
-	
-	public List<Double> times;
-	
-	public StandardTimeEvaluator(ThiefProblem problem) {
-		super(problem);
-	}
-
 
 	@Override
-	public Double evaluate_(Pair<Tour<?>, PackingList<?>> input) {
-		
-		times = new ArrayList<>();
+	public TourInformation evaluate_(ThiefProblem problem, Tour<?> tour, PackingList<?> pack) {
+
+		List<Double> speedAtCities = new ArrayList<>();
+		List<Double> timeAtCities = new ArrayList<>();
+		List<Double> weightAtCities = new ArrayList<>();
+		double time = 0;
+		double weight = 0;
 		
 		ItemCollection<Item> items = problem.getItemCollection();
-		
-		List<Integer> pi = input.first.encode();
-		PackingList<?> b = input.second;
-		
-		// if no item is picked the tsp tour calculator could be used!
-		if (!b.isAnyPicked()) {
-			return new SalesmanProblem(problem.getMap()).evaluate(pi) * problem.getMaxSpeed();
-		} 
-		
-
+		List<Integer> pi = tour.encode();
 		double speed = problem.getMaxSpeed();
+		
 		// iterate over all possible cities
 		for (int i = 0; i < pi.size(); i++) {
 
-			times.add(time);
+			timeAtCities.add(time);
 			
 			// for each item index this city
 			for (Integer index : items.getItemsFromCityByIndex(pi.get(i))) {
 
 				// if we pick that item
-				if (b.isPicked(index)) {
+				if (pack.isPicked(index)) {
 
 					Item item = items.get(index);
 					
 					// update the current weight
 					weight += item.getWeight();
+					weightAtCities.add(weight);
 
 					double speedDiff = problem.getMaxSpeed() - problem.getMinSpeed();
 					speed = problem.getMaxSpeed() - weight * speedDiff / problem.getMaxWeight();
@@ -61,9 +51,7 @@ public class StandardTimeEvaluator extends TimeEvaluator {
 					// if this is the case the weight is larger than the
 					// maxWeight!
 					speed = Math.max(speed, problem.getMinSpeed());
-	
-					// save the picking time!
-					mItem.put(item, time);
+					speedAtCities.add(speed);
 
 				}
 			}
@@ -73,15 +61,8 @@ public class StandardTimeEvaluator extends TimeEvaluator {
 
 		}
 		
-		times.add(time);
-		
-		// calculate the time of each item on the tour!
-		for (Item i : mItem.keySet()) {
-			double pointOfTime = mItem.get(i);
-			mItem.put(i, time - pointOfTime);
-		}
-		
-		return time;
+		return new TourInformation(problem, new TTPVariable(tour,pack), speedAtCities, timeAtCities, time);
 	}
+
 
 }

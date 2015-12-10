@@ -1,7 +1,5 @@
 package com.msu.thief.evaluator.profit;
 
-import java.util.Map;
-
 import com.msu.thief.model.Item;
 
 /**
@@ -24,19 +22,11 @@ public class ExponentialProfitEvaluator extends ProfitEvaluator{
 	}
 
 
-
 	@Override
-	public Double evaluate(Map<Item, Double> mItems) {
-		Double profit = 0.0d;
-		for (Item i : mItems.keySet()) {
-			double timeInKnapsack = mItems.get(i) ;
-			double itemValue = i.getProfit() * Math.pow(droppingRate,timeInKnapsack / droppingConstant);
-			//System.out.println(String.format("%s %s %s", timeInKnapsack, i.getProfit(), itemValue));
-			profit += itemValue;
-		}
-		return profit;
+	protected double calcProfit(Item item, double timeInKnapsack) {
+		return item.getProfit() * Math.pow(droppingRate, timeInKnapsack / droppingConstant);
 	}
-
+	
 
 	public double getDroppingRate() {
 		return droppingRate;
@@ -46,8 +36,9 @@ public class ExponentialProfitEvaluator extends ProfitEvaluator{
 	public double getDroppingConstant() {
 		return droppingConstant;
 	}
-	
-	
+
+
+
 
 	
 	

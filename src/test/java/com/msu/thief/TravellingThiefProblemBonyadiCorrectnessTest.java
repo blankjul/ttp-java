@@ -68,13 +68,15 @@ public class TravellingThiefProblemBonyadiCorrectnessTest {
 	}
 
 	@Test
-	public void testSimpleExample() {
-		Tour<List<Integer>> tour = new StandardTour(new ArrayList<Integer>(Arrays.asList(0, 3, 2, 1)));
+	public void testSimpleExample2() {
+		Tour<List<Integer>> tour = new StandardTour(new ArrayList<Integer>(Arrays.asList(0,2,1,3)));
 		PackingList<List<Boolean>> b = new BooleanPackingList(
-				new ArrayList<Boolean>(Arrays.asList(false, false, false, false, false, false)));
+				new ArrayList<Boolean>(Arrays.asList(false, true, false, true, false, false)));
 		Solution p = ttp.evaluate(new TTPVariable(Pair.create(tour, b)));
-		assertEquals(20.0, p.getObjective().get(0), 0.01);
-		assertEquals(0.0, p.getObjective().get(1), 0.01);
+		assertEquals(133.14, p.getObjective().get(0), 0.01);
+		assertEquals(- 1.047 - 0.564, p.getObjective().get(1), 0.01);
 	}
+	
+	
 
 }

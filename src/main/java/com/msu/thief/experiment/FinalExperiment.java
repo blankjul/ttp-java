@@ -15,8 +15,8 @@ import com.msu.operators.mutation.BitFlipMutation;
 import com.msu.operators.mutation.NoMutation;
 import com.msu.operators.mutation.SwapMutation;
 import com.msu.soo.SingleObjectiveEvolutionaryAlgorithm;
+import com.msu.thief.algorithms.AbstractBiLevelAlgorithms;
 import com.msu.thief.algorithms.OnePlusOneEA;
-import com.msu.thief.algorithms.bilevel.BiLevelSingleObjectiveAlgorithms;
 import com.msu.thief.algorithms.bilevel.OnePlusOneEAFixedTour;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.problems.ThiefProblem;
@@ -238,21 +238,21 @@ public class FinalExperiment extends AExperiment {
 			.set("crossover", new HalfUniformCrossover<>())
 			.set("mutation", new BitFlipMutation())
 			.set("name", "EA-HUX");
-		algorithms.add(new BiLevelSingleObjectiveAlgorithms(algorithm.build()));
+		algorithms.add(new AbstractBiLevelAlgorithms(algorithm.build()));
 				
 		algorithm
 		.set("crossover", new UniformCrossover<>())
 		.set("name", "EA-UX");
-		algorithms.add(new BiLevelSingleObjectiveAlgorithms(algorithm.build()));
+		algorithms.add(new AbstractBiLevelAlgorithms(algorithm.build()));
 		
 		algorithm
 		.set("crossover", new SinglePointCrossover<>())
 		.set("name", "EA-SPX");
-		algorithms.add(new BiLevelSingleObjectiveAlgorithms(algorithm.build()));
+		algorithms.add(new AbstractBiLevelAlgorithms(algorithm.build()));
 		
 		IAlgorithm a = new OnePlusOneEAFixedTour();
 		a.setName("1+1-EA");
-		algorithms.add(new BiLevelSingleObjectiveAlgorithms(a));
+		algorithms.add(new AbstractBiLevelAlgorithms(a));
 		
 		
 		Builder<SingleObjectiveEvolutionaryAlgorithm> changeTour = new Builder<>(SingleObjectiveEvolutionaryAlgorithm.class);

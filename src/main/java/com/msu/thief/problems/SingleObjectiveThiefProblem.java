@@ -3,14 +3,10 @@ package com.msu.thief.problems;
 import java.util.List;
 
 import com.msu.thief.evaluator.profit.NoDroppingEvaluator;
-import com.msu.thief.evaluator.time.StandardTimeEvaluator;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.variable.TTPVariable;
-import com.msu.thief.variable.pack.PackingList;
-import com.msu.thief.variable.tour.Tour;
-import com.msu.util.Pair;
 
 public class SingleObjectiveThiefProblem extends ThiefProblem {
 
@@ -52,34 +48,20 @@ public class SingleObjectiveThiefProblem extends ThiefProblem {
 	@Override
 	protected void evaluate_(TTPVariable var, List<Double> objectives, List<Double> constraintViolations) {
 		
-		if (swtichToMultiObjective) {
-			super.evaluate_(var, objectives, constraintViolations);
-			return;
-		}
+		// calculate the multi-objective result
+		super.evaluate_(var, objectives, constraintViolations);
 		
-		// always start at city 0
-		Pair<Tour<?>, PackingList<?>> pair = var.get();
-		if (startingCityIsZero) pair.first = ThiefProblem.rotateToCityZero(pair.first, true);
-
-		checkTour(pair.first);
-		checkPackingList(pair.second);
-
-		// use the evaluators to calculate the result
-		evalTime = new StandardTimeEvaluator(this);
-		double time = evalTime.evaluate(pair);
-		// check if the maximal weight constraint is violated
-		if (evalTime.getWeight() > getMaxWeight()) {
-			objectives.add(Double.MAX_VALUE);
-			constraintViolations.add(evalTime.getWeight() - getMaxWeight());
-			return;
-		}
-
-		double profit = evalProfit.evaluate(evalTime.getItemMap());
+		// if switched to multi we are done
+		if (swtichToMultiObjective) return;
+		
+		final double time = objectives.get(0);
+		final double profit = -objectives.get(1);
+		
+		objectives.clear();
 		double value = profit - R * time;
-
 		// return the negative because we minimize all!
 		objectives.add(-value);
-		constraintViolations.add(0d);
+
 		
 	}
 	

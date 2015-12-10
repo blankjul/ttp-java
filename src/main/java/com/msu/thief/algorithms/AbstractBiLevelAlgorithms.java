@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.bilevel;
+package com.msu.thief.algorithms;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,7 +10,6 @@ import com.msu.interfaces.IProblem;
 import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.Solution;
 import com.msu.soo.ASingleObjectiveAlgorithm;
-import com.msu.thief.algorithms.AlgorithmUtil;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.variable.TTPVariable;
@@ -18,18 +17,18 @@ import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.util.MyRandom;
 
-public class BiLevelSingleObjectiveAlgorithms extends ASingleObjectiveAlgorithm {
+public class AbstractBiLevelAlgorithms extends ASingleObjectiveAlgorithm {
 
 	//! algorithm that solves the SingleObjectiveThiefProblemWithFixedTour
 	protected IAlgorithm algorithm;
 	
 	
-	public BiLevelSingleObjectiveAlgorithms() {
+	public AbstractBiLevelAlgorithms() {
 		super();
 	}
 	
 	
-	public BiLevelSingleObjectiveAlgorithms(IAlgorithm algorithm) {
+	public AbstractBiLevelAlgorithms(IAlgorithm algorithm) {
 		super();
 		this.algorithm = algorithm;
 	}
