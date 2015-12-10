@@ -1,5 +1,6 @@
 package com.msu.thief.evaluator.time;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.msu.thief.model.Item;
@@ -13,6 +14,7 @@ import com.msu.util.Pair;
 public class StandardTimeEvaluator extends TimeEvaluator {
 
 	
+	public List<Double> times;
 	
 	public StandardTimeEvaluator(ThiefProblem problem) {
 		super(problem);
@@ -21,6 +23,8 @@ public class StandardTimeEvaluator extends TimeEvaluator {
 
 	@Override
 	public Double evaluate_(Pair<Tour<?>, PackingList<?>> input) {
+		
+		times = new ArrayList<>();
 		
 		ItemCollection<Item> items = problem.getItemCollection();
 		
@@ -37,6 +41,8 @@ public class StandardTimeEvaluator extends TimeEvaluator {
 		// iterate over all possible cities
 		for (int i = 0; i < pi.size(); i++) {
 
+			times.add(time);
+			
 			// for each item index this city
 			for (Integer index : items.getItemsFromCityByIndex(pi.get(i))) {
 
@@ -66,6 +72,8 @@ public class StandardTimeEvaluator extends TimeEvaluator {
 			time += (problem.getMap().get(pi.get(i), pi.get((i + 1) % pi.size()) ) / speed);
 
 		}
+		
+		times.add(time);
 		
 		// calculate the time of each item on the tour!
 		for (Item i : mItem.keySet()) {

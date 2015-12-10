@@ -102,6 +102,7 @@ public class JsonThiefProblemWriter extends AProblemWriter<ThiefProblem> {
 				json.writeObjectField("city", i);
 				json.writeObjectField("weight", item.getWeight());
 				json.writeObjectField("value", item.getProfit());
+				if (item.getDropping() != null) json.writeObjectField("dropping", item.getDropping());
 				json.writeEndObject();
 			}
 		}

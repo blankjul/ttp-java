@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.fixed.topdown;
+package com.msu.thief.algorithms.bilevel.topdown;
 
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -6,7 +6,7 @@ import java.util.Set;
 
 import com.msu.interfaces.IEvaluator;
 import com.msu.moo.model.solution.Solution;
-import com.msu.thief.problems.SingleObjectiveThiefProblemWithFixedTour;
+import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
 
@@ -75,7 +75,7 @@ public class HeuristicNode {
 		return solution.getObjectives(0);
 	}
 	
-	public Solution evaluate(IEvaluator eval, SingleObjectiveThiefProblemWithFixedTour problem) {
+	public Solution evaluate(IEvaluator eval, ThiefProblemWithFixedTour problem) {
 		if (solution == null) {
 			PackingList<?> b = new BooleanPackingList(currentIndices, problem.numOfItems());
 			this.solution = eval.evaluate(problem, b);

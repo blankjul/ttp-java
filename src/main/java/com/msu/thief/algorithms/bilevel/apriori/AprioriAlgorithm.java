@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.fixed.apriori;
+package com.msu.thief.algorithms.bilevel.apriori;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -11,11 +11,11 @@ import com.msu.interfaces.IEvaluator;
 import com.msu.model.AbstractSingleObjectiveDomainAlgorithm;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
-import com.msu.thief.problems.SingleObjectiveThiefProblemWithFixedTour;
+import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.variable.pack.factory.EmptyPackingListFactory;
 import com.msu.util.MyRandom;
 
-public class AprioriAlgorithm  extends AbstractSingleObjectiveDomainAlgorithm<SingleObjectiveThiefProblemWithFixedTour> {
+public class AprioriAlgorithm  extends AbstractSingleObjectiveDomainAlgorithm<ThiefProblemWithFixedTour> {
 
 	// final public int NUM_OF_POPULATION = 1000;
 
@@ -23,7 +23,7 @@ public class AprioriAlgorithm  extends AbstractSingleObjectiveDomainAlgorithm<Si
 	protected IEvaluator eval;
 
 	// ! problem for this run
-	protected SingleObjectiveThiefProblemWithFixedTour problem;
+	protected ThiefProblemWithFixedTour problem;
 
 	// ! random generator
 	protected MyRandom rand;
@@ -32,7 +32,7 @@ public class AprioriAlgorithm  extends AbstractSingleObjectiveDomainAlgorithm<Si
 	NonDominatedSolutionSet set;
 
 	@Override
-	public Solution run___(SingleObjectiveThiefProblemWithFixedTour problem, IEvaluator eval, MyRandom rand) {
+	public Solution run___(ThiefProblemWithFixedTour problem, IEvaluator eval, MyRandom rand) {
 
 		// initialize the variables
 		this.problem = problem;

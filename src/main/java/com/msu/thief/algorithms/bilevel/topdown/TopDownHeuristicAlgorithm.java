@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.fixed.topdown;
+package com.msu.thief.algorithms.bilevel.topdown;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +14,7 @@ import com.msu.interfaces.IEvaluator;
 import com.msu.model.AbstractSingleObjectiveDomainAlgorithm;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
-import com.msu.thief.problems.SingleObjectiveThiefProblemWithFixedTour;
+import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.util.MyRandom;
 import com.msu.util.Pair;
 
@@ -29,14 +29,14 @@ import com.msu.util.Pair;
  *
  */
 public class TopDownHeuristicAlgorithm
-		extends AbstractSingleObjectiveDomainAlgorithm<SingleObjectiveThiefProblemWithFixedTour> {
+		extends AbstractSingleObjectiveDomainAlgorithm<ThiefProblemWithFixedTour> {
 
 	protected Set<HeuristicNode> visited = new HashSet<>();
 
 	final int NUM_OF_NEIGHBOURS = 7;
 
 	@Override
-	public Solution run___(SingleObjectiveThiefProblemWithFixedTour problem, IEvaluator eval, MyRandom rand) {
+	public Solution run___(ThiefProblemWithFixedTour problem, IEvaluator eval, MyRandom rand) {
 
 		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
 

@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.fixed.frequent;
+package com.msu.thief.algorithms.bilevel.frequent;
 
 import java.util.List;
 import java.util.Set;
@@ -6,7 +6,7 @@ import java.util.Set;
 import com.msu.interfaces.IEvaluator;
 import com.msu.interfaces.IVariable;
 import com.msu.moo.model.solution.Solution;
-import com.msu.thief.problems.SingleObjectiveThiefProblemWithFixedTour;
+import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
 
@@ -27,7 +27,7 @@ public class FrequentItemSetSolution extends Solution {
 	public Set<Integer> items;
 	
 	
-	public static FrequentItemSetSolution create(IEvaluator eval, SingleObjectiveThiefProblemWithFixedTour problem, Set<Integer> items) {
+	public static FrequentItemSetSolution create(IEvaluator eval, ThiefProblemWithFixedTour problem, Set<Integer> items) {
 		
 		PackingList<?> b = new BooleanPackingList(items, problem.numOfItems());
 		FrequentItemSetSolution s = new FrequentItemSetSolution(b, null);

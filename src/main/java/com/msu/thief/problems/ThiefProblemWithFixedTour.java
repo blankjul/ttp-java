@@ -15,15 +15,15 @@ import com.msu.thief.variable.tour.Tour;
  * provided.
  *
  */
-public class SingleObjectiveThiefProblemWithFixedTour extends AProblem<PackingList<?>>  implements IPackingProblem, ICityProblem{
+public class ThiefProblemWithFixedTour extends AProblem<PackingList<?>>  implements IPackingProblem, ICityProblem{
 
 	//! tour which is used for evaluations
 	protected Tour<?> tour;
 
 	//! problem which underlies this fixed tour problem
-	protected SingleObjectiveThiefProblem problem;
+	protected ThiefProblem problem;
 
-	public SingleObjectiveThiefProblemWithFixedTour(SingleObjectiveThiefProblem problem, Tour<?> tour) {
+	public ThiefProblemWithFixedTour(ThiefProblem problem, Tour<?> tour) {
 		this.problem = problem;
 		this.tour = tour;
 	}
@@ -43,7 +43,7 @@ public class SingleObjectiveThiefProblemWithFixedTour extends AProblem<PackingLi
 		return problem.getNumberOfConstraints();
 	}
 
-	public SingleObjectiveThiefProblem getProblem() {
+	public ThiefProblem getProblem() {
 		return problem;
 	}
 
@@ -82,7 +82,8 @@ public class SingleObjectiveThiefProblemWithFixedTour extends AProblem<PackingLi
 	}
 
 	public void setToMultiObjective(boolean b) {
-		problem.setToMultiObjective(b);
+		if (problem instanceof SingleObjectiveThiefProblem) 
+			((SingleObjectiveThiefProblem)problem).setToMultiObjective(b);
 	}
 
 	

@@ -1,24 +1,18 @@
-package com.msu.thief.algorithms.fixed;
+package com.msu.thief.algorithms.bilevel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.log4j.BasicConfigurator;
-
 import com.msu.interfaces.IEvaluator;
 import com.msu.model.AbstractSingleObjectiveDomainAlgorithm;
-import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.thief.algorithms.AlgorithmUtil;
 import com.msu.thief.algorithms.KnapsackCombo;
-import com.msu.thief.algorithms.fixed.divide.DivideAndConquerUtil;
-import com.msu.thief.algorithms.util.HeuristicUtil;
-import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
+import com.msu.thief.algorithms.bilevel.divide.DivideAndConquerUtil;
 import com.msu.thief.model.Item;
 import com.msu.thief.problems.KnapsackProblem;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
@@ -77,37 +71,9 @@ public class DeltaItemHeuristicAlgorithm extends AbstractSingleObjectiveDomainAl
 			set.add(s);
 		}
 		
-		
-		//TTPVariable var = (TTPVariable) set.get(0).getVariable();
-		//DivideAndConquerUtil.reportFinalState(problem, eval, var.getTour(), var.getPackingList().toIndexSet());
-		
 		return set.get(0);
 	}
 	
 
-	public static void main(String[] args) {
-		BasicConfigurator.configure();
-
-		SingleObjectiveThiefProblem p = new BonyadiSingleObjectiveReader()
-				.read("../ttp-benchmark/SingleObjective/10/10_10_2_50.txt");
-		DeltaItemHeuristicAlgorithm heuristic = new DeltaItemHeuristicAlgorithm();
-		NonDominatedSolutionSet set = heuristic.run(p, new Evaluator(500000), new MyRandom(123456));
-
-		System.out.println(set);
-		System.out.println(
-				Arrays.toString(((TTPVariable) set.get(0).getVariable()).getPackingList().toIndexSet().toArray()));
-
-		BooleanPackingList bpl = new BooleanPackingList(new HashSet<Integer>(Arrays.asList(32, 64, 35, 36, 37, 22, 23, 39, 29, 14)), p.numOfItems());
-		
-		
-		Tour<?> bestTour = AlgorithmUtil.calcBestTour(p);
-		for (Integer idx : bpl.toIndexSet()) {
-			List<Double> deltaObj = HeuristicUtil.calcDeltaObjectives(p, new Evaluator(Integer.MAX_VALUE), bestTour,
-					bpl, idx);
-			System.out.println(String.format("%s %s", idx, deltaObj.get(0)));
-		}
-		System.out.println(p.evaluate(new TTPVariable(bestTour, bpl)));
-		System.out.println(Arrays.toString(bpl.toIndexSet().toArray()));
-	}
 
 }

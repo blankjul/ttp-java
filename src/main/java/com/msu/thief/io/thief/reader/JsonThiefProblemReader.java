@@ -10,6 +10,7 @@ import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
+import com.msu.thief.evaluator.profit.IndividualProfitEvaluator;
 import com.msu.thief.evaluator.profit.NoDroppingEvaluator;
 import com.msu.thief.evaluator.time.StandardTimeEvaluator;
 import com.msu.thief.model.CoordinateMap;
@@ -53,7 +54,10 @@ public class JsonThiefProblemReader extends AReader<ThiefProblem> {
 			double droppingRate = profitNode.findValue("droppingRate").asDouble();
 			double droppingConstant = profitNode.findValue("droppingConstant").asDouble();
 			p.setProfitEvaluator(new ExponentialProfitEvaluator(droppingRate, droppingConstant));
-		} else {
+		} else if (profitEval.equals("INDIVIDUAL")) {
+				p.setProfitEvaluator(new IndividualProfitEvaluator());
+			}
+		else {
 			throw new RuntimeException(String.format("ProfitEvaluator %s is unknown.", profitEval));
 		}
 		

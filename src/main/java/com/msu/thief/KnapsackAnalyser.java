@@ -25,8 +25,8 @@ public class KnapsackAnalyser  {
 		System.out.println(asDecimal(Arrays.asList(false,false,true)));
 		
 		SingleObjectiveThiefProblem problem = (SingleObjectiveThiefProblem) new JsonThiefProblemReader()
-				.read("resources/my_publication_coordinates_more_cities.ttp");
-		Tour<?> bestTour = new StandardTour("0,6,5,4,3,2,1");
+				.read("resources/my_publication_coordinates_more_cities_depr.ttp");
+		Tour<?> bestTour = new StandardTour("0,1,2,3,4,5,6");
 		
 		List<Solution> solutions = new ArrayList<>();
 		
@@ -43,7 +43,6 @@ public class KnapsackAnalyser  {
 				Solution s = problem.evaluate(new TTPVariable(bestTour, new BooleanPackingList(l)));
 				if (!s.hasConstrainViolations()) {
 					solutions.add(s);
-					System.out.println(s);
 				}
 			}
 		}

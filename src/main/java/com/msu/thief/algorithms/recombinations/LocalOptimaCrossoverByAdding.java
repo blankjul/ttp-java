@@ -8,7 +8,7 @@ import java.util.Set;
 
 import com.msu.interfaces.IProblem;
 import com.msu.operators.AbstractCrossover;
-import com.msu.thief.problems.SingleObjectiveThiefProblemWithFixedTour;
+import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.IntegerSetPackingList;
 import com.msu.util.MyRandom;
@@ -18,7 +18,7 @@ public class LocalOptimaCrossoverByAdding extends AbstractCrossover<List<Boolean
 	@Override
 	protected List<List<Boolean>> crossover_(List<Boolean> a, List<Boolean> b, IProblem problem, MyRandom rand) {
 
-		SingleObjectiveThiefProblemWithFixedTour fixedTour = (SingleObjectiveThiefProblemWithFixedTour) problem;
+		ThiefProblemWithFixedTour fixedTour = (ThiefProblemWithFixedTour) problem;
 
 		Set<Integer> merge = new HashSet<>();
 		merge.addAll(new BooleanPackingList(a).toIndexSet());
@@ -30,7 +30,7 @@ public class LocalOptimaCrossoverByAdding extends AbstractCrossover<List<Boolean
 	}
 
 	
-	protected void addUntilNoImprovement(SingleObjectiveThiefProblemWithFixedTour problem, MyRandom rand, Set<Integer> items) {
+	protected void addUntilNoImprovement(ThiefProblemWithFixedTour problem, MyRandom rand, Set<Integer> items) {
 
 		IntegerSetPackingList b = new IntegerSetPackingList(items, problem.getProblem().numOfItems());
 

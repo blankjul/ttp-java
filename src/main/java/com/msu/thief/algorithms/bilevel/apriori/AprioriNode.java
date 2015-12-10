@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.fixed.apriori;
+package com.msu.thief.algorithms.bilevel.apriori;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -9,7 +9,7 @@ import com.gs.collections.api.list.MutableList;
 import com.gs.collections.impl.list.mutable.FastList;
 import com.msu.interfaces.IEvaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
-import com.msu.thief.problems.SingleObjectiveThiefProblemWithFixedTour;
+import com.msu.thief.problems.ThiefProblemWithFixedTour;
 
 public class AprioriNode {
 
@@ -44,7 +44,7 @@ public class AprioriNode {
 	
 		
 	
-	public List<AprioriNode> expand(IEvaluator eval, SingleObjectiveThiefProblemWithFixedTour problem, NonDominatedSolutionSet set) {
+	public List<AprioriNode> expand(IEvaluator eval, ThiefProblemWithFixedTour problem, NonDominatedSolutionSet set) {
 		
 		MutableList<AprioriNode> result = new FastList<>();
 		

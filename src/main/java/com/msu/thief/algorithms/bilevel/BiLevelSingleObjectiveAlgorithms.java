@@ -12,7 +12,7 @@ import com.msu.moo.model.solution.Solution;
 import com.msu.soo.ASingleObjectiveAlgorithm;
 import com.msu.thief.algorithms.AlgorithmUtil;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.thief.problems.SingleObjectiveThiefProblemWithFixedTour;
+import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.tour.Tour;
@@ -45,14 +45,14 @@ public class BiLevelSingleObjectiveAlgorithms extends ASingleObjectiveAlgorithm 
 		Tour<?> bestTour = AlgorithmUtil.calcBestTour(problem);
 
 		// create a pool of subproblems with fixed tours
-		List<SingleObjectiveThiefProblemWithFixedTour> problems = new ArrayList<>();
-		problems.add(new SingleObjectiveThiefProblemWithFixedTour(problem, bestTour));
-		problems.add(new SingleObjectiveThiefProblemWithFixedTour(problem, bestTour.getSymmetric()));
+		List<ThiefProblemWithFixedTour> problems = new ArrayList<>();
+		problems.add(new ThiefProblemWithFixedTour(problem, bestTour));
+		problems.add(new ThiefProblemWithFixedTour(problem, bestTour.getSymmetric()));
 
 		List<Double> objectives = new ArrayList<>();
 		List<Solution> solutions = new ArrayList<>();
 
-		for (SingleObjectiveThiefProblemWithFixedTour fixedTourProblem : problems) {
+		for (ThiefProblemWithFixedTour fixedTourProblem : problems) {
 			Solution s = run___(fixedTourProblem, new Evaluator(evaluator.getMaxEvaluations() / problems.size()), rand);
 			solutions.add(s);
 			objectives.add(s.getObjectives(0));
@@ -70,7 +70,7 @@ public class BiLevelSingleObjectiveAlgorithms extends ASingleObjectiveAlgorithm 
 	}
 
 	
-	public Solution run___(SingleObjectiveThiefProblemWithFixedTour p, IEvaluator evaluator, MyRandom rand) {
+	public Solution run___(ThiefProblemWithFixedTour p, IEvaluator evaluator, MyRandom rand) {
 		return algorithm.run(p, evaluator, rand).get(0);
 	}
 

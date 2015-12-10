@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.fixed;
+package com.msu.thief.algorithms.bilevel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,27 +7,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.BasicConfigurator;
-
 import com.msu.interfaces.IEvaluator;
 import com.msu.model.AbstractSingleObjectiveDomainAlgorithm;
-import com.msu.model.Evaluator;
-import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
-import com.msu.thief.algorithms.AlgorithmUtil;
-import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
-import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.thief.problems.SingleObjectiveThiefProblemWithFixedTour;
-import com.msu.thief.variable.TTPVariable;
+import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.pack.factory.EmptyPackingListFactory;
-import com.msu.thief.variable.tour.Tour;
 import com.msu.util.MyRandom;
 import com.msu.util.Pair;
 import com.msu.util.Range;
 
-public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorithm<SingleObjectiveThiefProblemWithFixedTour> {
+public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorithm<ThiefProblemWithFixedTour> {
 
 	protected double evaporationRate = 0.80;
 
@@ -40,7 +31,7 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 	public Double[] heuristic;
 
 	@Override
-	public Solution run___(SingleObjectiveThiefProblemWithFixedTour problem, IEvaluator evaluator, MyRandom rand) {
+	public Solution run___(ThiefProblemWithFixedTour problem, IEvaluator evaluator, MyRandom rand) {
 
 		Range<Double> range = new Range<>();
 
@@ -223,7 +214,7 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 
 	}
 
-	public Double[] calcItemHeuristic(SingleObjectiveThiefProblemWithFixedTour p, IEvaluator evaluator, MyRandom rand) {
+	public Double[] calcItemHeuristic(ThiefProblemWithFixedTour p, IEvaluator evaluator, MyRandom rand) {
 
 		Solution empty = evaluator.evaluate(p, new EmptyPackingListFactory().next(p, rand));
 		
@@ -277,30 +268,6 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 		}
 		return result;
 
-	}
-
-	public static void main(String[] args) {
-		BasicConfigurator.configure();
-		
-		BooleanPackingList bpl = new BooleanPackingList("[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]");
-		
-		SingleObjectiveThiefProblem p = new BonyadiSingleObjectiveReader()
-				.read("../ttp-benchmark/SingleObjective/10/10_10_2_50.txt");
-		AntColonyOptimisation aco = new AntColonyOptimisation();
-		NonDominatedSolutionSet set = aco.run(p, new Evaluator(500000), new MyRandom(123456));
-		
-		
-		BooleanPackingList tmp = (BooleanPackingList)(((TTPVariable) set.get(0).getVariable()).getPackingList());
-		System.out.println(Arrays.toString(tmp.toIndexSet().toArray()));
-		System.out.println(set);
-		
-		Double[] heuristic = aco.heuristic;
-		for (int i = 0; i < heuristic.length; i++) {
-			//System.out.println(i + " " + heuristic[i]);
-		}
-		Tour<?> bestTour = AlgorithmUtil.calcBestTour(p);
-		System.out.println(p.evaluate(new TTPVariable(bestTour, bpl)));
-		System.out.println(Arrays.toString(bpl.toIndexSet().toArray()));
 	}
 
 }

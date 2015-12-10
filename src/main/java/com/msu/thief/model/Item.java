@@ -13,7 +13,7 @@ public class Item {
 	protected double profit;
 	
 	//! dropping of the item over time
-	protected double dropping;
+	protected Double dropping = null;
 	
 
 	/**
@@ -43,10 +43,16 @@ public class Item {
 		return profit;
 	}
 
-	public double getDropping() {
+	public Double getDropping() {
 		return dropping;
 	}
 	
+	
+	public void setDropping(double dropping) {
+		this.dropping = dropping;
+	}
+
+
 	public String toString() {
 		return String.format("[p:%s|w:%s|d:%s]", profit,weight, dropping);
 	}

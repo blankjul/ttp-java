@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.fixed.frequent;
+package com.msu.thief.algorithms.bilevel.frequent;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,12 +15,12 @@ import com.msu.model.AbstractSingleObjectiveDomainAlgorithm;
 import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
-import com.msu.thief.problems.SingleObjectiveThiefProblemWithFixedTour;
+import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.variable.pack.factory.EmptyPackingListFactory;
 import com.msu.util.MyRandom;
 
 public class FrequentPatternMiningAlgorithm
-		extends AbstractSingleObjectiveDomainAlgorithm<SingleObjectiveThiefProblemWithFixedTour> {
+		extends AbstractSingleObjectiveDomainAlgorithm<ThiefProblemWithFixedTour> {
 
 	final public int NUM_OF_POPULATION = 500;
 
@@ -28,13 +28,13 @@ public class FrequentPatternMiningAlgorithm
 	protected IEvaluator eval;
 
 	// ! problem for this run
-	protected SingleObjectiveThiefProblemWithFixedTour problem;
+	protected ThiefProblemWithFixedTour problem;
 
 	// ! random generator
 	protected MyRandom rand;
 
 	@Override
-	public Solution run___(SingleObjectiveThiefProblemWithFixedTour problem, IEvaluator eval, MyRandom rand) {
+	public Solution run___(ThiefProblemWithFixedTour problem, IEvaluator eval, MyRandom rand) {
 
 		// initialize the variables
 		this.problem = problem;

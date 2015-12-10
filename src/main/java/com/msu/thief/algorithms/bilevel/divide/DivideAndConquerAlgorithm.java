@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.fixed.divide;
+package com.msu.thief.algorithms.bilevel.divide;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,7 +9,7 @@ import java.util.Set;
 import com.msu.interfaces.IEvaluator;
 import com.msu.model.AbstractSingleObjectiveDomainAlgorithm;
 import com.msu.moo.model.solution.Solution;
-import com.msu.thief.problems.SingleObjectiveThiefProblemWithFixedTour;
+import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.util.MyRandom;
 import com.msu.util.Pair;
@@ -24,13 +24,13 @@ import com.msu.util.Pair;
  * 
  * and then the merge process begins
  */
-public class DivideAndConquerAlgorithm extends AbstractSingleObjectiveDomainAlgorithm<SingleObjectiveThiefProblemWithFixedTour> {
+public class DivideAndConquerAlgorithm extends AbstractSingleObjectiveDomainAlgorithm<ThiefProblemWithFixedTour> {
 
 	protected List<Integer> shuffle;
 	
 	
 	@Override
-	public Solution run___(SingleObjectiveThiefProblemWithFixedTour problem, IEvaluator eval, MyRandom rand) {
+	public Solution run___(ThiefProblemWithFixedTour problem, IEvaluator eval, MyRandom rand) {
 
 		shuffle = new ArrayList<>();
 		for (int i = 0; i < problem.numOfItems(); i++) {
@@ -53,7 +53,7 @@ public class DivideAndConquerAlgorithm extends AbstractSingleObjectiveDomainAlgo
 	
 	
 
-	protected Set<Integer> solve(SingleObjectiveThiefProblemWithFixedTour problem, IEvaluator eval, int start,
+	protected Set<Integer> solve(ThiefProblemWithFixedTour problem, IEvaluator eval, int start,
 			int end, int level) {
 
 
@@ -81,7 +81,7 @@ public class DivideAndConquerAlgorithm extends AbstractSingleObjectiveDomainAlgo
 	}
 
 	
-	protected Pair<Set<Integer>, Double> merge(SingleObjectiveThiefProblemWithFixedTour problem, IEvaluator eval, Set<Integer> left, Set<Integer> right) {
+	protected Pair<Set<Integer>, Double> merge(ThiefProblemWithFixedTour problem, IEvaluator eval, Set<Integer> left, Set<Integer> right) {
 		Set<Integer> merged = new HashSet<>(left);
 		double best = eval
 				.evaluate(problem,new BooleanPackingList(merged, problem.numOfItems()))

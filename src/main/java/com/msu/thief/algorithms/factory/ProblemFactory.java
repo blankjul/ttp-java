@@ -1,4 +1,4 @@
-package com.msu.thief.algorithm.factory;
+package com.msu.thief.algorithms.factory;
 
 import org.apache.log4j.BasicConfigurator;
 

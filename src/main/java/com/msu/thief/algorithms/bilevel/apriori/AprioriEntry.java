@@ -1,10 +1,10 @@
-package com.msu.thief.algorithms.fixed.apriori;
+package com.msu.thief.algorithms.bilevel.apriori;
 
 import java.util.Set;
 
 import com.msu.interfaces.IEvaluator;
 import com.msu.moo.model.solution.Solution;
-import com.msu.thief.problems.SingleObjectiveThiefProblemWithFixedTour;
+import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
 
@@ -20,7 +20,7 @@ public class AprioriEntry {
 		this.items = items;
 	}
 
-	public Solution evaluate(IEvaluator eval, SingleObjectiveThiefProblemWithFixedTour problem) {
+	public Solution evaluate(IEvaluator eval, ThiefProblemWithFixedTour problem) {
 		if (solution == null) {
 			PackingList<?> b = new BooleanPackingList(items, problem.numOfItems());
 			this.solution = eval.evaluate(problem, b);

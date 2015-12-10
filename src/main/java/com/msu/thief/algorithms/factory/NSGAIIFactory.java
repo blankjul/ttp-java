@@ -1,4 +1,4 @@
-package com.msu.thief.algorithm.factory;
+package com.msu.thief.algorithms.factory;
 
 import com.msu.builder.NSGAIIBuilder;
 import com.msu.operators.AbstractCrossover;

@@ -10,15 +10,16 @@ import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.thief.algorithms.AlgorithmUtil;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
+import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.thief.problems.SingleObjectiveThiefProblemWithFixedTour;
+import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.util.MyRandom;
 import com.msu.util.ObjectFactory;
 
-public class SingleExperimentExecutor {
+public class ExperimentOneProblemExecutor {
 	
 	/**
 		PROBLEMS
@@ -30,6 +31,8 @@ public class SingleExperimentExecutor {
 			"../ttp-benchmark/SingleObjective/20/20_30_9_25.txt";
 			"../ttp-benchmark/SingleObjective/50/50_15_8_50.txt";
 			"../ttp-benchmark/SingleObjective/100/100_5_10_50.txt";
+			
+			"../ttp-benchmark/json/10/10_5_6_25.json";
 		
 		ALGORITHMS: 
 			bilevel.BiLevelEvoluationaryAlgorithm
@@ -42,7 +45,7 @@ public class SingleExperimentExecutor {
 	*/
 	
 	final public static boolean FIXED_TOUR_PROBLEM = false;
-	final public static String PROBLEM = "../ttp-benchmark/SingleObjective/10/10_10_2_50.txt";
+	final public static String PROBLEM = "../ttp-benchmark/json/10_15_10_75.json";
 	final public static String ALGORITHM = "bilevel.BiLevelEvoluationaryAlgorithm";
 	
 	
@@ -51,13 +54,22 @@ public class SingleExperimentExecutor {
 		
 		IAlgorithm a = ObjectFactory.create(IAlgorithm.class,  "com.msu.thief.algorithms." + ALGORITHM);
 		
-		IProblem problem = null;
 		
-		SingleObjectiveThiefProblem thief = new BonyadiSingleObjectiveReader().read(PROBLEM);
-		problem = thief;
+		SingleObjectiveThiefProblem thief = null;
+		if (PROBLEM.endsWith(".txt")) {
+			thief = new BonyadiSingleObjectiveReader().read(PROBLEM);
+		} if (PROBLEM.endsWith(".json")) {
+			thief = (SingleObjectiveThiefProblem) new JsonThiefProblemReader().read(PROBLEM);
+		}
+		
+		//thief.setToMultiObjective(true);
+		//System.out.println(thief.evaluate(new TTPVariable(AlgorithmUtil.calcBestTour(thief), new EmptyPackingListFactory().next(thief, null))));
+		
+		
+		IProblem problem = thief;
 		if (FIXED_TOUR_PROBLEM) {
 			Tour<?> tour = AlgorithmUtil.calcBestTour(thief);
-			problem = new SingleObjectiveThiefProblemWithFixedTour(thief, tour);
+			problem = new ThiefProblemWithFixedTour(thief, tour);
 		}
 		
 		NonDominatedSolutionSet set = a.run(problem, new Evaluator(500000), new MyRandom(123456));

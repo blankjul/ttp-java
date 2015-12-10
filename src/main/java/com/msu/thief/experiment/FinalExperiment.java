@@ -17,7 +17,7 @@ import com.msu.operators.mutation.SwapMutation;
 import com.msu.soo.SingleObjectiveEvolutionaryAlgorithm;
 import com.msu.thief.algorithms.OnePlusOneEA;
 import com.msu.thief.algorithms.bilevel.BiLevelSingleObjectiveAlgorithms;
-import com.msu.thief.algorithms.fixed.OnePlusOneEAFixedTour;
+import com.msu.thief.algorithms.bilevel.OnePlusOneEAFixedTour;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.problems.ThiefProblem;
 import com.msu.thief.variable.TTPCrossover;

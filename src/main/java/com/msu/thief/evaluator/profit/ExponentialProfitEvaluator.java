@@ -10,15 +10,11 @@ import com.msu.thief.model.Item;
 public class ExponentialProfitEvaluator extends ProfitEvaluator{
 	
 	//! dropping rate over time
-	protected double droppingRate = 0.9;
+	protected Double droppingRate;
 	
 	//! dropping constant for tuning the large distances
-	protected double droppingConstant = 10;
+	protected Double droppingConstant;
 
-
-	public ExponentialProfitEvaluator() {
-		super();
-	}
 
 
 	public ExponentialProfitEvaluator(double droppingRate, double droppingConstant) {
@@ -33,7 +29,9 @@ public class ExponentialProfitEvaluator extends ProfitEvaluator{
 	public Double evaluate(Map<Item, Double> mItems) {
 		Double profit = 0.0d;
 		for (Item i : mItems.keySet()) {
-			 double itemValue = i.getProfit() * Math.pow(droppingRate, mItems.get(i) / droppingConstant);
+			double timeInKnapsack = mItems.get(i) ;
+			double itemValue = i.getProfit() * Math.pow(droppingRate,timeInKnapsack / droppingConstant);
+			//System.out.println(String.format("%s %s %s", timeInKnapsack, i.getProfit(), itemValue));
 			profit += itemValue;
 		}
 		return profit;
