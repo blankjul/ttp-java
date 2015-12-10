@@ -54,7 +54,8 @@ public class Item {
 
 
 	public String toString() {
-		return String.format("[p:%s|w:%s|d:%s]", profit,weight, dropping);
+		if (dropping == null) return String.format("[p:%s | w:%s]", profit,weight);
+		return String.format("[p:%s | w:%s | d:%s]", profit,weight, dropping);
 	}
 	
 	

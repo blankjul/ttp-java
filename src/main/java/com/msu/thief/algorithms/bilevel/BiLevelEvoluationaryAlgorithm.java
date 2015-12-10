@@ -6,12 +6,12 @@ import com.msu.moo.model.solution.Solution;
 import com.msu.operators.crossover.UniformCrossover;
 import com.msu.operators.mutation.BitFlipMutation;
 import com.msu.soo.SingleObjectiveEvolutionaryAlgorithm;
-import com.msu.thief.algorithms.AbstractBiLevelAlgorithms;
+import com.msu.thief.algorithms.BiLevelAlgorithms;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.variable.pack.factory.OptimalPackingListFactory;
 import com.msu.util.MyRandom;
 
-public class BiLevelEvoluationaryAlgorithm extends AbstractBiLevelAlgorithms {
+public class BiLevelEvoluationaryAlgorithm extends BiLevelAlgorithms {
 
 	
 	@Override

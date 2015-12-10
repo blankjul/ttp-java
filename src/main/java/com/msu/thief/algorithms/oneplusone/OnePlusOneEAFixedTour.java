@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.bilevel;
+package com.msu.thief.algorithms.oneplusone;
 
 import com.msu.interfaces.IEvaluator;
 import com.msu.interfaces.IVariable;
@@ -10,6 +10,11 @@ import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.variable.pack.factory.EmptyPackingListFactory;
 import com.msu.util.MyRandom;
 
+
+/**
+ * Same idea like OnePlusOneEA.
+ * But it solves only the problem for a fixed tour. It is used for the bilevel approach.
+ */
 public class OnePlusOneEAFixedTour extends AbstractSingleObjectiveDomainAlgorithm<ThiefProblemWithFixedTour>   {
 
 
@@ -20,15 +25,11 @@ public class OnePlusOneEAFixedTour extends AbstractSingleObjectiveDomainAlgorith
 		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
 
 		while (eval.hasNext()) {
-			
 			IVariable next = new BitFlipMutation().mutate(best.copy(), problem, rand);
-			
 			// check if this solution is better
 			Solution s = eval.evaluate(problem, next);
 			boolean isOptimal = set.add(s);
-
 			if (isOptimal) best = next;
-			
 			
 		}
 		return eval.evaluate(problem, best);

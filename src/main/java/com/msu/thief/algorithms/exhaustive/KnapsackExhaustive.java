@@ -1,14 +1,14 @@
 package com.msu.thief.algorithms.exhaustive;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.msu.interfaces.IEvaluator;
 import com.msu.interfaces.IProblem;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.thief.problems.KnapsackProblem;
 import com.msu.thief.util.Combination;
-import com.msu.thief.variable.pack.BooleanPackingList;
+import com.msu.thief.variable.pack.IntegerSetPackingList;
 import com.msu.util.MyRandom;
 
 public class KnapsackExhaustive extends AExhaustiveAlgorithm {
@@ -22,11 +22,8 @@ public class KnapsackExhaustive extends AExhaustiveAlgorithm {
 		for (int i = 0; i <= n; i++) {
 			Combination combination = new Combination(n, i);
 			while (combination.hasNext()) {
-				List<Boolean> l = new ArrayList<>();
-				for (int j = 0; j < n; j++) l.add(false);
-				int[] entries = combination.next();
-				for(int entry : entries) l.set(entry, true);
-				set.add(evaluator.evaluate(p, new BooleanPackingList(l)));
+				Set<Integer> entries = new HashSet<>(combination.next());
+				set.add(evaluator.evaluate(p, new IntegerSetPackingList(entries, problem.numOfItems())));
 			}
 		}
 		return set;

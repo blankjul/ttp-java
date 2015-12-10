@@ -15,14 +15,16 @@ import com.msu.operators.mutation.BitFlipMutation;
 import com.msu.operators.mutation.NoMutation;
 import com.msu.operators.mutation.SwapMutation;
 import com.msu.soo.SingleObjectiveEvolutionaryAlgorithm;
-import com.msu.thief.algorithms.AbstractBiLevelAlgorithms;
-import com.msu.thief.algorithms.OnePlusOneEA;
-import com.msu.thief.algorithms.bilevel.OnePlusOneEAFixedTour;
+import com.msu.thief.algorithms.BiLevelAlgorithms;
+import com.msu.thief.algorithms.bilevel.GreedyPackingAlgorithm;
+import com.msu.thief.algorithms.oneplusone.OnePlusOneEA;
+import com.msu.thief.algorithms.oneplusone.OnePlusOneEAFixedTour;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.problems.ThiefProblem;
 import com.msu.thief.variable.TTPCrossover;
 import com.msu.thief.variable.TTPMutation;
 import com.msu.thief.variable.TTPVariableFactory;
+import com.msu.thief.variable.pack.factory.EmptyPackingListFactory;
 import com.msu.thief.variable.pack.factory.OptimalPackingListFactory;
 import com.msu.thief.variable.tour.factory.OptimalTourFactory;
 import com.msu.util.FileCollectorParser;
@@ -87,128 +89,19 @@ public class FinalExperiment extends AExperiment {
 
 	@Override
 	protected void setAlgorithms(List<IAlgorithm> algorithms) {
-		/*
-		NSGAIIBuilder builder = new NSGAIIBuilder();
-		builder.set("populationSize", 50);
+		
+		Builder<OnePlusOneEA> builderOnePlusOne = new Builder<>(OnePlusOneEA.class);
+		builderOnePlusOne
+			.set("checkSymmetric", false)
+			.set("name", "1+1-EA");
+		algorithms.add(builderOnePlusOne.build());
 		
 		
-		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[RANDOM-RANDOM]-[OX-SPX]-[SWAP-BF]", builder).build());
-		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[RANDOM-RANDOM]-[OX-UX]-[SWAP-BF]", builder).build());
-		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[RANDOM-RANDOM]-[OX-HUX]-[SWAP-BF]", builder).build());
+		builderOnePlusOne
+			.set("checkSymmetric", true)
+			.set("name", "1+1-EA-SYM");
+		algorithms.add(builderOnePlusOne.build());
 		
-		
-		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[RANDOM-RANDOM]-[OX-HUX]-[SWAP-BF]", builder).build());
-		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[RANDOM-RANDOM]-[PMX-HUX]-[SWAP-BF]", builder).build());
-		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[RANDOM-RANDOM]-[ERX-HUX]-[SWAP-BF]", builder).build());
-		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[RANDOM-RANDOM]-[CX-HUX]-[SWAP-BF]", builder).build());
-		
-		builder.set("probMutation", 0.02);
-		
-		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[RANDOM-RANDOM]-[OX-HUX]-[2OPT-BF]", builder).build());
-		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[RANDOM-RANDOM]-[PMX-HUX]-[2OPT-BF]", builder).build());
-		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[RANDOM-RANDOM]-[ERX-HUX]-[2OPT-BF]", builder).build());
-		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[RANDOM-RANDOM]-[CX-HUX]-[2OPT-BF]", builder).build());
-		
-		
-		builder.set("probMutation", 0.3);
-		
-		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[RANDOM-RANDOM]-[PMX-HUX]-[SWAP-BF]", builder).build());
-		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[NEAREST-RANDOM]-[PMX-HUX]-[SWAP-BF]", builder).build());
-		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[2OPT-RANDOM]-[PMX-HUX]-[SWAP-BF]", builder).build());
-		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[OPT-RANDOM]-[PMX-HUX]-[SWAP-BF]", builder).build());
-		
-		
-		
-		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[OPT-RANDOM]-[PMX-HUX]-[SWAP-BF]", builder).build());
-		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[OPT-EMPTY]-[PMX-HUX]-[SWAP-BF]", builder).build());
-		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[OPT-FULL]-[PMX-HUX]-[SWAP-BF]", builder).build());
-		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[OPT-OPT]-[PMX-HUX]-[SWAP-BF]", builder).build());
-		
-		
-		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[OPT-OPT]-[PMX-HUX]-[SWAP-BF]", builder).build());
-		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[OPT-OPT]-[NO-HUX]-[NO-BF]", builder).build());
-		algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[OPT-EMPTY]-[NO-HUX]-[NO-BF]", builder).build());
-			*/
-		
-
-		
-/*		Builder<SingleObjectiveEvolutionaryAlgorithm> singleEAFrame = new Builder<>(SingleObjectiveEvolutionaryAlgorithm.class);
-		singleEAFrame
-			.set("populationSize", 50)
-			.set("probMutation", 0.3)
-			.set("factory", new TTPVariableFactory(new OptimalTourFactory(), new EmptyPackingListFactory()))
-			.set("crossover", new TTPCrossover(new NoCrossover<>(), new SinglePointCrossover<>()))
-			.set("mutation", new TTPMutation(new NoMutation<>(), new BitFlipMutation()))
-			.set("name", "SingleObjectiveEvolutionaryAlgorithm-EMPTY");
-		algorithms.add(singleEAFrame.build());
-		
-		
-		singleEAFrame
-			.set("factory", new TTPVariableFactory(new OptimalTourFactory(), new OptimalPackingListFactory()))
-			.set("name", "SingleObjectiveEvolutionaryAlgorithm-OPT");
-		algorithms.add(singleEAFrame.build());*/
-		
-		
-/*		Builder<ThiefSingleObjectiveEvolutionaryAlgorithm> singleEA = new Builder<>(ThiefSingleObjectiveEvolutionaryAlgorithm.class);
-		singleEA
-			.set("populationSize", 50)
-			.set("probMutation", 0.8)
-			.set("factory", new OptimalPackingListFactory())
-			.set("name", "ThiefSingleObjectiveEvolutionary-MICRO-SWAP-PROB-OPT");
-		algorithms.add(singleEA.build());*/
-		
-		/*
-		singleEA
-			.set("factory", new TTPVariableFactory(new OptimalTourFactory(), new OptimalPackingListFactory()))
-			.set("name", "ThiefSingleObjectiveEvolutionary-ONLY-MUTATION-OPT");
-		algorithms.add(singleEA.build());
-		
-		
-		Builder<AntColonyOptimisation> singleEA = new Builder<>(AntColonyOptimisation.class);
-		singleEA
-			.set("name", "AntColonyOptimisation");
-		algorithms.add(singleEA.build());
-		*/
-		
-		/*Builder<ThiefSingleObjectiveEvolutionaryAlgorithm> heur = new Builder<>(ThiefSingleObjectiveEvolutionaryAlgorithm.class);
-		heur
-			.set("populationSize", 50)
-			.set("probMutation", 0.3)
-			.set("factory", new OptimalPackingListFactory())
-			.set("cross", new HalfUniformCrossover<>())
-			.set("name", "ThiefSingleObjectiveEvolutionaryAlgorithm-HUX-OPT");
-		algorithms.add(heur.build());*/
-		
-/*		
-		heur
-			.set("populationSize", 50)
-			.set("probMutation", 0.3)
-			.set("factory", new OptimalPackingListFactory())
-			.set("cross", new UniformCrossover<>())
-			.set("name", "ThiefSingleObjectiveEvolutionaryAlgorithm-UX-OPT");
-		algorithms.add(heur.build());
-		*/
-/*		
-		Builder<ThiefSingleObjectiveEvolutionaryAsSetAlgorithm> h = new Builder<>(ThiefSingleObjectiveEvolutionaryAsSetAlgorithm.class);
-		h
-			.set("populationSize", 50)
-			.set("probMutation", 0.3)
-			.set("name", "ThiefSingleObjectiveEvolutionaryAlgorithm");
-		
-		algorithms.add(h.build());
-		
-		*/
-		
-	
-		IAlgorithm ea = new OnePlusOneEA(false);
-		ea.setName("1+1-EA");
-		algorithms.add(ea);
-		
-		
-		OnePlusOneEA eaSym = new OnePlusOneEA(false);
-		eaSym.checkSymmetric = true;
-		eaSym.setName("1+1-EA-SYM");
-		algorithms.add(eaSym);
 		
 		Builder<SingleObjectiveEvolutionaryAlgorithm> singleEAFrame = new Builder<>(SingleObjectiveEvolutionaryAlgorithm.class);
 		singleEAFrame
@@ -217,18 +110,44 @@ public class FinalExperiment extends AExperiment {
 			.set("factory", new TTPVariableFactory(new OptimalTourFactory(), new OptimalPackingListFactory()))
 			.set("crossover", new TTPCrossover(new NoCrossover<>(), new HalfUniformCrossover<>()))
 			.set("mutation", new TTPMutation(new NoMutation<>(), new BitFlipMutation()))
-			.set("name", "EA-HUX");
+			.set("name", "EA-HUX-OPT");
+		algorithms.add(singleEAFrame.build());
+		
+		
+		singleEAFrame
+			.set("crossover", new TTPCrossover(new NoCrossover<>(), new UniformCrossover<>()))
+			.set("name", "EA-UX-OPT");
+		algorithms.add(singleEAFrame.build());
+		
+		
+		singleEAFrame
+			.set("crossover", new TTPCrossover(new NoCrossover<>(), new SinglePointCrossover<>()))
+			.set("name", "EA-SPX-OPT");
+		algorithms.add(singleEAFrame.build());
+		
+		
+
+		singleEAFrame
+			.set("factory", new TTPVariableFactory(new OptimalTourFactory(), new EmptyPackingListFactory()));
+		
+		
+		singleEAFrame
+		.set("crossover", new TTPCrossover(new NoCrossover<>(), new HalfUniformCrossover<>()))
+			.set("name", "EA-HUX-EMPTY");
 		algorithms.add(singleEAFrame.build());
 		
 		singleEAFrame
 			.set("crossover", new TTPCrossover(new NoCrossover<>(), new UniformCrossover<>()))
-			.set("name", "EA-UX");
+			.set("name", "EA-UX-EMPTY");
 		algorithms.add(singleEAFrame.build());
+		
 		
 		singleEAFrame
 			.set("crossover", new TTPCrossover(new NoCrossover<>(), new SinglePointCrossover<>()))
-			.set("name", "EA-SPX");
+			.set("name", "EA-SPX-EMPTY");
 		algorithms.add(singleEAFrame.build());
+		
+		
 		
 		Builder<SingleObjectiveEvolutionaryAlgorithm> algorithm = new Builder<>(SingleObjectiveEvolutionaryAlgorithm.class);
 		algorithm
@@ -237,22 +156,41 @@ public class FinalExperiment extends AExperiment {
 			.set("factory", new OptimalPackingListFactory())
 			.set("crossover", new HalfUniformCrossover<>())
 			.set("mutation", new BitFlipMutation())
-			.set("name", "EA-HUX");
-		algorithms.add(new AbstractBiLevelAlgorithms(algorithm.build()));
+			.set("name", "EA-HUX-OPT");
+		algorithms.add(new BiLevelAlgorithms(algorithm.build()));
 				
 		algorithm
 		.set("crossover", new UniformCrossover<>())
-		.set("name", "EA-UX");
-		algorithms.add(new AbstractBiLevelAlgorithms(algorithm.build()));
+		.set("name", "EA-UX-OPT");
+		algorithms.add(new BiLevelAlgorithms(algorithm.build()));
 		
 		algorithm
 		.set("crossover", new SinglePointCrossover<>())
-		.set("name", "EA-SPX");
-		algorithms.add(new AbstractBiLevelAlgorithms(algorithm.build()));
+		.set("name", "EA-SPX-OPT");
+		algorithms.add(new BiLevelAlgorithms(algorithm.build()));
+		
+		algorithm
+			.set("factory", new EmptyPackingListFactory());
+		
+		algorithm
+			.set("crossover", new HalfUniformCrossover<>())
+			.set("name", "EA-HUX-EMPTY");
+		algorithms.add(new BiLevelAlgorithms(algorithm.build()));
+		
+		algorithm
+			.set("crossover", new UniformCrossover<>())
+			.set("name", "EA-UX-EMPTY");
+		algorithms.add(new BiLevelAlgorithms(algorithm.build()));
+		
+		algorithm
+			.set("crossover", new SinglePointCrossover<>())
+			.set("name", "EA-SPX-EMPTY");
+		algorithms.add(new BiLevelAlgorithms(algorithm.build()));		
+		
 		
 		IAlgorithm a = new OnePlusOneEAFixedTour();
 		a.setName("1+1-EA");
-		algorithms.add(new AbstractBiLevelAlgorithms(a));
+		algorithms.add(new BiLevelAlgorithms(a));
 		
 		
 		Builder<SingleObjectiveEvolutionaryAlgorithm> changeTour = new Builder<>(SingleObjectiveEvolutionaryAlgorithm.class);
@@ -263,8 +201,19 @@ public class FinalExperiment extends AExperiment {
 			.set("crossover", new TTPCrossover(new NoCrossover<>(), new HalfUniformCrossover<>()))
 			.set("mutation", new TTPMutation(new SwapMutation<>(), new BitFlipMutation()))
 			.set("name", "EA-HUX-SWAP");
-		
 		algorithms.add(changeTour.build());
+		
+		Builder<GreedyPackingAlgorithm> greedy = new Builder<>(GreedyPackingAlgorithm.class);
+		greedy
+			.set("type", GreedyPackingAlgorithm.TYPE.BEST)
+			.set("name", "GREEDY-BEST");
+		algorithms.add(new BiLevelAlgorithms(greedy.build()));
+
+		greedy
+			.set("type", GreedyPackingAlgorithm.TYPE.RANDOM)
+			.set("name", "GREEDY-RANDOM");
+		algorithms.add(new BiLevelAlgorithms(greedy.build()));
+		
 	}
 
 

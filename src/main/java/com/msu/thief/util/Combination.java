@@ -1,16 +1,24 @@
 package com.msu.thief.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Combination {
 	private int n, r;
 	private int[] index;
 	private boolean hasNext = true;
+	protected List<Integer> l;
 
+	public Combination(int n, int r, List<Integer> l) {
+		this(n,r);
+		this.l = l;
+	}
+	
 	public Combination(int n, int r) {
 		this.n = n;
 		this.r = r;
 		index = new int[r];
-		for (int i = 0; i < r; i++)
-			index[i] = i;
+		for (int i = 0; i < r; i++) index[i] = i;
 	}
 
 	public boolean hasNext() {
@@ -27,12 +35,13 @@ public class Combination {
 			hasNext = false;
 	}
 
-	public int[] next() {
-		if (!hasNext)
-			return null;
-		int[] result = new int[r];
-		for (int i = 0; i < r; i++)
-			result[i] = index[i];
+	public List<Integer> next() {
+		if (!hasNext) return null;
+		List<Integer> result = new ArrayList<>(r);
+		for (int i = 0; i < r; i++) {
+			if (l == null) result.add(index[i]);
+			else result.add(l.get(index[i]));
+		}
 		moveIndex();
 		return result;
 	}

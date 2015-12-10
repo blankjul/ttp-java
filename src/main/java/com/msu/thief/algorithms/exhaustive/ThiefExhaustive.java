@@ -1,7 +1,8 @@
 package com.msu.thief.algorithms.exhaustive;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.msu.interfaces.IEvaluator;
 import com.msu.interfaces.IProblem;
@@ -11,7 +12,7 @@ import com.msu.thief.problems.ThiefProblem;
 import com.msu.thief.util.Combination;
 import com.msu.thief.util.CombinatorialUtil;
 import com.msu.thief.variable.TTPVariable;
-import com.msu.thief.variable.pack.BooleanPackingList;
+import com.msu.thief.variable.pack.IntegerSetPackingList;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.tour.StandardTour;
 import com.msu.thief.variable.tour.Tour;
@@ -63,8 +64,10 @@ public class ThiefExhaustive extends AExhaustiveAlgorithm {
 			for (int i = 0; i <= numItems; i++) {
 				Combination combination = new Combination(numItems, i);
 				while (combination.hasNext()) {
-					int[] entries = combination.next();
-					PackingList<?> b = new BooleanPackingList(convert(entries, numItems));
+					
+					Set<Integer> entries = new HashSet<>(combination.next());
+					PackingList<?> b = new IntegerSetPackingList(entries, problem.numOfItems());
+					
 					TTPVariable var = new TTPVariable(t, b);
 					Solution s = eval.evaluate(p, var);
 					set.add(s);
@@ -75,17 +78,6 @@ public class ThiefExhaustive extends AExhaustiveAlgorithm {
 		}
 		return set;
 	}
-
-	private List<Boolean> convert(int[] entries, int numItems) {
-		List<Boolean> b = new ArrayList<>();
-		for (int j = 0; j < numItems; j++)
-			b.add(false);
-
-		for (int entry : entries)
-			b.set(entry, true);
-		return b;
-	}
-
 
 
 	

@@ -17,18 +17,18 @@ import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.util.MyRandom;
 
-public class AbstractBiLevelAlgorithms extends ASingleObjectiveAlgorithm {
+public class BiLevelAlgorithms extends ASingleObjectiveAlgorithm {
 
 	//! algorithm that solves the SingleObjectiveThiefProblemWithFixedTour
 	protected IAlgorithm algorithm;
 	
 	
-	public AbstractBiLevelAlgorithms() {
+	public BiLevelAlgorithms() {
 		super();
 	}
 	
 	
-	public AbstractBiLevelAlgorithms(IAlgorithm algorithm) {
+	public BiLevelAlgorithms(IAlgorithm algorithm) {
 		super();
 		this.algorithm = algorithm;
 	}

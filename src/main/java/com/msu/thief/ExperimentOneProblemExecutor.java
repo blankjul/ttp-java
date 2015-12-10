@@ -9,6 +9,8 @@ import com.msu.interfaces.IProblem;
 import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.thief.algorithms.AlgorithmUtil;
+import com.msu.thief.algorithms.BiLevelAlgorithms;
+import com.msu.thief.algorithms.bilevel.SolveKnapsackWithEmptyHeuristicValues;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
@@ -17,7 +19,6 @@ import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.util.MyRandom;
-import com.msu.util.ObjectFactory;
 
 public class ExperimentOneProblemExecutor {
 	
@@ -36,23 +37,28 @@ public class ExperimentOneProblemExecutor {
 		
 		ALGORITHMS: 
 			bilevel.BiLevelEvoluationaryAlgorithm
-			fixed.AntColonyOptimisation
-			fixed.apriori.AprioriAlgorithm
-			fixed.frequent.FrequentPatternMiningAlgorithm
-			fixed.divide.DivideAndConquerAlgorithm
-			fixed.topdown.TopDownHeuristicAlgorithm
+			bilevel.SolveKnapsackWithEmptyHeuristicValues
+			bilevel.AntColonyOptimisation
+			bilevel.GreedyPackingAlgorithm
+			bilevel.apriori.AprioriAlgorithm
+			bilevel.frequent.FrequentPatternMiningAlgorithm
+			bilevel.divide.DivideAndConquerAlgorithm
+			bilevel.topdown.TopDownHeuristicAlgorithm
 		
 	*/
 	
 	final public static boolean FIXED_TOUR_PROBLEM = false;
-	final public static String PROBLEM = "../ttp-benchmark/json/10_15_10_75.json";
-	final public static String ALGORITHM = "bilevel.BiLevelEvoluationaryAlgorithm";
+	final public static String PROBLEM = "../ttp-benchmark/SingleObjective/10/10_10_2_50.txt";
 	
+/*	
+	final public static IAlgorithm ALGORITHM = ObjectFactory.create(IAlgorithm.class,  
+			"com.msu.thief.algorithms." + "bilevel.apriori.AprioriAlgorithm");
+	*/
+	
+	final public static IAlgorithm ALGORITHM = new BiLevelAlgorithms(new SolveKnapsackWithEmptyHeuristicValues());
 	
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
-		
-		IAlgorithm a = ObjectFactory.create(IAlgorithm.class,  "com.msu.thief.algorithms." + ALGORITHM);
 		
 		
 		SingleObjectiveThiefProblem thief = null;
@@ -72,7 +78,7 @@ public class ExperimentOneProblemExecutor {
 			problem = new ThiefProblemWithFixedTour(thief, tour);
 		}
 		
-		NonDominatedSolutionSet set = a.run(problem, new Evaluator(500000), new MyRandom(123456));
+		NonDominatedSolutionSet set = ALGORITHM.run(problem, new Evaluator(500000), new MyRandom(123456));
 
 		System.out.println(problem);
 		System.out.println(set.size());

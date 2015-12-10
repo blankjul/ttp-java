@@ -20,6 +20,14 @@ public class IntegerSetPackingList extends PackingList<Pair<Set<Integer>, Intege
 
 
 	/**
+	 * Initialize an empty packing list
+	 */
+	public IntegerSetPackingList(int numOfItems) {
+		this(new HashSet<>(), numOfItems);
+	}
+	
+	
+	/**
 	 * Initialize a packing list with a set and number of items
 	 */
 	public IntegerSetPackingList(Set<Integer> l, int numOfItems) {

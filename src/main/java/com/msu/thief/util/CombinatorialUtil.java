@@ -38,7 +38,7 @@ public class CombinatorialUtil {
 			while (combination.hasNext()) {
 				List<Boolean> l = new ArrayList<>();
 				for (int j = 0; j < n; j++) l.add(false);
-				int[] entries = combination.next();
+				List<Integer> entries = combination.next();
 				for(int entry : entries) l.set(entry, true);
 				result.add(l);
 			}

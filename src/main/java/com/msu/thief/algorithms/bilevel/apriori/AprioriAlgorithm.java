@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.gs.collections.api.list.MutableList;
 import com.gs.collections.impl.list.mutable.FastList;
@@ -14,6 +15,7 @@ import com.msu.moo.model.solution.Solution;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.variable.pack.factory.EmptyPackingListFactory;
 import com.msu.util.MyRandom;
+import com.msu.util.Util;
 
 public class AprioriAlgorithm  extends AbstractSingleObjectiveDomainAlgorithm<ThiefProblemWithFixedTour> {
 
@@ -30,6 +32,22 @@ public class AprioriAlgorithm  extends AbstractSingleObjectiveDomainAlgorithm<Th
 
 	// ! set for this run
 	NonDominatedSolutionSet set;
+	
+	// ! all items which should be considered. 
+	// ! If null all items are added.
+	protected Set<Integer> itemsToConsider;
+	
+
+	
+	public AprioriAlgorithm() {
+		super();
+	}
+
+	
+	public AprioriAlgorithm(Set<Integer> itemsToConsider) {
+		this.itemsToConsider = itemsToConsider;
+	}
+
 
 	@Override
 	public Solution run___(ThiefProblemWithFixedTour problem, IEvaluator eval, MyRandom rand) {
@@ -46,10 +64,10 @@ public class AprioriAlgorithm  extends AbstractSingleObjectiveDomainAlgorithm<Th
 
 		
 		// while there are nodes land evaluations
-		report(nodes);
+		//report(nodes);
 		while (eval.hasNext() && !nodes.isEmpty()) {
 			nodes = next(nodes);
-			report(nodes);
+			//report(nodes);
 		}
 
 		return set.get(0);
@@ -80,14 +98,17 @@ public class AprioriAlgorithm  extends AbstractSingleObjectiveDomainAlgorithm<Th
 	
 	
 	protected AprioriNode createRootNode() {
+		
+		if (itemsToConsider == null) itemsToConsider = new HashSet<>(Util.createIndex(problem.numOfItems()));
+		
 		// solution without picking any item
 		Solution empty = eval.evaluate(problem, new EmptyPackingListFactory().next(problem, rand));
 		set.add(empty);
 
 		// create the root apriori node
 		AprioriNode root = new AprioriNode();
-		for (int i = 0; i < problem.numOfItems(); i++) {
-			AprioriEntry entry = new AprioriEntry(i, new HashSet<>(Arrays.asList(i)));
+		for (int idx : itemsToConsider) {
+			AprioriEntry entry = new AprioriEntry(idx, new HashSet<>(Arrays.asList(idx)));
 			entry.evaluate(eval, problem);
 
 			// add only if node is better than father

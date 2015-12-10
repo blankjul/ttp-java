@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.BasicConfigurator;
 
@@ -13,7 +15,7 @@ import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.util.Combination;
 import com.msu.thief.variable.TTPVariable;
-import com.msu.thief.variable.pack.BooleanPackingList;
+import com.msu.thief.variable.pack.IntegerSetPackingList;
 import com.msu.thief.variable.tour.StandardTour;
 import com.msu.thief.variable.tour.Tour;
 
@@ -34,13 +36,8 @@ public class KnapsackAnalyser  {
 		for (int i = 0; i <= n; i++) {
 			Combination combination = new Combination(n, i);
 			while (combination.hasNext()) {
-				List<Boolean> l = new ArrayList<>();
-				for (int j = 0; j < n; j++)
-					l.add(false);
-				int[] entries = combination.next();
-				for (int entry : entries) l.set(entry, true);
-				
-				Solution s = problem.evaluate(new TTPVariable(bestTour, new BooleanPackingList(l)));
+				Set<Integer> entries = new HashSet<>(combination.next());
+				Solution s =  problem.evaluate(new TTPVariable(bestTour, new IntegerSetPackingList(entries, problem.numOfItems())));
 				if (!s.hasConstrainViolations()) {
 					solutions.add(s);
 				}
@@ -63,6 +60,9 @@ public class KnapsackAnalyser  {
 			TTPVariable var = (TTPVariable) s.getVariable();
 			System.out.println(String.format("%s,%s,\"%s\"", i, s.getObjectives(0), var.getPackingList()));
 		}
+		
+
+		
 	}
 	
 	
