@@ -9,8 +9,6 @@ import com.msu.interfaces.IProblem;
 import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.thief.algorithms.AlgorithmUtil;
-import com.msu.thief.algorithms.BiLevelAlgorithms;
-import com.msu.thief.algorithms.bilevel.SolveKnapsackWithEmptyHeuristicValues;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
@@ -19,6 +17,7 @@ import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.util.MyRandom;
+import com.msu.util.ObjectFactory;
 
 public class ExperimentOneProblemExecutor {
 	
@@ -47,15 +46,13 @@ public class ExperimentOneProblemExecutor {
 		
 	*/
 	
-	final public static boolean FIXED_TOUR_PROBLEM = false;
+	final public static boolean FIXED_TOUR_PROBLEM = true;
 	final public static String PROBLEM = "../ttp-benchmark/SingleObjective/10/10_10_2_50.txt";
 	
-/*	
 	final public static IAlgorithm ALGORITHM = ObjectFactory.create(IAlgorithm.class,  
-			"com.msu.thief.algorithms." + "bilevel.apriori.AprioriAlgorithm");
-	*/
+			"com.msu.thief.algorithms." + "bilevel.AntColonyOptimisation");
 	
-	final public static IAlgorithm ALGORITHM = new BiLevelAlgorithms(new SolveKnapsackWithEmptyHeuristicValues());
+	//final public static IAlgorithm ALGORITHM = new BiLevelAlgorithms(new SolveKnapsackWithEmptyHeuristicValues());
 	
 	public static void main(String[] args) {
 		BasicConfigurator.configure();

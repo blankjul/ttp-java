@@ -9,6 +9,7 @@ import java.util.Set;
 
 import com.msu.interfaces.IEvaluator;
 import com.msu.model.AbstractSingleObjectiveDomainAlgorithm;
+import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.variable.pack.BooleanPackingList;
@@ -26,7 +27,7 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 
 	protected double beta = 0.5;
 
-	protected int batchSize = 50;
+	protected int batchSize = 100;
 
 	public Double[] heuristic;
 
@@ -34,9 +35,11 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 	public Solution run___(ThiefProblemWithFixedTour problem, IEvaluator evaluator, MyRandom rand) {
 
 		Range<Double> range = new Range<>();
-
+		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
+		
 		PackingList<?> emptyList = new EmptyPackingListFactory().next(problem, rand);
 		Solution empty = evaluator.evaluate(problem, emptyList);
+		set.add(empty);
 
 		heuristic = calcItemHeuristic(problem, evaluator, rand);
 		heuristic = normalize(heuristic);
@@ -64,6 +67,8 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 
 			for (int a = 0; a < batchSize; a++) {
 
+				if (!evaluator.hasNext()) break;
+				
 				List<Integer> packingIndex = new ArrayList<>();
 				List<Boolean> packingPlan = new ArrayList<>(emptyList.encode());
 
@@ -90,7 +95,9 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 				do {
 
 					currentSolution = (currentSolution == null) ? empty : nextSolution;
-
+					
+					if (hash.isEmpty()) break;
+					
 					// first selection random, else look at pheromone matrix
 					int nextIndex = selectNext(mPheromone[currentIndex], rand, hash);
 
@@ -106,9 +113,7 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 				// System.out.println("------------------");
 
 				// check if new best solution
-				if (currentSolution.getObjectives(0) < best.getObjectives(0)) {
-					best = currentSolution;
-				}
+				set.add(currentSolution);
 
 				ants.add(Pair.create(currentSolution, packingIndex));
 
@@ -139,15 +144,15 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 				
 
 				
-				System.out.println(Arrays.toString(packingIndex.toArray()));
+				//System.out.println(Arrays.toString(packingIndex.toArray()));
 
 			}
-			
+/*			
 			for (int i = 0; i < problem.numOfItems(); i++) {
 				if (mStart[i] < 0.001) System.out.print("0 ");
 				else System.out.print(mStart[i] + " ");
 			}
-			
+			*/
 	
 			/*
 			 * 
@@ -158,7 +163,7 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 			 */
 		}
 
-		
+/*		
 		for (int i = 0; i < problem.numOfItems(); i++) {
 			if (mStart[i] < 0.001) System.out.print("0 ");
 			else System.out.print(mStart[i] + " ");
@@ -173,8 +178,8 @@ public class AntColonyOptimisation extends AbstractSingleObjectiveDomainAlgorith
 		
 		
 		System.out.println("--------------------------------");
-		
-		return best;
+		*/
+		return set.get(0);
 	}
 
 	private int selectNext(Double[] mPheromone, MyRandom rand, Set<Integer> hash) {
