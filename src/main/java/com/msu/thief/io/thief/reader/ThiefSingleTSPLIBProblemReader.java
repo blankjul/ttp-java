@@ -68,7 +68,7 @@ public class ThiefSingleTSPLIBProblemReader extends AProblemReader<SingleObjecti
 				String[] values = line.split("\\s+");
 				Point2D point = new Point2D.Double(Double.valueOf(values[1]), Double.valueOf(values[2]));
 				cities.add(point);
-				logger.info(String.format("Insert point %s", point));
+				// logger.info(String.format("Insert point %s", point));
 
 			}
 		} else {
@@ -85,10 +85,10 @@ public class ThiefSingleTSPLIBProblemReader extends AProblemReader<SingleObjecti
 			String[] values = line.split("\\s+");
 			Item item = new Item(Integer.valueOf(values[1]), Integer.valueOf(values[2]));
 			int city = Integer.valueOf(values[3]) - 1;
-			logger.info(String.format("Insert item %s to city %s", item, city));
+			// logger.info(String.format("Insert item %s to city %s", item, city));
 			items.add(city, item);
 		}
-		
+		logger.info(String.format("Finshed parsing file.", citiesSection));
 		SingleObjectiveThiefProblem p = new SingleObjectiveThiefProblem(map, items, maxWeight, R);
 		return p;
 	}

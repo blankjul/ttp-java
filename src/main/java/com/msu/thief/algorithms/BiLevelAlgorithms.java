@@ -9,6 +9,7 @@ import com.msu.interfaces.IEvaluator;
 import com.msu.interfaces.IProblem;
 import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.Solution;
+import com.msu.operators.mutation.SwapMutation;
 import com.msu.soo.ASingleObjectiveAlgorithm;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
@@ -22,6 +23,8 @@ public class BiLevelAlgorithms extends ASingleObjectiveAlgorithm {
 	//! algorithm that solves the SingleObjectiveThiefProblemWithFixedTour
 	protected IAlgorithm algorithm;
 	
+	protected int numOf2OptTours = 0;
+	
 	
 	public BiLevelAlgorithms() {
 		super();
@@ -31,6 +34,12 @@ public class BiLevelAlgorithms extends ASingleObjectiveAlgorithm {
 	public BiLevelAlgorithms(IAlgorithm algorithm) {
 		super();
 		this.algorithm = algorithm;
+	}
+	
+
+	public BiLevelAlgorithms(IAlgorithm algorithm, int numOf2OptTours) {
+		this(algorithm);
+		this.numOf2OptTours = numOf2OptTours;
 	}
 
 
@@ -47,7 +56,15 @@ public class BiLevelAlgorithms extends ASingleObjectiveAlgorithm {
 		List<ThiefProblemWithFixedTour> problems = new ArrayList<>();
 		problems.add(new ThiefProblemWithFixedTour(problem, bestTour));
 		problems.add(new ThiefProblemWithFixedTour(problem, bestTour.getSymmetric()));
-
+		
+		
+		// add other two opt optimal tours as well
+		for (int i = 0; i < numOf2OptTours; i++) {
+			Tour<?> tour = (Tour<?>) new SwapMutation<>().mutate(bestTour, problem, rand);
+			problems.add(new ThiefProblemWithFixedTour(problem, tour));
+		}
+		
+		
 		List<Double> objectives = new ArrayList<>();
 		List<Solution> solutions = new ArrayList<>();
 

@@ -9,15 +9,16 @@ import com.msu.interfaces.IProblem;
 import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.thief.algorithms.AlgorithmUtil;
+import com.msu.thief.algorithms.bilevel.BiLevelEvoluationaryAlgorithm;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
+import com.msu.thief.io.thief.reader.ThiefSingleTSPLIBProblemReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.util.MyRandom;
-import com.msu.util.ObjectFactory;
 
 public class ExperimentOneProblemExecutor {
 	
@@ -46,13 +47,16 @@ public class ExperimentOneProblemExecutor {
 		
 	*/
 	
-	final public static boolean FIXED_TOUR_PROBLEM = true;
-	final public static String PROBLEM = "../ttp-benchmark/SingleObjective/10/10_10_2_50.txt";
+	final public static boolean FIXED_TOUR_PROBLEM = false;
 	
+	final public static String PROBLEM = "../ttp-benchmark/SingleObjective/100/100_5_10_50.txt";
+	final public static int NUM_OF_EVALUATIONS = 500000;
+	
+/*	
 	final public static IAlgorithm ALGORITHM = ObjectFactory.create(IAlgorithm.class,  
 			"com.msu.thief.algorithms." + "bilevel.AntColonyOptimisation");
-	
-	//final public static IAlgorithm ALGORITHM = new BiLevelAlgorithms(new SolveKnapsackWithEmptyHeuristicValues());
+	*/
+	final public static IAlgorithm ALGORITHM = new BiLevelEvoluationaryAlgorithm(8);
 	
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
@@ -63,6 +67,8 @@ public class ExperimentOneProblemExecutor {
 			thief = new BonyadiSingleObjectiveReader().read(PROBLEM);
 		} if (PROBLEM.endsWith(".json")) {
 			thief = (SingleObjectiveThiefProblem) new JsonThiefProblemReader().read(PROBLEM);
+		} if (PROBLEM.endsWith(".ttp")) {
+			thief = (SingleObjectiveThiefProblem) new ThiefSingleTSPLIBProblemReader().read(PROBLEM);
 		}
 		
 		//thief.setToMultiObjective(true);
@@ -75,7 +81,7 @@ public class ExperimentOneProblemExecutor {
 			problem = new ThiefProblemWithFixedTour(thief, tour);
 		}
 		
-		NonDominatedSolutionSet set = ALGORITHM.run(problem, new Evaluator(500000), new MyRandom(123456));
+		NonDominatedSolutionSet set = ALGORITHM.run(problem, new Evaluator(NUM_OF_EVALUATIONS), new MyRandom(123456));
 
 		System.out.println(problem);
 		System.out.println(set.size());
