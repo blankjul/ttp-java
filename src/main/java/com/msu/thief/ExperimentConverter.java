@@ -10,7 +10,7 @@ import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.io.writer.JsonThiefProblemWriter;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.pack.factory.EmptyPackingListFactory;
@@ -24,8 +24,8 @@ public class ExperimentConverter {
 	final public static boolean SET_R_AND_RETURN_SINGLE_OBJECTIVE_PROBLEM = false;
 	final public static boolean CONVERT_TO_EXPONENTIAL_DROPPING = true;
 
-	public static Collection<ThiefProblem> getProblems() {
-		FileCollectorParser<ThiefProblem> fcp = new FileCollectorParser<>();
+	public static Collection<AbstractThiefProblem> getProblems() {
+		FileCollectorParser<AbstractThiefProblem> fcp = new FileCollectorParser<>();
 		fcp.add("../ttp-benchmark/SingleObjective/10", "10_5_6_25.txt", new BonyadiSingleObjectiveReader());
 		fcp.add("../ttp-benchmark/SingleObjective/10", "10_10_2_50.txt", new BonyadiSingleObjectiveReader());
 		fcp.add("../ttp-benchmark/SingleObjective/10", "10_15_10_75.txt", new BonyadiSingleObjectiveReader());
@@ -45,7 +45,7 @@ public class ExperimentConverter {
 
 		BasicConfigurator.configure();
 
-		for (ThiefProblem problem : getProblems()) {
+		for (AbstractThiefProblem problem : getProblems()) {
 
 			// ThiefProblem problem = new
 			// JsonThiefProblemReader().read(PROBLEM);
@@ -89,7 +89,7 @@ public class ExperimentConverter {
 
 	}
 
-	public static double calcR(ThiefProblem problem, Tour<?> tour, PackingList<?> pack) {
+	public static double calcR(AbstractThiefProblem problem, Tour<?> tour, PackingList<?> pack) {
 
 		Solution empty = problem.evaluate(new TTPVariable(tour, new EmptyPackingListFactory().next(problem, null)));
 

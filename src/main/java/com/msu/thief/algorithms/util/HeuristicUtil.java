@@ -8,7 +8,7 @@ import com.msu.moo.model.solution.Solution;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
@@ -17,13 +17,13 @@ import com.msu.thief.variable.tour.Tour;
 
 public class HeuristicUtil {
 
-	public static List<Double> calcDeltaObjectives(ThiefProblem problem, IEvaluator evaluator, Tour<?> tour, int indexOfItem) {
+	public static List<Double> calcDeltaObjectives(AbstractThiefProblem problem, IEvaluator evaluator, Tour<?> tour, int indexOfItem) {
 		PackingList<?> b = new EmptyPackingListFactory().next(problem, null);
 		return HeuristicUtil.calcDeltaObjectives(problem, evaluator, tour, b, indexOfItem);
 	}
 	
 	
-	public static List<Double> calcDeltaObjectives(ThiefProblem problem, IEvaluator evaluator, Tour<?> tour, PackingList<?> b, int indexOfItem) {
+	public static List<Double> calcDeltaObjectives(AbstractThiefProblem problem, IEvaluator evaluator, Tour<?> tour, PackingList<?> b, int indexOfItem) {
 		
 		BooleanPackingList pack = (BooleanPackingList) b;
 		
@@ -45,11 +45,11 @@ public class HeuristicUtil {
 	}
 	
 	
-	public static double calcDeltaTime(ThiefProblem problem, Tour<?> tour, int indexOfItem) {
+	public static double calcDeltaTime(AbstractThiefProblem problem, Tour<?> tour, int indexOfItem) {
 		return HeuristicUtil.calcDeltaTime(problem, tour, indexOfItem, problem.getMaxSpeed());
 	}
 	
-	public static double calcDeltaTime(ThiefProblem problem, Tour<?> tour, int indexOfItem, double velocityOverAllCities) {
+	public static double calcDeltaTime(AbstractThiefProblem problem, Tour<?> tour, int indexOfItem, double velocityOverAllCities) {
 		
 		ItemCollection<Item> items = problem.getItemCollection();
 		
@@ -68,7 +68,7 @@ public class HeuristicUtil {
 		return deltaTime;
 	}
 	
-	public static double calcDeltaVelocity(ThiefProblem problem, int indexOfItem) {
+	public static double calcDeltaVelocity(AbstractThiefProblem problem, int indexOfItem) {
 		double weight = problem.getItems().get(indexOfItem).getWeight();
 		double speedWithItem =  problem.getMaxSpeed() - 
 				((problem.getMaxSpeed() - problem.getMinSpeed()) / problem.getMaxWeight()) * weight;

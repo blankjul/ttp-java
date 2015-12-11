@@ -4,12 +4,13 @@ import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.ThiefProblem;
 
-public class BonyadiPublicationScenario extends AThiefScenario<ThiefProblem, Object>{
+public class BonyadiPublicationScenario extends AThiefScenario<AbstractThiefProblem, Object>{
 
 	@Override
-	public ThiefProblem getObject() {
+	public AbstractThiefProblem getObject() {
 		
 		SymmetricMap m = new SymmetricMap(4);
 		m.set(0, 1, 4);

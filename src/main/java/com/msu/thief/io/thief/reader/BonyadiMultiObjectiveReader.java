@@ -6,14 +6,15 @@ import java.io.IOException;
 import org.apache.log4j.Logger;
 
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.ThiefProblem;
 
-public class BonyadiMultiObjectiveReader extends ABonyadiReader<ThiefProblem> {
+public class BonyadiMultiObjectiveReader extends ABonyadiReader<AbstractThiefProblem> {
 
 	static final Logger logger = Logger.getLogger(BonyadiMultiObjectiveReader.class);
 
 	@Override
-	protected ThiefProblem read_(BufferedReader br) throws IOException {
+	protected AbstractThiefProblem read_(BufferedReader br) throws IOException {
 
 		ThiefProblem ttp = new ThiefProblem();
 

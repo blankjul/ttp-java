@@ -8,6 +8,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.msu.thief.evaluator.profit.NoDroppingEvaluator;
+import com.msu.thief.evaluator.time.StandardTimeEvaluator;
 import com.msu.thief.io.AProblemReader;
 import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.Item;
@@ -89,7 +91,18 @@ public class ThiefSingleTSPLIBProblemReader extends AProblemReader<SingleObjecti
 			items.add(city, item);
 		}
 		logger.info(String.format("Finshed parsing file.", citiesSection));
-		SingleObjectiveThiefProblem p = new SingleObjectiveThiefProblem(map, items, maxWeight, R);
+		
+		SingleObjectiveThiefProblem p = new SingleObjectiveThiefProblem();
+		p.setMap(map);
+		p.setItems(items);
+		p.setMaxWeight(maxWeight);
+		p.setR(R);
+		p.setMinSpeed(minSpeed);
+		p.setMaxSpeed(maxSpeed);
+		p.setProfitEvaluator(new NoDroppingEvaluator());
+		p.setTimeEvaluator(new StandardTimeEvaluator());
+		p.setName(name);
+		
 		return p;
 	}
 

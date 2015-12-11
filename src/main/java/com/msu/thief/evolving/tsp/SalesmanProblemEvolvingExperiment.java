@@ -16,6 +16,7 @@ import com.msu.thief.analyze.TourAverageDistanceToOpt;
 import com.msu.thief.io.writer.JsonThiefProblemWriter;
 import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.ItemCollection;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.SalesmanProblem;
 import com.msu.thief.problems.ThiefProblem;
 
@@ -80,7 +81,7 @@ public class SalesmanProblemEvolvingExperiment extends AExperiment  {
 			if (i == 1) break;
 			
 			SalesmanProblemVariable var = (SalesmanProblemVariable) set.get(i).getVariable();
-			ThiefProblem thief = new ThiefProblem(new CoordinateMap(var.get()), new ItemCollection<>(), 0);
+			AbstractThiefProblem thief = new ThiefProblem(new CoordinateMap(var.get()), new ItemCollection<>(), 0);
 			String file = "../ttp-benchmark/EA_example0" + i + ".ttp";
 			new JsonThiefProblemWriter().write(thief,file );
 		}	

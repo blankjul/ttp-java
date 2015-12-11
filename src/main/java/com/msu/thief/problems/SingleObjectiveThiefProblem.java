@@ -2,20 +2,20 @@ package com.msu.thief.problems;
 
 import java.util.List;
 
-import com.msu.thief.evaluator.profit.NoDroppingEvaluator;
-import com.msu.thief.model.Item;
-import com.msu.thief.model.ItemCollection;
-import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.variable.TTPVariable;
 
-public class SingleObjectiveThiefProblem extends ThiefProblem {
+public class SingleObjectiveThiefProblem extends AbstractThiefProblem  {
 
 	protected double R = 1;
-	
 	protected boolean swtichToMultiObjective = false;
 	
+	
+	public SingleObjectiveThiefProblem() {
+		super();
+	}
 
-	public SingleObjectiveThiefProblem(ThiefProblem problem, double R) {
+
+	public SingleObjectiveThiefProblem(AbstractThiefProblem problem, double R) {
 		this.evalProfit = problem.evalProfit;
 		this.evalTime = problem.evalTime;
 		this.items = problem.items;
@@ -23,33 +23,30 @@ public class SingleObjectiveThiefProblem extends ThiefProblem {
 		this.maxSpeed = problem.maxSpeed;
 		this.maxWeight = problem.maxWeight;
 		this.minSpeed = problem.minSpeed;
-		this.name = problem.getName();
-		this.R = R;
-	}
-	
-	public SingleObjectiveThiefProblem() {
-		this.evalProfit = new NoDroppingEvaluator();
-	}
-
-	public SingleObjectiveThiefProblem(SymmetricMap map, ItemCollection<Item> items, int maxWeight, double R) {
-		super(map, items, maxWeight);
-		this.evalProfit = new NoDroppingEvaluator();
+		this.setName(problem.getName());
 		this.R = R;
 	}
 
-	
+
+
 	@Override
 	public int getNumberOfObjectives() {
 		if (swtichToMultiObjective) return 2;
 		else return 1;
 	}
 	
+	
+	@Override
+	public int getNumberOfConstraints() {
+		return 1;
+	}
+
 
 	@Override
 	protected void evaluate_(TTPVariable var, List<Double> objectives, List<Double> constraintViolations) {
 		
 		// calculate the multi-objective result
-		super.evaluate_(var, objectives, constraintViolations);
+		getThiefProblem().evaluate_(var, objectives, constraintViolations);
 		
 		// if switched to multi we are done
 		if (swtichToMultiObjective) return;
@@ -64,7 +61,6 @@ public class SingleObjectiveThiefProblem extends ThiefProblem {
 
 		
 	}
-	
 
 	public double getR() {
 		return R;

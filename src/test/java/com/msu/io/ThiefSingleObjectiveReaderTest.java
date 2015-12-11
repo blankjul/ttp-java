@@ -8,11 +8,11 @@ import org.junit.Test;
 
 import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 
 public class ThiefSingleObjectiveReaderTest {
 
-	protected static ThiefProblem problem;
+	protected static AbstractThiefProblem problem;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {

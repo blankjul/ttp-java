@@ -15,7 +15,7 @@ import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.problems.KnapsackProblem;
 import com.msu.thief.problems.SalesmanProblem;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.pack.factory.EmptyPackingListFactory;
@@ -45,7 +45,7 @@ public class ThiefDecomposedAlgorithm extends DecomposedAlgorithm {
 	protected void initialize(IProblem p, IEvaluator eval, MyRandom rand) {
 
 		// subproblems
-		ThiefProblem problem = (ThiefProblem) p;
+		AbstractThiefProblem problem = (AbstractThiefProblem) p;
 		SalesmanProblem tsp = new SalesmanProblem(problem.getMap());
 		KnapsackProblem knp = new KnapsackProblem((int) problem.getMaxWeight(), problem.getItems());
 

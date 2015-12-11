@@ -16,7 +16,7 @@ import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.variable.TTPVariable;
 
 public class TTPVariableToJson {
@@ -28,9 +28,9 @@ public class TTPVariableToJson {
 	protected JsonGenerator json = null;;
 
 	// ! problem instance
-	protected ThiefProblem problem = null;
+	protected AbstractThiefProblem problem = null;
 
-	public TTPVariableToJson(ThiefProblem problem) throws IOException {
+	public TTPVariableToJson(AbstractThiefProblem problem) throws IOException {
 		sw = new StringWriter();
 		json = new JsonFactory().createGenerator(sw).useDefaultPrettyPrinter();
 		this.problem = problem;
@@ -40,7 +40,7 @@ public class TTPVariableToJson {
 			writeGraph(problem);
 	}
 
-	protected void writeGraph(ThiefProblem problem) throws IOException {
+	protected void writeGraph(AbstractThiefProblem problem) throws IOException {
 		CoordinateMap map = (CoordinateMap) problem.getMap();
 		json.writeArrayFieldStart("nodes");
 		int counter = 0;

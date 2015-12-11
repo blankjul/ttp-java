@@ -4,7 +4,7 @@ import com.msu.interfaces.IProblem;
 import com.msu.interfaces.IVariable;
 import com.msu.model.AVariableFactory;
 import com.msu.thief.evaluator.profit.NoDroppingEvaluator;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.factory.AKnapsackProblemFactory;
 import com.msu.thief.problems.factory.ASalesmanProblemFactory;
 import com.msu.thief.problems.factory.ClusteredSalesmanProblemFactory;
@@ -31,7 +31,7 @@ public class ThiefProblemVariableFactory extends AVariableFactory {
 		//ASalesmanProblemFactory facSalesman = new ClusteredSalesmanProblemFactory(6);
 		AKnapsackProblemFactory facKnp = new RandomKnapsackProblemFactory().setCorrType(CORRELATION_TYPE.WEAKLY_CORRELATED);
 		RandomThiefProblemFactory facThief = new RandomThiefProblemFactory(facSalesman, facKnp);
-		ThiefProblem result = facThief.create(numOfCities, 1, rand.nextDouble(), rand);
+		AbstractThiefProblem result = facThief.create(numOfCities, 1, rand.nextDouble(), rand);
 		
 		/*
 		ThiefProblem cluster = new JsonThiefProblemReader().read("../ttp-benchmark/max.ttp");

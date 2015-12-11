@@ -6,6 +6,7 @@ import java.util.Queue;
 import com.msu.thief.evaluator.profit.IndividualProfitEvaluator;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.KnapsackProblem;
 import com.msu.thief.problems.ThiefProblem;
 import com.msu.util.MyRandom;
@@ -32,7 +33,7 @@ public class RandomThiefProblemFactory extends AThiefProblemFactory{
 
 
 	@Override
-	public ThiefProblem create(int numOfCities, int itemsPerCity, double maxWeightPerc, MyRandom rand) {
+	public AbstractThiefProblem create(int numOfCities, int itemsPerCity, double maxWeightPerc, MyRandom rand) {
 
 		// create the map
 		ThiefProblem problem = new ThiefProblem();

@@ -11,15 +11,15 @@ import com.msu.moo.model.solution.SolutionSet;
 import com.msu.thief.algorithms.exhaustive.SalesmanExhaustive;
 import com.msu.thief.algorithms.exhaustive.ThiefExhaustive;
 import com.msu.thief.problems.SalesmanProblem;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.util.MyRandom;
 
-public class ThiefAmountOfOptimalTourInFront extends AbstractAnalyzer<ThiefProblem, Double> {
+public class ThiefAmountOfOptimalTourInFront extends AbstractAnalyzer<AbstractThiefProblem, Double> {
 
 	@Override
-	public Double analyze(ThiefProblem problem) {
+	public Double analyze(AbstractThiefProblem problem) {
 		
 		Evaluator eval = new Evaluator(Integer.MAX_VALUE);
 		

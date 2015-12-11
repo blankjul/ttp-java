@@ -6,7 +6,7 @@ import java.util.List;
 import com.msu.thief.evaluator.TourInformation;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.tour.Tour;
@@ -15,7 +15,7 @@ public class StandardTimeEvaluator extends TimeEvaluator {
 
 
 	@Override
-	public TourInformation evaluate_(ThiefProblem problem, Tour<?> tour, PackingList<?> pack) {
+	public TourInformation evaluate_(AbstractThiefProblem problem, Tour<?> tour, PackingList<?> pack) {
 
 		List<Double> speedAtCities = new ArrayList<>();
 		List<Double> timeAtCities = new ArrayList<>();

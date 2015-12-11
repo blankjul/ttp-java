@@ -14,7 +14,7 @@ import com.msu.thief.algorithms.exhaustive.ThiefExhaustive;
 import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
 import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.problems.SalesmanProblem;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.visualize.ThiefVisualizer;
 import com.msu.util.FileCollectorParser;
 import com.msu.util.MyRandom;
@@ -39,7 +39,7 @@ public class OneScenarioExperiment extends AExperiment {
 	
 	@Override
 	protected void setProblems(List<IProblem> problems) {
-		FileCollectorParser<ThiefProblem> fcp = new FileCollectorParser<>();
+		FileCollectorParser<AbstractThiefProblem> fcp = new FileCollectorParser<>();
 		fcp.add("../ttp-benchmark", "opt_tour_performs_optimal.ttp", new JsonThiefProblemReader());
 		problems.addAll(fcp.collect());
 	}
@@ -48,7 +48,7 @@ public class OneScenarioExperiment extends AExperiment {
 	
 	@Override
 	public void finalize() {
-		ThiefProblem ttp = (ThiefProblem) problems.get(0);
+		AbstractThiefProblem ttp = (AbstractThiefProblem) problems.get(0);
 		SalesmanProblem p = new SalesmanProblem(ttp.getMap());
 		new SalesmanExhaustive().run(p, new Evaluator(Integer.MAX_VALUE), new MyRandom());
 		for(double[] row : ttp.getMap().getDistances()) {

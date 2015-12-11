@@ -11,7 +11,7 @@ import com.msu.thief.algorithms.oneplusone.OnePlusOneEA;
 import com.msu.thief.algorithms.util.TwoOptLocalSearch;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.visualize.js.JavaScriptThiefVisualizer;
 import com.msu.util.FileCollectorParser;
 
@@ -20,7 +20,7 @@ public class ThiefVisualizeExperiment extends AExperiment {
 	@Override
 	protected void setProblems(List<IProblem> problems) {
 
-		FileCollectorParser<ThiefProblem> fcp = new FileCollectorParser<>();
+		FileCollectorParser<AbstractThiefProblem> fcp = new FileCollectorParser<>();
 		// fcp.add("../ttp-benchmark/TSPLIB/berlin52-ttp",
 		// "berlin52_n51_bounded-strongly-corr_06.ttp", new
 		// BonyadiTSPLIBReader());
@@ -44,7 +44,7 @@ public class ThiefVisualizeExperiment extends AExperiment {
 		// fcp.add("../ttp-benchmark", "EA_example00.ttp", new
 		// JsonThiefProblemReader());
 
-		List<ThiefProblem> collected = fcp.collect();
+		List<AbstractThiefProblem> collected = fcp.collect();
 
 		collected.forEach((p) -> {
 			if (p instanceof SingleObjectiveThiefProblem)

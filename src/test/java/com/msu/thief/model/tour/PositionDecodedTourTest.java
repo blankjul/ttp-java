@@ -25,7 +25,6 @@ public class PositionDecodedTourTest {
 		public int numOfCities() {
 			return 4;
 		}
-		
 	}
 
 

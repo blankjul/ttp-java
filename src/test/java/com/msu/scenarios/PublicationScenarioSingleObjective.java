@@ -3,14 +3,14 @@ package com.msu.scenarios;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 
 public class PublicationScenarioSingleObjective extends AThiefScenario<SingleObjectiveThiefProblem, Object> {
 
 	@Override
 	public SingleObjectiveThiefProblem getObject() {
 		
-		ThiefProblem mo = new PublicationScenario().getObject();
+		AbstractThiefProblem mo = new PublicationScenario().getObject();
 		
 		ItemCollection<Item> items = new ItemCollection<Item>();
 		items.add(2, new Item(100, 3));
@@ -20,7 +20,11 @@ public class PublicationScenarioSingleObjective extends AThiefScenario<SingleObj
 		items.add(2, new Item(30, 3));
 		items.add(3, new Item(20, 2));
 		
-		SingleObjectiveThiefProblem problem = new SingleObjectiveThiefProblem(mo.getMap(), items, mo.getMaxWeight(), 1);
+		SingleObjectiveThiefProblem problem = new SingleObjectiveThiefProblem();
+		problem.setMap(mo.getMap());
+		problem.setItems(items);
+		problem.setMaxWeight(mo.getMaxWeight());
+		problem.setR(1);
 		
 		return problem;
 		

@@ -12,7 +12,7 @@ import com.msu.operators.AbstractCrossover;
 import com.msu.operators.mutation.BitFlipMutation;
 import com.msu.operators.selection.RandomSelection;
 import com.msu.soo.ASingleObjectiveAlgorithm;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.pack.factory.APackingListFactory;
@@ -36,7 +36,7 @@ public class ThiefSingleObjectiveEvolutionaryAlgorithm extends ASingleObjectiveA
 	@Override
 	public Solution run__(IProblem p, IEvaluator evaluator, MyRandom rand) {
 
-		ThiefProblem problem = (ThiefProblem) p;
+		AbstractThiefProblem problem = (AbstractThiefProblem) p;
 
 		// initialize random population
 		SolutionSet population1 = new SolutionSet(populationSize);

@@ -22,7 +22,7 @@ import com.msu.thief.algorithms.bilevel.GreedyPackingAlgorithm;
 import com.msu.thief.algorithms.oneplusone.OnePlusOneEA;
 import com.msu.thief.algorithms.oneplusone.OnePlusOneEAFixedTour;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.variable.TTPCrossover;
 import com.msu.thief.variable.TTPMutation;
 import com.msu.thief.variable.TTPVariableFactory;
@@ -61,7 +61,7 @@ public class FinalExperiment extends AExperiment {
 
 	@Override
 	protected void setProblems(List<IProblem> problems) {
-		FileCollectorParser<ThiefProblem> fcp = new FileCollectorParser<>();
+		FileCollectorParser<AbstractThiefProblem> fcp = new FileCollectorParser<>();
 
 /*		
 		fcp.add("../ttp-benchmark/SingleObjective/10", "*", new BonyadiSingleObjectiveReader());
@@ -87,7 +87,7 @@ public class FinalExperiment extends AExperiment {
 		fcp.add("../ttp-benchmark/SingleObjective/100", "100_50_5_75.txt", new BonyadiSingleObjectiveReader());
 		fcp.add("../ttp-benchmark/SingleObjective/100", "100_150_10_25.txt", new BonyadiSingleObjectiveReader());
 
-		List<ThiefProblem> collected = fcp.collect();
+		List<AbstractThiefProblem> collected = fcp.collect();
 		problems.addAll(collected);
 	}
 

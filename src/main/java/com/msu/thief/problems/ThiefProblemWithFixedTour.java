@@ -3,6 +3,7 @@ package com.msu.thief.problems;
 import java.util.List;
 
 import com.msu.model.AProblem;
+import com.msu.moo.model.solution.Solution;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.variable.TTPVariable;
@@ -21,15 +22,17 @@ public class ThiefProblemWithFixedTour extends AProblem<PackingList<?>>  impleme
 	protected Tour<?> tour;
 
 	//! problem which underlies this fixed tour problem
-	protected ThiefProblem problem;
+	protected AbstractThiefProblem problem;
 
-	public ThiefProblemWithFixedTour(ThiefProblem problem, Tour<?> tour) {
+	public ThiefProblemWithFixedTour(AbstractThiefProblem problem, Tour<?> tour) {
 		this.problem = problem;
 		this.tour = tour;
 	}
 
 	protected void evaluate_(PackingList<?> var, List<Double> objectives, List<Double> constraintViolations) {
-		problem.evaluate_(new TTPVariable(tour, var), objectives, constraintViolations);
+		Solution s = problem.evaluate(new TTPVariable(tour, var));
+		objectives.addAll(s.getObjective());
+		constraintViolations.addAll(s.getConstraintViolations());
 	}
 
 
@@ -43,7 +46,7 @@ public class ThiefProblemWithFixedTour extends AProblem<PackingList<?>>  impleme
 		return problem.getNumberOfConstraints();
 	}
 
-	public ThiefProblem getProblem() {
+	public AbstractThiefProblem getProblem() {
 		return problem;
 	}
 

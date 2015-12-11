@@ -13,19 +13,19 @@ import com.msu.operators.crossover.UniformCrossover;
 import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.util.MyRandom;
 import com.msu.util.Util;
 
-public class ThiefProblemCrossover extends AbstractCrossover<ThiefProblem>{
+public class ThiefProblemCrossover extends AbstractCrossover<AbstractThiefProblem>{
 
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected List<ThiefProblem> crossover_(ThiefProblem a, ThiefProblem b, IProblem problem, MyRandom rand) {
+	protected List<AbstractThiefProblem> crossover_(AbstractThiefProblem a, AbstractThiefProblem b, IProblem problem, MyRandom rand) {
 		
-		ThiefProblem child1 = Util.cloneObject(a);
-		ThiefProblem child2 = Util.cloneObject(b);
+		AbstractThiefProblem child1 = Util.cloneObject(a);
+		AbstractThiefProblem child2 = Util.cloneObject(b);
 		
 		
 		Variable<List<Point2D>> paCities = new Variable<List<Point2D>>(((CoordinateMap) a.getMap()).getCities());

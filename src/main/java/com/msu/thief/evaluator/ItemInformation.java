@@ -1,6 +1,6 @@
 package com.msu.thief.evaluator;
 
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 
 public class ItemInformation {
 	
@@ -10,7 +10,7 @@ public class ItemInformation {
 		protected double finalValue;
 		
 		
-		public ItemInformation(ThiefProblem problem, TourInformation information, int idx, double intialValue, double finalValue) {
+		public ItemInformation(AbstractThiefProblem problem, TourInformation information, int idx, double intialValue, double finalValue) {
 			this.pickupTime = getPickupTimeOfItem(problem, information, idx);
 			this.timeInKnapsack = calcTimeOfItemInKnapsack(problem, information, idx);
 			this.intialValue = intialValue;
@@ -42,12 +42,12 @@ public class ItemInformation {
 		}
 	
 		
-		public static double getPickupTimeOfItem(ThiefProblem problem, TourInformation information, int idx) {
+		public static double getPickupTimeOfItem(AbstractThiefProblem problem, TourInformation information, int idx) {
 			int cityOfItem = problem.getItemCollection().getCityOfItem(idx);
 			return information.getTimeAtCity(cityOfItem);
 		}
 
-		public static double calcTimeOfItemInKnapsack(ThiefProblem problem, TourInformation information, int idx) {
+		public static double calcTimeOfItemInKnapsack(AbstractThiefProblem problem, TourInformation information, int idx) {
 			return information.getTime() - getPickupTimeOfItem(problem, information, idx);
 		}
 		

@@ -6,7 +6,7 @@ import com.msu.moo.algorithms.nsgaII.INSGAIIModifactor;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.model.solution.SolutionSet;
 import com.msu.thief.problems.SalesmanProblem;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.tour.Tour;
@@ -20,7 +20,7 @@ public class TwoOptLocalSearch implements INSGAIIModifactor {
 		Solution s = population.get(rand.nextInt(population.size()));
 		TTPVariable var = (TTPVariable) s.getVariable();
 
-		ThiefProblem thiefProblem = (ThiefProblem) p;
+		AbstractThiefProblem thiefProblem = (AbstractThiefProblem) p;
 		SalesmanProblem salesmanProblem = new SalesmanProblem(thiefProblem.getMap());
 		Tour<?> t = TwoOptFactory.optimize2Opt(salesmanProblem, var.getTour(), rand);
 

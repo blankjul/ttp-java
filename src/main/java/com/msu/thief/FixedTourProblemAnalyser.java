@@ -17,7 +17,7 @@ import com.msu.thief.evaluator.time.StandardTimeEvaluator;
 import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.pack.factory.OptimalPackingListFactory;
@@ -31,7 +31,7 @@ public class FixedTourProblemAnalyser {
 		
 		BasicConfigurator.configure();
 		
-		FileCollectorParser<ThiefProblem> fcp = new FileCollectorParser<>();
+		FileCollectorParser<AbstractThiefProblem> fcp = new FileCollectorParser<>();
 		fcp.add("../ttp-benchmark/json", "*", new JsonThiefProblemReader());
 		
 		/*FileCollectorParser<ThiefProblem> fcp = new FileCollectorParser<>();
@@ -49,7 +49,7 @@ public class FixedTourProblemAnalyser {
 		fcp.add("../ttp-benchmark/SingleObjective/100", "100_150_10_25.txt", new BonyadiSingleObjectiveReader());
 		*/
 		
-		for (ThiefProblem problem : fcp.collect()) {
+		for (AbstractThiefProblem problem : fcp.collect()) {
 	
 			Builder<SingleObjectiveEvolutionaryAlgorithm> algorithm = new Builder<>(
 					SingleObjectiveEvolutionaryAlgorithm.class);

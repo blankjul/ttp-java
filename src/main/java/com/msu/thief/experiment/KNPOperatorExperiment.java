@@ -12,6 +12,7 @@ import com.msu.thief.io.thief.reader.KnapsackProblemReader;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.KnapsackProblem;
 import com.msu.thief.problems.ThiefProblem;
 import com.msu.util.FileCollectorParser;
@@ -65,7 +66,7 @@ public class KNPOperatorExperiment extends AExperiment {
 				for (Item i : knp.getItems())
 					items.add(0, i);
 
-				ThiefProblem problem = new ThiefProblem(new SymmetricMap(1), items, knp.getMaxWeight());
+				AbstractThiefProblem problem = new ThiefProblem(new SymmetricMap(1), items, knp.getMaxWeight());
 				problem.setName(knp.getName());
 				return problem;
 			}

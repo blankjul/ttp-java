@@ -1,7 +1,7 @@
 package com.msu.thief.evaluator.time;
 
 import com.msu.thief.evaluator.TourInformation;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.tour.Tour;
 
@@ -11,10 +11,10 @@ import com.msu.thief.variable.tour.Tour;
  */
 public abstract class TimeEvaluator {
 
-	public double evaluate(ThiefProblem problem, Tour<?> tour, PackingList<?> pack) {
+	public double evaluate(AbstractThiefProblem problem, Tour<?> tour, PackingList<?> pack) {
 		return evaluate_(problem, tour, pack).getTime();
 	}
 	
-	public abstract TourInformation evaluate_(ThiefProblem problem, Tour<?> tour, PackingList<?> pack);
+	public abstract TourInformation evaluate_(AbstractThiefProblem problem, Tour<?> tour, PackingList<?> pack);
 
 }

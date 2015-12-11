@@ -17,16 +17,17 @@ import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.problems.ThiefProblem;
 import com.msu.util.io.AReader;
 
-public class JsonThiefProblemReader extends AReader<ThiefProblem> {
+public class JsonThiefProblemReader extends AReader<AbstractThiefProblem> {
 
 	@Override
-	protected ThiefProblem read_(BufferedReader br) throws IOException {
+	protected AbstractThiefProblem read_(BufferedReader br) throws IOException {
 
-		ThiefProblem p = null;
+		AbstractThiefProblem p = null;
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode root = mapper.readTree(br);
 

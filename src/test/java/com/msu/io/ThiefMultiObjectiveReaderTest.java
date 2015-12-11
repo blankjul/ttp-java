@@ -8,11 +8,11 @@ import org.junit.Test;
 
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
 import com.msu.thief.io.thief.reader.ThiefMultiObjectiveReader;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 
 public class ThiefMultiObjectiveReaderTest {
 
-	protected static ThiefProblem problem;
+	protected static AbstractThiefProblem problem;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {

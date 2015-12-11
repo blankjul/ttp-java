@@ -16,13 +16,13 @@ import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 
-public class JsonThiefProblemWriter extends AProblemWriter<ThiefProblem> {
+public class JsonThiefProblemWriter extends AProblemWriter<AbstractThiefProblem> {
 
 
 	@Override
-	protected void write_(ThiefProblem p, OutputStream os) throws IOException {
+	protected void write_(AbstractThiefProblem p, OutputStream os) throws IOException {
 		JsonGenerator json = new JsonFactory().createGenerator(os, JsonEncoding.UTF8).useDefaultPrettyPrinter();
 		
 		boolean isSingleObjective = p instanceof SingleObjectiveThiefProblem;

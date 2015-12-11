@@ -11,6 +11,7 @@ import com.msu.model.Report;
 import com.msu.thief.algorithms.factory.NSGAIIFactory;
 import com.msu.thief.io.thief.reader.SalesmanProblemReader;
 import com.msu.thief.model.ItemCollection;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.ICityProblem;
 import com.msu.thief.problems.SalesmanProblem;
 import com.msu.thief.problems.ThiefProblem;
@@ -47,11 +48,11 @@ public class TSPOperator extends AExperiment {
 	@Override
 	protected void setProblems(List<IProblem> problems) {
 		FileCollectorParser<ICityProblem> fcp = new FileCollectorParser<>();
-		fcp.add("resources", "*.tsp", new Function<String, ThiefProblem>() {
+		fcp.add("resources", "*.tsp", new Function<String, AbstractThiefProblem>() {
 			@Override
-			public ThiefProblem apply(String t) {
+			public AbstractThiefProblem apply(String t) {
 				SalesmanProblem tsp = new SalesmanProblemReader().read(t);
-				ThiefProblem problem = new ThiefProblem(tsp.getMap(), new ItemCollection<>(), 0);
+				AbstractThiefProblem problem = new ThiefProblem(tsp.getMap(), new ItemCollection<>(), 0);
 				problem.setName(tsp.getName());
 				return problem;
 			}

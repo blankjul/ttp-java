@@ -18,7 +18,7 @@ import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IProblem;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.util.Pair;
 import com.msu.util.events.IListener;
 import com.msu.util.events.impl.EventDispatcher;
@@ -54,7 +54,7 @@ public class JavaScriptThiefVisualizer extends AWriter<Pair<ProblemFinishedEvent
 		json.writeEndArray();
 		json.close();
 
-		TTPVariableToJson varToJson = new TTPVariableToJson((ThiefProblem) problem);
+		TTPVariableToJson varToJson = new TTPVariableToJson((AbstractThiefProblem) problem);
 
 		// hash all solutions of this problem instance to create a unique
 		// id!

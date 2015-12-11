@@ -3,7 +3,7 @@ package com.msu.thief.evaluator;
 import java.util.List;
 import java.util.Map;
 
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.variable.TTPVariable;
 
 /**
@@ -13,7 +13,7 @@ import com.msu.thief.variable.TTPVariable;
 public class TourInformation {
 
 	// ! problem which the information belongs to
-	protected ThiefProblem problem;
+	protected AbstractThiefProblem problem;
 
 	// ! variable of which the result was calculated
 	protected TTPVariable variable;
@@ -34,7 +34,7 @@ public class TourInformation {
 	protected double time;
 
 
-	public TourInformation(ThiefProblem problem, TTPVariable variable, List<Double> speedAtCities,
+	public TourInformation(AbstractThiefProblem problem, TTPVariable variable, List<Double> speedAtCities,
 			List<Double> timeAtCities, double time) {
 		super();
 		this.problem = problem;
@@ -45,7 +45,7 @@ public class TourInformation {
 	}
 	
 
-	public ThiefProblem getProblem() {
+	public AbstractThiefProblem getProblem() {
 		return problem;
 	}
 

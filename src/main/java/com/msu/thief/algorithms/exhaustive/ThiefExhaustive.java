@@ -8,7 +8,7 @@ import com.msu.interfaces.IEvaluator;
 import com.msu.interfaces.IProblem;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.util.Combination;
 import com.msu.thief.util.CombinatorialUtil;
 import com.msu.thief.variable.TTPVariable;
@@ -32,11 +32,11 @@ public class ThiefExhaustive extends AExhaustiveAlgorithm {
 	@Override
 	public NonDominatedSolutionSet run_(IProblem p, IEvaluator eval, MyRandom rand) {
 		
-		boolean startingCityIsZero = ((ThiefProblem)p).isStartingCityIsZero();
+		boolean startingCityIsZero = ((AbstractThiefProblem)p).isStartingCityIsZero();
 		
 		NonDominatedSolutionSet set = (onlyNonDominatedPoints) ? new NonDominatedSolutionSet() : new ExhaustiveSolutionSet();
 
-		ThiefProblem problem = (ThiefProblem) p;
+		AbstractThiefProblem problem = (AbstractThiefProblem) p;
 
 		final int numItems = problem.numOfItems();
 		final int numCities = problem.numOfCities();

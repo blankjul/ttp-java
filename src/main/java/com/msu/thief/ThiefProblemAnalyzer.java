@@ -12,7 +12,7 @@ import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.problems.KnapsackProblem;
 import com.msu.thief.problems.SalesmanProblem;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.tour.Tour;
@@ -27,10 +27,10 @@ public class ThiefProblemAnalyzer {
 		
 		
 		
-		FileCollectorParser<ThiefProblem> fcp = new FileCollectorParser<>();
+		FileCollectorParser<AbstractThiefProblem> fcp = new FileCollectorParser<>();
 		fcp.add("../ttp-benchmark/SingleObjective/10", "10_3_1_50.txt", new BonyadiSingleObjectiveReader());
 		//fcp.add("../ttp-benchmark/TSPLIB/berlin52-ttp", "berlin52_n51_bounded-strongly-corr_01.ttp", new BonyadiTSPLIBReader());
-		List<ThiefProblem> collected = fcp.collect();
+		List<AbstractThiefProblem> collected = fcp.collect();
 		
 		collected.forEach((p) -> {
 			if (p instanceof SingleObjectiveThiefProblem) 
@@ -40,7 +40,7 @@ public class ThiefProblemAnalyzer {
 		
 		
 		
-		for (ThiefProblem problem : collected) {
+		for (AbstractThiefProblem problem : collected) {
 			
 			KnapsackProblem knp = new KnapsackProblem(problem.getMaxWeight(), problem.getItems());
 			

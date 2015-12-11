@@ -4,7 +4,7 @@ import org.apache.log4j.BasicConfigurator;
 
 import com.msu.thief.evaluator.profit.NoDroppingEvaluator;
 import com.msu.thief.io.writer.JsonThiefProblemWriter;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.factory.AKnapsackProblemFactory;
 import com.msu.thief.problems.factory.ASalesmanProblemFactory;
 import com.msu.thief.problems.factory.ClusteredSalesmanProblemFactory;
@@ -40,7 +40,7 @@ public class ProblemFactory {
 						//ASalesmanProblemFactory facSalesman = new ClusteredSalesmanProblemFactory(3);
 						AKnapsackProblemFactory facKnp = new RandomKnapsackProblemFactory().setCorrType(type);
 						RandomThiefProblemFactory facThief = new RandomThiefProblemFactory(facSalesman, facKnp);
-						ThiefProblem problem = facThief.create(cities, itemsPercity, rate, new MyRandom(RANDOM_SEED));
+						AbstractThiefProblem problem = facThief.create(cities, itemsPercity, rate, new MyRandom(RANDOM_SEED));
 						problem.setProfitEvaluator(new NoDroppingEvaluator());
 						problem.setName(String.format("%s-%s-%s-%s-%s", "Clustered", cities, itemsPercity, type, rate));
 						new JsonThiefProblemWriter().write(problem, String.format("../ttp-benchmark/MyBenchmark/%s.ttp", problem));

@@ -5,18 +5,18 @@ import java.io.ByteArrayOutputStream;
 import com.msu.interfaces.IVariable;
 import com.msu.model.variables.Variable;
 import com.msu.thief.io.writer.JsonThiefProblemWriter;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.util.Util;
 
-public class ThiefProblemVariable extends Variable<ThiefProblem> {
+public class ThiefProblemVariable extends Variable<AbstractThiefProblem> {
 
-	public ThiefProblemVariable(ThiefProblem obj) {
+	public ThiefProblemVariable(AbstractThiefProblem obj) {
 		super(obj);
 	}
 
 	@Override
 	public IVariable copy() {
-		return new ThiefProblemVariable((ThiefProblem) Util.cloneObject(obj));
+		return new ThiefProblemVariable((AbstractThiefProblem) Util.cloneObject(obj));
 	}
 
 	

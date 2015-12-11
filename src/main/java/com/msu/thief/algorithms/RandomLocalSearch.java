@@ -10,7 +10,7 @@ import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.thief.problems.SalesmanProblem;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
@@ -26,7 +26,7 @@ public class RandomLocalSearch extends AbstractAlgorithm {
 
 		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
 
-		ThiefProblem problem = (ThiefProblem) p;
+		AbstractThiefProblem problem = (AbstractThiefProblem) p;
 		
 		SalesmanProblem tsp = new SalesmanProblem(problem.getMap());
 		Tour<?> bestTour = new SalesmanLinKernighanHeuristic().getTour(tsp ,new Evaluator(Integer.MAX_VALUE));

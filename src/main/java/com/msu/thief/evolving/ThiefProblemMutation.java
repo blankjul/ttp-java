@@ -9,13 +9,14 @@ import com.msu.operators.AbstractMutation;
 import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.ThiefProblem;
 import com.msu.util.MyRandom;
 
-public class ThiefProblemMutation extends AbstractMutation<ThiefProblem> {
+public class ThiefProblemMutation extends AbstractMutation<AbstractThiefProblem> {
 
 	@Override
-	protected ThiefProblem mutate_(ThiefProblem a,IProblem problem,  MyRandom rnd) {
+	protected AbstractThiefProblem mutate_(AbstractThiefProblem a,IProblem problem,  MyRandom rnd) {
 
 		
 		List<Point2D> cities = ((CoordinateMap) a.getMap()).getCities();

@@ -20,7 +20,7 @@ import com.msu.thief.evolving.measures.OptimalTourHypervolume;
 import com.msu.thief.evolving.tsp.SalesmanProblemMutation;
 import com.msu.thief.evolving.tsp.SalesmanProblemVariableFactory;
 import com.msu.thief.io.writer.JsonThiefProblemWriter;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.util.MyRandom;
 
 
@@ -89,7 +89,7 @@ public class ThiefProblemEvolvingExperiment extends AExperiment  {
 			//if (i == 1) break;
 			
 			ThiefProblemVariable var = (ThiefProblemVariable) set.get(i).getVariable();
-			ThiefProblem best = var.get();
+			AbstractThiefProblem best = var.get();
 			String file = "../ttp-benchmark/EA_example0" + i + ".ttp";
 			new JsonThiefProblemWriter().write(best,file );
 			

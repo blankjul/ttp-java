@@ -20,7 +20,7 @@ import com.msu.thief.algorithms.ThiefDecomposedAlgorithm;
 import com.msu.thief.algorithms.oneplusone.OnePlusOneEA;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.variable.TTPCrossover;
 import com.msu.thief.variable.TTPMutation;
 import com.msu.thief.variable.TTPVariableFactory;
@@ -91,7 +91,7 @@ public class FinalExperiment2 extends AExperiment {
 
 	@Override
 	protected void setProblems(List<IProblem> problems) {
-		FileCollectorParser<ThiefProblem> fcp = new FileCollectorParser<>();
+		FileCollectorParser<AbstractThiefProblem> fcp = new FileCollectorParser<>();
 
 		fcp.add("../ttp-benchmark/SingleObjective/50", "50_25_3_75.txt", new BonyadiSingleObjectiveReader());
 
@@ -125,7 +125,7 @@ public class FinalExperiment2 extends AExperiment {
 		 * new BonyadiSingleObjectiveReader());
 		 */
 
-		List<ThiefProblem> collected = fcp.collect();
+		List<AbstractThiefProblem> collected = fcp.collect();
 
 		collected.forEach((p) -> {
 			if (p instanceof SingleObjectiveThiefProblem)
