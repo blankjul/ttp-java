@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.bilevel.apriori;
+package com.msu.thief.algorithms.bilevel.tour.apriori;
 
 import java.util.Set;
 

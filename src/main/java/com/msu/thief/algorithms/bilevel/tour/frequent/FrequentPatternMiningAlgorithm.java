@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.bilevel.frequent;
+package com.msu.thief.algorithms.bilevel.tour.frequent;
 
 import java.util.Arrays;
 import java.util.Collections;

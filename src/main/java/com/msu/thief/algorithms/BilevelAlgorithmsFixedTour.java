@@ -7,6 +7,7 @@ import java.util.List;
 import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IEvaluator;
 import com.msu.interfaces.IProblem;
+import com.msu.interfaces.IVariable;
 import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.Solution;
 import com.msu.operators.mutation.SwapMutation;
@@ -18,7 +19,7 @@ import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.util.MyRandom;
 
-public class BiLevelAlgorithms extends ASingleObjectiveAlgorithm {
+public class BilevelAlgorithmsFixedTour extends ASingleObjectiveAlgorithm {
 
 	//! algorithm that solves the SingleObjectiveThiefProblemWithFixedTour
 	protected IAlgorithm algorithm;
@@ -26,18 +27,18 @@ public class BiLevelAlgorithms extends ASingleObjectiveAlgorithm {
 	protected int numOf2OptTours = 0;
 	
 	
-	public BiLevelAlgorithms() {
+	public BilevelAlgorithmsFixedTour() {
 		super();
 	}
 	
 	
-	public BiLevelAlgorithms(IAlgorithm algorithm) {
+	public BilevelAlgorithmsFixedTour(IAlgorithm algorithm) {
 		super();
 		this.algorithm = algorithm;
 	}
 	
 
-	public BiLevelAlgorithms(IAlgorithm algorithm, int numOf2OptTours) {
+	public BilevelAlgorithmsFixedTour(IAlgorithm algorithm, int numOf2OptTours) {
 		this(algorithm);
 		this.numOf2OptTours = numOf2OptTours;
 	}
@@ -78,10 +79,13 @@ public class BiLevelAlgorithms extends ASingleObjectiveAlgorithm {
 		int bestIndex = objectives.indexOf(Collections.min(objectives));
 
 		// reevaluate with the tour
-		TTPVariable var = new TTPVariable(problems.get(bestIndex).getTour(),
-				(PackingList<?>) solutions.get(bestIndex).getVariable());
-		Solution best = problem.evaluate(var);
-
+		Solution best = solutions.get(bestIndex);
+		IVariable var = best.getVariable();
+		if (var instanceof PackingList<?>) {
+			TTPVariable thiefVar = new TTPVariable(problems.get(bestIndex).getTour(),
+					(PackingList<?>) solutions.get(bestIndex).getVariable());
+			best = problem.evaluate(thiefVar);
+		}
 		return best;
 	}
 

@@ -1,36 +1,14 @@
 package com.msu.thief.experiment;
 
-import java.util.Arrays;
 import java.util.List;
 
-import com.msu.builder.Builder;
 import com.msu.experiment.AExperiment;
 import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IProblem;
 import com.msu.model.Report;
-import com.msu.operators.AbstractCrossover;
-import com.msu.operators.crossover.HalfUniformCrossover;
-import com.msu.operators.crossover.NoCrossover;
-import com.msu.operators.crossover.SinglePointCrossover;
-import com.msu.operators.crossover.UniformCrossover;
-import com.msu.operators.mutation.BitFlipMutation;
-import com.msu.operators.mutation.NoMutation;
-import com.msu.operators.mutation.SwapMutation;
-import com.msu.soo.SingleObjectiveEvolutionaryAlgorithm;
-import com.msu.thief.algorithms.BiLevelAlgorithms;
-import com.msu.thief.algorithms.bilevel.GreedyPackingAlgorithm;
-import com.msu.thief.algorithms.oneplusone.OnePlusOneEA;
-import com.msu.thief.algorithms.oneplusone.OnePlusOneEAFixedTour;
+import com.msu.thief.algorithms.PoolMatchingAlgorithm;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.problems.AbstractThiefProblem;
-import com.msu.thief.variable.TTPCrossover;
-import com.msu.thief.variable.TTPMutation;
-import com.msu.thief.variable.TTPVariableFactory;
-import com.msu.thief.variable.pack.factory.APackingListFactory;
-import com.msu.thief.variable.pack.factory.EmptyPackingListFactory;
-import com.msu.thief.variable.pack.factory.OptimalPackingListFactory;
-import com.msu.thief.variable.pack.factory.RandomPackingListFactory;
-import com.msu.thief.variable.tour.factory.OptimalTourFactory;
 import com.msu.util.FileCollectorParser;
 import com.msu.util.events.IListener;
 import com.msu.util.events.impl.EventDispatcher;
@@ -63,13 +41,13 @@ public class FinalExperiment extends AExperiment {
 	protected void setProblems(List<IProblem> problems) {
 		FileCollectorParser<AbstractThiefProblem> fcp = new FileCollectorParser<>();
 
-/*		
+/*	
 		fcp.add("../ttp-benchmark/SingleObjective/10", "*", new BonyadiSingleObjectiveReader());
 		fcp.add("../ttp-benchmark/SingleObjective/20", "*", new BonyadiSingleObjectiveReader());
 		fcp.add("../ttp-benchmark/SingleObjective/50", "*", new BonyadiSingleObjectiveReader());
 		fcp.add("../ttp-benchmark/SingleObjective/100", "*", new BonyadiSingleObjectiveReader());
-		*/
 		
+		*/
 		
 		fcp.add("../ttp-benchmark/SingleObjective/10", "10_5_6_25.txt", new BonyadiSingleObjectiveReader());
 		fcp.add("../ttp-benchmark/SingleObjective/10", "10_10_2_50.txt", new BonyadiSingleObjectiveReader());
@@ -93,7 +71,7 @@ public class FinalExperiment extends AExperiment {
 
 	@Override
 	protected void setAlgorithms(List<IAlgorithm> algorithms) {
-
+/*
 		Builder<OnePlusOneEA> builderOnePlusOne = new Builder<>(OnePlusOneEA.class);
 		builderOnePlusOne.set("checkSymmetric", false).set("name", "1+1-EA");
 		algorithms.add(builderOnePlusOne.build());
@@ -183,8 +161,12 @@ public class FinalExperiment extends AExperiment {
 
 		greedy.set("type", GreedyPackingAlgorithm.TYPE.RANDOM).set("name", "GREEDY-RANDOM");
 		algorithms.add(new BiLevelAlgorithms(greedy.build()));
-
-		// algorithms.add(new BiLevelAlgorithms(new AntColonyOptimisation()));
+		
+*/
+		
+		
+		algorithms.add(new PoolMatchingAlgorithm());
+		
 
 	}
 

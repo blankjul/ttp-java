@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.bilevel.topdown;
+package com.msu.thief.algorithms.bilevel.tour.topdown;
 
 import java.util.HashSet;
 import java.util.LinkedHashSet;

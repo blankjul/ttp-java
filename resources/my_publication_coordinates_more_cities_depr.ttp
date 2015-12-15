@@ -27,8 +27,8 @@
              ],
   "items" : [ {
     "city" : 0,
-    "weight" : 25.0,
-    "value" : 30.0
+    "weight" : 5.0,
+    "value" : 100.0
   }, {
     "city" : 1,
     "weight" : 30.0,

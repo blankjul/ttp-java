@@ -9,7 +9,7 @@ import com.msu.interfaces.IProblem;
 import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.thief.algorithms.AlgorithmUtil;
-import com.msu.thief.algorithms.bilevel.BiLevelEvoluationaryAlgorithm;
+import com.msu.thief.algorithms.PoolMatchingAlgorithm;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
 import com.msu.thief.io.thief.reader.ThiefSingleTSPLIBProblemReader;
@@ -35,7 +35,8 @@ public class ExperimentOneProblemExecutor {
 			
 			"../ttp-benchmark/json/10/10_5_6_25.json";
 		
-		ALGORITHMS: 
+		ALGORITHMS
+		
 			bilevel.BiLevelEvoluationaryAlgorithm
 			bilevel.SolveKnapsackWithEmptyHeuristicValues
 			bilevel.AntColonyOptimisation
@@ -49,14 +50,30 @@ public class ExperimentOneProblemExecutor {
 	
 	final public static boolean FIXED_TOUR_PROBLEM = false;
 	
-	final public static String PROBLEM = "../ttp-benchmark/SingleObjective/100/100_5_10_50.txt";
+	final public static String PROBLEM = "../ttp-benchmark/SingleObjective/50/50_15_8_50.txt";
 	final public static int NUM_OF_EVALUATIONS = 500000;
 	
 /*	
 	final public static IAlgorithm ALGORITHM = ObjectFactory.create(IAlgorithm.class,  
 			"com.msu.thief.algorithms." + "bilevel.AntColonyOptimisation");
 	*/
-	final public static IAlgorithm ALGORITHM = new BiLevelEvoluationaryAlgorithm(8);
+	
+/*	
+	final public static  IAlgorithm ALGORITHM = new Builder<SingleObjectiveEvolutionaryAlgorithm>(SingleObjectiveEvolutionaryAlgorithm.class)
+			.set("populationSize", 50)
+			.set("probMutation", 0.3)
+			.set("factory", new TTPVariableFactory(new OptimalTourFactory(), new OptimalPackingListFactory()))
+			.set("crossover", new TTPCrossover(new NoCrossover<>(), new HalfUniformCrossover<>()))
+			.set("mutation", new TTPMutation(new SwapMutation<>(), new BitFlipMutation()))
+			.set("name", "EA-HUX-SWAP").build();
+	*/
+	
+	//final public static  IAlgorithm ALGORITHM = new IterativePoolingEvolution();
+	//final public static IAlgorithm ALGORITHM = new BilevelAlgorithmsFixedTour(new OnePlusOneEAFixedTourMutation());
+	//final public static IAlgorithm ALGORITHM = new BiLevelEvoluationaryAlgorithm();
+	final public static  IAlgorithm ALGORITHM = new PoolMatchingAlgorithm();
+	
+	
 	
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
@@ -82,7 +99,8 @@ public class ExperimentOneProblemExecutor {
 		}
 		
 		NonDominatedSolutionSet set = ALGORITHM.run(problem, new Evaluator(NUM_OF_EVALUATIONS), new MyRandom(123456));
-
+		
+		System.out.println(ALGORITHM);
 		System.out.println(problem);
 		System.out.println(set.size());
 		System.out.println(set);

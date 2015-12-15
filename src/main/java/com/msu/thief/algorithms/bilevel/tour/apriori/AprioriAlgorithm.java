@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.bilevel.apriori;
+package com.msu.thief.algorithms.bilevel.tour.apriori;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -67,7 +67,7 @@ public class AprioriAlgorithm  extends AbstractSingleObjectiveDomainAlgorithm<Th
 		//report(nodes);
 		while (eval.hasNext() && !nodes.isEmpty()) {
 			nodes = next(nodes);
-			//report(nodes);
+			report(nodes);
 		}
 
 		return set.get(0);

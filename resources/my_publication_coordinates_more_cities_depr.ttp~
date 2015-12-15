@@ -10,7 +10,7 @@
   "R" : 1.516103271 ,
   "profitEvaluator" : {
     "type" : "EXPONTENTIAL",
-    "droppingRate" : 0.95,
+    "droppingRate" : 0.7,
     "droppingConstant" : 10
   },
   "timeEvaluator" : {
@@ -28,7 +28,7 @@
   "items" : [ {
     "city" : 0,
     "weight" : 25.0,
-    "value" : 30.0
+    "value" : 1000.0
   }, {
     "city" : 1,
     "weight" : 30.0,

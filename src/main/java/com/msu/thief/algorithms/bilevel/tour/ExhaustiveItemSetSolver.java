@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.bilevel;
+package com.msu.thief.algorithms.bilevel.tour;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -41,7 +41,7 @@ public class ExhaustiveItemSetSolver extends AbstractSingleObjectiveDomainAlgori
 		if (itemsToConsider == null) itemsToConsider = new HashSet<>(Util.createIndex(problem.numOfItems()));
 		
 		for (int i = 0; i <= itemsToConsider.size(); i++) {
-			Combination combination = new Combination(itemsToConsider.size(), i, new ArrayList<>(itemsToConsider));
+			Combination combination = new Combination(new ArrayList<>(itemsToConsider), i);
 			while (combination.hasNext()) {
 				Solution s = evaluator.evaluate(problem,
 						new IntegerSetPackingList(new HashSet<>(combination.next()), problem.numOfItems()));

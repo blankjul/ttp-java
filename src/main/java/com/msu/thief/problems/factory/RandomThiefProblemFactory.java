@@ -3,7 +3,7 @@ package com.msu.thief.problems.factory;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import com.msu.thief.evaluator.profit.IndividualProfitEvaluator;
+import com.msu.thief.evaluator.profit.NoDroppingEvaluator;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.problems.AbstractThiefProblem;
@@ -62,7 +62,7 @@ public class RandomThiefProblemFactory extends AThiefProblemFactory{
 
 		problem.setItems(items);
 		problem.setMaxWeight((int) (sumWeights * maxWeightPerc));
-		problem.setProfitEvaluator(new IndividualProfitEvaluator());
+		problem.setProfitEvaluator(new NoDroppingEvaluator());
 		problem.setName(String.format("TTP-%s-%s", numOfCities, itemsPerCity));
 		return problem;
 	}

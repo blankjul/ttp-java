@@ -9,8 +9,8 @@ public class Combination {
 	private boolean hasNext = true;
 	protected List<Integer> l;
 
-	public Combination(int n, int r, List<Integer> l) {
-		this(n,r);
+	public Combination( List<Integer> l, int r) {
+		this(l.size(),r);
 		this.l = l;
 	}
 	

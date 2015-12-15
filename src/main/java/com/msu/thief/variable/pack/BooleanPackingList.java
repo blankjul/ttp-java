@@ -55,6 +55,16 @@ public class BooleanPackingList extends PackingList<List<Boolean>>{
 	
 	@Override
 	public String toString() {
+		return Arrays.toString(toIndexSet().toArray());
+	/*	List<Integer> p = new ArrayList<>();
+		for (boolean b : obj) {
+			int i = (b == true) ? 1 : 0;
+			p.add(i);
+		}
+		return Arrays.toString(p.toArray());*/
+	}
+	
+	public String toBinaryString() {
 		List<Integer> p = new ArrayList<>();
 		for (boolean b : obj) {
 			int i = (b == true) ? 1 : 0;
