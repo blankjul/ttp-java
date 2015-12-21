@@ -71,7 +71,6 @@ public class OneScenarioExperiment extends AExperiment {
 
 	@Override
 	protected void setAlgorithms(List<IAlgorithm> algorithms) {
-		//algorithms.add(NSGAIIFactory.createNSGAIIBuilder("NSGAII-[OPT-RANDOM]-[OX-HUX]-[SWAP-BF]").create());
 		algorithms.add(new ThiefExhaustive().setOnlyNonDominatedPoints(ONLY_PARETO_FRONT));
 	}
 

@@ -2,73 +2,29 @@ package com.msu.thief.experiment;
 
 import java.util.List;
 
+import com.msu.builder.Builder;
 import com.msu.experiment.AExperiment;
 import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IProblem;
-import com.msu.model.Report;
-import com.msu.thief.algorithms.PoolMatchingAlgorithm;
-import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
-import com.msu.thief.problems.AbstractThiefProblem;
-import com.msu.util.FileCollectorParser;
-import com.msu.util.events.IListener;
-import com.msu.util.events.impl.EventDispatcher;
-import com.msu.util.events.impl.RunFinishedEvent;
+import com.msu.thief.algorithms.AlternatingPoolingEvolution;
+import com.msu.thief.algorithms.coevolution.CoevolutionAlgorithm;
+import com.msu.thief.experiment.IEEE.IEEE;
 
 public class FinalExperiment extends AExperiment {
 
-	private class ThiefReport extends Report {
-		public ThiefReport(String path) {
-			super(path);
-			pw.println("problem,algorithm,result");
-			EventDispatcher.getInstance().register(RunFinishedEvent.class, new IListener<RunFinishedEvent>() {
-				@Override
-				public void handle(RunFinishedEvent event) {
-					double value = (event.getNonDominatedSolutionSet().size() == 0) ? Double.NEGATIVE_INFINITY
-							: -event.getNonDominatedSolutionSet().get(0).getObjectives(0);
-					pw.printf("%s,%s,%s\n", event.getProblem(), event.getAlgorithm(), value);
-				}
-			});
-		}
-	}
 
 	protected void initialize() {
-		// new HypervolumeReport("../ttp-benchmark/ttp-ea/hypervolume.csv");
-		new ThiefReport("../ttp-results/bilevel_temp.csv");
-		// new JavaScriptThiefVisualizer("../ttp-benchmark/ttp-pi-new");
+		new SingleObjectiveReport("../ttp-results/bilevel_temp.csv");
 	};
 
+	
+	
 	@Override
 	protected void setProblems(List<IProblem> problems) {
-		FileCollectorParser<AbstractThiefProblem> fcp = new FileCollectorParser<>();
-
-/*	
-		fcp.add("../ttp-benchmark/SingleObjective/10", "*", new BonyadiSingleObjectiveReader());
-		fcp.add("../ttp-benchmark/SingleObjective/20", "*", new BonyadiSingleObjectiveReader());
-		fcp.add("../ttp-benchmark/SingleObjective/50", "*", new BonyadiSingleObjectiveReader());
-		fcp.add("../ttp-benchmark/SingleObjective/100", "*", new BonyadiSingleObjectiveReader());
-		
-		*/
-		
-		fcp.add("../ttp-benchmark/SingleObjective/10", "10_5_6_25.txt", new BonyadiSingleObjectiveReader());
-		fcp.add("../ttp-benchmark/SingleObjective/10", "10_10_2_50.txt", new BonyadiSingleObjectiveReader());
-		fcp.add("../ttp-benchmark/SingleObjective/10", "10_15_10_75.txt", new BonyadiSingleObjectiveReader());
-
-		fcp.add("../ttp-benchmark/SingleObjective/20", "20_5_6_75.txt", new BonyadiSingleObjectiveReader());
-		fcp.add("../ttp-benchmark/SingleObjective/20", "20_20_7_50.txt", new BonyadiSingleObjectiveReader());
-		fcp.add("../ttp-benchmark/SingleObjective/20", "20_30_9_25.txt", new BonyadiSingleObjectiveReader());
-
-		fcp.add("../ttp-benchmark/SingleObjective/50", "50_15_8_50.txt", new BonyadiSingleObjectiveReader());
-		fcp.add("../ttp-benchmark/SingleObjective/50", "50_25_3_75.txt", new BonyadiSingleObjectiveReader());
-		fcp.add("../ttp-benchmark/SingleObjective/50", "50_75_6_25.txt", new BonyadiSingleObjectiveReader());
-
-		fcp.add("../ttp-benchmark/SingleObjective/100", "100_5_10_50.txt", new BonyadiSingleObjectiveReader());
-		fcp.add("../ttp-benchmark/SingleObjective/100", "100_50_5_75.txt", new BonyadiSingleObjectiveReader());
-		fcp.add("../ttp-benchmark/SingleObjective/100", "100_150_10_25.txt", new BonyadiSingleObjectiveReader());
-
-		List<AbstractThiefProblem> collected = fcp.collect();
-		problems.addAll(collected);
+		problems.addAll(IEEE.getProblems());
 	}
 
+	
 	@Override
 	protected void setAlgorithms(List<IAlgorithm> algorithms) {
 /*
@@ -164,8 +120,15 @@ public class FinalExperiment extends AExperiment {
 		
 */
 		
+		algorithms.add(new Builder<CoevolutionAlgorithm>(CoevolutionAlgorithm.class)
+				.set("mergeElementWise", true)
+				.set("name", "COEVO-ELEMENT").build());
 		
-		algorithms.add(new PoolMatchingAlgorithm());
+		algorithms.add(new Builder<CoevolutionAlgorithm>(CoevolutionAlgorithm.class)
+				.set("mergeElementWise", false)
+				.set("name", "COEVO-POOL").build());
+		
+		algorithms.add(new AlternatingPoolingEvolution());
 		
 
 	}

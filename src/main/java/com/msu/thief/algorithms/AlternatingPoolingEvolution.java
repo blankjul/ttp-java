@@ -22,9 +22,8 @@ import com.msu.thief.variable.tour.Tour;
 import com.msu.thief.variable.tour.factory.FixedTourFactory;
 import com.msu.util.MyRandom;
 
-public class IterativePoolingEvolution extends ASingleObjectiveAlgorithm {
+public class AlternatingPoolingEvolution extends ASingleObjectiveAlgorithm {
 
-	
 	
 	@Override
 	public Solution run__(IProblem p, IEvaluator evaluator, MyRandom rand) {

@@ -112,13 +112,13 @@ public class GreedyPackingAlgorithm extends AbstractSingleObjectiveDomainAlgorit
 		return set.get(0);
 	}
 
-	protected static Integer selectBest(List<Pair<Integer, Solution>> nextIndices) {
+	public static Integer selectBest(List<Pair<Integer, Solution>> nextIndices) {
 		Collections.sort(nextIndices, (p1, p2) -> p1.second.getObjectives(0).compareTo(p2.second.getObjectives(0)));
 		final int nextItemIdx = nextIndices.get(0).first;
 		return nextItemIdx;
 	}
 
-	protected static Integer selectRandom(List<Pair<Integer, Solution>> nextIndices, MyRandom rand) {
+	public static Integer selectRandom(List<Pair<Integer, Solution>> nextIndices, MyRandom rand) {
 		return rand.select(nextIndices).first;
 	}
 
