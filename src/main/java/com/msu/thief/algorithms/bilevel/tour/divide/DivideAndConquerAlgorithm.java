@@ -79,8 +79,8 @@ public class DivideAndConquerAlgorithm extends AbstractSingleObjectiveDomainAlgo
 		IntegerSetPackingList pack = new IntegerSetPackingList(new HashSet<>(left), problem.numOfItems());
 		Solution best = eval.evaluate(problem, pack);
 
-		while (!remaining.isEmpty()) {
-
+		while (eval.hasNext() && !remaining.isEmpty()) {
+			
 			List<Pair<Integer, Solution>> nextIndices = new ArrayList<>();
 			Map<Integer, Solution> next = AlgorithmSingleObjectiveUtil.calcObjectiveWhenAdded(problem, eval, pack,
 					remaining);

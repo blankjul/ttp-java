@@ -28,10 +28,10 @@ public class ExperimentExecutor {
 	protected final static String PREFIX = "com.msu.thief.experiment.";
 	
 	//! experiment that should be executed
-	protected final static String EXPERIMENT = "IEEE.BiLevelProblemExperiment";
+	protected final static String EXPERIMENT = "IEEE.CoevolutionProblemExperiment";
 	
 	//! number of iterations per experiment
-	protected final static int ITERATIONS = 10;
+	protected final static int ITERATIONS = 1;
 	
 	//! number of threads
 	protected final static int NUM_OF_THREADS = 8;

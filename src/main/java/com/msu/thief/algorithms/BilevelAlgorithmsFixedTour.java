@@ -35,6 +35,7 @@ public class BilevelAlgorithmsFixedTour extends ASingleObjectiveAlgorithm {
 	public BilevelAlgorithmsFixedTour(IAlgorithm algorithm) {
 		super();
 		this.algorithm = algorithm;
+		this.name = String.format("BILEVEL-%s", algorithm.toString());
 	}
 	
 
@@ -94,12 +95,6 @@ public class BilevelAlgorithmsFixedTour extends ASingleObjectiveAlgorithm {
 		return algorithm.run(p, evaluator, rand).get(0);
 	}
 
-
-	@Override
-	public String toString() {
-		return "BILEVEL-" + algorithm.toString();
-	}
-	
 	
 	
 

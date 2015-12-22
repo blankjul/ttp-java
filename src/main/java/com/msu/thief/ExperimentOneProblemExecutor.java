@@ -9,7 +9,7 @@ import com.msu.interfaces.IProblem;
 import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.thief.algorithms.AlgorithmUtil;
-import com.msu.thief.algorithms.bilevel.tour.divide.DivideAndConquerAlgorithm;
+import com.msu.thief.algorithms.AlternatingPoolingEvolution;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
 import com.msu.thief.io.thief.reader.ThiefSingleTSPLIBProblemReader;
@@ -48,9 +48,9 @@ public class ExperimentOneProblemExecutor {
 		
 	*/
 	
-	final public static boolean FIXED_TOUR_PROBLEM = true;
+	final public static boolean FIXED_TOUR_PROBLEM = false;
 	
-	final public static String PROBLEM = "../ttp-benchmark/SingleObjective/10/10_5_6_25.txt";
+	final public static String PROBLEM = "../ttp-benchmark/TSPLIB/berlin52-ttp/berlin52_n51_bounded-strongly-corr_01.ttp";
 	final public static int NUM_OF_EVALUATIONS = 500000;
 	
 /*	
@@ -68,11 +68,11 @@ public class ExperimentOneProblemExecutor {
 			.set("name", "EA-HUX").build();
 	*/
 	
-	//final public static  IAlgorithm ALGORITHM = new IterativePoolingEvolution();
+	final public static  IAlgorithm ALGORITHM = new AlternatingPoolingEvolution();
 	//final public static IAlgorithm ALGORITHM = new BilevelAlgorithmsFixedTour(new OnePlusOneEAFixedTourMutation());
 	//final public static IAlgorithm ALGORITHM = new BiLevelEvoluationaryAlgorithm();
 	//final public static IAlgorithm ALGORITHM = new CoevolutionAlgorithm();
-	final public static IAlgorithm ALGORITHM = new DivideAndConquerAlgorithm();
+	//final public static IAlgorithm ALGORITHM = new SolveKnapsackWithHeuristicValues();
 	
 	
 	

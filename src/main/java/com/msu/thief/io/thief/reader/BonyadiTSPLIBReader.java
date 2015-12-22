@@ -13,6 +13,7 @@ import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.util.rounding.RoundingCeil;
+import com.msu.thief.util.rounding.RoundingNearestInt;
 
 public class BonyadiTSPLIBReader extends AProblemReader<SingleObjectiveThiefProblem> {
 
@@ -56,6 +57,8 @@ public class BonyadiTSPLIBReader extends AProblemReader<SingleObjectiveThiefProb
 
 		bufferedReader.close();
 
+		
+		map.round(new RoundingNearestInt());
 		ttp.setMap(map);
 		ttp.setItems(items);
 		ttp.setStartingCityIsZero(true);

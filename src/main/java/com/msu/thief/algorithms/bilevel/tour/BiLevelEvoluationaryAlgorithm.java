@@ -23,7 +23,7 @@ public class BiLevelEvoluationaryAlgorithm extends BilevelAlgorithmsFixedTour {
 			.set("factory", new OptimalPackingListFactory())
 			.set("crossover", new HalfUniformCrossover<>())
 			.set("mutation", new BitFlipMutation())
-			.set("name", "EA-HUX");
+			.set("name", "EA-UX-SWAP");
 		this.algorithm = algorithm.build();
 		this.numOf2OptTours = numOf2OptTours;
 		
