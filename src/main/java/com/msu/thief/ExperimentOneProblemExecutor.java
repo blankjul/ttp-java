@@ -33,6 +33,8 @@ public class ExperimentOneProblemExecutor {
 			"../ttp-benchmark/SingleObjective/50/50_15_8_50.txt";
 			"../ttp-benchmark/SingleObjective/100/100_5_10_50.txt";
 			
+			"../ttp-benchmark/TSPLIB/berlin52-ttp/berlin52_n51_bounded-strongly-corr_01.ttp"
+			
 			"../ttp-benchmark/json/10/10_5_6_25.json";
 		
 		ALGORITHMS
@@ -50,7 +52,7 @@ public class ExperimentOneProblemExecutor {
 	
 	final public static boolean FIXED_TOUR_PROBLEM = false;
 	
-	final public static String PROBLEM = "../ttp-benchmark/TSPLIB/berlin52-ttp/berlin52_n51_bounded-strongly-corr_01.ttp";
+	final public static String PROBLEM = "../ttp-benchmark/SingleObjective/10/10_5_6_25.txt";
 	final public static int NUM_OF_EVALUATIONS = 500000;
 	
 /*	
@@ -68,10 +70,10 @@ public class ExperimentOneProblemExecutor {
 			.set("name", "EA-HUX").build();
 	*/
 	
-	final public static  IAlgorithm ALGORITHM = new AlternatingPoolingEvolution();
+	//final public static  IAlgorithm ALGORITHM = new AlternatingPoolingEvolution();
 	//final public static IAlgorithm ALGORITHM = new BilevelAlgorithmsFixedTour(new OnePlusOneEAFixedTourMutation());
 	//final public static IAlgorithm ALGORITHM = new BiLevelEvoluationaryAlgorithm();
-	//final public static IAlgorithm ALGORITHM = new CoevolutionAlgorithm();
+	final public static IAlgorithm ALGORITHM = new AlternatingPoolingEvolution();
 	//final public static IAlgorithm ALGORITHM = new SolveKnapsackWithHeuristicValues();
 	
 	

@@ -1,5 +1,7 @@
 package com.msu.thief.algorithms.coevolution;
 
+import java.util.HashSet;
+
 import com.msu.builder.Builder;
 import com.msu.interfaces.IEvaluator;
 import com.msu.interfaces.IProblem;
@@ -29,7 +31,7 @@ public class CoevolutionAlgorithm extends ASingleObjectiveAlgorithm {
 
 	final public int populationSize = 20;
 	
-	protected boolean mergeElementWise = true;
+	protected boolean mergeElementWise = false;
 
 	@Override
 	public Solution run__(IProblem p, IEvaluator evaluator, MyRandom rand) {
@@ -46,14 +48,14 @@ public class CoevolutionAlgorithm extends ASingleObjectiveAlgorithm {
 
 		// create packing evolutionary algorithm
 		Builder<SingleObjectiveEvolutionaryAlgorithm> packBuilder = new Builder<SingleObjectiveEvolutionaryAlgorithm>(SingleObjectiveEvolutionaryAlgorithm.class)
-				.set("populationSize", 50)
+				.set("populationSize", populationSize)
 				.set("probMutation", 0.3)
 				.set("crossover", new TTPCrossover(new NoCrossover<>(), new HalfUniformCrossover<>()))
 				.set("mutation", new TTPMutation(new NoMutation<>(), new BitFlipMutation()));
 		
 		// create tour evolutionary algorithm
 		Builder<SingleObjectiveEvolutionaryAlgorithm> tourBuilder = new Builder<SingleObjectiveEvolutionaryAlgorithm>(SingleObjectiveEvolutionaryAlgorithm.class)
-				.set("populationSize", 50)
+				.set("populationSize", populationSize)
 				.set("probMutation", 0.3)
 				.set("crossover", new TTPCrossover(new NoCrossover<>(), new NoCrossover<>()))
 				.set("mutation", new TTPMutation(new SwapMutation<>(), new NoMutation<>()));
@@ -62,22 +64,43 @@ public class CoevolutionAlgorithm extends ASingleObjectiveAlgorithm {
 		
 		while (evaluator.hasNext()) {
 
+			
 			Evaluator pack = evaluator.createChildEvaluator(evaluator.getMaxEvaluations() / 20);
 			SingleObjectiveEvolutionaryAlgorithm algoPack = packBuilder.build();
 			algoPack.run__(problem, pack, rand, population);
 			population = algoPack.getPopulation();
+
+		
+	
 			
 			if (!evaluator.hasNext()) break;
 			population = (mergeElementWise) ? mergeEachElement(problem, evaluator, population) : mergeOnePool(problem, evaluator, population);
+			population = new SolutionSet(new HashSet<>(population));
+			SingleObjectiveEvolutionaryAlgorithm.sortBySingleObjective(population);
+			population = new SolutionSet(population.subList(0, Math.min(population.size(), populationSize)));
+			
 			
 			
 			Evaluator tour = evaluator.createChildEvaluator(evaluator.getMaxEvaluations() / 20);
 			SingleObjectiveEvolutionaryAlgorithm algoTour = tourBuilder.build();
 			algoTour.run__(problem, tour, rand, population);
 			population = algoTour.getPopulation();
+
+			
+			for (Solution s : population.subList(0, Math.min(population.size(), populationSize))) {
+				System.out.println(s);
+			}
+			System.out.println("-----------------");
+			
 			
 			if (!evaluator.hasNext()) break;
 			population = (mergeElementWise) ? mergeEachElement(problem, evaluator, population) : mergeOnePool(problem, evaluator, population);
+			population = new SolutionSet(new HashSet<>(population));
+			SingleObjectiveEvolutionaryAlgorithm.sortBySingleObjective(population);
+			population = new SolutionSet(population.subList(0, Math.min(population.size(), populationSize)));
+			
+			
+	
 			
 		}
 		
@@ -96,8 +119,7 @@ public class CoevolutionAlgorithm extends ASingleObjectiveAlgorithm {
 				next.add(evaluator.evaluate(problem, new TTPVariable(tour,packList)));
 			}
 		}
-		SingleObjectiveEvolutionaryAlgorithm.sortBySingleObjective(next);
-		return new SolutionSet(next.subList(0, Math.min(next.size(), populationSize)));
+		return next;
 	}
 	
 	

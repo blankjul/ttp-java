@@ -35,12 +35,13 @@ public class TourInformation {
 
 
 	public TourInformation(AbstractThiefProblem problem, TTPVariable variable, List<Double> speedAtCities,
-			List<Double> timeAtCities, double time) {
+			List<Double> timeAtCities, List<Double> weightAtCities, double time) {
 		super();
 		this.problem = problem;
 		this.variable = variable;
 		this.speedAtCities = speedAtCities;
 		this.timeAtCities = timeAtCities;
+		this.weightAtCities = weightAtCities;
 		this.time = time;
 	}
 	
@@ -93,5 +94,15 @@ public class TourInformation {
 	public List<Double> getWeightAtCities() {
 		return weightAtCities;
 	}
+
+
+	@Override
+	public String toString() {
+		return "TourInformation [problem=" + problem + ", variable=" + variable + ", mCities=" + mCities
+				+ ", speedAtCities=" + speedAtCities + ", timeAtCities=" + timeAtCities + ", weightAtCities="
+				+ weightAtCities + ", time=" + time + "]";
+	}
+	
+	
 
 }

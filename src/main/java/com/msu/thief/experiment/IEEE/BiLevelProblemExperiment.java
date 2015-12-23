@@ -10,15 +10,7 @@ import com.msu.operators.crossover.NoCrossover;
 import com.msu.operators.crossover.UniformCrossover;
 import com.msu.operators.mutation.BitFlipMutation;
 import com.msu.operators.mutation.NoMutation;
-import com.msu.operators.mutation.SwapMutation;
 import com.msu.soo.SingleObjectiveEvolutionaryAlgorithm;
-import com.msu.thief.algorithms.BilevelAlgorithmsFixedTour;
-import com.msu.thief.algorithms.bilevel.tour.BiLevelSwapTour;
-import com.msu.thief.algorithms.bilevel.tour.GreedyPackingAlgorithm;
-import com.msu.thief.algorithms.bilevel.tour.SolveKnapsackWithHeuristicValues;
-import com.msu.thief.algorithms.bilevel.tour.GreedyPackingAlgorithm.TYPE;
-import com.msu.thief.algorithms.bilevel.tour.divide.DivideAndConquerAlgorithm;
-import com.msu.thief.algorithms.oneplusone.OnePlusOneEAFixedTour;
 import com.msu.thief.experiment.SingleObjectiveReport;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.problems.AbstractThiefProblem;
@@ -47,6 +39,7 @@ public class BiLevelProblemExperiment extends AExperiment {
 		fcp.add("../ttp-benchmark/SingleObjective/100","*_*_1_*.txt", new BonyadiSingleObjectiveReader());
 
 		problems.addAll(fcp.collect());
+		
 	}
 
 	

@@ -1,4 +1,4 @@
-package com.msu.thief;
+package com.msu.thief.analyze;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +11,7 @@ import java.util.Set;
 import org.apache.log4j.BasicConfigurator;
 
 import com.msu.moo.model.solution.Solution;
+import com.msu.thief.ExperimentConverter;
 import com.msu.thief.algorithms.AlgorithmUtil;
 import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;

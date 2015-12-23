@@ -5,6 +5,8 @@ import com.msu.interfaces.IEvaluator;
 import com.msu.interfaces.IProblem;
 import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.Solution;
+import com.msu.moo.model.solution.SolutionDominatorWithConstraints;
+import com.msu.moo.model.solution.SolutionSet;
 import com.msu.operators.crossover.HalfUniformCrossover;
 import com.msu.operators.crossover.NoCrossover;
 import com.msu.operators.mutation.BitFlipMutation;
@@ -17,74 +19,111 @@ import com.msu.thief.problems.ThiefProblemWithFixedPacking;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.PackingList;
-import com.msu.thief.variable.pack.factory.FixedPackingListFactory;
 import com.msu.thief.variable.tour.Tour;
-import com.msu.thief.variable.tour.factory.FixedTourFactory;
 import com.msu.util.MyRandom;
 
 public class AlternatingPoolingEvolution extends ASingleObjectiveAlgorithm {
 
+	//! how long in the beginning the bi-level optimization should work
+	protected int bilevelEvaluationsFactor = 10;
+	
+	//! how long each pool should calculated generations
+	protected int poolingEvaluationsFactor = 20;
+	
+	
+	//! evolutionary algorithm to optimize the packing plan given a tour
+	protected Builder<SingleObjectiveEvolutionaryAlgorithm> algorithmPack = new Builder<SingleObjectiveEvolutionaryAlgorithm>(SingleObjectiveEvolutionaryAlgorithm.class)
+			.set("populationSize", 50)
+			.set("probMutation", 0.3)
+			.set("crossover", new HalfUniformCrossover<>())
+			.set("mutation", new BitFlipMutation());
+	
+	
+	//! evolutionary algorithm to optimize the tour given a packing plan
+	protected Builder<SingleObjectiveEvolutionaryAlgorithm> algorithmTour = new Builder<SingleObjectiveEvolutionaryAlgorithm>(SingleObjectiveEvolutionaryAlgorithm.class)
+			.set("populationSize", 50)
+			.set("probMutation", 1.0)
+			.set("crossover", new NoCrossover<>())
+			.set("mutation", new SwapMutation<>());
+	    
 	
 	@Override
 	public Solution run__(IProblem p, IEvaluator evaluator, MyRandom rand) {
 		
 		SingleObjectiveThiefProblem problem = (SingleObjectiveThiefProblem) p;
-		BiLevelEvoluationaryAlgorithm algorithm = new BiLevelEvoluationaryAlgorithm();
-		Evaluator start = evaluator.createChildEvaluator(evaluator.getMaxEvaluations() / 10);
-	    Solution s = algorithm.run__(problem, start, rand);
+
+	    Solution s = null;
+	    // use bi-level optimization  to get a the better starting tour
+	    if (bilevelEvaluationsFactor > 0) s = getStartingSolutionBilevel(problem, evaluator, rand, bilevelEvaluationsFactor);
+	    // use simple evaluations
+	    else  s = getStartingSolutionSimple(problem, evaluator, rand);
+	    		
 	    
+	    // the starting variables
 	    TTPVariable var = (TTPVariable) s.getVariable();
 		Tour<?> tour = var.getTour();
 		PackingList<?> pack = var.getPackingList();
 		 
+
 		while (evaluator.hasNext()) {
+
 			
-			SingleObjectiveEvolutionaryAlgorithm algorithmPack = new Builder<SingleObjectiveEvolutionaryAlgorithm>(SingleObjectiveEvolutionaryAlgorithm.class)
-				.set("populationSize", 50)
-				.set("probMutation", 0.3)
-				.set("factory", new FixedPackingListFactory(pack))
-				.set("crossover", new HalfUniformCrossover<>())
-				.set("mutation", new BitFlipMutation()).build();
+			// solve the knapsack with best fixed tour
+			ThiefProblemWithFixedTour fixedTourProblem = new ThiefProblemWithFixedTour(problem, tour);
+			Evaluator packEval = evaluator.createChildEvaluator(evaluator.getMaxEvaluations() / poolingEvaluationsFactor);
 			
-			Evaluator packEval = evaluator.createChildEvaluator(evaluator.getMaxEvaluations() / 10);
-		    s = algorithmPack.run__(new ThiefProblemWithFixedTour(problem, tour), packEval, rand);
+			// calculate the initial population mutate from the best PACKING plan found so far
+			SolutionSet population = new SolutionSet();
+			for (int i = 0; i < 50; i++) {
+				population.add(evaluator.evaluate(fixedTourProblem, new BitFlipMutation().mutate(pack, null, rand)));
+			}
+			
+			// use the algorithm to optimize the packing plan for a given tour - included in packProblem
+		    s = algorithmPack.build().run__(fixedTourProblem, packEval, rand, population);
 		    pack = (PackingList<?>) s.getVariable();
 		    
-		    
-		    SingleObjectiveEvolutionaryAlgorithm algorithmTour = new Builder<SingleObjectiveEvolutionaryAlgorithm>(SingleObjectiveEvolutionaryAlgorithm.class)
-				.set("populationSize", 50)
-				.set("probMutation", 0.3)
-				.set("factory", new FixedTourFactory(tour))
-				.set("crossover", new NoCrossover<>())
-				.set("mutation", new SwapMutation<>()).build();
-		    
-		    
-			Evaluator tourEval = evaluator.createChildEvaluator(evaluator.getMaxEvaluations() / 10);
-		    s = algorithmTour.run__(new ThiefProblemWithFixedPacking(problem, pack), tourEval, rand);
-		    
+		    // now the packing plan is fixed to the best
+		    ThiefProblemWithFixedPacking fixedPackProblem = new ThiefProblemWithFixedPacking(problem, pack);
+		    Evaluator tourEval = evaluator.createChildEvaluator(evaluator.getMaxEvaluations() / poolingEvaluationsFactor);
+
+			// calculate the initial population mutate from the best TOUR plan found so far
+		    population = new SolutionSet();
+			for (int i = 0; i < 50; i++) {
+				population.add(evaluator.evaluate(fixedPackProblem, new SwapMutation<>().mutate(tour, null, rand)));
+			}
+			
+			// use the algorithm to optimize the tour for a given packing plan
+		    s = algorithmTour.build().run__(fixedPackProblem, tourEval, rand, population);
 		    tour = (Tour<?>) s.getVariable();
 		    
-/*		    
-		    for(Solution entry : algorithmPack.getPopulation().subList(0, 5)) {
-		    	System.out.println(entry);
-		    }
-		    System.out.println();
-		    for(Solution entry : algorithmTour.getPopulation().subList(0, 5)) {
-		    	System.out.println(entry);
-		    }
-		    
-		    System.out.println(pack);
-		    System.out.println(tour);
-		    System.out.println("-------------------------------");
-			*/
-		    
+		    // fix the now for the next iteration
+
 		}
 		
-	
-		return evaluator.evaluate(problem, new TTPVariable(tour,pack));
+		Solution best = evaluator.evaluate(problem, new TTPVariable(tour,pack));
+		
+		return best;
 	}
 
 	
-
+	
+	public static Solution getStartingSolutionBilevel(SingleObjectiveThiefProblem problem, IEvaluator evaluator, MyRandom rand, int factor) {
+		BiLevelEvoluationaryAlgorithm algorithm = new BiLevelEvoluationaryAlgorithm();
+		Evaluator start = evaluator.createChildEvaluator(evaluator.getMaxEvaluations() / factor);
+	    Solution s = algorithm.run__(problem, start, rand);
+	    return s;
+	}
+	
+	
+	public static Solution getStartingSolutionSimple(SingleObjectiveThiefProblem problem, IEvaluator evaluator, MyRandom rand) {
+		Tour<?> tour = AlgorithmUtil.calcBestTour(problem);
+		PackingList<?> pack = AlgorithmUtil.calcBestPackingPlan(problem);
+	    
+		Solution s1 = problem.evaluate(new TTPVariable(tour, pack));
+		Solution s2 = problem.evaluate(new TTPVariable(tour.getSymmetric(), pack));
+		Solution best = (new SolutionDominatorWithConstraints().isDominating(s1, s2)) ? s1 : s2;
+	    return best;
+	}
+	
 	
 }

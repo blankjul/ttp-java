@@ -30,7 +30,7 @@ public class StandardTimeEvaluator extends TimeEvaluator {
 		// iterate over all possible cities
 		for (int i = 0; i < pi.size(); i++) {
 
-			timeAtCities.add(time);
+			
 			
 			// for each item index this city
 			for (Integer index : items.getItemsFromCityByIndex(pi.get(i))) {
@@ -42,7 +42,7 @@ public class StandardTimeEvaluator extends TimeEvaluator {
 					
 					// update the current weight
 					weight += item.getWeight();
-					weightAtCities.add(weight);
+					
 
 					double speedDiff = problem.getMaxSpeed() - problem.getMinSpeed();
 					speed = problem.getMaxSpeed() - weight * speedDiff / problem.getMaxWeight();
@@ -51,17 +51,23 @@ public class StandardTimeEvaluator extends TimeEvaluator {
 					// if this is the case the weight is larger than the
 					// maxWeight!
 					speed = Math.max(speed, problem.getMinSpeed());
-					speedAtCities.add(speed);
 
 				}
+				
+				
 			}
+			
+			// add all the properties for the analysis
+			speedAtCities.add(speed);
+			weightAtCities.add(weight);
+			timeAtCities.add(time);
 
-			// do not forget the way from the last city to the first!
+			// increase time - do not forget the way from the last city to the first!
 			time += (problem.getMap().get(pi.get(i), pi.get((i + 1) % pi.size()) ) / speed);
 
 		}
 		
-		return new TourInformation(problem, new TTPVariable(tour,pack), speedAtCities, timeAtCities, time);
+		return new TourInformation(problem, new TTPVariable(tour,pack), speedAtCities, timeAtCities, weightAtCities, time);
 	}
 
 

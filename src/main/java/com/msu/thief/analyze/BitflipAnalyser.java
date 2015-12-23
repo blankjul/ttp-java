@@ -1,4 +1,4 @@
-package com.msu.thief;
+package com.msu.thief.analyze;
 
 import java.io.File;
 import java.io.FileNotFoundException;
