@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.msu.interfaces.IEvaluator;
 import com.msu.interfaces.IProblem;
 import com.msu.interfaces.IVariable;
 import com.msu.operators.AbstractCrossover;
@@ -27,7 +28,7 @@ public class TTPCrossover extends AbstractCrossover<Pair<IVariable,IVariable>>{
 	
 	
 	@Override
-	protected List<Pair<IVariable,IVariable>> crossover_(Pair<IVariable,IVariable> a, Pair<IVariable,IVariable> b, IProblem problem,  MyRandom rand) {
+	public List<Pair<IVariable,IVariable>> crossover_(Pair<IVariable,IVariable> a, Pair<IVariable,IVariable> b, IProblem problem,  MyRandom rand, IEvaluator eval) {
 		List<IVariable> offTours = cTour.crossover(a.first, b.first, problem,rand);
 		List<IVariable> offPlans = cPackingPlan.crossover(a.second, b.second, problem, rand);
 		

@@ -6,40 +6,24 @@ import com.msu.builder.Builder;
 import com.msu.experiment.AExperiment;
 import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IProblem;
-import com.msu.operators.crossover.NoCrossover;
 import com.msu.operators.crossover.UniformCrossover;
 import com.msu.operators.mutation.BitFlipMutation;
-import com.msu.operators.mutation.NoMutation;
 import com.msu.soo.SingleObjectiveEvolutionaryAlgorithm;
+import com.msu.thief.algorithms.BilevelAlgorithmsFixedTour;
+import com.msu.thief.algorithms.bilevel.tour.GreedyPackingWithHeuristics;
 import com.msu.thief.experiment.SingleObjectiveReport;
-import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
-import com.msu.thief.problems.AbstractThiefProblem;
-import com.msu.thief.variable.TTPCrossover;
-import com.msu.thief.variable.TTPMutation;
-import com.msu.thief.variable.TTPVariableFactory;
 import com.msu.thief.variable.pack.factory.OptimalPackingListFactory;
-import com.msu.thief.variable.tour.factory.OptimalTourFactory;
-import com.msu.util.FileCollectorParser;
 
 public class BiLevelProblemExperiment extends AExperiment {
 
 
 	protected void initialize() {
-		new SingleObjectiveReport("../ttp-results/coevo.csv");
+		new SingleObjectiveReport("../ttp-results/greedy.csv");
 	};
 
 	@Override
 	protected void setProblems(List<IProblem> problems) {
-		
-		FileCollectorParser<AbstractThiefProblem> fcp = new FileCollectorParser<>();
-
-		fcp.add("../ttp-benchmark/SingleObjective/10", "*_*_1_*.txt", new BonyadiSingleObjectiveReader());
-		fcp.add("../ttp-benchmark/SingleObjective/20", "*_*_1_*.txt", new BonyadiSingleObjectiveReader());
-		fcp.add("../ttp-benchmark/SingleObjective/50", "*_*_1_*.txt", new BonyadiSingleObjectiveReader());
-		fcp.add("../ttp-benchmark/SingleObjective/100","*_*_1_*.txt", new BonyadiSingleObjectiveReader());
-
-		problems.addAll(fcp.collect());
-		
+		problems.addAll(IEEE.getProblems());
 	}
 
 	
@@ -102,7 +86,7 @@ public class BiLevelProblemExperiment extends AExperiment {
 				.set("name", "EA-SWAP-UX");
 		algorithms.add(changeTour.build());
 		
-		*/
+		
 		Builder<SingleObjectiveEvolutionaryAlgorithm> changeTourNO = new Builder<>(
 				SingleObjectiveEvolutionaryAlgorithm.class);
 		changeTourNO
@@ -113,8 +97,22 @@ public class BiLevelProblemExperiment extends AExperiment {
 				.set("mutation", new TTPMutation(new NoMutation<>(), new BitFlipMutation()))
 				.set("name", "EA-NO-UX");
 		algorithms.add(changeTourNO.build());
+		*/
 		
-
+		
+		Builder<SingleObjectiveEvolutionaryAlgorithm> eaPop = new Builder<>(
+				SingleObjectiveEvolutionaryAlgorithm.class);
+		eaPop
+				.set("populationSize", 50)
+				.set("probMutation", 0.3)
+				.set("factory", new OptimalPackingListFactory())
+				.set("crossover", new UniformCrossover<>())
+				.set("mutation", new BitFlipMutation())
+				.set("name", "EA-NO-UX");
+		algorithms.add(new BilevelAlgorithmsFixedTour(eaPop.build()));
+		
+		
+		algorithms.add(new BilevelAlgorithmsFixedTour(new GreedyPackingWithHeuristics()));
 		
 	}
 

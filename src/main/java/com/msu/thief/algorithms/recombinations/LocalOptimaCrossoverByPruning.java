@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.msu.interfaces.IEvaluator;
 import com.msu.interfaces.IProblem;
 import com.msu.operators.AbstractCrossover;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
@@ -16,7 +17,7 @@ import com.msu.util.MyRandom;
 public class LocalOptimaCrossoverByPruning extends AbstractCrossover<List<Boolean>> {
 
 	@Override
-	protected List<List<Boolean>> crossover_(List<Boolean> a, List<Boolean> b, IProblem problem, MyRandom rand) {
+	public List<List<Boolean>> crossover_(List<Boolean> a, List<Boolean> b, IProblem problem, MyRandom rand, IEvaluator eval) {
 
 		ThiefProblemWithFixedTour fixedTour = (ThiefProblemWithFixedTour) problem;
 

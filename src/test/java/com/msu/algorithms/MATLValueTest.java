@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.Solution;
-import com.msu.thief.algorithms.AlternatingPoolingEvolution;
+import com.msu.thief.algorithms.TwoPhaseEvolution;
 import com.msu.thief.algorithms.coevolution.CoevolutionAlgorithm;
 import com.msu.thief.io.thief.reader.ThiefSingleTSPLIBProblemReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;

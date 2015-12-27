@@ -14,4 +14,5 @@ public interface ICityProblem extends IProblem {
 	public SymmetricMap getMap();
 	public double getMaxSpeed();
 	
+	
 }

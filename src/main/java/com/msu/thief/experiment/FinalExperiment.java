@@ -6,7 +6,7 @@ import com.msu.builder.Builder;
 import com.msu.experiment.AExperiment;
 import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IProblem;
-import com.msu.thief.algorithms.AlternatingPoolingEvolution;
+import com.msu.thief.algorithms.TwoPhaseEvolution;
 import com.msu.thief.algorithms.coevolution.CoevolutionAlgorithm;
 import com.msu.thief.experiment.IEEE.IEEE;
 
@@ -128,7 +128,7 @@ public class FinalExperiment extends AExperiment {
 				.set("mergeElementWise", false)
 				.set("name", "COEVO-POOL").build());
 		
-		algorithms.add(new AlternatingPoolingEvolution());
+		algorithms.add(new TwoPhaseEvolution());
 		
 
 	}

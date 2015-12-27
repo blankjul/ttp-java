@@ -29,7 +29,7 @@ colnames(agg_norm) <- c("problem","algorithm", "norm")
 
 p <- ggplot(agg_norm, aes(x=problem, y=norm, shape=algorithm, color=algorithm)) + geom_point(size=3)
 p <- p + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + scale_shape_manual(values=c(15,16,17,18,4,23,6,7,8))
-p <- p + xlab("Problem") + ylab("Normalized Values")
+p <- p + xlab("problem") + ylab("normalized values")
 print(p)
 
 write.csv(pivot, file = paste0(dir, substr(file, 1, nchar(file) - 4), "_pivot.csv"))

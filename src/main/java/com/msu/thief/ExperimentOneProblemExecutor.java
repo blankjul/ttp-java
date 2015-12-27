@@ -9,7 +9,8 @@ import com.msu.interfaces.IProblem;
 import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.thief.algorithms.AlgorithmUtil;
-import com.msu.thief.algorithms.AlternatingPoolingEvolution;
+import com.msu.thief.algorithms.BilevelAlgorithmsFixedTour;
+import com.msu.thief.algorithms.bilevel.tour.GreedyPackingWithHeuristics;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
 import com.msu.thief.io.thief.reader.ThiefSingleTSPLIBProblemReader;
@@ -52,7 +53,7 @@ public class ExperimentOneProblemExecutor {
 	
 	final public static boolean FIXED_TOUR_PROBLEM = false;
 	
-	final public static String PROBLEM = "../ttp-benchmark/SingleObjective/10/10_5_6_25.txt";
+	final public static String PROBLEM = 	"../ttp-benchmark/SingleObjective/10/10_10_2_50.txt";
 	final public static int NUM_OF_EVALUATIONS = 500000;
 	
 /*	
@@ -61,21 +62,21 @@ public class ExperimentOneProblemExecutor {
 	*/
 	
 /*	
-	final public static  IAlgorithm ALGORITHM = new Builder<SingleThiefEvoluation>(SingleThiefEvoluation.class)
+	final public static  IAlgorithm ALGORITHM = new Builder<SingleObjectiveEvolutionaryAlgorithm>(SingleObjectiveEvolutionaryAlgorithm.class)
 			.set("populationSize", 50)
 			.set("probMutation", 0.3)
 			.set("factory", new TTPVariableFactory(new OptimalTourFactory(), new OptimalPackingListFactory()))
-			.set("crossover", new TTPCrossover(new NoCrossover<>(), new HalfUniformCrossover<>()))
-			.set("mutation", new TTPMutation(new NoMutation<>(), new BitFlipMutation()))
+			.set("crossover", new TTPLocalSearchPackCrossover(new OrderedCrossover<>()))
+			.set("mutation", new TTPLocalSearchMutation(new SwapMutation<>()))
 			.set("name", "EA-HUX").build();
 	*/
 	
 	//final public static  IAlgorithm ALGORITHM = new AlternatingPoolingEvolution();
 	//final public static IAlgorithm ALGORITHM = new BilevelAlgorithmsFixedTour(new OnePlusOneEAFixedTourMutation());
-	//final public static IAlgorithm ALGORITHM = new BiLevelEvoluationaryAlgorithm();
-	final public static IAlgorithm ALGORITHM = new AlternatingPoolingEvolution();
+	//final public static IAlgorithm ALGORITHM = new CoevolutionAlgorithm();
+	//final public static IAlgorithm ALGORITHM = new TwoPhaseEvolution();
 	//final public static IAlgorithm ALGORITHM = new SolveKnapsackWithHeuristicValues();
-	
+	final public static IAlgorithm ALGORITHM = new BilevelAlgorithmsFixedTour(new GreedyPackingWithHeuristics());
 	
 	
 	public static void main(String[] args) {

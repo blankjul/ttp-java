@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.msu.interfaces.IEvaluator;
 import com.msu.interfaces.IProblem;
 import com.msu.interfaces.IVariable;
 import com.msu.model.variables.Variable;
@@ -22,7 +23,7 @@ public class ThiefProblemCrossover extends AbstractCrossover<AbstractThiefProble
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected List<AbstractThiefProblem> crossover_(AbstractThiefProblem a, AbstractThiefProblem b, IProblem problem, MyRandom rand) {
+	public List<AbstractThiefProblem> crossover_(AbstractThiefProblem a, AbstractThiefProblem b, IProblem problem, MyRandom rand, IEvaluator eval) {
 		
 		AbstractThiefProblem child1 = Util.cloneObject(a);
 		AbstractThiefProblem child2 = Util.cloneObject(b);

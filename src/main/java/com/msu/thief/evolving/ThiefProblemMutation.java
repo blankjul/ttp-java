@@ -4,6 +4,7 @@ import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.msu.interfaces.IEvaluator;
 import com.msu.interfaces.IProblem;
 import com.msu.operators.AbstractMutation;
 import com.msu.thief.model.CoordinateMap;
@@ -16,7 +17,7 @@ import com.msu.util.MyRandom;
 public class ThiefProblemMutation extends AbstractMutation<AbstractThiefProblem> {
 
 	@Override
-	protected AbstractThiefProblem mutate_(AbstractThiefProblem a,IProblem problem,  MyRandom rnd) {
+	public AbstractThiefProblem mutate_(AbstractThiefProblem a,IProblem problem,  MyRandom rnd, IEvaluator eval) {
 
 		
 		List<Point2D> cities = ((CoordinateMap) a.getMap()).getCities();

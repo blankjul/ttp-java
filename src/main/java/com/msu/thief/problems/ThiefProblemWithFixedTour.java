@@ -59,6 +59,10 @@ public class ThiefProblemWithFixedTour extends AProblem<PackingList<?>>  impleme
 	public SymmetricMap getMap() {
 		return problem.getMap();
 	}
+	
+	public double getMinSpeed() {
+		return problem.getMinSpeed();
+	}
 
 	@Override
 	public double getMaxSpeed() {

@@ -31,6 +31,14 @@ public class BooleanPackingList extends PackingList<List<Boolean>>{
 	public BooleanPackingList(Set<Integer> hash, int numOfItems) {
 		super(new IntegerSetPackingList(hash, numOfItems).encode());
 	}
+	
+	
+	public BooleanPackingList(int numOfItems) {
+		super(new ArrayList<>(numOfItems));
+		for (int i = 0; i < numOfItems; i++) {
+			obj.add(false);
+		}
+	}
 
 	@Override
 	public PackingList<List<Boolean>> copy() {

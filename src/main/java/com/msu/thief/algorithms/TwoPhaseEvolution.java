@@ -22,13 +22,13 @@ import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.util.MyRandom;
 
-public class AlternatingPoolingEvolution extends ASingleObjectiveAlgorithm {
+public class TwoPhaseEvolution extends ASingleObjectiveAlgorithm {
 
 	//! how long in the beginning the bi-level optimization should work
-	protected int bilevelEvaluationsFactor = 10;
+	protected double bilevelEvaluationsFactor = 0.1;
 	
 	//! how long each pool should calculated generations
-	protected int poolingEvaluationsFactor = 20;
+	protected double poolingEvaluationsFactor = 0.2;
 	
 	
 	//! evolutionary algorithm to optimize the packing plan given a tour
@@ -51,10 +51,15 @@ public class AlternatingPoolingEvolution extends ASingleObjectiveAlgorithm {
 	public Solution run__(IProblem p, IEvaluator evaluator, MyRandom rand) {
 		
 		SingleObjectiveThiefProblem problem = (SingleObjectiveThiefProblem) p;
+		
+		final int maxEvaluations = evaluator.getMaxEvaluations();
 
 	    Solution s = null;
 	    // use bi-level optimization  to get a the better starting tour
-	    if (bilevelEvaluationsFactor > 0) s = getStartingSolutionBilevel(problem, evaluator, rand, bilevelEvaluationsFactor);
+	    if (bilevelEvaluationsFactor > 0) {
+	    	IEvaluator biEval = evaluator.createChildEvaluator((int) (maxEvaluations * bilevelEvaluationsFactor));
+	    	s = getStartingSolutionBilevel(problem, biEval, rand);
+	    } 
 	    // use simple evaluations
 	    else  s = getStartingSolutionSimple(problem, evaluator, rand);
 	    		
@@ -70,7 +75,7 @@ public class AlternatingPoolingEvolution extends ASingleObjectiveAlgorithm {
 			
 			// solve the knapsack with best fixed tour
 			ThiefProblemWithFixedTour fixedTourProblem = new ThiefProblemWithFixedTour(problem, tour);
-			Evaluator packEval = evaluator.createChildEvaluator(evaluator.getMaxEvaluations() / poolingEvaluationsFactor);
+			Evaluator packEval = evaluator.createChildEvaluator((int) (maxEvaluations * poolingEvaluationsFactor));
 			
 			// calculate the initial population mutate from the best PACKING plan found so far
 			SolutionSet population = new SolutionSet();
@@ -84,7 +89,7 @@ public class AlternatingPoolingEvolution extends ASingleObjectiveAlgorithm {
 		    
 		    // now the packing plan is fixed to the best
 		    ThiefProblemWithFixedPacking fixedPackProblem = new ThiefProblemWithFixedPacking(problem, pack);
-		    Evaluator tourEval = evaluator.createChildEvaluator(evaluator.getMaxEvaluations() / poolingEvaluationsFactor);
+		    Evaluator tourEval = evaluator.createChildEvaluator((int) (maxEvaluations * poolingEvaluationsFactor));
 
 			// calculate the initial population mutate from the best TOUR plan found so far
 		    population = new SolutionSet();
@@ -100,17 +105,16 @@ public class AlternatingPoolingEvolution extends ASingleObjectiveAlgorithm {
 
 		}
 		
-		Solution best = evaluator.evaluate(problem, new TTPVariable(tour,pack));
+		Solution best = problem.evaluate(new TTPVariable(tour,pack));
 		
 		return best;
 	}
 
 	
 	
-	public static Solution getStartingSolutionBilevel(SingleObjectiveThiefProblem problem, IEvaluator evaluator, MyRandom rand, int factor) {
+	public static Solution getStartingSolutionBilevel(SingleObjectiveThiefProblem problem, IEvaluator evaluator, MyRandom rand) {
 		BiLevelEvoluationaryAlgorithm algorithm = new BiLevelEvoluationaryAlgorithm();
-		Evaluator start = evaluator.createChildEvaluator(evaluator.getMaxEvaluations() / factor);
-	    Solution s = algorithm.run__(problem, start, rand);
+	    Solution s = algorithm.run__(problem, evaluator, rand);
 	    return s;
 	}
 	

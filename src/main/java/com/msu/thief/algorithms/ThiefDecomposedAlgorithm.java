@@ -32,7 +32,7 @@ public class ThiefDecomposedAlgorithm extends DecomposedAlgorithm {
 	class Mutation extends AbstractMutation<Pair<Tour<?>, PackingList<?>>> {
 
 		@Override
-		protected Pair<Tour<?>, PackingList<?>> mutate_(Pair<Tour<?>, PackingList<?>> pair, IProblem problem, MyRandom rand) {
+		public Pair<Tour<?>, PackingList<?>> mutate_(Pair<Tour<?>, PackingList<?>> pair, IProblem problem, MyRandom rand, IEvaluator eval) {
 			if (rand.nextDouble() < 0.1) {
 				return Pair.create(pair.first.getSymmetric(), pair.second);
 			} else {

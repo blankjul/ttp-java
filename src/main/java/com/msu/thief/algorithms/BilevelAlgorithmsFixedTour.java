@@ -1,14 +1,16 @@
 package com.msu.thief.algorithms;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IEvaluator;
 import com.msu.interfaces.IProblem;
 import com.msu.interfaces.IVariable;
 import com.msu.model.Evaluator;
+import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.operators.mutation.SwapMutation;
 import com.msu.soo.ASingleObjectiveAlgorithm;
@@ -67,26 +69,24 @@ public class BilevelAlgorithmsFixedTour extends ASingleObjectiveAlgorithm {
 		}
 		
 		
-		List<Double> objectives = new ArrayList<>();
-		List<Solution> solutions = new ArrayList<>();
-
+		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
+		Map<Solution, ThiefProblemWithFixedTour> mapToFixedTour = new HashMap<>();
+		
 		for (ThiefProblemWithFixedTour fixedTourProblem : problems) {
 			Solution s = run___(fixedTourProblem, new Evaluator(evaluator.getMaxEvaluations() / problems.size()), rand);
-			solutions.add(s);
-			objectives.add(s.getObjectives(0));
+			set.add(s);
+			mapToFixedTour.put(s, fixedTourProblem);
 		}
 
-		// best solution which was found
-		int bestIndex = objectives.indexOf(Collections.min(objectives));
 
 		// reevaluate with the tour
-		Solution best = solutions.get(bestIndex);
+		Solution best = set.get(0);
 		IVariable var = best.getVariable();
 		if (var instanceof PackingList<?>) {
-			TTPVariable thiefVar = new TTPVariable(problems.get(bestIndex).getTour(),
-					(PackingList<?>) solutions.get(bestIndex).getVariable());
+			TTPVariable thiefVar = new TTPVariable(mapToFixedTour.get(best).getTour(), (PackingList<?>) best.getVariable());
 			best = problem.evaluate(thiefVar);
 		}
+		
 		return best;
 	}
 

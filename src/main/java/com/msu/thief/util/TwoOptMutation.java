@@ -2,6 +2,7 @@ package com.msu.thief.util;
 
 import java.util.List;
 
+import com.msu.interfaces.IEvaluator;
 import com.msu.interfaces.IProblem;
 import com.msu.interfaces.IVariable;
 import com.msu.operators.AbstractMutation;
@@ -26,7 +27,7 @@ public class TwoOptMutation extends AbstractMutation<List<Integer>> {
 	
 
 	@Override
-	protected List<Integer> mutate_(List<Integer> element, IProblem problem, MyRandom rand) {
+	public List<Integer> mutate_(List<Integer> element, IProblem problem, MyRandom rand, IEvaluator eval) {
 		return null;
 	}
 }

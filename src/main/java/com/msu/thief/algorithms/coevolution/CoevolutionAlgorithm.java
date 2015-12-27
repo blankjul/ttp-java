@@ -5,137 +5,112 @@ import java.util.HashSet;
 import com.msu.builder.Builder;
 import com.msu.interfaces.IEvaluator;
 import com.msu.interfaces.IProblem;
-import com.msu.interfaces.IVariable;
-import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.model.solution.SolutionSet;
 import com.msu.operators.crossover.HalfUniformCrossover;
 import com.msu.operators.crossover.NoCrossover;
 import com.msu.operators.mutation.BitFlipMutation;
-import com.msu.operators.mutation.NoMutation;
 import com.msu.operators.mutation.SwapMutation;
 import com.msu.soo.ASingleObjectiveAlgorithm;
 import com.msu.soo.SingleObjectiveEvolutionaryAlgorithm;
+import com.msu.thief.algorithms.AlgorithmUtil;
+import com.msu.thief.algorithms.coevolution.selector.ASelector;
+import com.msu.thief.algorithms.coevolution.selector.NBestSelector;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.thief.variable.TTPCrossover;
-import com.msu.thief.variable.TTPMutation;
-import com.msu.thief.variable.TTPVariable;
-import com.msu.thief.variable.TTPVariableFactory;
+import com.msu.thief.problems.ThiefProblemWithFixedPacking;
+import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.pack.factory.OptimalPackingListFactory;
 import com.msu.thief.variable.tour.Tour;
-import com.msu.thief.variable.tour.factory.OptimalTourFactory;
 import com.msu.util.MyRandom;
 
 public class CoevolutionAlgorithm extends ASingleObjectiveAlgorithm {
 
-	final public int populationSize = 20;
 	
-	protected boolean mergeElementWise = false;
-
+	protected ASelector selector = new NBestSelector(1);
+	
+	protected int numOfGenerations = 5;
+	
+	
 	@Override
 	public Solution run__(IProblem p, IEvaluator evaluator, MyRandom rand) {
 
 		// select the best tour for the start
 		SingleObjectiveThiefProblem problem = (SingleObjectiveThiefProblem) p;
-		
-		// create the initial population
-		SolutionSet population = new SolutionSet();
-		TTPVariableFactory fac = new TTPVariableFactory(new OptimalTourFactory(), new OptimalPackingListFactory());
-		for (IVariable variable : fac.next(problem, rand, populationSize)) {
-			population.add(evaluator.evaluate(problem, variable));
-		}
 
-		// create packing evolutionary algorithm
-		Builder<SingleObjectiveEvolutionaryAlgorithm> packBuilder = new Builder<SingleObjectiveEvolutionaryAlgorithm>(SingleObjectiveEvolutionaryAlgorithm.class)
-				.set("populationSize", populationSize)
-				.set("probMutation", 0.3)
-				.set("crossover", new TTPCrossover(new NoCrossover<>(), new HalfUniformCrossover<>()))
-				.set("mutation", new TTPMutation(new NoMutation<>(), new BitFlipMutation()));
-		
-		// create tour evolutionary algorithm
-		Builder<SingleObjectiveEvolutionaryAlgorithm> tourBuilder = new Builder<SingleObjectiveEvolutionaryAlgorithm>(SingleObjectiveEvolutionaryAlgorithm.class)
-				.set("populationSize", populationSize)
-				.set("probMutation", 0.3)
-				.set("crossover", new TTPCrossover(new NoCrossover<>(), new NoCrossover<>()))
-				.set("mutation", new TTPMutation(new SwapMutation<>(), new NoMutation<>()));
+	    Tour<?> tour = AlgorithmUtil.calcBestTour(problem);
+	    PackingList<?> pack = AlgorithmUtil.calcBestPackingPlan(problem);
+			 
+
+		// the two subpopulations
+		SolutionSet populationPack = new SolutionSet();
+		for (int i = 0; i < 50; i++) {
+			populationPack.add(evaluator.evaluate(new ThiefProblemWithFixedTour(problem, tour), new OptimalPackingListFactory().next(problem, rand)));
+		}
+		populationPack = new SolutionSet(new HashSet<>(populationPack));
+		SingleObjectiveEvolutionaryAlgorithm.sortBySingleObjective(populationPack);
 		
 		
+		SolutionSet populationTSP = new SolutionSet();
+		populationTSP.add(evaluator.evaluate(new ThiefProblemWithFixedPacking(problem, pack), tour));
+		populationTSP.add(evaluator.evaluate(new ThiefProblemWithFixedPacking(problem, pack), tour.getSymmetric()));
+		SingleObjectiveEvolutionaryAlgorithm.sortBySingleObjective(populationTSP);
 		
-		while (evaluator.hasNext()) {
+		
+		// create an evaluator for the coevolutionary approach
+		CoevoluationCollaborativeEvaluator coevoEvaluator = new CoevoluationCollaborativeEvaluator( evaluator.getMaxEvaluations(), selector, rand);
+		
+		
+		//set collaborators for the initial population
+		coevoEvaluator.setCollaboratingTours(populationTSP);
+
+
+		while (coevoEvaluator.hasNext()) {
+
+
+			// evolution of the packing lists on collaborating tours
+			
+			SingleObjectiveEvolutionaryAlgorithm packEvolution = new Builder<SingleObjectiveEvolutionaryAlgorithm>(
+					SingleObjectiveEvolutionaryAlgorithm.class)
+						.set("populationSize", 50)
+						.set("probMutation", 0.3)
+						.set("crossover", new HalfUniformCrossover<>())
+						.set("mutation", new BitFlipMutation())
+						.build();
+			
+
+			packEvolution.setPopulation(populationPack);
+			for (int i = 0; i < numOfGenerations; i++) packEvolution.next(problem, coevoEvaluator, rand);
+
+			populationPack = packEvolution.getPopulation();
+			coevoEvaluator.setCollaboratingPackingLists(populationPack);
+			
 
 			
-			Evaluator pack = evaluator.createChildEvaluator(evaluator.getMaxEvaluations() / 20);
-			SingleObjectiveEvolutionaryAlgorithm algoPack = packBuilder.build();
-			algoPack.run__(problem, pack, rand, population);
-			population = algoPack.getPopulation();
+			// evolution of the tour collaborating with packing lists
+			
+			SingleObjectiveEvolutionaryAlgorithm tourEvolution = new Builder<SingleObjectiveEvolutionaryAlgorithm>(SingleObjectiveEvolutionaryAlgorithm.class)
+					.set("populationSize", 50)
+					.set("probMutation", 1.0)
+					.set("crossover", new NoCrossover<>())
+					.set("mutation", new SwapMutation<>())
+					.build();
+			
 
-		
+			tourEvolution.setPopulation(populationTSP);
+			for (int i = 0; i < numOfGenerations; i++) tourEvolution.next(problem, coevoEvaluator, rand);
+			
+			populationTSP = tourEvolution.getPopulation();
+			coevoEvaluator.setCollaboratingTours(populationTSP);
+			
 	
 			
-			if (!evaluator.hasNext()) break;
-			population = (mergeElementWise) ? mergeEachElement(problem, evaluator, population) : mergeOnePool(problem, evaluator, population);
-			population = new SolutionSet(new HashSet<>(population));
-			SingleObjectiveEvolutionaryAlgorithm.sortBySingleObjective(population);
-			population = new SolutionSet(population.subList(0, Math.min(population.size(), populationSize)));
-			
-			
-			
-			Evaluator tour = evaluator.createChildEvaluator(evaluator.getMaxEvaluations() / 20);
-			SingleObjectiveEvolutionaryAlgorithm algoTour = tourBuilder.build();
-			algoTour.run__(problem, tour, rand, population);
-			population = algoTour.getPopulation();
 
-			
-			for (Solution s : population.subList(0, Math.min(population.size(), populationSize))) {
-				System.out.println(s);
-			}
-			System.out.println("-----------------");
-			
-			
-			if (!evaluator.hasNext()) break;
-			population = (mergeElementWise) ? mergeEachElement(problem, evaluator, population) : mergeOnePool(problem, evaluator, population);
-			population = new SolutionSet(new HashSet<>(population));
-			SingleObjectiveEvolutionaryAlgorithm.sortBySingleObjective(population);
-			population = new SolutionSet(population.subList(0, Math.min(population.size(), populationSize)));
-			
-			
-	
-			
 		}
 		
-		SingleObjectiveEvolutionaryAlgorithm.sortBySingleObjective(population);
-		return population.get(0);
-
+		return evaluator.evaluate(problem, coevoEvaluator.best);
 	}
-	
-	
-	protected SolutionSet mergeOnePool(IProblem problem, IEvaluator evaluator, SolutionSet population) {
-		SolutionSet next = new SolutionSet();
-		for (int i = 0; i < population.size(); i++) {
-			for (int j = 0; j < population.size(); j++) {
-				Tour<?> tour = ((TTPVariable) population.get(i).getVariable()).getTour();
-				PackingList<?> packList = ((TTPVariable) population.get(j).getVariable()).getPackingList();
-				next.add(evaluator.evaluate(problem, new TTPVariable(tour,packList)));
-			}
-		}
-		return next;
-	}
-	
-	
-	protected SolutionSet mergeEachElement(IProblem problem, IEvaluator evaluator, SolutionSet population) {
-		SolutionSet next = new SolutionSet();
-		for (int i = 0; i < population.size(); i++) {
-			Tour<?> tour = ((TTPVariable) population.get(i).getVariable()).getTour();
-			SolutionSet poolForTour = new SolutionSet();
-			for (int j = 0; j < population.size(); j++) {
-				PackingList<?> packList = ((TTPVariable) population.get(j).getVariable()).getPackingList();
-				poolForTour.add(evaluator.evaluate(problem, new TTPVariable(tour,packList)));
-			}
-			SingleObjectiveEvolutionaryAlgorithm.sortBySingleObjective(poolForTour);
-			next.add(poolForTour.get(0));
-		}
-		return next;
-	}
+
+
 
 }

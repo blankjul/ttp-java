@@ -31,6 +31,18 @@ public class IEEE {
 		
 	}
 	
+	public static Collection<AbstractThiefProblem> getFirstInstancesProblems() {
+		FileCollectorParser<AbstractThiefProblem> fcp = new FileCollectorParser<>();
+		fcp.add("../ttp-benchmark/SingleObjective/10", "*_*_1_*.txt", new BonyadiSingleObjectiveReader());
+		fcp.add("../ttp-benchmark/SingleObjective/20", "*_*_1_*.txt", new BonyadiSingleObjectiveReader());
+		fcp.add("../ttp-benchmark/SingleObjective/50", "*_*_1_*.txt", new BonyadiSingleObjectiveReader());
+		fcp.add("../ttp-benchmark/SingleObjective/100","*_*_1_*.txt", new BonyadiSingleObjectiveReader());
+		return fcp.collect();
+	
+}
+	
+	
+	
 	
 
 	public static Collection<AbstractThiefProblem> getAllProblems() {
