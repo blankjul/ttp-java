@@ -6,13 +6,14 @@ import com.msu.builder.Builder;
 import com.msu.experiment.AExperiment;
 import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IProblem;
-import com.msu.operators.crossover.permutation.OrderedCrossover;
-import com.msu.operators.mutation.SwapMutation;
+import com.msu.operators.crossover.NoCrossover;
+import com.msu.operators.crossover.UniformCrossover;
+import com.msu.operators.mutation.BitFlipMutation;
 import com.msu.soo.SingleObjectiveEvolutionaryAlgorithm;
-import com.msu.thief.algorithms.TwoPhaseEvolution;
+import com.msu.thief.algorithms.recombinations.TTPNeighbourSwapMutation;
 import com.msu.thief.experiment.SingleObjectiveReport;
-import com.msu.thief.variable.TTPLocalSearchMutation;
-import com.msu.thief.variable.TTPLocalSearchPackCrossover;
+import com.msu.thief.variable.TTPCrossover;
+import com.msu.thief.variable.TTPMutation;
 import com.msu.thief.variable.TTPVariableFactory;
 import com.msu.thief.variable.pack.factory.OptimalPackingListFactory;
 import com.msu.thief.variable.tour.factory.OptimalTourFactory;
@@ -44,13 +45,13 @@ public class ProcessExperiment extends AExperiment {
 				.set("populationSize", 50)
 				.set("probMutation", 0.3)
 				.set("factory", new TTPVariableFactory(new OptimalTourFactory(), new OptimalPackingListFactory()))
-				.set("crossover", new TTPLocalSearchPackCrossover(new OrderedCrossover<>()))
-				.set("mutation", new TTPLocalSearchMutation(new SwapMutation<>()))
-				.set("name", "EA-LOCAL-SEARCH").build();
+				.set("crossover", new TTPCrossover(new NoCrossover<>(), new UniformCrossover<>()))
+				.set("mutation", new TTPMutation(new TTPNeighbourSwapMutation(), new BitFlipMutation()))
+				.set("name", "EA-NEIGHBOUR").build();
 
 		algorithms.add(localSearch);
 		
-		algorithms.add(new TwoPhaseEvolution());
+		//algorithms.add(new TwoPhaseEvolution());
 
 	}
 

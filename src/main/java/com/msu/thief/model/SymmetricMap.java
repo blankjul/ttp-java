@@ -107,6 +107,10 @@ public class SymmetricMap {
 		return distances;
 	}
 	
+	public final double[] getDistancesOfCity(int i) {
+		return distances[i];
+	}
+	
 	
 	public SymmetricMap copy() {
 		SymmetricMap result = new SymmetricMap(this.getSize());

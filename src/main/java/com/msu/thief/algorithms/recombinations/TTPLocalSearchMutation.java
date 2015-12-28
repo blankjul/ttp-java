@@ -1,9 +1,10 @@
-package com.msu.thief.variable;
+package com.msu.thief.algorithms.recombinations;
 
 import com.msu.interfaces.IEvaluator;
 import com.msu.interfaces.IProblem;
 import com.msu.interfaces.IVariable;
 import com.msu.operators.AbstractMutation;
+import com.msu.thief.variable.RecombinationUtil;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.util.MyRandom;
 import com.msu.util.Pair;

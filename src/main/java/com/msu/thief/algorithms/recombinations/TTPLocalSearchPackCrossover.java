@@ -1,4 +1,4 @@
-package com.msu.thief.variable;
+package com.msu.thief.algorithms.recombinations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,7 @@ import com.msu.interfaces.IEvaluator;
 import com.msu.interfaces.IProblem;
 import com.msu.interfaces.IVariable;
 import com.msu.operators.AbstractCrossover;
+import com.msu.thief.variable.RecombinationUtil;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.util.MyRandom;
 import com.msu.util.Pair;

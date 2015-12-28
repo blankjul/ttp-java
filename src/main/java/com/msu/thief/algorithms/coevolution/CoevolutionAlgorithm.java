@@ -10,12 +10,12 @@ import com.msu.moo.model.solution.SolutionSet;
 import com.msu.operators.crossover.HalfUniformCrossover;
 import com.msu.operators.crossover.NoCrossover;
 import com.msu.operators.mutation.BitFlipMutation;
-import com.msu.operators.mutation.SwapMutation;
 import com.msu.soo.ASingleObjectiveAlgorithm;
 import com.msu.soo.SingleObjectiveEvolutionaryAlgorithm;
 import com.msu.thief.algorithms.AlgorithmUtil;
 import com.msu.thief.algorithms.coevolution.selector.ASelector;
 import com.msu.thief.algorithms.coevolution.selector.NBestSelector;
+import com.msu.thief.algorithms.recombinations.TTPNeighbourSwapMutation;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.problems.ThiefProblemWithFixedPacking;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
@@ -27,7 +27,7 @@ import com.msu.util.MyRandom;
 public class CoevolutionAlgorithm extends ASingleObjectiveAlgorithm {
 
 	
-	protected ASelector selector = new NBestSelector(1);
+	protected ASelector selector = new NBestSelector(5);
 	
 	protected int numOfGenerations = 5;
 	
@@ -93,17 +93,21 @@ public class CoevolutionAlgorithm extends ASingleObjectiveAlgorithm {
 					.set("populationSize", 50)
 					.set("probMutation", 1.0)
 					.set("crossover", new NoCrossover<>())
-					.set("mutation", new SwapMutation<>())
+					.set("mutation", new TTPNeighbourSwapMutation())
 					.build();
 			
 
+			
 			tourEvolution.setPopulation(populationTSP);
 			for (int i = 0; i < numOfGenerations; i++) tourEvolution.next(problem, coevoEvaluator, rand);
 			
 			populationTSP = tourEvolution.getPopulation();
 			coevoEvaluator.setCollaboratingTours(populationTSP);
 			
-	
+			for (Solution s : populationTSP.subList(0, 5)) {
+				System.out.println(s);
+			}
+			System.out.println("-----------------");
 			
 
 		}

@@ -1,6 +1,5 @@
 package com.msu.thief.algorithms;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -11,7 +10,6 @@ import com.msu.interfaces.IVariableFactory;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.model.solution.SolutionSet;
 import com.msu.operators.crossover.UniformCrossover;
-import com.msu.operators.crossover.permutation.OrderedCrossover;
 import com.msu.operators.mutation.BitFlipMutation;
 import com.msu.operators.selection.RandomSelection;
 import com.msu.soo.ASingleObjectiveAlgorithm;
@@ -19,7 +17,6 @@ import com.msu.soo.SingleObjectiveEvolutionaryAlgorithm;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.variable.pack.BooleanPackingList;
 import com.msu.thief.variable.pack.PackingList;
-import com.msu.thief.variable.tour.Tour;
 import com.msu.util.MyRandom;
 
 public class KnapsackLocalSearch extends ASingleObjectiveAlgorithm {
