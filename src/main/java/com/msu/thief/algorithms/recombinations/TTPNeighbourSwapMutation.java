@@ -32,13 +32,13 @@ public class TTPNeighbourSwapMutation extends AbstractMutation<List<Integer>>{
 		
 		List<Integer> result = new ArrayList<>(tour);
 		//System.out.println(String.format("%s %s %s",tour, idx, other));
-		Util.swap(result, tour.indexOf(idx), tour.indexOf(other));
+		Util.swap(result, idx, tour.indexOf(other));
 		
 		return result;
 	}
 	
 	
-	protected static List<Integer> getNeighboursOfCity(SymmetricMap m, int city, int numOfNeighbours) {
+	public static List<Integer> getNeighboursOfCity(SymmetricMap m, int city, int numOfNeighbours) {
 		List<Integer> index = Util.createIndex(1, m.getSize());
 		double[] distances =  m.getDistancesOfCity(city);
 		Collections.sort(index, (Integer i1, Integer i2) -> Double.compare(distances[i1], distances[i2]));
@@ -46,7 +46,7 @@ public class TTPNeighbourSwapMutation extends AbstractMutation<List<Integer>>{
 		
 	}
 	
-	protected static List<Double> getProbabilityDistribution(int n) {
+	public static List<Double> getProbabilityDistribution(int n) {
 		List<Double> index = new ArrayList<>();
 		final int sum = (n * (n - 1)) / 2;
 		for (int j = 0; j < n; j++) {
@@ -56,7 +56,7 @@ public class TTPNeighbourSwapMutation extends AbstractMutation<List<Integer>>{
 	}
 	
 	
-	protected static int selectCity(List<Double> prob, MyRandom rand) {
+	public static int selectCity(List<Double> prob, MyRandom rand) {
 		final double r = rand.nextDouble();
 		int i = prob.size() - 1;
 		for (; i >= 0; i--) {

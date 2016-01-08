@@ -9,7 +9,7 @@ import com.msu.interfaces.IProblem;
 import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.thief.algorithms.AlgorithmUtil;
-import com.msu.thief.algorithms.coevolution.CoevolutionAlgorithm;
+import com.msu.thief.algorithms.TwoPhaseEvolution;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
 import com.msu.thief.io.thief.reader.ThiefSingleTSPLIBProblemReader;
@@ -81,8 +81,8 @@ public class ExperimentOneProblemExecutor {
 	*/
 	//final public static  IAlgorithm ALGORITHM = new AlternatingPoolingEvolution();
 	//final public static IAlgorithm ALGORITHM = new BilevelAlgorithmsFixedTour(new OnePlusOneEAFixedTourMutation());
-	final public static IAlgorithm ALGORITHM = new CoevolutionAlgorithm();
-	//final public static IAlgorithm ALGORITHM = new TwoPhaseEvolution();
+	//final public static IAlgorithm ALGORITHM = new CoevolutionAlgorithm();
+	final public static IAlgorithm ALGORITHM = new TwoPhaseEvolution();
 	//final public static IAlgorithm ALGORITHM = new SolveKnapsackWithHeuristicValues();
 	//final public static IAlgorithm ALGORITHM = new BilevelAlgorithmsFixedTour(new GreedyPackingWithHeuristics());
 	
