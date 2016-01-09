@@ -6,8 +6,12 @@ import java.util.List;
 import com.msu.interfaces.IEvaluator;
 import com.msu.interfaces.IProblem;
 import com.msu.interfaces.IVariable;
+import com.msu.model.Evaluator;
+import com.msu.moo.model.solution.Solution;
 import com.msu.operators.AbstractCrossover;
-import com.msu.thief.variable.RecombinationUtil;
+import com.msu.thief.algorithms.oneplusone.OnePlusOneEAFixedTour;
+import com.msu.thief.problems.AbstractThiefProblem;
+import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.util.MyRandom;
 import com.msu.util.Pair;
@@ -17,10 +21,13 @@ public class TTPLocalSearchPackCrossover extends AbstractCrossover<Pair<IVariabl
 	//! crossover for the tour
 	protected AbstractCrossover<?> cTour;
 	
-
-	public TTPLocalSearchPackCrossover(AbstractCrossover<?> cTour) {
+	protected int evaluations;
+	
+	
+	public TTPLocalSearchPackCrossover(AbstractCrossover<?> cTour, int evaluations) {
 		super();
 		this.cTour = cTour;
+		this.evaluations = evaluations;
 	}
 	
 	
@@ -30,14 +37,19 @@ public class TTPLocalSearchPackCrossover extends AbstractCrossover<Pair<IVariabl
 		
 		List<Pair<IVariable,IVariable>> result = new ArrayList<Pair<IVariable,IVariable>>();
 		
-		final int evaluations = 100;
+		final int evaluations = 10000;
 		
 		for(IVariable tour : offTours) {
-			IVariable pack = RecombinationUtil.localSearch(problem, (Tour<?>) tour, rand, eval, evaluations);
-			result.add(Pair.create(tour, pack));
+			
+			Solution next = new OnePlusOneEAFixedTour().run___(
+					new ThiefProblemWithFixedTour((AbstractThiefProblem) problem, (Tour<?>) tour), new Evaluator(evaluations), rand);
+			
+			//IVariable pack = RecombinationUtil.localSearch(problem, (Tour<?>) tour, rand, eval, evaluations);
+			
+			result.add(Pair.create(tour, next.getVariable()));
 		}
 		
-		System.out.println(eval.numOfEvaluations());
+		//System.out.println(eval.numOfEvaluations());
 		return result;
 	}
 

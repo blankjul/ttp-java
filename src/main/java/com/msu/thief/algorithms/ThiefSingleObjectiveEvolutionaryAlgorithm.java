@@ -1,21 +1,26 @@
 package com.msu.thief.algorithms;
 
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 
 import com.msu.interfaces.IEvaluator;
 import com.msu.interfaces.IProblem;
 import com.msu.interfaces.IVariable;
+import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.model.solution.SolutionSet;
 import com.msu.operators.AbstractCrossover;
-import com.msu.operators.mutation.BitFlipMutation;
-import com.msu.operators.selection.RandomSelection;
+import com.msu.operators.AbstractMutation;
+import com.msu.operators.selection.BinaryTournamentSelection;
 import com.msu.soo.ASingleObjectiveAlgorithm;
+import com.msu.soo.SingleObjectiveEvolutionaryAlgorithm;
+import com.msu.thief.algorithms.oneplusone.OnePlusOneEAFixedTour;
 import com.msu.thief.problems.AbstractThiefProblem;
+import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.variable.TTPVariable;
+import com.msu.thief.variable.TTPVariableFactory;
 import com.msu.thief.variable.pack.PackingList;
-import com.msu.thief.variable.pack.factory.APackingListFactory;
 import com.msu.thief.variable.tour.Tour;
 import com.msu.util.MyRandom;
 
@@ -28,9 +33,11 @@ public class ThiefSingleObjectiveEvolutionaryAlgorithm extends ASingleObjectiveA
 	protected Double probMutation;
 
 	// ! factory for creating new instances
-	protected APackingListFactory factory;
+	protected TTPVariableFactory factory;
 	
-	protected AbstractCrossover<?> cross;
+	protected AbstractCrossover<?> crossover;
+	
+	protected AbstractMutation<?> mutation;
 
 	
 	@Override
@@ -39,27 +46,26 @@ public class ThiefSingleObjectiveEvolutionaryAlgorithm extends ASingleObjectiveA
 		AbstractThiefProblem problem = (AbstractThiefProblem) p;
 
 		// initialize random population
-		SolutionSet population1 = new SolutionSet(populationSize);
-		SolutionSet population2 = new SolutionSet(populationSize);
+		SolutionSet population = new SolutionSet(populationSize);
 
 		Tour<?> bestTour = AlgorithmUtil.calcBestTour(problem);
 
-		for (int i = 0; i < populationSize / 2; i++) {
-			population1.add(evaluator.evaluate(problem,
-					new TTPVariable(bestTour, (PackingList<?>) factory.next(problem, rand))));
-			population2.add(evaluator.evaluate(problem,new TTPVariable(bestTour.getSymmetric(), (PackingList<?>) factory.next(problem, rand))));
+		for (int i = 0; i < populationSize; i++) {
+			Solution s = evaluator.evaluate(problem,factory.next(problem, rand));
+			population.add(s);
 		}
-
-
+		
 		while (evaluator.hasNext()) {
-			population1 = next(population1, rand, evaluator, problem, bestTour);
-			population2 = next(population2, rand, evaluator, problem, bestTour.getSymmetric());
+			population = next(population, rand, evaluator, problem, bestTour);
+			
+			for (Solution solution : population.subList(0, Math.min(5, population.size()))) {
+				System.out.println(solution);
+			}
+			System.out.println("------------------------------");
+			//System.out.println(evaluator.numOfEvaluations());
 		}
 
-		if (population1.get(0).getObjectives(0) < population2.get(0).getObjectives(0))
-			return population1.get(0);
-		else
-			return population2.get(0);
+		return population.get(0);
 
 	}
 
@@ -68,27 +74,44 @@ public class ThiefSingleObjectiveEvolutionaryAlgorithm extends ASingleObjectiveA
 		// mating with random selection of the best 20 percent
 		SolutionSet offsprings = new SolutionSet(populationSize);
 
-		RandomSelection selector = new RandomSelection(population, rand);
-		while (offsprings.size() < populationSize / 2) {
+		
+		// selects per default always the maximal value
+		BinaryTournamentSelection selector = new BinaryTournamentSelection(population, new Comparator<Solution>() {
+			@Override
+			public int compare(Solution o1, Solution o2) {
+				return -1 * SingleObjectiveEvolutionaryAlgorithm.comp.compare(o1, o2);
+			}
+		}, rand);
 
-			PackingList<?> l1 = ((TTPVariable) selector.next().getVariable()).getPackingList();
-			PackingList<?> l2 = ((TTPVariable) selector.next().getVariable()).getPackingList();
+		
+		
+		while (offsprings.size() < populationSize) {
 
-			List<IVariable> vars = cross.crossover(l1, l2, problem, rand);
+			Tour<?> l1 = ((TTPVariable) selector.next().getVariable()).getTour();
+			Tour<?> l2 = ((TTPVariable) selector.next().getVariable()).getTour();
+
+			List<IVariable> vars = crossover.crossover(l1, l2, problem, rand);
 
 			for (IVariable v : vars) {
-				if (rand.nextDouble() < probMutation)
-					v = new BitFlipMutation().mutate(v, problem, rand);
+				if (rand.nextDouble() < probMutation) v = mutation.mutate(v, problem, rand);
 				
-				offsprings.add(evaluator.evaluate(problem, new TTPVariable(tour, (PackingList<?>) v)));
+				Solution next = new OnePlusOneEAFixedTour().run__(new ThiefProblemWithFixedTour((AbstractThiefProblem) problem, (Tour<?>) tour), new Evaluator(10000), rand);
+				
+				offsprings.add(evaluator.evaluate(problem, new TTPVariable(tour, (PackingList<?>)next.getVariable())));
+				
 			}
 		}
 
 		population.addAll(offsprings);
 
+		// eliminate duplicates to ensure variety in the population
+		population = new SolutionSet(new HashSet<>(population));
 		// truncate the population -> survival of the fittest
 		sortBySingleObjective(population);
-		return new SolutionSet(population.subList(0, populationSize));
+		population = new SolutionSet(population.subList(0, Math.min(population.size(), populationSize)));
+
+		return population;
+		
 
 	}
 

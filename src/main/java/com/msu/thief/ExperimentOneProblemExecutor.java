@@ -4,20 +4,26 @@ import java.util.Arrays;
 
 import org.apache.log4j.BasicConfigurator;
 
+import com.msu.builder.Builder;
 import com.msu.interfaces.IAlgorithm;
 import com.msu.interfaces.IProblem;
 import com.msu.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
+import com.msu.operators.crossover.permutation.OrderedCrossover;
+import com.msu.operators.mutation.SwapMutation;
 import com.msu.thief.algorithms.AlgorithmUtil;
-import com.msu.thief.algorithms.TwoPhaseEvolution;
+import com.msu.thief.algorithms.ThiefSingleObjectiveEvolutionaryAlgorithm;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
 import com.msu.thief.io.thief.reader.ThiefSingleTSPLIBProblemReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.variable.TTPVariable;
+import com.msu.thief.variable.TTPVariableFactory;
 import com.msu.thief.variable.pack.PackingList;
+import com.msu.thief.variable.pack.factory.OptimalPackingListFactory;
 import com.msu.thief.variable.tour.Tour;
+import com.msu.thief.variable.tour.factory.OptimalTourFactory;
 import com.msu.util.MyRandom;
 
 public class ExperimentOneProblemExecutor {
@@ -53,7 +59,7 @@ public class ExperimentOneProblemExecutor {
 	final public static boolean FIXED_TOUR_PROBLEM = false;
 	
 	final public static String PROBLEM = "../ttp-benchmark/TSPLIB/berlin52-ttp/berlin52_n51_bounded-strongly-corr_01.ttp";
-	final public static int NUM_OF_EVALUATIONS = 500000;
+	final public static int NUM_OF_EVALUATIONS = 100000;
 	
 /*	
 	final public static IAlgorithm ALGORITHM = ObjectFactory.create(IAlgorithm.class,  
@@ -65,11 +71,11 @@ public class ExperimentOneProblemExecutor {
 			.set("populationSize", 50)
 			.set("probMutation", 0.3)
 			.set("factory", new TTPVariableFactory(new OptimalTourFactory(), new OptimalPackingListFactory()))
-			.set("crossover", new TTPLocalSearchPackCrossover(new OrderedCrossover<>()))
-			.set("mutation", new TTPLocalSearchMutation(new SwapMutation<>()))
+			.set("crossover", new TTPLocalSearchPackCrossover(new OrderedCrossover<>(), 1000))
+			.set("mutation", new TTPLocalSearchMutation(new SwapMutation<>(), 1000))
 			.set("name", "EA-HUX").build();
-	*/
 	
+	*/
 /*	
 	final public static IAlgorithm ALGORITHM = new Builder<SingleObjectiveEvolutionaryAlgorithm>(SingleObjectiveEvolutionaryAlgorithm.class)
 			.set("populationSize", 50)
@@ -82,9 +88,21 @@ public class ExperimentOneProblemExecutor {
 	//final public static  IAlgorithm ALGORITHM = new AlternatingPoolingEvolution();
 	//final public static IAlgorithm ALGORITHM = new BilevelAlgorithmsFixedTour(new OnePlusOneEAFixedTourMutation());
 	//final public static IAlgorithm ALGORITHM = new CoevolutionAlgorithm();
-	final public static IAlgorithm ALGORITHM = new TwoPhaseEvolution();
+	//final public static IAlgorithm ALGORITHM = new TwoPhaseEvolution();
 	//final public static IAlgorithm ALGORITHM = new SolveKnapsackWithHeuristicValues();
 	//final public static IAlgorithm ALGORITHM = new BilevelAlgorithmsFixedTour(new GreedyPackingWithHeuristics());
+	
+	final public static IAlgorithm ALGORITHM = new Builder<ThiefSingleObjectiveEvolutionaryAlgorithm>(ThiefSingleObjectiveEvolutionaryAlgorithm.class)
+			.set("populationSize", 50)
+			.set("probMutation", 0.3)
+			.set("factory", new TTPVariableFactory(new OptimalTourFactory(), new OptimalPackingListFactory()))
+			.set("crossover", new OrderedCrossover<>())
+			.set("mutation", new SwapMutation<>())
+			.set("name", "EA-HUX")
+			.build();
+	
+	
+	
 	
 	
 	public static void main(String[] args) {
