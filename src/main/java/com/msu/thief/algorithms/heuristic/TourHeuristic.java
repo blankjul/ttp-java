@@ -5,13 +5,19 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.log4j.BasicConfigurator;
 
+import com.msu.model.Evaluator;
+import com.msu.thief.heuristics.ItemBestCaseHeuristic;
 import com.msu.thief.io.thief.reader.ThiefSingleTSPLIBProblemReader;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
+import com.msu.thief.problems.ThiefProblemWithFixedTour;
+import com.msu.thief.util.ThiefUtil;
 import com.msu.thief.variable.pack.IntegerSetPackingList;
 import com.msu.thief.variable.tour.StandardTour;
 import com.msu.thief.variable.tour.Tour;
@@ -69,8 +75,11 @@ public class TourHeuristic {
 
 		double h = 0;
 		
+		double weight = 0;
 		for (Pair<Integer, Double> item : items) {
+			if (weight + thief.getItem(item.first).getWeight() > thief.getMaxWeight() * 5) break;
 			h += item.second;
+			weight += thief.getItem(item.first).getWeight();
 			//System.out.println(String.format("%s %f", item.first, item.second));
 		}
 
@@ -107,6 +116,15 @@ public class TourHeuristic {
 		System.out.println(calcHeuristic(thief, new StandardTour(bestTour)));
 		System.out.println(calcHeuristic(thief, new StandardTour(heuristicTour)));
 
+		Map<Integer, Double> s = new ItemBestCaseHeuristic(new ThiefProblemWithFixedTour(thief, new StandardTour(heuristicTour)), new Evaluator(100000)).calc();
+		s = ThiefUtil.sortByValue(s);
+		
+		System.out.println();
+		
+		for (Entry<Integer, Double> e : s.entrySet()) {
+			System.out.println(String.format("%s %s %s", e.getKey(),  thief.getItem(e.getKey()), e.getValue()));
+		}
+		
 	}
 
 }

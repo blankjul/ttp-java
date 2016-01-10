@@ -9,6 +9,7 @@ import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.operators.crossover.permutation.OrderedCrossover;
 import com.msu.operators.mutation.SwapMutation;
+import com.msu.soo.SingleObjectiveEvolutionaryAlgorithm;
 import com.msu.thief.algorithms.heuristic.TourHeuristicProblem;
 import com.msu.thief.algorithms.oneplusone.OnePlusOneEAFixedTour;
 import com.msu.thief.io.thief.reader.ThiefSingleTSPLIBProblemReader;
@@ -27,7 +28,7 @@ public class SwapTesterEvolution {
 
 		BasicConfigurator.configure();
 		
-		Builder<NSGAII> builder = new Builder<>(NSGAII.class);
+		Builder<SingleObjectiveEvolutionaryAlgorithm> builder = new Builder<>(SingleObjectiveEvolutionaryAlgorithm.class);
 		builder
 			.set("populationSize", 50)
 			.set("probMutation", 0.3)
@@ -36,14 +37,15 @@ public class SwapTesterEvolution {
 			.set("factory", new OptimalTourFactory())
 			.set("name", "NSGAII-TOUR-HEUR");
 		
-		NSGAII nsgaII = builder.build();
+		SingleObjectiveEvolutionaryAlgorithm nsgaII = builder.build();
 		
 		SingleObjectiveThiefProblem thief = (SingleObjectiveThiefProblem) new ThiefSingleTSPLIBProblemReader()
 				.read("../ttp-benchmark/TSPLIB/berlin52-ttp/berlin52_n51_bounded-strongly-corr_01.ttp");
 
 		MyRandom rand = new MyRandom(123456);
 		
-		NonDominatedSolutionSet set = nsgaII.run(new TourHeuristicProblem(thief), new Evaluator(5000000), rand);
+		NonDominatedSolutionSet set = nsgaII.run(new TourHeuristicProblem(thief), new Evaluator(5000), rand);
+		
 		
 		for (Solution s : set) {
 			

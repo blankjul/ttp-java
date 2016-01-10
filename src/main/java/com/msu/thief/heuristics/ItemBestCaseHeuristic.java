@@ -15,6 +15,8 @@ public class ItemBestCaseHeuristic extends ItemHeuristic{
 		super(problem, evaluator);
 	}
 
+	
+	
 	@Override
 	public Map<Integer, Double> calc(Collection<Integer> c) {
 		

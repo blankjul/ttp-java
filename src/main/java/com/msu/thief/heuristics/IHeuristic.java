@@ -5,6 +5,7 @@ import java.util.Map;
 
 public interface IHeuristic<T> {
 
+	public Map<T, Double> calc();
 	
 	public Map<T, Double> calc(Collection<T> c);
 	
