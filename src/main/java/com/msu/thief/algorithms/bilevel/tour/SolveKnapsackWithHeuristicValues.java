@@ -69,7 +69,6 @@ public class SolveKnapsackWithHeuristicValues
 			
 			Map<Integer, Solution> m = AlgorithmSingleObjectiveUtil.calcObjectiveRemoved(problem, eval, b);
 			
-			
 			List<Pair<Integer, Solution>> nextIndices = new ArrayList<>();
 			for (Entry<Integer, Solution> entry : m.entrySet()) {
 				if (new SolutionDominator().isDominating(entry.getValue(), best)) {

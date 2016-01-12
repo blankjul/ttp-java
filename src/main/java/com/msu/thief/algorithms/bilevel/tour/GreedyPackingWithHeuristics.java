@@ -14,7 +14,6 @@ import com.msu.moo.model.solution.Solution;
 import com.msu.moo.model.solution.SolutionSet;
 import com.msu.operators.crossover.UniformCrossover;
 import com.msu.operators.mutation.BitFlipMutation;
-import com.msu.operators.mutation.NoMutation;
 import com.msu.soo.SingleObjectiveEvolutionaryAlgorithm;
 import com.msu.thief.heuristics.ItemAverageCaseHeuristic;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;

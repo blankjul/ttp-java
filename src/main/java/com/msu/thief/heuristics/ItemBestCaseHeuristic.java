@@ -1,7 +1,9 @@
 package com.msu.thief.heuristics;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 import com.msu.interfaces.IEvaluator;
@@ -20,19 +22,19 @@ public class ItemBestCaseHeuristic extends ItemHeuristic{
 	@Override
 	public Map<Integer, Double> calc(Collection<Integer> c) {
 		
-		IntegerSetPackingList b =  new IntegerSetPackingList(problem.numOfItems());
-		Solution before = evaluator.evaluate(problem,b);
+		Solution before = evaluator.evaluate(problem,new IntegerSetPackingList(problem.numOfItems()));
 		
 		Map<Integer, Double> m = new HashMap<>();
 		
 		
 		for (Integer idx : c) {
 			
-			b.get().first.add(idx);
-			Solution current = evaluator.evaluate(problem,b);
-			b.get().first.remove(idx);
+			Solution current = evaluator.evaluate(problem,new IntegerSetPackingList(new HashSet<>(Arrays.asList(idx)), problem.numOfItems()));
 			
 			Double value = before.getObjectives(0) - current.getObjectives(0);
+			
+			// double weight = problem.getItems().get(idx).getWeight();
+			
 			m.put(idx, value);
 		}
 		

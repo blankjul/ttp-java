@@ -1,12 +1,12 @@
 package com.msu.thief.algorithms.oneplusone;
 
 import com.msu.interfaces.IEvaluator;
-import com.msu.interfaces.IVariable;
 import com.msu.model.AbstractSingleObjectiveDomainAlgorithm;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.operators.mutation.BitFlipMutation;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
+import com.msu.thief.variable.pack.PackingList;
 import com.msu.thief.variable.pack.factory.EmptyPackingListFactory;
 import com.msu.util.MyRandom;
 
@@ -18,14 +18,29 @@ import com.msu.util.MyRandom;
 public class OnePlusOneEAFixedTour extends AbstractSingleObjectiveDomainAlgorithm<ThiefProblemWithFixedTour>   {
 
 
+	protected PackingList<?> best = null;
+	
+	
+	public OnePlusOneEAFixedTour() {
+		super();
+	}
+
+
+	public OnePlusOneEAFixedTour(PackingList<?> best) {
+		super();
+		this.best = best;
+	}
+
+
+
 	@Override
 	public Solution run___(ThiefProblemWithFixedTour problem, IEvaluator eval, MyRandom rand) {
 		
-		IVariable best = new EmptyPackingListFactory().next(problem, rand);
+		if (best == null) best = new EmptyPackingListFactory().next(problem, rand);
 		NonDominatedSolutionSet set = new NonDominatedSolutionSet();
 
 		while (eval.hasNext()) {
-			IVariable next = new BitFlipMutation().mutate(best.copy(), problem, rand);
+			PackingList<?> next = (PackingList<?>) new BitFlipMutation().mutate(best.copy(), problem, rand);
 			// check if this solution is better
 			Solution s = eval.evaluate(problem, next);
 			boolean isOptimal = set.add(s);

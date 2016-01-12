@@ -50,6 +50,7 @@ public class ItemAverageCaseHeuristic extends ItemHeuristic{
 			
 			double R = ((SingleObjectiveThiefProblem) problem.getProblem()).getR();
 			double value = problem.getItems().get(idx).getProfit() - R * deltaTime;
+			
 			m.put(idx, value);
 		}
 		

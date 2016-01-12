@@ -32,7 +32,6 @@ public class AlgorithmSingleObjectiveUtil {
 		for (Integer idx : itemsToAdd) {
 			if (pack.isPicked(idx)) 
 				throw new RuntimeException(String.format("Item %s can not be added because it is part of the knapsack.", idx));
-			if (!eval.hasNext()) break;
 			hash.put(idx, evaluateWhenBitfipped(problem, eval, pack, idx));
 		}
 		return hash;

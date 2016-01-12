@@ -11,7 +11,9 @@ import java.util.Map.Entry;
 import org.apache.log4j.BasicConfigurator;
 
 import com.msu.model.Evaluator;
-import com.msu.thief.heuristics.ItemBestCaseHeuristic;
+import com.msu.moo.model.solution.Solution;
+import com.msu.thief.algorithms.bilevel.tour.HeuristicFromLastCityAlgorithm;
+import com.msu.thief.heuristics.ItemWorstCaseHeuristic;
 import com.msu.thief.io.thief.reader.ThiefSingleTSPLIBProblemReader;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
@@ -38,6 +40,9 @@ public class TourHeuristic {
 			new HashSet<Integer>(Arrays.asList(0, 32, 1, 33, 2, 34, 3, 42, 48, 17, 49, 18, 50, 19, 20)), 51);
 
 	
+	public static IntegerSetPackingList bestPack = new IntegerSetPackingList(
+			new HashSet<Integer>(Arrays.asList(0, 1, 2, 3, 42, 15, 16, 48, 17, 49, 18, 50, 19, 20, 29)), 51);
+
 	
 	public static double calcHeuristic(SingleObjectiveThiefProblem thief, Tour<?> tour) {
 
@@ -116,15 +121,20 @@ public class TourHeuristic {
 		System.out.println(calcHeuristic(thief, new StandardTour(bestTour)));
 		System.out.println(calcHeuristic(thief, new StandardTour(heuristicTour)));
 
-		Map<Integer, Double> s = new ItemBestCaseHeuristic(new ThiefProblemWithFixedTour(thief, new StandardTour(heuristicTour)), new Evaluator(100000)).calc();
+		Map<Integer, Double> s = new ItemWorstCaseHeuristic(new ThiefProblemWithFixedTour(thief, new StandardTour(bestTour)), new Evaluator(100000)).calc();
 		s = ThiefUtil.sortByValue(s);
 		
 		System.out.println();
 		
 		for (Entry<Integer, Double> e : s.entrySet()) {
+			if (bestPack.isPicked(e.getKey())) System.out.print("-- > ");
 			System.out.println(String.format("%s %s %s", e.getKey(),  thief.getItem(e.getKey()), e.getValue()));
 		}
 		
+		System.out.println();
+		System.out.println("HeuristicFromLastCityAlgorithm");
+		Solution h = new HeuristicFromLastCityAlgorithm().run___(new ThiefProblemWithFixedTour(thief, new StandardTour(bestTour)), new Evaluator(10000000), rand);
+		System.out.println(h);
 	}
 
 }

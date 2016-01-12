@@ -5,6 +5,7 @@ import java.util.List;
 import com.msu.model.AProblem;
 import com.msu.moo.model.solution.Solution;
 import com.msu.thief.model.Item;
+import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.variable.TTPVariable;
 import com.msu.thief.variable.pack.PackingList;
@@ -91,6 +92,10 @@ public class ThiefProblemWithFixedTour extends AProblem<PackingList<?>>  impleme
 	public void setToMultiObjective(boolean b) {
 		if (problem instanceof SingleObjectiveThiefProblem) 
 			((SingleObjectiveThiefProblem)problem).setToMultiObjective(b);
+	}
+	
+	public ItemCollection<Item> getItemCollection() {
+		return problem.getItemCollection();
 	}
 
 	

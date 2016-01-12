@@ -48,15 +48,13 @@ public class ThiefSingleObjectiveEvolutionaryAlgorithm extends ASingleObjectiveA
 		// initialize random population
 		SolutionSet population = new SolutionSet(populationSize);
 
-		Tour<?> bestTour = AlgorithmUtil.calcBestTour(problem);
-
 		for (int i = 0; i < populationSize; i++) {
 			Solution s = evaluator.evaluate(problem,factory.next(problem, rand));
 			population.add(s);
 		}
 		
 		while (evaluator.hasNext()) {
-			population = next(population, rand, evaluator, problem, bestTour);
+			population = next(population, rand, evaluator, problem);
 			
 			for (Solution solution : population.subList(0, Math.min(5, population.size()))) {
 				System.out.println(solution);
@@ -69,8 +67,8 @@ public class ThiefSingleObjectiveEvolutionaryAlgorithm extends ASingleObjectiveA
 
 	}
 
-	protected SolutionSet next(SolutionSet population, MyRandom rand, IEvaluator evaluator, IProblem problem,
-			Tour<?> tour) {
+	protected SolutionSet next(SolutionSet population, MyRandom rand, IEvaluator evaluator, IProblem problem) {
+		
 		// mating with random selection of the best 20 percent
 		SolutionSet offsprings = new SolutionSet(populationSize);
 
@@ -95,10 +93,11 @@ public class ThiefSingleObjectiveEvolutionaryAlgorithm extends ASingleObjectiveA
 			for (IVariable v : vars) {
 				if (rand.nextDouble() < probMutation) v = mutation.mutate(v, problem, rand);
 				
-				Solution next = new OnePlusOneEAFixedTour().run__(new ThiefProblemWithFixedTour((AbstractThiefProblem) problem, (Tour<?>) tour), new Evaluator(10000), rand);
+				PackingList<?> pack = ((TTPVariable) selector.next().getVariable()).getPackingList();
 				
-				offsprings.add(evaluator.evaluate(problem, new TTPVariable(tour, (PackingList<?>)next.getVariable())));
+				Solution next = new OnePlusOneEAFixedTour().run__(new ThiefProblemWithFixedTour((AbstractThiefProblem) problem, (Tour<?>) v), new Evaluator(5000), rand);
 				
+				offsprings.add(evaluator.evaluate(problem, new TTPVariable((Tour<?>) v, (PackingList<?>)next.getVariable())));
 			}
 		}
 
@@ -110,6 +109,8 @@ public class ThiefSingleObjectiveEvolutionaryAlgorithm extends ASingleObjectiveA
 		sortBySingleObjective(population);
 		population = new SolutionSet(population.subList(0, Math.min(population.size(), populationSize)));
 
+		System.out.println(evaluator.numOfEvaluations());
+		
 		return population;
 		
 
