@@ -1,4 +1,4 @@
-package com.msu.io;
+package com.msu.thief.io;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -7,18 +7,18 @@ import org.apache.log4j.BasicConfigurator;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.msu.thief.io.thief.reader.ThiefSingleObjectiveReader;
+import com.msu.thief.io.thief.reader.ThiefSingleTSPLIBProblemReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 
-public class JsonThiefSingleObjectiveReaderTest {
+public class ThiefSingleTSPProblemReaderTest {
 
 	protected static SingleObjectiveThiefProblem problem;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		BasicConfigurator.configure();
-		ThiefSingleObjectiveReader reader = new ThiefSingleObjectiveReader();
-		problem = reader.read("resources/TTP_SO_10_3_1_25.txt");
+		ThiefSingleTSPLIBProblemReader reader = new ThiefSingleTSPLIBProblemReader();
+		problem = reader.read("resources/TTP_TSPLIB_berlin52_n51_bounded-strongly-corr_01.ttp");
 	}
 	
 	@Test
@@ -26,10 +26,15 @@ public class JsonThiefSingleObjectiveReaderTest {
 		assertNotNull(problem);
 	}
 	
-
 	@Test
 	public void testNumOfCities() {
-		assertEquals(10, problem.numOfCities());
+		assertEquals(52, problem.numOfCities());
+	}
+	
+	
+	@Test
+	public void testDistanceBetweenFirstAndSecondCorrect() {
+		assertEquals(666, problem.getMap().get(0, 1),0.01);
 	}
 	
 	@Test
@@ -40,26 +45,12 @@ public class JsonThiefSingleObjectiveReaderTest {
 	
 	@Test
 	public void testR() {
-		assertEquals(13.67, problem.getR(), 0.01);
+		assertEquals(0.31, problem.getR(), 0.01);
 	}
-
 	@Test
-	public void testDistanceFirstAndSecond() {
-		assertEquals(3.3660, problem.getMap().get(0, 1), 0.01);
+	public void testMaximalWeight() {
+		assertEquals(4046, problem.getMaxWeight());
 	}
-	
-	@Test
-	public void testNumberOfItems() {
-		assertEquals(19, problem.numOfItems());
-	}
-	
-	@Test
-	public void testName() {
-		assertEquals("TTP_SO_10_3_1_25", problem.getName());
-	}
-	
-	
-	
 	
 	
 	

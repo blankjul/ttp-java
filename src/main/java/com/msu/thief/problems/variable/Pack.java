@@ -17,7 +17,7 @@ import com.msu.thief.util.StringUtil;
  * in comparison to a boolean vector.
  * 
  */
-public class Pack  {
+public class Pack {
 
 	
 	//! all items which are picked up

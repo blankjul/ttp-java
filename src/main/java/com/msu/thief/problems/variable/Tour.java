@@ -38,6 +38,14 @@ public class Tour {
 	public int ith(int idx) {
 		return list.get(idx);
 	}
+	
+	
+	/**
+	 * @return number of cities which are visited
+	 */
+	public int numOfCities() {
+		return list.size();
+	}
 
 	/**
 	 * @return the symmetric tour
@@ -92,6 +100,12 @@ public class Tour {
 		// no values twice
 		return true;
 	}
+
+	
+	public void set(List<Integer> list) {
+		this.list = list;
+	}
+
 
 	/**
 	 * Checks whether the tour is valid. The city size has to match, it has to

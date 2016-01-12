@@ -1,4 +1,4 @@
-package com.msu.io;
+package com.msu.thief.io;
 
 import static org.junit.Assert.*;
 
