@@ -9,7 +9,11 @@ public class StringUtil {
 		s = s.replace("[", "").replace("]", "");
 		String[] values = s.split(",");
 		List<Integer> l = new ArrayList<>();
-		for (String value : values) l.add(Integer.valueOf(value.trim()));
+		for (String value : values) {
+			value = value.trim();
+			if (value.equals("")) continue;
+			l.add(Integer.valueOf(value));
+		}
 		return l;
 	}
 	

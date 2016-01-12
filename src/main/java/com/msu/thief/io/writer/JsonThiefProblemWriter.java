@@ -11,24 +11,23 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
 import com.msu.thief.evaluator.profit.NoDroppingEvaluator;
 import com.msu.thief.evaluator.time.StandardTimeEvaluator;
-import com.msu.thief.io.AProblemWriter;
 import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.thief.problems.AbstractThiefProblem;
+import com.msu.util.io.AWriter;
 
-public class JsonThiefProblemWriter extends AProblemWriter<AbstractThiefProblem> {
+public class JsonThiefProblemWriter extends AWriter<SingleObjectiveThiefProblem> {
 
 
 	@Override
-	protected void write_(AbstractThiefProblem p, OutputStream os) throws IOException {
+	protected void write_(SingleObjectiveThiefProblem p, OutputStream os) throws IOException {
 		JsonGenerator json = new JsonFactory().createGenerator(os, JsonEncoding.UTF8).useDefaultPrettyPrinter();
 		
 		boolean isSingleObjective = p instanceof SingleObjectiveThiefProblem;
 		
 		json.writeStartObject();
-		json.writeObjectField("name", p.getName());
+		//json.writeObjectField("name", p.getName());
 		
 		String type = (isSingleObjective) ? "SingleObjective" : "MultiObjective";
 		json.writeObjectField("problemType", type);
@@ -39,7 +38,6 @@ public class JsonThiefProblemWriter extends AProblemWriter<AbstractThiefProblem>
 		json.writeObjectField("minSpeed", p.getMinSpeed());
 		json.writeObjectField("maxSpeed", p.getMaxSpeed());
 		json.writeObjectField("maxWeight", p.getMaxWeight());
-		json.writeObjectField("startingCityIsZero", p.isStartingCityIsZero());
 		
 		if (isSingleObjective) json.writeObjectField("R", ((SingleObjectiveThiefProblem)p).getR());
 		

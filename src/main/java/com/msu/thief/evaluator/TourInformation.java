@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.msu.thief.problems.AbstractThiefProblem;
-import com.msu.thief.variable.TTPVariable;
+import com.msu.thief.problems.variable.TTPVariable;
 
 /**
  * This class provides advanced information of the time evaluation.
@@ -58,21 +58,6 @@ public class TourInformation {
 		return time;
 	}
 
-	public double getTimeAtCity(int city) {
-		if (mCities == null) mCities = variable.getTour().getAsHash();
-		int idx = mCities.get(city);
-		return timeAtCities.get(idx);
-	}
-
-	public double getSpeedAtCity(int city) {
-		if (mCities == null) mCities = variable.getTour().getAsHash();
-		return speedAtCities.get(mCities.get(city));
-	}
-	
-	public double getWeightAtCity(int city) {
-		if (mCities == null) mCities = variable.getTour().getAsHash();
-		return weightAtCities.get(mCities.get(city));
-	}
 
 	/**
 	 * @return list of the speeds. the order is according to the tour.
@@ -93,6 +78,22 @@ public class TourInformation {
 	 */
 	public List<Double> getWeightAtCities() {
 		return weightAtCities;
+	}
+	
+	public double getTimeAtCity(int city) {
+		if (mCities == null) mCities = variable.getTour().getAsHash();
+		int idx = mCities.get(city);
+		return timeAtCities.get(idx);
+	}
+
+	public double getSpeedAtCity(int city) {
+		if (mCities == null) mCities = variable.getTour().getAsHash();
+		return speedAtCities.get(mCities.get(city));
+	}
+	
+	public double getWeightAtCity(int city) {
+		if (mCities == null) mCities = variable.getTour().getAsHash();
+		return weightAtCities.get(mCities.get(city));
 	}
 
 

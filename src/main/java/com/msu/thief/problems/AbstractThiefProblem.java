@@ -1,6 +1,5 @@
 package com.msu.thief.problems;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -13,13 +12,9 @@ import com.msu.thief.evaluator.time.TimeEvaluator;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
-import com.msu.thief.variable.TTPVariable;
-import com.msu.thief.variable.pack.PackingList;
-import com.msu.thief.variable.tour.StandardTour;
-import com.msu.thief.variable.tour.Tour;
-import com.msu.util.exceptions.EvaluationException;
+import com.msu.thief.problems.variable.TTPVariable;
 
-public abstract class AbstractThiefProblem extends AProblem<TTPVariable> implements IPackingProblem, ICityProblem {
+public abstract class AbstractThiefProblem  extends AProblem<TTPVariable>{
 	
 	static final Logger logger = Logger.getLogger(AbstractThiefProblem.class);
 	
@@ -42,10 +37,7 @@ public abstract class AbstractThiefProblem extends AProblem<TTPVariable> impleme
 	// ! items and hash for storing the items and the mapping to the cities!
 	protected ItemCollection<Item> items;
 	
-	//! value for fixing the starting city at each evaluation
-	protected boolean startingCityIsZero = true;
 
-	
 	public AbstractThiefProblem() {
 	}
 
@@ -64,19 +56,6 @@ public abstract class AbstractThiefProblem extends AProblem<TTPVariable> impleme
 		return items.size();
 	}
 
-	
-	public void checkTour(Tour<?> tour) {
-		List<Integer> pi = tour.encode();
-		SalesmanProblem.checkTourSize(map.getSize(), pi);
-		SalesmanProblem.checkTourValidtiy(pi);
-	}
-	
-	public void checkPackingList(PackingList<?> list) {
-    	final int length = list.encode().size();
-		if (length != numOfItems()) 
-			throw new EvaluationException(String.format("Probem has %s items but picking vector only %s", numOfItems(), length));
-	}
-	
 	public SymmetricMap getMap() {
 		return map;
 	}
@@ -133,7 +112,6 @@ public abstract class AbstractThiefProblem extends AProblem<TTPVariable> impleme
 		this.maxSpeed = maxSpeed;
 	}
 
-	@Override
 	public List<Item> getItems() {
 		return items.asList();
 	}
@@ -142,29 +120,6 @@ public abstract class AbstractThiefProblem extends AProblem<TTPVariable> impleme
 		return items.asList().get(idx);
 	}
 
-	public boolean isStartingCityIsZero() {
-		return startingCityIsZero;
-	}
-
-	public void setStartingCityIsZero(boolean fixStartingCitiy) {
-		this.startingCityIsZero = fixStartingCitiy;
-	}
-	
-	
-	public static StandardTour rotateToCityZero(Tour<?> var, boolean log) {
-		List<Integer> tour = var.encode();
-		
-		if (!tour.contains(0)) 
-			throw new RuntimeException("Failed to start at city 0. It's not included at the tour!");
-		int index = tour.indexOf(0);
-		
-		if (index != 0) {
-			if (log) logger.info(String.format("Rotating city 0 to the first position: %s", tour));
-			Collections.rotate(tour, -index);
-		}
-		return new StandardTour(tour);
-	}
-	
 
 	
 	

@@ -8,8 +8,8 @@ import com.msu.thief.evaluator.PackingInformation;
 import com.msu.thief.evaluator.TourInformation;
 import com.msu.thief.model.Item;
 import com.msu.thief.problems.AbstractThiefProblem;
-import com.msu.thief.variable.pack.PackingList;
-import com.msu.thief.variable.tour.Tour;
+import com.msu.thief.problems.variable.Pack;
+import com.msu.thief.problems.variable.Tour;
 
 /**
  * The ProfitCalculator provides an interface for calculating the profit. For
@@ -17,13 +17,14 @@ import com.msu.thief.variable.tour.Tour;
  */
 public abstract class ProfitEvaluator  {
 	
-	public double evaluate(AbstractThiefProblem problem, Tour<?> tour, PackingList<?> pack, TourInformation info) {
+	public double evaluate(AbstractThiefProblem problem, Tour tour, Pack pack, TourInformation info) {
 		return evaluate_(problem, tour, pack, info).getProfit();
 	}
 	
-	public PackingInformation evaluate_(AbstractThiefProblem problem, Tour<?> tour, PackingList<?> pack, TourInformation info) {
+	public PackingInformation evaluate_(AbstractThiefProblem problem, Tour tour, Pack pack, TourInformation info) {
 		double profit = 0;
 		double weight = 0;
+		
 		List<ItemInformation> items = new ArrayList<>();
 
 		for (Integer idx : pack.toIndexSet()) {

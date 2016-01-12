@@ -45,7 +45,6 @@ public class JsonThiefProblemReader extends AReader<AbstractThiefProblem> {
 		p.setMinSpeed(root.findValue("minSpeed").asDouble());
 		p.setMaxSpeed(root.findValue("maxSpeed").asDouble());
 		p.setMaxWeight(root.findValue("maxWeight").asInt());
-		p.setStartingCityIsZero(root.findValue("startingCityIsZero").asBoolean());
 
 		JsonNode profitNode = root.findValue("profitEvaluator");
 		String profitEval = profitNode.findValue("type").asText();

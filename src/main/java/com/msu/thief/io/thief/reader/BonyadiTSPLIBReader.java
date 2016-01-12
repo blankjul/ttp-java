@@ -61,7 +61,6 @@ public class BonyadiTSPLIBReader extends AProblemReader<SingleObjectiveThiefProb
 		map.round(new RoundingNearestInt());
 		ttp.setMap(map);
 		ttp.setItems(items);
-		ttp.setStartingCityIsZero(true);
 		
 		return ttp;
 	}

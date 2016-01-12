@@ -27,7 +27,6 @@ public class BonyadiSingleObjectiveReader extends ABonyadiReader<SingleObjective
 		ttp.setItems(parseItems(br, numOfItems, numOfCities));
 
 		br.close();
-		ttp.setStartingCityIsZero(true);
 		return ttp;
 	}
 

@@ -22,7 +22,6 @@ public class PackingInformation {
 	}
 
 
-
 	public ItemInformation getItemInformation(int idx) {
 		return itemsInfo.get(idx);
 	}

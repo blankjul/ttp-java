@@ -9,9 +9,9 @@ import com.msu.thief.evaluator.TourInformation;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
-import com.msu.thief.variable.TTPVariable;
-import com.msu.thief.variable.pack.PackingList;
-import com.msu.thief.variable.tour.Tour;
+import com.msu.thief.problems.variable.Pack;
+import com.msu.thief.problems.variable.TTPVariable;
+import com.msu.thief.problems.variable.Tour;
 
 public class ThiefProblem extends AbstractThiefProblem {
 	
@@ -26,34 +26,6 @@ public class ThiefProblem extends AbstractThiefProblem {
 		super(map, items, maxWeight);
 	}
 	
-
-	@Override
-	protected void evaluate_(TTPVariable var, List<Double> objectives, List<Double> constraintViolations) {
-		
-		// check for the correct input before using evaluator
-		Tour<?> tour = var.getTour();
-		PackingList<?> pack = var.getPackingList();
-		
-		checkTour(tour);
-		checkPackingList(pack);
-		
-		// fix the starting city if necessary
-		if (startingCityIsZero) tour = rotateToCityZero(tour, true);
-		
-		// use the evaluators to calculate the result
-		
-		TourInformation tourInfo = evalTime.evaluate_(this, tour, pack);
-		objectives.add(tourInfo.getTime());
-		
-		PackingInformation packInfo = evalProfit.evaluate_(this, tour, pack, tourInfo);
-		objectives.add(- packInfo.getProfit());
-		
-		// look for constraints
-		final double weight = packInfo.getWeight();
-		if (weight <= getMaxWeight()) constraintViolations.add(0d);
-		else  constraintViolations.add(weight - getMaxWeight()); 
-		
-	}
 	
 	@Override
 	public int getNumberOfObjectives() {
@@ -64,6 +36,28 @@ public class ThiefProblem extends AbstractThiefProblem {
 	@Override
 	public int getNumberOfConstraints() {
 		return 1;
+	}
+
+
+	
+	@Override
+	protected void evaluate_(TTPVariable var, List<Double> objectives, List<Double> constraintViolations) {
+		
+		Tour t = var.getTour();
+		Pack p = var.getPack();
+		
+		t.validate(this.numOfCities());
+		p.validate(this.numOfItems());
+		
+		TourInformation tourInfo = evalTime.evaluate_(this, t, p);
+		objectives.add(tourInfo.getTime());
+		
+		PackingInformation packInfo = evalProfit.evaluate_(this, t, p, tourInfo);
+		objectives.add(- packInfo.getProfit());
+
+		final double weight = packInfo.getWeight();
+		constraintViolations.add(Math.max(0, weight - getMaxWeight()));
+		
 	}
 	
 

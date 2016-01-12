@@ -33,7 +33,6 @@ public class BonyadiMultiObjectiveReader extends ABonyadiReader<AbstractThiefPro
 		ttp.setItems(parseItems(br, numOfItems, numOfCities));
 
 		br.close();
-		ttp.setStartingCityIsZero(true);
 		return ttp;
 	}
 
