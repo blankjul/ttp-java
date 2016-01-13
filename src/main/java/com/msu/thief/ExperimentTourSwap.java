@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
 
@@ -49,62 +48,52 @@ public class ExperimentTourSwap {
 				rand);
 
 		System.out.println(best);
-
+		
+		
 		final int SIZE_OF_POOL = 20;
 
+		
 		boolean improvement = true;
 		double time = new StandardTimeEvaluator().evaluate(thief, tour, Pack.empty());
-
+		
 		PrintWriter writer = new PrintWriter("data.csv", "UTF-8");
+		
+		
+		//while (improvement) {
 
-		class Swap {
-			final public int i;
-			final public int j;
-			final public double time;
+			improvement = false;
 
-			public Swap(int i, int j, double time) {
-				super();
-				this.i = i;
-				this.j = j;
-				this.time = time;
-			}
-		}
+			
+			outer: 
+				for (int i = thief.numOfCities() - 1; i > 0; i--) {
 
-		// while (improvement) {
+				for (int k = i - 1; k > 0; k--) {
 
-		improvement = false;
+					Tour next = ((TTPVariable) best.getVariable()).getTour().copy();
+					
+					double nextTime = ThiefSwapMutation.swapDeltaTime(next, i, k, time, thief.getMap());
+					ThiefSwapMutation.swap(next, i, k);
+					//double nextTime = new StandardTimeEvaluator().evaluate(thief, next, Pack.empty());
+					
+					
+					Solution opt = new EvolutionOnRelevantItems()
+							.run_(new FixedTourSingleObjectiveThiefProblem(thief, next), eval, rand);
+					
+					writer.println(String.format("%s,%s,%s", nextTime, opt.getObjective(0), i, k));
 
-		List<Swap> nextSwaps = new ArrayList<>();
+					
+					if (new SolutionDominatorWithConstraints().isDominating(opt, best)) {
+						best = opt;
+						System.out.println(String.format("%s %s %s swap %s", nextTime, best.getObjective(0), i, k, next));
+						improvement = true;
+						//break outer;
+					}
 
-		outer: for (int i = thief.numOfCities() - 1; i > 0; i--) {
-
-			for (int k = i - 1; k > 0; k--) {
-
-				Tour next = ((TTPVariable) best.getVariable()).getTour().copy();
-
-				double nextTime = ThiefSwapMutation.swapDeltaTime(next, i, k, time, thief.getMap());
-				ThiefSwapMutation.swap(next, i, k);
-				// double nextTime = new StandardTimeEvaluator().evaluate(thief,
-				// next, Pack.empty());
-				
-				//nextSwaps.add(new Swap(i, j, nextTime))
-
-				Solution opt = new EvolutionOnRelevantItems()
-						.run_(new FixedTourSingleObjectiveThiefProblem(thief, next), eval, rand);
-
-				writer.println(String.format("%s,%s,%s", nextTime, opt.getObjective(0), i, k));
-
-				if (new SolutionDominatorWithConstraints().isDominating(opt, best)) {
-					best = opt;
-					System.out.println(String.format("%s %s %s swap %s", nextTime, best.getObjective(0), i, k, next));
-					improvement = true;
-					// break outer;
 				}
-
 			}
-		}
-
-		// }
+			
+			
+		//}
 
 		System.out.println(best);
 		writer.close();
