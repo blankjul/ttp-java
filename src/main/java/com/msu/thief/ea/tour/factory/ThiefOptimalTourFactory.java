@@ -6,19 +6,19 @@ import com.msu.thief.problems.variable.Tour;
 import com.msu.util.MyRandom;
 
 
-public class OptimalTourFactory extends TourFactory {
+public class ThiefOptimalTourFactory extends TourFactory {
 
 	protected Tour best;
 	protected Tour sym;
 	
 	
-	public OptimalTourFactory(AbstractThiefProblem problem, MyRandom rand) {
-		super(problem, rand);
+	@Override
+	public void initialize(AbstractThiefProblem problem, MyRandom rand) {
+		super.initialize(problem, rand);
 		best = AlgorithmUtil.calcBestTour(problem);
 		sym = best.getSymmetric();
 	}
 
-	
 	@Override
 	public Tour create() {
 		if (rand.nextDouble() < 0.5) return best.copy();
@@ -30,6 +30,7 @@ public class OptimalTourFactory extends TourFactory {
 	public boolean hasNext() {
 		return true;
 	}
+	
 	
 
 

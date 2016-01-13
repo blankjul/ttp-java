@@ -4,7 +4,7 @@ import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.variable.Pack;
 import com.msu.util.MyRandom;
 
-public class BitflipMutation implements PackMutation {
+public class ThiefBitflipMutation implements PackMutation {
 
 	@Override
 	public void mutate(AbstractThiefProblem problem, MyRandom rand, Pack p) {

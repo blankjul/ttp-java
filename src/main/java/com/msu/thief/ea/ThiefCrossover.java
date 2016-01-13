@@ -13,7 +13,7 @@ import com.msu.thief.problems.variable.TTPVariable;
 import com.msu.thief.problems.variable.Tour;
 import com.msu.util.MyRandom;
 
-public class TTPCrossover {
+public class ThiefCrossover {
 
 	//! crossover for the tour
 	protected TourCrossover cTour = null;
@@ -22,7 +22,7 @@ public class TTPCrossover {
 	protected PackCrossover cPack = null;
 
 	
-	public TTPCrossover(TourCrossover cTour, PackCrossover cPack) {
+	public ThiefCrossover(TourCrossover cTour, PackCrossover cPack) {
 		super();
 		this.cTour = cTour;
 		this.cPack = cPack;

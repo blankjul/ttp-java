@@ -4,18 +4,51 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.msu.thief.ea.RecombinationUtil;
+import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.variable.Tour;
 import com.msu.util.MyRandom;
 import com.msu.util.Pair;
 
-public class SwapMutation implements TourMutation {
+public class ThiefSwapMutation implements TourMutation {
 
 
 	@Override
 	public void mutate(AbstractThiefProblem problem, MyRandom rand, Tour p) {
 		Pair<Integer, Integer> bounds = RecombinationUtil.calcBounds(rand, 1, p.numOfCities());
 		swap(p, bounds.first, bounds.second);
+		
+	}
+	
+	public static double swapDeltaTime(Tour t, int i, int j, double timeForTour, SymmetricMap map) {
+		
+		if (j < i) {
+			int tmp = i;
+			i = j;
+			j = tmp;
+		}
+		
+		final int numOfCities = map.getSize();
+		
+		double time = timeForTour;
+		
+		// if swap over all cities time does not change
+		if (i == 0 && j >= numOfCities - 1) {
+			return timeForTour;
+		}
+		
+		// get the position before swap x x _ s s s x x x
+		final int beforeSwap = (i != 0) ? i - 1 : numOfCities - 1;
+		time -= map.get(t.ith(beforeSwap),t.ith(i));
+		
+		// get the position after swap x x s s s s _ x x
+		final int afterSwap = (j + 1) % numOfCities;
+		time -= map.get(t.ith(j),t.ith(afterSwap));
+		
+		time += map.get(t.ith(beforeSwap), t.ith(j));
+		time += map.get(t.ith(i), t.ith(afterSwap));
+		
+		return time;
 		
 	}
 	
@@ -51,6 +84,7 @@ public class SwapMutation implements TourMutation {
 		
 	}
 
-	
+
+
 	
 }

@@ -7,7 +7,7 @@ import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.variable.Pack;
 import com.msu.util.MyRandom;
 
-public class UniformCrossover implements PackCrossover{
+public class ThiefUniformCrossover implements PackCrossover{
 
 	
 	@Override

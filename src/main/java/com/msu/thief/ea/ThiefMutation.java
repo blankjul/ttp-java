@@ -7,7 +7,7 @@ import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.variable.TTPVariable;
 import com.msu.util.MyRandom;
 
-public class TTPMutation {
+public class ThiefMutation {
 
 	//! crossover for the tour
 	protected TourMutation mTour;
@@ -16,7 +16,7 @@ public class TTPMutation {
 	protected PackMutation mPack;
 
 	
-	public TTPMutation(TourMutation mTour, PackMutation mPack) {
+	public ThiefMutation(TourMutation mTour, PackMutation mPack) {
 		super();
 		this.mTour = mTour;
 		this.mPack = mPack;

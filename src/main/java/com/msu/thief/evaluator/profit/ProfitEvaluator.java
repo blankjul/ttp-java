@@ -27,7 +27,7 @@ public abstract class ProfitEvaluator  {
 		
 		List<ItemInformation> items = new ArrayList<>();
 
-		for (Integer idx : pack.toIndexSet()) {
+		for (Integer idx : pack.encode()) {
 			Item item = problem.getItem(idx);
 			weight += item.getWeight();
 			

@@ -12,7 +12,7 @@ import com.msu.thief.problems.variable.Tour;
 import com.msu.util.MyRandom;
 import com.msu.util.Pair;
 
-public class OrderedCrossover implements TourCrossover{
+public class ThiefOrderedCrossover implements TourCrossover{
 
 	
 	@Override

@@ -22,20 +22,23 @@ import com.msu.util.Util;
  * to pack.
  *
  */
-public class PackOneItemFactory extends PackFactory {
+public class ThiefPackOneItemFactory extends PackFactory {
 
 	
 	//! pool with all the items
 	protected LinkedList<Pack> pool = new LinkedList<>();
 	
 	
-	public PackOneItemFactory(AbstractThiefProblem problem, MyRandom rand) {
-		this(problem, rand, Util.createIndex(problem.numOfItems()));
-		
+	
+	@Override
+	public void initialize(AbstractThiefProblem problem, MyRandom rand) {
+		initialize(problem, rand, Util.createIndex(problem.numOfItems()));
 	}
 
-	public PackOneItemFactory(AbstractThiefProblem problem, MyRandom rand, Collection<Integer> items) {
-		super(problem, rand);
+
+	public void initialize(AbstractThiefProblem problem, MyRandom rand, Collection<Integer> items) {
+		
+		super.initialize(problem, rand);
 		
 		for (int i : items) {
 			Pack p = new Pack(i);
@@ -45,6 +48,8 @@ public class PackOneItemFactory extends PackFactory {
 		rand.shuffle(pool);
 	}
 	
+	
+
 	@Override
 	public Pack create() {
 		if (pool.isEmpty()) throw new RuntimeException("Factory can not provide more entries.");

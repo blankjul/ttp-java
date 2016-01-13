@@ -86,13 +86,6 @@ public class Pack implements IVariable{
 	}
 	
 
-	/**
-	 * @return items as a hash set
-	 */
-	public Set<Integer> toIndexSet() {
-		return items;
-	}
-
 	@Override
 	public String toString() {
 		return Arrays.toString(items.toArray());
@@ -203,6 +196,10 @@ public class Pack implements IVariable{
 	@Override
 	public <V extends IVariable> V cast(Class<V> clazz) {
 		return null;
+	}
+	
+	public static Pack empty() {
+		return new Pack();
 	}
 	
 	

@@ -9,14 +9,13 @@ public abstract class AFactory<T> implements Factory<T> {
 	protected AbstractThiefProblem problem; 
 	protected MyRandom rand;
 	
-	
-	public AFactory(AbstractThiefProblem problem, MyRandom rand) {
-		super();
+
+	@Override
+	public void initialize(AbstractThiefProblem problem, MyRandom rand) {
 		this.problem = problem;
 		this.rand = rand;
 	}
 	
-	
-	
+
 	
 }
