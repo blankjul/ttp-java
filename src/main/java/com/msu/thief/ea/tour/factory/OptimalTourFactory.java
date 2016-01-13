@@ -8,18 +8,21 @@ import com.msu.util.MyRandom;
 
 public class OptimalTourFactory extends TourFactory {
 
-	
 	protected Tour best;
+	protected Tour sym;
+	
 	
 	public OptimalTourFactory(AbstractThiefProblem problem, MyRandom rand) {
 		super(problem, rand);
 		best = AlgorithmUtil.calcBestTour(problem);
+		sym = best.getSymmetric();
 	}
 
 	
 	@Override
 	public Tour create() {
-		return best.copy();
+		if (rand.nextDouble() < 0.5) return best.copy();
+		else return sym.copy();
 	}
 
 	

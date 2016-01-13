@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.UUID;
 
 import com.msu.interfaces.IEvaluator;
-import com.msu.interfaces.IProblem;
 import com.msu.thief.ThiefConfiguration;
 import com.msu.thief.model.Item;
 import com.msu.thief.problems.AbstractThiefProblem;
@@ -29,13 +28,13 @@ public class KnapsackCombo  {
 	}
 
 	
-	public static Pack getPackingList(IProblem problem, IEvaluator eval) {
+	public static Pack getPackingList(AbstractThiefProblem problem, IEvaluator eval, int maxWeight) {
 		//String command = getCommand((KnapsackProblem) eval.getProblem());
 		
 		try {
 			String file = String.format("%s.knp", UUID.randomUUID().toString()) ;
 			
-			writeProblemFile((AbstractThiefProblem) problem, file);
+			writeProblemFile(problem, maxWeight, file);
 			BashExecutor.execute(String.format("vendor/combo/combo %s", file));
 			List<Boolean> result = new ArrayList<>();
 			
@@ -65,10 +64,10 @@ public class KnapsackCombo  {
 		
 	}
 	
-	private static void writeProblemFile(AbstractThiefProblem problem, String file) throws FileNotFoundException, UnsupportedEncodingException {
+	private static void writeProblemFile(AbstractThiefProblem problem, int maxweight, String file) throws FileNotFoundException, UnsupportedEncodingException {
 		PrintWriter writer;
 		writer = new PrintWriter(file);
-		writer.println(problem.getMaxWeight());
+		writer.println(maxweight);
 		writer.println(problem.numOfItems());
 		for (Item item : problem.getItems()) {
 			writer.println(Math.round(item.getProfit()) + " " + (int) Math.ceil(item.getWeight()));

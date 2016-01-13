@@ -12,8 +12,8 @@ public class AlgorithmUtil {
 	}
 
 
-	public static Pack calcBestPackingPlan(AbstractThiefProblem problem) {
-		return KnapsackCombo.getPackingList(problem, new Evaluator(Integer.MAX_VALUE));
+	public static Pack calcBestPackingPlan(AbstractThiefProblem problem, int maxWeight) {
+		return KnapsackCombo.getPackingList(problem, new Evaluator(Integer.MAX_VALUE), maxWeight);
 	}
 
 	

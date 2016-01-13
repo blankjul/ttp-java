@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.msu.interfaces.IVariable;
 import com.msu.thief.exceptions.VariableNotValidException;
 import com.msu.thief.util.StringUtil;
 
@@ -17,7 +18,7 @@ import com.msu.thief.util.StringUtil;
  * in comparison to a boolean vector.
  * 
  */
-public class Pack {
+public class Pack implements IVariable{
 
 	
 	//! all items which are picked up
@@ -181,6 +182,27 @@ public class Pack {
 			return false;
 		Pack other = (Pack) otherObject;
 		return items.equals(other.items);
+	}
+
+	
+	
+	
+	// TODO: fix inheritance
+	
+	
+	@Override
+	public Object get() {
+		return null;
+	}
+
+	@Override
+	public void set(Object obj) {
+		
+	}
+
+	@Override
+	public <V extends IVariable> V cast(Class<V> clazz) {
+		return null;
 	}
 	
 	

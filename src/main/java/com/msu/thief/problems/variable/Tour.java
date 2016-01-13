@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.msu.interfaces.IVariable;
 import com.msu.thief.exceptions.VariableNotValidException;
 import com.msu.thief.util.StringUtil;
 
@@ -13,7 +14,7 @@ import com.msu.thief.util.StringUtil;
  * The Tour provides an implementation of a tour that saves directly the
  * permutation array.
  */
-public class Tour {
+public class Tour implements IVariable{
 
 	// ! list where the tour is saved
 	protected List<Integer> list = null;
@@ -172,6 +173,24 @@ public class Tour {
 	 */
 	public static Tour createFromString(String s) {
 		return new Tour(StringUtil.parseAsIntegerList(s));
+	}
+
+	// TODO: fix inheritance problem
+	
+	@Override
+	public Object get() {
+		return null;
+	}
+
+
+	@Override
+	public void set(Object obj) {
+	}
+
+
+	@Override
+	public <V extends IVariable> V cast(Class<V> clazz) {
+		return null;
 	}
 
 	

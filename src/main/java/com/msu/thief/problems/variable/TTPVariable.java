@@ -74,4 +74,8 @@ public class TTPVariable extends Variable<Pair<Tour, Pack>> {
 		return new TTPVariable(Tour.createFromString(values[0]), Pack.createFromBooleanString(values[1]));
 	}
 
+	
+	public static TTPVariable create(Tour t, Pack b) {
+		return new TTPVariable(t, b);
+	}
 }

@@ -26,6 +26,13 @@ public class SwapMutationTest extends Operator{
 		assertEquals(Tour.createFromString("[0,1,2,3,4,5,6,7,9,8]"), t);
 	}
 	
+	@Test
+	public void test() {
+		Tour t = Tour.createFromString("[0,1,2,3,4,5,6,7,8,9]");
+		SwapMutation.swap(t, 3, 5);
+		System.out.println(t);
+	}
+	
 	
 	@Test
 	public void testMutation() {
