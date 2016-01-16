@@ -1,24 +1,21 @@
 package com.msu.thief;
 
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.apache.log4j.BasicConfigurator;
 
 import com.msu.interfaces.IEvaluator;
-import com.msu.model.Evaluator;
+import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.model.solution.SolutionDominatorWithConstraints;
-import com.msu.thief.algorithms.tour.EvolutionOnRelevantItems;
-import com.msu.thief.algorithms.tour.FixedTourSingleObjectiveThiefProblem;
-import com.msu.thief.ea.tour.mutation.ThiefSwapMutation;
-import com.msu.thief.evaluator.time.StandardTimeEvaluator;
+import com.msu.thief.algorithms.impl.tour.FixedTourEvolutionOnRelevantItems;
+import com.msu.thief.ea.operators.ThiefSwapMutation;
 import com.msu.thief.io.thief.reader.ThiefSingleTSPLIBProblemReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
+import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.problems.variable.Pack;
-import com.msu.thief.problems.variable.TTPVariable;
 import com.msu.thief.problems.variable.Tour;
 import com.msu.util.MyRandom;
 
@@ -44,22 +41,22 @@ public class ExperimentTourSwap {
 		Tour tour = Tour.createFromString(
 				"0, 48, 31, 44, 18, 40, 7, 8, 9, 42, 32, 50, 10, 51, 13, 12, 46, 25, 26, 27, 11, 24, 3, 5, 14, 4, 23, 47, 37, 36, 39, 38, 35, 34, 33, 43, 45, 15, 28, 49, 19, 22, 29, 1, 6, 41, 20, 16, 2, 17, 30, 21]");
 
-		Solution best = new EvolutionOnRelevantItems().run_(new FixedTourSingleObjectiveThiefProblem(thief, tour), eval,
-				rand);
-
-		System.out.println(best);
+		Pack pack = new Pack(Arrays.asList(0, 1, 2, 3, 42, 15, 16, 48, 17, 49, 18, 50, 19, 20, 29));
 		
 		
-		final int SIZE_OF_POOL = 20;
-
+		// Solution<Pack> best = new FixedTourEvolutionOnRelevantItems().run(new ThiefProblemWithFixedTour(thief, tour), eval, rand);
+		Tour bestTour = tour;
+		Pack bestPack = pack;
+		Solution<Pack> best = eval.evaluate(new ThiefProblemWithFixedTour(thief, bestTour), bestPack);
+		
+		
+		System.out.println(String.format("%s %s %s", best.getObjectives(), bestPack, bestTour));
+		
 		
 		boolean improvement = true;
-		double time = new StandardTimeEvaluator().evaluate(thief, tour, Pack.empty());
-		
-		PrintWriter writer = new PrintWriter("data.csv", "UTF-8");
 		
 		
-		//while (improvement) {
+		while (improvement) {
 
 			improvement = false;
 
@@ -69,33 +66,30 @@ public class ExperimentTourSwap {
 
 				for (int k = i - 1; k > 0; k--) {
 
-					Tour next = ((TTPVariable) best.getVariable()).getTour().copy();
+					Tour next = bestTour.copy();
 					
-					double nextTime = ThiefSwapMutation.swapDeltaTime(next, i, k, time, thief.getMap());
 					ThiefSwapMutation.swap(next, i, k);
+					//double nextTime = ThiefSwapMutation.swapDeltaTime(next, i, k, time, thief.getMap());
 					//double nextTime = new StandardTimeEvaluator().evaluate(thief, next, Pack.empty());
 					
-					
-					Solution opt = new EvolutionOnRelevantItems()
-							.run_(new FixedTourSingleObjectiveThiefProblem(thief, next), eval, rand);
-					
-					writer.println(String.format("%s,%s,%s", nextTime, opt.getObjective(0), i, k));
+					Solution<Pack> opt = new FixedTourEvolutionOnRelevantItems()
+							.run(new ThiefProblemWithFixedTour(thief, next), eval, rand);
 
 					
 					if (new SolutionDominatorWithConstraints().isDominating(opt, best)) {
 						best = opt;
-						System.out.println(String.format("%s %s %s swap %s", nextTime, best.getObjective(0), i, k, next));
+						bestTour = next;
+						bestPack = opt.getVariable();
+						System.out.println(String.format("%s %s %s", best.getObjectives(), i, k));
 						improvement = true;
-						//break outer;
+						break outer;
 					}
 
 				}
 			}
 			
-			
-		//}
+		}
 
-		System.out.println(best);
-		writer.close();
+		System.out.println(String.format("%s %s %s", best.getObjectives(), bestPack, bestTour));
 	}
 }

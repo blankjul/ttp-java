@@ -1,6 +1,8 @@
 package com.msu.thief.io;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.log4j.BasicConfigurator;
 import org.junit.BeforeClass;
@@ -60,7 +62,7 @@ public class ThiefMultiObjectiveReaderTest {
 	
 	@Test
 	public void testName() {
-		assertEquals("TTP_MO_10_3_1_25", problem.getName());
+		assertEquals("TTP_MO_10_3_1_25", problem.toString());
 	}
 	
 	

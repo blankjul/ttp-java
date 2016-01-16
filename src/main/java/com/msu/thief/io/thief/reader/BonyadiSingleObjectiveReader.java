@@ -6,8 +6,9 @@ import java.io.IOException;
 import org.apache.log4j.Logger;
 
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
+import com.msu.util.io.AReader;
 
-public class BonyadiSingleObjectiveReader extends ABonyadiReader<SingleObjectiveThiefProblem> {
+public class BonyadiSingleObjectiveReader extends AReader<SingleObjectiveThiefProblem> {
 
 	static final Logger logger = Logger.getLogger(BonyadiSingleObjectiveReader.class);
 
@@ -15,16 +16,16 @@ public class BonyadiSingleObjectiveReader extends ABonyadiReader<SingleObjective
 
 		SingleObjectiveThiefProblem ttp = new SingleObjectiveThiefProblem();
 
-		int numOfCities = parseNumOfCities(br);
-		int numOfItems = parseNumOfItems(br);
+		int numOfCities = BonyadiReaderUtil.parseNumOfCities(br);
+		int numOfItems = BonyadiReaderUtil.parseNumOfItems(br);
 
-		ttp.setMaxWeight(parseMaximalWeight(br));
-		ttp.setMaxSpeed(parseMaxVelocity(br));
-		ttp.setMinSpeed(parseMinVelocity(br));
-		ttp.setR(parseSingleObjectiveWeight(br));
+		ttp.setMaxWeight(BonyadiReaderUtil.parseMaximalWeight(br));
+		ttp.setMaxSpeed(BonyadiReaderUtil.parseMaxVelocity(br));
+		ttp.setMinSpeed(BonyadiReaderUtil.parseMinVelocity(br));
+		ttp.setR(BonyadiReaderUtil.parseSingleObjectiveWeight(br));
 
-		ttp.setMap(parseMap(br, numOfCities));
-		ttp.setItems(parseItems(br, numOfItems, numOfCities));
+		ttp.setMap(BonyadiReaderUtil.parseMap(br, numOfCities));
+		ttp.setItems(BonyadiReaderUtil.parseItems(br, numOfItems, numOfCities));
 
 		br.close();
 		return ttp;

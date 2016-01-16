@@ -6,7 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.msu.interfaces.IVariable;
+import com.msu.interfaces.IEvolutionaryVariable;
+import com.msu.moo.model.variable.AVariable;
 import com.msu.thief.exceptions.VariableNotValidException;
 import com.msu.thief.util.StringUtil;
 
@@ -18,34 +19,38 @@ import com.msu.thief.util.StringUtil;
  * in comparison to a boolean vector.
  * 
  */
-public class Pack implements IVariable{
+public class Pack extends AVariable<Set<Integer>> implements IEvolutionaryVariable<Set<Integer>, Pack> {
 
-	
-	//! all items which are picked up
-	protected Set<Integer> items;
 	
 	
 	/**
 	 * Initialize an empty packing list
 	 */
 	public Pack() {
-		this.items = new HashSet<>();
+		this(new HashSet<>());
 	}
 	
 	/**
-	 * Initialize a packing list from a collections of inidixes
+	 * Initialize a packing list from a set of indixes
+	 */
+	public Pack(Set<Integer> c) {
+		super(c);
+	}
+	
+	/**
+	 * Initialize a packing list from a collections of indixes
 	 */
 	public Pack(Collection<Integer> c) {
-		this.items = new HashSet<>(c);
+		super(new HashSet<>(c));
 	}
 	
 	/**
 	 * Initialize a packing list from a boolean list
 	 */
 	public Pack(List<Boolean> b) {
-		this();
+		super(new HashSet<>());
 		for (int i = 0; i < b.size(); i++) {
-			if (b.get(i)) items.add(i);
+			if (b.get(i)) obj.add(i);
 		}
 	}
 
@@ -54,7 +59,8 @@ public class Pack implements IVariable{
 	 * Initialize a packing list with one item
 	 */
 	public Pack(int idx) {
-		this(Arrays.asList(idx));
+		super(new HashSet<>());
+		obj.add(idx);
 	}
 	
 	/**
@@ -63,7 +69,7 @@ public class Pack implements IVariable{
 	 * @return true if successfully added.
 	 */
 	public boolean add(int idx) {
-		return items.add(idx);
+		return obj.add(idx);
 	}
 	
 	
@@ -73,7 +79,7 @@ public class Pack implements IVariable{
 	 * @return true if successfully removed.
 	 */
 	public boolean remove(int idx) {
-		return items.remove(idx);
+		return obj.remove(idx);
 	}
 	
 	
@@ -82,13 +88,13 @@ public class Pack implements IVariable{
 	 * @return
 	 */
 	public Pack copy() {
-		return new Pack(items);
+		return new Pack(new HashSet<>(obj));
 	}
 	
 
 	@Override
 	public String toString() {
-		return Arrays.toString(items.toArray());
+		return Arrays.toString(obj.toArray());
 	}
 
 	/**
@@ -96,14 +102,14 @@ public class Pack implements IVariable{
 	 * @return if item is picked or not
 	 */
 	public boolean isPicked(int idx) {
-		return items.contains(idx);
+		return obj.contains(idx);
 	}
 
 	/**
 	 * @return true if at least one item is picked
 	 */
 	public boolean isAnyPicked() {
-		return !items.isEmpty();
+		return !obj.isEmpty();
 	}
 
 	
@@ -114,7 +120,7 @@ public class Pack implements IVariable{
 	public Set<Integer> getNotPickedItems(int numOfItems) {
 		Set<Integer> hash = new HashSet<>();
 		for (int i = 0; i < numOfItems; i++) {
-			if (!items.contains(i))
+			if (!obj.contains(i))
 				hash.add(i);
 		}
 		return hash;
@@ -124,8 +130,8 @@ public class Pack implements IVariable{
 	/**
 	 * @return set of integer
 	 */
-	public Set<Integer> encode() {
-		return items;
+	public Set<Integer> decode() {
+		return obj;
 	}
 	
 	
@@ -135,10 +141,10 @@ public class Pack implements IVariable{
 	 */
 	public void validate(int numOfItems) {
 
-		for(int idx : items) {
+		for(int idx : obj) {
 			// it is equal because there is an item 0
 			if (idx >= numOfItems) throw new VariableNotValidException(String
-					.format("There are only %s items for the problem, but item %s is picked.", numOfItems, idx));
+					.format("There are only %s items for the problem, but item %s is picked. (Index starts with 0)", numOfItems, idx));
 		}
 	}
 	
@@ -147,12 +153,12 @@ public class Pack implements IVariable{
 	 * @return number of items that are picked up
 	 */
 	public int numOfItems() {
-		return items.size();
+		return obj.size();
 	}
 	
 	
 	public static Pack createFromString(String s) {
-		return new Pack(StringUtil.parseAsIntegerList(s));
+		return new Pack(new HashSet<>(StringUtil.parseAsIntegerList(s)));
 	}
 	
 	public static Pack createFromBooleanString(String s) {
@@ -160,47 +166,16 @@ public class Pack implements IVariable{
 	}
 
 	
-	
-	@Override
-	public int hashCode() {
-		return items.hashCode();
-	}
-
-	
-	@Override
-	public boolean equals(Object otherObject) {
-		if (this == otherObject)
-			return true;
-		if (getClass() != otherObject.getClass())
-			return false;
-		Pack other = (Pack) otherObject;
-		return items.equals(other.items);
-	}
-
-	
-	
-	
-	// TODO: fix inheritance
-	
-	
-	@Override
-	public Object get() {
-		return null;
-	}
-
-	@Override
-	public void set(Object obj) {
-		
-	}
-
-	@Override
-	public <V extends IVariable> V cast(Class<V> clazz) {
-		return null;
-	}
-	
 	public static Pack empty() {
 		return new Pack();
 	}
-	
+
+	@Override
+	public Pack build(Set<Integer> obj) {
+		return new Pack(obj);
+	}
+
+
+
 	
 }

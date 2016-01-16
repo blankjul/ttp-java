@@ -16,26 +16,26 @@ public class TourTest {
 	@Test
 	public void testCreateFromString() {
 		Tour t = Tour.createFromString("[0,1,2,3]");
-		assertEquals(Arrays.asList(0,1,2,3), t.encode());
+		assertEquals(Arrays.asList(0,1,2,3), t.decode());
 	}
 	
 	@Test
 	public void testCreateFromStringWithWhitespace() {
 		Tour t = Tour.createFromString("[0, 1, 2, 3]");
-		assertEquals(Arrays.asList(0,1,2,3), t.encode());
+		assertEquals(Arrays.asList(0,1,2,3), t.decode());
 	}
 	
 	@Test
 	public void testCreateFromStringNoBrackets() {
 		Tour t = Tour.createFromString("0, 1, 2, 3");
-		assertEquals(Arrays.asList(0,1,2,3), t.encode());
+		assertEquals(Arrays.asList(0,1,2,3), t.decode());
 	}
 	
 	@Test
 	public void testSymmetric() {
 		Tour t = Tour.createFromString("[0,1,2,3]");
-		assertEquals(Arrays.asList(0,3,2,1), t.getSymmetric().encode());
-		assertEquals(Arrays.asList(0,1,2,3), t.encode());
+		assertEquals(Arrays.asList(0,3,2,1), t.getSymmetric().decode());
+		assertEquals(Arrays.asList(0,1,2,3), t.decode());
 	}
 	
 	

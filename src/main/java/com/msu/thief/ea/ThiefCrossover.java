@@ -4,35 +4,37 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.msu.interfaces.IEvaluator;
-import com.msu.thief.ea.pack.crossover.PackCrossover;
-import com.msu.thief.ea.tour.crossover.TourCrossover;
+import com.msu.interfaces.ICrossover;
 import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.variable.Pack;
 import com.msu.thief.problems.variable.TTPVariable;
 import com.msu.thief.problems.variable.Tour;
 import com.msu.util.MyRandom;
 
-public class ThiefCrossover {
+public class ThiefCrossover implements ICrossover<TTPVariable> {
+	
+	//! the thief problem for adding heuristic information
+	protected AbstractThiefProblem thief = null;
 
 	//! crossover for the tour
-	protected TourCrossover cTour = null;
+	protected ICrossover<Tour> cTour = null;
 	
 	//! crossover for the packing plan
-	protected PackCrossover cPack = null;
+	protected ICrossover<Pack> cPack = null;
 
 	
-	public ThiefCrossover(TourCrossover cTour, PackCrossover cPack) {
+	
+	public ThiefCrossover(AbstractThiefProblem thief, ICrossover<Tour>cTour, ICrossover<Pack> cPack) {
 		super();
+		this.thief = thief;
 		this.cTour = cTour;
 		this.cPack = cPack;
 	}
 	
 	
 
-	public List<TTPVariable> crossover(TTPVariable a, TTPVariable b, AbstractThiefProblem thief, MyRandom rand,
-			IEvaluator evaluator) {
-		
+	@Override
+	public List<TTPVariable> crossover(TTPVariable a, TTPVariable b, MyRandom rand) {
 		
 		double probTour = rand.nextDouble();
 		double probPack = rand.nextDouble();
@@ -46,7 +48,7 @@ public class ThiefCrossover {
 		// crossover of tours
 		List<Tour> offTours = new ArrayList<>();
 		if (cTour != null && probTour < 0.5) {
-			offTours = cTour.crossover(thief, rand, a.getTour(), b.getTour());
+			offTours = cTour.crossover(a.getTour(), b.getTour(), rand);
 		} else {
 			offTours = Arrays.asList(a.getTour().copy(), b.getTour().copy());
 		}
@@ -54,7 +56,7 @@ public class ThiefCrossover {
 		// crossover of plans
 		List<Pack> offPlans = new ArrayList<>();
 		if (cPack != null && probPack < 0.5) {
-			offPlans = cPack.crossover(thief, rand, a.getPack(), b.getPack());
+			offPlans = cPack.crossover(a.getPack(), b.getPack(), rand);
 		} else {
 			offPlans = Arrays.asList(a.getPack().copy(), b.getPack().copy());
 		}
@@ -71,6 +73,8 @@ public class ThiefCrossover {
 		
 		return result;
 	}
+
+
 
 	
 	

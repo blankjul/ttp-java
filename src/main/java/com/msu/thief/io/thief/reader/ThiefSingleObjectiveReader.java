@@ -6,10 +6,10 @@ import java.io.IOException;
 
 import org.apache.log4j.Logger;
 
-import com.msu.thief.io.AProblemReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
+import com.msu.util.io.AReader;
 
-public class ThiefSingleObjectiveReader extends AProblemReader<SingleObjectiveThiefProblem> {
+public class ThiefSingleObjectiveReader extends AReader<SingleObjectiveThiefProblem> {
 
 	static final Logger logger = Logger.getLogger(ThiefSingleObjectiveReader.class);
 

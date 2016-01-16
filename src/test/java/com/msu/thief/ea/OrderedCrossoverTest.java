@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.msu.thief.ea.tour.crossover.ThiefOrderedCrossover;
+import com.msu.thief.ea.operators.ThiefOrderedCrossover;
 import com.msu.thief.problems.variable.Tour;
 import com.msu.util.Pair;
 
@@ -32,7 +32,7 @@ public class OrderedCrossoverTest extends Operator{
 		Tour t2 = Tour.createFromString("[0,9,8,7,6,5,4,3,2,1]");
 		
 		for (int i = 0; i < 50; i++) {
-			new ThiefOrderedCrossover().crossover(thief, rand, t1,t2);
+			new ThiefOrderedCrossover().crossover(t1,t2, rand);
 		}
 	}
 	

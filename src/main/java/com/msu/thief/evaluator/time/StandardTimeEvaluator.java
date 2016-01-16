@@ -31,7 +31,7 @@ public class StandardTimeEvaluator extends TimeEvaluator {
 		double weight = 0;
 
 		ItemCollection<Item> items = problem.getItemCollection();
-		List<Integer> pi = tour.encode();
+		List<Integer> pi = tour.decode();
 		double speed = problem.getMaxSpeed();
 
 		// iterate over all possible cities

@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.msu.thief.io.AProblemReader;
 import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
@@ -14,8 +13,9 @@ import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.util.rounding.RoundingCeil;
 import com.msu.thief.util.rounding.RoundingNearestInt;
+import com.msu.util.io.AReader;
 
-public class BonyadiTSPLIBReader extends AProblemReader<SingleObjectiveThiefProblem> {
+public class BonyadiTSPLIBReader extends AReader<SingleObjectiveThiefProblem> {
 
 	protected SingleObjectiveThiefProblem read_(BufferedReader bufferedReader) throws IOException {
 

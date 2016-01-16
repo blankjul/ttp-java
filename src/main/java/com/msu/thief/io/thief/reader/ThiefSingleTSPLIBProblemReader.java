@@ -10,15 +10,15 @@ import org.apache.log4j.Logger;
 
 import com.msu.thief.evaluator.profit.NoDroppingEvaluator;
 import com.msu.thief.evaluator.time.StandardTimeEvaluator;
-import com.msu.thief.io.AProblemReader;
 import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.util.rounding.IRounding;
 import com.msu.thief.util.rounding.RoundingCeil;
+import com.msu.util.io.AReader;
 
-public class ThiefSingleTSPLIBProblemReader extends AProblemReader<SingleObjectiveThiefProblem> {
+public class ThiefSingleTSPLIBProblemReader extends AReader<SingleObjectiveThiefProblem> {
 
 	static final Logger logger = Logger.getLogger(ThiefSingleTSPLIBProblemReader.class);
 

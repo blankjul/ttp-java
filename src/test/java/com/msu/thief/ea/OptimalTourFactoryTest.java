@@ -1,6 +1,6 @@
 package com.msu.thief.ea;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -12,9 +12,9 @@ public class OptimalTourFactoryTest extends Operator {
 	
 	@Test
 	public void testFactory() {
-		ThiefOptimalTourFactory fac = new ThiefOptimalTourFactory();
-		fac.initialize(thief, rand);
-		assertEquals(Tour.createFromString("0,1,2,3"), fac.create());
+		ThiefOptimalTourFactory fac = new ThiefOptimalTourFactory(thief);
+		Tour t =  fac.next(rand);
+		assertTrue(t.equals(Tour.createFromString("0,1,2,3")) || t.equals(Tour.createFromString("0,3,2,1")));
 	}
 	
 	

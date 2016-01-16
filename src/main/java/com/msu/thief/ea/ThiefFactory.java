@@ -1,30 +1,29 @@
 package com.msu.thief.ea;
 
-import com.msu.thief.ea.pack.factory.PackFactory;
-import com.msu.thief.ea.tour.factory.TourFactory;
-import com.msu.thief.problems.AbstractThiefProblem;
+import com.msu.interfaces.IFactory;
+import com.msu.thief.problems.variable.Pack;
 import com.msu.thief.problems.variable.TTPVariable;
+import com.msu.thief.problems.variable.Tour;
 import com.msu.util.MyRandom;
 
-public class ThiefFactory implements Factory<TTPVariable>{
+public class ThiefFactory implements IFactory<TTPVariable>{
 
 	//! crossover for the tour
-	protected TourFactory fTour = null;
+	protected IFactory<Tour> fTour = null;
 	
 	//! crossover for the packing plan
-	protected PackFactory fPack = null;
+	protected IFactory<Pack> fPack = null;
 
 	
-	public ThiefFactory(TourFactory cTour, PackFactory cPack) {
+	public ThiefFactory(IFactory<Tour> fTour, IFactory<Pack> fPack) {
 		super();
-		this.fTour = cTour;
-		this.fPack = cPack;
+		this.fTour = fTour;
+		this.fPack = fPack;
 	}
 	
-
-	@Override
-	public TTPVariable create() {
-		return TTPVariable.create(fTour.create(), fPack.create());
+	
+	public TTPVariable next(MyRandom rand) {
+		return TTPVariable.create(fTour.next(rand), fPack.next(rand));
 	}
 
 
@@ -34,14 +33,7 @@ public class ThiefFactory implements Factory<TTPVariable>{
 		return fTour.hasNext() && fPack.hasNext();
 	}
 
-
-	@Override
-	public void initialize(AbstractThiefProblem problem, MyRandom rand) {
-		fTour.initialize(problem, rand);
-		fPack.initialize(problem, rand);
-	}
-
-
+	
 
 	
 }

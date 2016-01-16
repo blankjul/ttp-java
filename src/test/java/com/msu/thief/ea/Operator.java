@@ -16,7 +16,7 @@ public abstract class Operator {
 	public void setUp() {
 		thief = (SingleObjectiveThiefProblem) new JsonThiefProblemReader()
 				.read("resources/my_publication_coordinates.ttp");
-		rand = new MyRandom();
+		rand = new MyRandom(123456789);
 	}
 
 }

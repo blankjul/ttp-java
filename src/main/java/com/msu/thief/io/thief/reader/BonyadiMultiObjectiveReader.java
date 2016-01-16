@@ -8,8 +8,9 @@ import org.apache.log4j.Logger;
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
 import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.ThiefProblem;
+import com.msu.util.io.AReader;
 
-public class BonyadiMultiObjectiveReader extends ABonyadiReader<AbstractThiefProblem> {
+public class BonyadiMultiObjectiveReader extends AReader<AbstractThiefProblem> {
 
 	static final Logger logger = Logger.getLogger(BonyadiMultiObjectiveReader.class);
 
@@ -18,20 +19,22 @@ public class BonyadiMultiObjectiveReader extends ABonyadiReader<AbstractThiefPro
 
 		ThiefProblem ttp = new ThiefProblem();
 
-		int numOfCities = parseNumOfCities(br);
-		int numOfItems = parseNumOfItems(br);
+		int numOfCities = BonyadiReaderUtil.parseNumOfCities(br);
+		int numOfItems = BonyadiReaderUtil.parseNumOfItems(br);
 
-		ttp.setMaxWeight(parseMaximalWeight(br));
-		ttp.setMaxSpeed(parseMaxVelocity(br));
-		ttp.setMinSpeed(parseMinVelocity(br));
+		ttp.setMaxWeight(BonyadiReaderUtil.parseMaximalWeight(br));
+		ttp.setMaxSpeed(BonyadiReaderUtil.parseMaxVelocity(br));
+		ttp.setMinSpeed(BonyadiReaderUtil.parseMinVelocity(br));
 
-		double droppingConstant = parseDroppingConstant(br);
-		double droppingRate = parseDroppingRate(br);
+		double droppingConstant = BonyadiReaderUtil.parseDroppingConstant(br);
+		double droppingRate = BonyadiReaderUtil.parseDroppingRate(br);
 		ttp.setProfitEvaluator(new ExponentialProfitEvaluator(droppingRate, droppingConstant));
 
-		ttp.setMap(parseMap(br, numOfCities));
-		ttp.setItems(parseItems(br, numOfItems, numOfCities));
-
+		ttp.setMap(BonyadiReaderUtil.parseMap(br, numOfCities));
+		ttp.setItems(BonyadiReaderUtil.parseItems(br, numOfItems, numOfCities));
+		
+		//ttp.setName(BonyadiReaderUtil.parseName(pathToFile));
+		
 		br.close();
 		return ttp;
 	}

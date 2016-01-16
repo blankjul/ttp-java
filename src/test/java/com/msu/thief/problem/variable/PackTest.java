@@ -16,7 +16,7 @@ public class PackTest {
 	
 	@Test
 	public void testParseFromString() {
-		assertEquals(new HashSet<>(Arrays.asList(1,2,3)), Pack.createFromString("[1,1,2,3]").encode());
+		assertEquals(new HashSet<>(Arrays.asList(1,2,3)), Pack.createFromString("[1,1,2,3]").decode());
 	}
 	
 	
@@ -36,7 +36,7 @@ public class PackTest {
 	
 	@Test
 	public void testParseFromBooleanString() {
-		assertEquals(new HashSet<>(Arrays.asList(1,2,3)), Pack.createFromBooleanString("[0,1,1,1]").encode());
+		assertEquals(new HashSet<>(Arrays.asList(1,2,3)), Pack.createFromBooleanString("[0,1,1,1]").decode());
 	}
 	
 	

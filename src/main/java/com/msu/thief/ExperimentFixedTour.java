@@ -2,12 +2,13 @@ package com.msu.thief;
 
 import org.apache.log4j.BasicConfigurator;
 
-import com.msu.model.Evaluator;
+import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.Solution;
-import com.msu.thief.algorithms.tour.EvolutionOnRelevantItems;
-import com.msu.thief.algorithms.tour.FixedTourSingleObjectiveThiefProblem;
+import com.msu.thief.algorithms.impl.tour.FixedTourEvolutionOnRelevantItems;
 import com.msu.thief.io.thief.reader.ThiefSingleTSPLIBProblemReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
+import com.msu.thief.problems.ThiefProblemWithFixedTour;
+import com.msu.thief.problems.variable.Pack;
 import com.msu.thief.problems.variable.Tour;
 import com.msu.util.MyRandom;
 
@@ -37,7 +38,8 @@ public class ExperimentFixedTour {
 		Solution best = new OnePlusOneEAFixedTour().run(new FixedTourSingleObjectiveThiefProblem(thief, tour),
 				new Evaluator(500000), rand);
 */
-		Solution best = new EvolutionOnRelevantItems().run_(new FixedTourSingleObjectiveThiefProblem(thief, tour),
+		
+		Solution<Pack> best = new FixedTourEvolutionOnRelevantItems().run(new ThiefProblemWithFixedTour(thief, tour),
 				new Evaluator(500000), rand);
 		
 		System.out.println(best);

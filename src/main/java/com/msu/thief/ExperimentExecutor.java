@@ -3,7 +3,9 @@ package com.msu.thief;
 import org.apache.log4j.BasicConfigurator;
 
 import com.msu.Configuration;
-import com.msu.experiment.AExperiment;
+import com.msu.experiment.ASingleObjectiveExperiment;
+import com.msu.interfaces.IProblem;
+import com.msu.interfaces.IVariable;
 import com.msu.util.ObjectFactory;
 
 /**
@@ -50,7 +52,8 @@ public class ExperimentExecutor {
 		Configuration.PATH_TO_HYPERVOLUME = "../moo-java/vendor/bin/hv";
 		Configuration.NUM_OF_THREADS = NUM_OF_THREADS;
 		
-		AExperiment experiment = ObjectFactory.create(AExperiment.class,  PREFIX + EXPERIMENT);
+		@SuppressWarnings("unchecked")
+		ASingleObjectiveExperiment<IVariable, IProblem<IVariable>> experiment = ObjectFactory.create(ASingleObjectiveExperiment.class,  PREFIX + EXPERIMENT);
 		experiment.run(MAX_EVALUATIONS, ITERATIONS, SEED);
 		
 	}

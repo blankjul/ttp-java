@@ -6,7 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.msu.interfaces.IVariable;
+import com.msu.interfaces.IEvolutionaryVariable;
+import com.msu.moo.model.variable.AVariable;
 import com.msu.thief.exceptions.VariableNotValidException;
 import com.msu.thief.util.StringUtil;
 
@@ -14,10 +15,8 @@ import com.msu.thief.util.StringUtil;
  * The Tour provides an implementation of a tour that saves directly the
  * permutation array.
  */
-public class Tour implements IVariable{
+public class Tour extends AVariable<List<Integer>> implements IEvolutionaryVariable<List<Integer>, Tour>{
 
-	// ! list where the tour is saved
-	protected List<Integer> list = null;
 
 	/**
 	 * Create a Tour using a permutation vector. Starting city is not given!! So
@@ -27,7 +26,7 @@ public class Tour implements IVariable{
 	 *            tour represented by permutation vector
 	 */
 	public Tour(List<Integer> list) {
-		this.list = list;
+		super(list);
 	}
 
 	
@@ -37,7 +36,7 @@ public class Tour implements IVariable{
 	 * @return returns the ith city which is visited by the salesman.
 	 */
 	public int ith(int idx) {
-		return list.get(idx);
+		return obj.get(idx);
 	}
 	
 	
@@ -45,40 +44,40 @@ public class Tour implements IVariable{
 	 * @return number of cities which are visited
 	 */
 	public int numOfCities() {
-		return list.size();
+		return obj.size();
 	}
 
 	/**
 	 * @return the symmetric tour
 	 */
 	public Tour getSymmetric() {
-		List<Integer> sym = new ArrayList<>(list.size());
+		List<Integer> sym = new ArrayList<>(obj.size());
 		sym.add(0);
-		for (int i = list.size() - 1; i > 0; i--) {
-			sym.add(list.get(i));
+		for (int i = obj.size() - 1; i > 0; i--) {
+			sym.add(obj.get(i));
 		}
 		return new Tour(sym);
 	}
 
 	public Tour copy() {
-		return new Tour(new ArrayList<>(list));
+		return new Tour(new ArrayList<>(obj));
 	}
 
 	/**
 	 * @return encode the tour to a list of integer
 	 */
-	public List<Integer> encode() {
-		return list;
+	public List<Integer> decode() {
+		return obj;
 	}
 
 	/**
 	 * @return false if empty or starts not with 0. else true.
 	 */
 	public boolean startsWithZero() {
-		if (list.isEmpty())
+		if (obj.isEmpty())
 			return false;
 		else
-			return list.get(0) == 0;
+			return obj.get(0) == 0;
 	}
 
 	/**
@@ -87,13 +86,13 @@ public class Tour implements IVariable{
 	 */
 	public boolean isPermutation() {
 
-		boolean[] b = new boolean[list.size()];
+		boolean[] b = new boolean[obj.size()];
 		Arrays.fill(b, false);
 
-		for (int i = 0; i < list.size(); i++) {
-			int idx = list.get(i);
+		for (int i = 0; i < obj.size(); i++) {
+			int idx = obj.get(i);
 			// if the boolean flag is set, we had this value before
-			if (idx > list.size() - 1 || b[idx]) {
+			if (idx > obj.size() - 1 || b[idx]) {
 				return false;
 			}
 			b[idx] = true;
@@ -104,7 +103,7 @@ public class Tour implements IVariable{
 
 	
 	public void set(List<Integer> list) {
-		this.list = list;
+		this.obj = list;
 	}
 
 
@@ -115,9 +114,9 @@ public class Tour implements IVariable{
 	 */
 	public void validate(int numOfCities) {
 
-		if (list.size() != numOfCities)
+		if (obj.size() != numOfCities)
 			throw new VariableNotValidException(String
-					.format("The tour size %s does not match with the number of cities %s", list.size(), numOfCities));
+					.format("The tour size %s does not match with the number of cities %s", obj.size(), numOfCities));
 
 		if (!startsWithZero())
 			throw new VariableNotValidException(String.format("Tour has to start with 0. %s", this));
@@ -133,7 +132,7 @@ public class Tour implements IVariable{
 	 * tour [0,3,2,4,1] will have the map {0:0, 1:4, 2:2, 4:3}.
 	 */
 	public Map<Integer, Integer> getAsHash() {
-		List<Integer> tour = encode();
+		List<Integer> tour = decode();
 		Map<Integer, Integer> mCities = new HashMap<>(tour.size());
 		for (int i = 0; i < tour.size(); i++) {
 			mCities.put(tour.get(i) ,i);
@@ -141,28 +140,10 @@ public class Tour implements IVariable{
 		return mCities;
 	}
 
-	
-
-	@Override
-	public int hashCode() {
-		return list.hashCode();
-	}
-
-	@Override
-	public boolean equals(Object other) {
-		if (other == null)
-			return false;
-		if (other == this)
-			return true;
-		if (!(other instanceof Tour))
-			return false;
-		Tour obj = (Tour) other;
-		return list.equals(obj.list);
-	}
 
 	@Override
 	public String toString() {
-		return Arrays.toString(list.toArray());
+		return Arrays.toString(obj.toArray());
 	}
 	
 	/**
@@ -175,22 +156,10 @@ public class Tour implements IVariable{
 		return new Tour(StringUtil.parseAsIntegerList(s));
 	}
 
-	// TODO: fix inheritance problem
-	
-	@Override
-	public Object get() {
-		return null;
-	}
-
 
 	@Override
-	public void set(Object obj) {
-	}
-
-
-	@Override
-	public <V extends IVariable> V cast(Class<V> clazz) {
-		return null;
+	public Tour build(List<Integer> obj) {
+		return new Tour(obj);
 	}
 
 	

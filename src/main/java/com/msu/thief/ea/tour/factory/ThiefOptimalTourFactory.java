@@ -1,26 +1,31 @@
 package com.msu.thief.ea.tour.factory;
 
-import com.msu.thief.algorithms.subproblems.AlgorithmUtil;
+import com.msu.interfaces.IFactory;
+import com.msu.thief.algorithms.impl.subproblems.AlgorithmUtil;
+import com.msu.thief.ea.AOperator;
 import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.variable.Tour;
 import com.msu.util.MyRandom;
 
 
-public class ThiefOptimalTourFactory extends TourFactory {
+public class ThiefOptimalTourFactory extends AOperator implements IFactory<Tour> {
 
-	protected Tour best;
-	protected Tour sym;
 	
-	
-	@Override
-	public void initialize(AbstractThiefProblem problem, MyRandom rand) {
-		super.initialize(problem, rand);
-		best = AlgorithmUtil.calcBestTour(problem);
+	public ThiefOptimalTourFactory(AbstractThiefProblem thief) {
+		super(thief);
+		best = AlgorithmUtil.calcBestTour(thief);
 		sym = best.getSymmetric();
 	}
 
+	
+	protected Tour best;
+	
+	protected Tour sym;
+	
+	
+
 	@Override
-	public Tour create() {
+	public Tour next(MyRandom rand) {
 		if (rand.nextDouble() < 0.5) return best.copy();
 		else return sym.copy();
 	}
@@ -30,8 +35,8 @@ public class ThiefOptimalTourFactory extends TourFactory {
 	public boolean hasNext() {
 		return true;
 	}
-	
-	
+
+
 
 
 }

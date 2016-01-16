@@ -7,10 +7,10 @@ import java.io.IOException;
 import org.apache.log4j.Logger;
 
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
-import com.msu.thief.io.AProblemReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
+import com.msu.util.io.AReader;
 
-public class ThiefMultiObjectiveReader extends AProblemReader<SingleObjectiveThiefProblem> {
+public class ThiefMultiObjectiveReader extends AReader<SingleObjectiveThiefProblem> {
 
 	static final Logger logger = Logger.getLogger(ThiefMultiObjectiveReader.class);
 

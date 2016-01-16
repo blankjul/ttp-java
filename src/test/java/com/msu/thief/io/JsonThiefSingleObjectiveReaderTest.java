@@ -55,7 +55,7 @@ public class JsonThiefSingleObjectiveReaderTest {
 	
 	@Test
 	public void testName() {
-		assertEquals("TTP_SO_10_3_1_25", problem.getName());
+		assertEquals("TTP_SO_10_3_1_25", problem.toString());
 	}
 	
 	

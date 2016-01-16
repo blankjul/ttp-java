@@ -14,25 +14,26 @@ import com.msu.thief.problems.variable.Tour;
  * provided.
  *
  */
-public class ThiefProblemWithFixedTour extends AProblem<Pack> {
+public class ThiefProblemWithFixedPack extends AProblem<Tour>  {
 
-	// ! tour which is used for evaluations
-	protected Tour tour;
+	//! tour which is used for evaluations
+	protected Pack pack;
 
-	// ! problem which underlies this fixed tour problem
+	//! problem which underlies this fixed tour problem
 	protected AbstractThiefProblem problem;
 
-	public ThiefProblemWithFixedTour(AbstractThiefProblem problem, Tour tour) {
+	
+	public ThiefProblemWithFixedPack(AbstractThiefProblem problem, Pack pack) {
 		this.problem = problem;
-		this.tour = tour;
+		this.pack = pack;
 	}
 
-	@Override
-	protected void evaluate_(Pack var, List<Double> objectives, List<Double> constraintViolations) {
-		Solution<TTPVariable> s = problem.evaluate(new TTPVariable(tour, var));
+	protected void evaluate_(Tour var, List<Double> objectives, List<Double> constraintViolations) {
+		Solution<TTPVariable> s = problem.evaluate(new TTPVariable(var, pack));
 		objectives.addAll(s.getObjectives());
 		constraintViolations.addAll(s.getConstraintViolations());
 	}
+
 
 	@Override
 	public int getNumberOfObjectives() {
@@ -48,5 +49,5 @@ public class ThiefProblemWithFixedTour extends AProblem<Pack> {
 		return problem;
 	}
 
-
+	
 }

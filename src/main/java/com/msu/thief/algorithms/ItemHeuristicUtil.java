@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.msu.interfaces.IEvaluator;
 import com.msu.moo.model.solution.Solution;
-import com.msu.thief.algorithms.tour.FixedTourSingleObjectiveThiefProblem;
+import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.problems.variable.Pack;
 
 /**
@@ -21,10 +21,11 @@ public class ItemHeuristicUtil {
 	/**
 	 * @return the objective value when one item is removed from the pack
 	 */
-	public static Map<Integer, Solution> calcObjectiveRemoved(FixedTourSingleObjectiveThiefProblem problem, IEvaluator eval,
+	public static 
+		Map<Integer, Solution<Pack>> calcObjectiveRemoved(ThiefProblemWithFixedTour problem, IEvaluator eval,
 			Pack pack) {
-		Map<Integer, Solution> hash = new HashMap<>();
-		for (Integer idx : new HashSet<>(pack.encode())) {
+		Map<Integer, Solution<Pack>> hash = new HashMap<>();
+		for (Integer idx : new HashSet<>(pack.decode())) {
 			hash.put(idx, evaluateWhenBitfipped(problem, eval, pack, idx));
 		}
 		return hash;
@@ -34,10 +35,10 @@ public class ItemHeuristicUtil {
 	 * @param itemsToAdd all items that should be considered to add
 	 * @return the heuristic value of all items when they are added.
 	 */
-	public static Map<Integer, Solution> calcObjectiveWhenAdded(FixedTourSingleObjectiveThiefProblem problem, IEvaluator eval,
+	public static Map<Integer, Solution<Pack>> calcObjectiveWhenAdded(ThiefProblemWithFixedTour problem, IEvaluator eval,
 			Pack pack, Collection<Integer> itemsToAdd) {
 
-		Map<Integer, Solution> hash = new HashMap<>();
+		Map<Integer, Solution<Pack>> hash = new HashMap<>();
 		for (Integer idx : itemsToAdd) {
 			if (pack.isPicked(idx))
 				throw new RuntimeException(
@@ -51,12 +52,12 @@ public class ItemHeuristicUtil {
 	 * @return the solution if the bit is fliped. If item is picked, it is
 	 *         removed. If it is not present it is added.
 	 */
-	public static Solution evaluateWhenBitfipped(FixedTourSingleObjectiveThiefProblem problem, IEvaluator eval, Pack p,
+	public static Solution<Pack> evaluateWhenBitfipped(ThiefProblemWithFixedTour problem, IEvaluator eval, Pack p,
 			int idx) {
 
-		Solution s = null;
+		Solution<Pack> s = null;
 		
-		Pack pack = new Pack(p.encode());
+		Pack pack = p.copy();
 
 		if (pack.isPicked(idx)) {
 			pack.remove(idx);

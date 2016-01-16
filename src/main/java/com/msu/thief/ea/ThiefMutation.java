@@ -1,30 +1,35 @@
 package com.msu.thief.ea;
 
-import com.msu.interfaces.IEvaluator;
-import com.msu.thief.ea.pack.mutation.PackMutation;
-import com.msu.thief.ea.tour.mutation.TourMutation;
+import com.msu.interfaces.IMutation;
 import com.msu.thief.problems.AbstractThiefProblem;
+import com.msu.thief.problems.variable.Pack;
 import com.msu.thief.problems.variable.TTPVariable;
+import com.msu.thief.problems.variable.Tour;
 import com.msu.util.MyRandom;
 
-public class ThiefMutation {
+public class ThiefMutation implements IMutation<TTPVariable> {
+
+	//! the thief problem for adding heuristic information
+	protected AbstractThiefProblem thief = null;
 
 	//! crossover for the tour
-	protected TourMutation mTour;
+	protected IMutation<Tour> mTour = null;
 	
 	//! crossover for the packing plan
-	protected PackMutation mPack;
+	protected IMutation<Pack> mPack = null;
 
 	
-	public ThiefMutation(TourMutation mTour, PackMutation mPack) {
+	
+	public ThiefMutation(AbstractThiefProblem thief, IMutation<Tour> mTour, IMutation<Pack> mPack) {
 		super();
+		this.thief = thief;
 		this.mTour = mTour;
 		this.mPack = mPack;
 	}
-
 	
-	public void mutate(TTPVariable a, AbstractThiefProblem thief, MyRandom rand, IEvaluator eval) {
-		
+	
+	@Override
+	public void mutate(TTPVariable a, MyRandom rand) {
 		
 		double probTour = rand.nextDouble();
 		double probPack = rand.nextDouble();
@@ -37,18 +42,17 @@ public class ThiefMutation {
 		
 
 		if (mTour != null && probTour < 0.5) {
-			mTour.mutate(thief, rand, a.getTour());
+			mTour.mutate(a.getTour(), rand);
 		}
 		
 		if (mPack != null && probPack < 0.5) {
-			mPack.mutate(thief, rand, a.getPack());
+			mPack.mutate(a.getPack(), rand);
 		}
 
 		
 	}
-	
-	
-	
+
+
 	
 	
 }
