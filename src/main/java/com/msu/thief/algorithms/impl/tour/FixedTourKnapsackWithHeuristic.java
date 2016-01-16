@@ -11,7 +11,7 @@ import com.msu.moo.model.solution.Solution;
 import com.msu.moo.model.solution.SolutionDominatorWithConstraints;
 import com.msu.thief.algorithms.ItemHeuristicUtil;
 import com.msu.thief.algorithms.impl.subproblems.AlgorithmUtil;
-import com.msu.thief.algorithms.interfaces.IFixedTourAlgorithm;
+import com.msu.thief.algorithms.interfaces.IFixedTourSingleObjectiveAlgorithm;
 import com.msu.thief.model.Item;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.problems.variable.Pack;
@@ -29,14 +29,13 @@ import com.msu.util.Pair;
  * calcItemGains -> createItemsWithGainAsProfit -> solveKnapsack
  *
  */
-public class FixedTourKnapsackWithHeuristic implements IFixedTourAlgorithm  {
+public class FixedTourKnapsackWithHeuristic implements IFixedTourSingleObjectiveAlgorithm  {
 
 	/**
 	 * If this options is set there will be a post greedy post pruning to optimize
 	 * the objective value.
 	 */
 	protected boolean postPruneItems = true;
-	
 	
 
 

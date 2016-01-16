@@ -32,8 +32,15 @@ public class ThiefCrossover implements ICrossover<TTPVariable> {
 	@Override
 	public List<TTPVariable> crossover(TTPVariable a, TTPVariable b, MyRandom rand) {
 		
+		List<TTPVariable> result = new ArrayList<>();
+		
+		List<Tour> offTours = new ArrayList<>();
+		List<Pack> offPlans = new ArrayList<>();
+		
+		
 		double probTour = rand.nextDouble();
 		double probPack = rand.nextDouble();
+		
 		
 		// if both are lower and no mutation would occur -> do at least one mutation
 		if (probTour > 0.5 && probPack > 0.5) {
@@ -41,8 +48,8 @@ public class ThiefCrossover implements ICrossover<TTPVariable> {
 			else probPack = 0;
 		}
 		
+
 		// crossover of tours
-		List<Tour> offTours = new ArrayList<>();
 		if (cTour != null && probTour < 0.5) {
 			offTours = cTour.crossover(a.getTour(), b.getTour(), rand);
 		} else {
@@ -50,7 +57,6 @@ public class ThiefCrossover implements ICrossover<TTPVariable> {
 		}
 		
 		// crossover of plans
-		List<Pack> offPlans = new ArrayList<>();
 		if (cPack != null && probPack < 0.5) {
 			offPlans = cPack.crossover(a.getPack(), b.getPack(), rand);
 		} else {
@@ -60,9 +66,6 @@ public class ThiefCrossover implements ICrossover<TTPVariable> {
 		rand.shuffle(offTours);
 		rand.shuffle(offPlans);
 
-		
-		List<TTPVariable> result = new ArrayList<>();
-		
 		for (int i = 0; i < offTours.size(); i++) {
 			result.add(TTPVariable.create(offTours.get(i), offPlans.get(i)));
 		}

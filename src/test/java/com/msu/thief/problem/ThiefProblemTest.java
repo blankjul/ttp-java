@@ -7,12 +7,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.msu.moo.model.solution.Solution;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.MultiObjectiveThiefProblem;
 import com.msu.thief.problems.variable.TTPVariable;
 
 public class ThiefProblemTest {
 
-	private ThiefProblem ttp;
+	private MultiObjectiveThiefProblem ttp;
 
 	@Before
 	public void setUp() {

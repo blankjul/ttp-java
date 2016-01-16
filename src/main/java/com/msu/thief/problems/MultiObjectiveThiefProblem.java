@@ -13,16 +13,16 @@ import com.msu.thief.problems.variable.Pack;
 import com.msu.thief.problems.variable.TTPVariable;
 import com.msu.thief.problems.variable.Tour;
 
-public class ThiefProblem extends AbstractThiefProblem {
+public class MultiObjectiveThiefProblem extends AbstractThiefProblem {
 	
-	static final Logger logger = Logger.getLogger(ThiefProblem.class);
+	static final Logger logger = Logger.getLogger(MultiObjectiveThiefProblem.class);
 	
 
-	public ThiefProblem() {
+	public MultiObjectiveThiefProblem() {
 		super();
 	}
 
-	public ThiefProblem(SymmetricMap map, ItemCollection<Item> items, int maxWeight) {
+	public MultiObjectiveThiefProblem(SymmetricMap map, ItemCollection<Item> items, int maxWeight) {
 		super(map, items, maxWeight);
 	}
 	

@@ -4,5 +4,5 @@ import com.msu.interfaces.ISingleObjectiveAlgorithm;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.problems.variable.Pack;
 
-public interface IFixedTourAlgorithm extends ISingleObjectiveAlgorithm<Pack, ThiefProblemWithFixedTour> {
+public interface IFixedTourSingleObjectiveAlgorithm extends ISingleObjectiveAlgorithm<Pack, ThiefProblemWithFixedTour> {
 }

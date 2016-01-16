@@ -11,7 +11,7 @@ import java.util.Set;
 import com.msu.interfaces.IEvaluator;
 import com.msu.moo.model.solution.Solution;
 import com.msu.thief.algorithms.ItemHeuristicUtil;
-import com.msu.thief.algorithms.interfaces.IFixedTourAlgorithm;
+import com.msu.thief.algorithms.interfaces.IFixedTourSingleObjectiveAlgorithm;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.problems.variable.Pack;
 import com.msu.util.MyRandom;
@@ -29,7 +29,7 @@ import com.msu.util.Util;
  * feasible).
  * 
  */
-public class FixedTourGreedyPackingAlgorithm implements IFixedTourAlgorithm {
+public class FixedTourGreedyPackingAlgorithm implements IFixedTourSingleObjectiveAlgorithm {
 
 	@Override
 	public Solution<Pack> run(ThiefProblemWithFixedTour problem, IEvaluator evaluator, MyRandom rand) {

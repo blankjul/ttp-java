@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
 import com.msu.thief.problems.AbstractThiefProblem;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.MultiObjectiveThiefProblem;
 import com.msu.util.io.AReader;
 
 public class BonyadiMultiObjectiveReader extends AReader<AbstractThiefProblem> {
@@ -17,7 +17,7 @@ public class BonyadiMultiObjectiveReader extends AReader<AbstractThiefProblem> {
 	@Override
 	protected AbstractThiefProblem read_(BufferedReader br) throws IOException {
 
-		ThiefProblem ttp = new ThiefProblem();
+		MultiObjectiveThiefProblem ttp = new MultiObjectiveThiefProblem();
 
 		int numOfCities = BonyadiReaderUtil.parseNumOfCities(br);
 		int numOfItems = BonyadiReaderUtil.parseNumOfItems(br);

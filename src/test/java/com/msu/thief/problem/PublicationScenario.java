@@ -7,11 +7,11 @@ import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.MultiObjectiveThiefProblem;
 
 public class PublicationScenario {
 
-	public static ThiefProblem getExampleMutliObjective() {
+	public static MultiObjectiveThiefProblem getExampleMutliObjective() {
 		
 		SymmetricMap m = new SymmetricMap(4)
 				.set(0, 1, 5)
@@ -29,7 +29,7 @@ public class PublicationScenario {
 		items.add(2, new Item(3, 3));
 		items.add(3, new Item(2, 2));
 		
-		ThiefProblem problem = new ThiefProblem(m, items, 3);
+		MultiObjectiveThiefProblem problem = new MultiObjectiveThiefProblem(m, items, 3);
 		problem.setProfitEvaluator(new ExponentialProfitEvaluator(0.9, 10));
 		return problem;
 	}

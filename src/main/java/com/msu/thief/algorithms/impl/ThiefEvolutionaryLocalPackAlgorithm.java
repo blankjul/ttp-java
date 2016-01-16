@@ -2,8 +2,10 @@ package com.msu.thief.algorithms.impl;
 
 import com.msu.Builder;
 import com.msu.interfaces.IEvaluator;
+import com.msu.interfaces.ILocalOptimization;
 import com.msu.moo.model.solution.Solution;
 import com.msu.soo.SingleObjectiveEvolutionaryAlgorithm;
+import com.msu.thief.algorithms.impl.tour.FixedTourOnePlusOneEA;
 import com.msu.thief.algorithms.interfaces.IThiefSingleObjectiveAlgorithm;
 import com.msu.thief.ea.ThiefCrossover;
 import com.msu.thief.ea.ThiefFactory;
@@ -16,15 +18,15 @@ import com.msu.thief.ea.operators.ThiefSwapMutation;
 import com.msu.thief.ea.operators.ThiefUniformCrossover;
 import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
+import com.msu.thief.problems.ThiefProblemWithFixedTour;
+import com.msu.thief.problems.variable.Pack;
 import com.msu.thief.problems.variable.TTPVariable;
 import com.msu.util.MyRandom;
 
-public class ThiefEvolutionaryAlgorithm implements IThiefSingleObjectiveAlgorithm {
+public class ThiefEvolutionaryLocalPackAlgorithm implements IThiefSingleObjectiveAlgorithm {
 
 	@Override
 	public Solution<TTPVariable> run(SingleObjectiveThiefProblem thief, IEvaluator evaluator, MyRandom rand) {
-		
-		
 		
 		Builder<SingleObjectiveEvolutionaryAlgorithm<TTPVariable, AbstractThiefProblem>> b = 
 				new Builder<>(SingleObjectiveEvolutionaryAlgorithm.class);
@@ -35,7 +37,27 @@ public class ThiefEvolutionaryAlgorithm implements IThiefSingleObjectiveAlgorith
 			.set("verbose",	true)
 			.set("factory", new ThiefFactory(new ThiefOptimalTourFactory(thief), new ThiefPackOptimalFactory(thief)))
 			.set("crossover", new ThiefCrossover(new ThiefOrderedCrossover(), new ThiefUniformCrossover(thief)))
-			.set("mutation", new ThiefMutation(new ThiefSwapMutation(), new ThiefBitflipMutation(thief)));
+			.set("mutation", new ThiefMutation(new ThiefSwapMutation(), new ThiefBitflipMutation(thief)))
+			.set("local", new ILocalOptimization<TTPVariable, AbstractThiefProblem>() {
+				@Override
+				public Solution<TTPVariable> run(AbstractThiefProblem problem, IEvaluator evaluator, TTPVariable var) {
+					
+					ThiefProblemWithFixedTour thief = new ThiefProblemWithFixedTour(problem, var.getTour());
+					Solution<Pack> local = new FixedTourOnePlusOneEA(var.getPack()).run(thief, evaluator.createChildEvaluator(100), rand);
+					return evaluator.evaluate(problem, TTPVariable.create(var.getTour(), local.getVariable()));
+					
+					/*					
+	 				if (new MyRandom().nextDouble() < 1 / (double) 50) {
+						ThiefProblemWithFixedTour thief = new ThiefProblemWithFixedTour(problem, var.getTour());
+						Solution<Pack> local = new FixedTourEvolutionOnRelevantItems().run(thief, evaluator, rand);
+						return evaluator.evaluate(problem, TTPVariable.create(var.getTour(), local.getVariable()));
+					} else {
+						return evaluator.evaluate(problem, var);
+					}
+					*/
+					
+				}
+			});
 		
 		SingleObjectiveEvolutionaryAlgorithm<TTPVariable, AbstractThiefProblem> a = b.build();
 		Solution<TTPVariable> s = a.run(thief, evaluator, rand);

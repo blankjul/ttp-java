@@ -19,7 +19,7 @@ import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.thief.problems.ThiefProblem;
+import com.msu.thief.problems.MultiObjectiveThiefProblem;
 import com.msu.util.io.AReader;
 
 public class JsonThiefProblemReader extends AReader<AbstractThiefProblem> {
@@ -36,7 +36,7 @@ public class JsonThiefProblemReader extends AReader<AbstractThiefProblem> {
 			p = new SingleObjectiveThiefProblem();
 			((SingleObjectiveThiefProblem) p).setR(root.findValue("R").asDouble());
 		} else if (type.equals("MultiObjective")) {
-			p = new ThiefProblem();
+			p = new MultiObjectiveThiefProblem();
 		}
 		
 		final int numOfCities = root.findValue("numOfCities").asInt();

@@ -4,8 +4,8 @@ import org.apache.log4j.BasicConfigurator;
 
 import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.Solution;
-import com.msu.thief.algorithms.impl.ThiefEvolutionaryAlgorithm;
-import com.msu.thief.algorithms.interfaces.IThiefAlgorithm;
+import com.msu.thief.algorithms.impl.ThiefBilevelPackOnHeuristicFront;
+import com.msu.thief.algorithms.interfaces.IThiefSingleObjectiveAlgorithm;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
 import com.msu.thief.io.thief.reader.ThiefSingleTSPLIBProblemReader;
@@ -22,6 +22,8 @@ public class ExperimentOneProblemExecutor {
 	
 	
 	final public static int NUM_OF_EVALUATIONS = 500000;
+	
+	final public static MyRandom RAND = new MyRandom(654321);
 	
 	/**
 		PROBLEMS
@@ -57,9 +59,11 @@ public class ExperimentOneProblemExecutor {
 			bilevel.topdown.TopDownHeuristicAlgorithm
 		
 	*/
+		
 	
+	final public static IThiefSingleObjectiveAlgorithm ALGORITHM = new ThiefBilevelPackOnHeuristicFront();
+	//final public static IThiefAlgorithm ALGORITHM = new ThiefEvolutionaryLocalPackAlgorithm();
 	
-	final public static IThiefAlgorithm ALGORITHM = new ThiefEvolutionaryAlgorithm();
 	//final public static  IAlgorithm ALGORITHM = new AlternatingPoolingEvolution();
 	//final public static IAlgorithm ALGORITHM = new BilevelAlgorithmsFixedTour(new OnePlusOneEAFixedTourMutation());
 	//final public static IAlgorithm ALGORITHM = new CoevolutionAlgorithm();
@@ -81,7 +85,7 @@ public class ExperimentOneProblemExecutor {
 			thief = (SingleObjectiveThiefProblem) new ThiefSingleTSPLIBProblemReader().read(PROBLEM);
 		}
 		
-		Solution<TTPVariable> set = ALGORITHM.run(thief, new Evaluator(NUM_OF_EVALUATIONS), new MyRandom(123412));
+		Solution<TTPVariable> set = ALGORITHM.run(thief, new Evaluator(NUM_OF_EVALUATIONS), RAND);
 		
 		System.out.println(ALGORITHM);
 		System.out.println(thief);

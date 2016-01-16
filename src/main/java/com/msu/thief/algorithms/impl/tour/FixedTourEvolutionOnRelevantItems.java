@@ -6,7 +6,7 @@ import com.msu.moo.model.solution.Solution;
 import com.msu.moo.model.solution.SolutionDominator;
 import com.msu.moo.model.solution.SolutionSet;
 import com.msu.soo.SingleObjectiveEvolutionaryAlgorithm;
-import com.msu.thief.algorithms.interfaces.IFixedTourAlgorithm;
+import com.msu.thief.algorithms.interfaces.IFixedTourSingleObjectiveAlgorithm;
 import com.msu.thief.ea.factory.ThiefPackOptimalFactory;
 import com.msu.thief.ea.operators.ThiefBitflipMutation;
 import com.msu.thief.ea.operators.ThiefUniformCrossover;
@@ -15,7 +15,7 @@ import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.problems.variable.Pack;
 import com.msu.util.MyRandom;
 
-public class FixedTourEvolutionOnRelevantItems implements IFixedTourAlgorithm {
+public class FixedTourEvolutionOnRelevantItems implements IFixedTourSingleObjectiveAlgorithm {
 
 	// ! number when it counts as converged - no improvement for n generations
 	public final int CONVERGENCE_GENERATIONS = 30;

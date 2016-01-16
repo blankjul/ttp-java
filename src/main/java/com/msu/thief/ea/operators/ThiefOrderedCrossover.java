@@ -1,7 +1,6 @@
 package com.msu.thief.ea.operators;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,31 +27,23 @@ public class ThiefOrderedCrossover implements ICrossover<Tour> {
 		return off;
 	}
 	
-	
+	/**
+	 * @param bounds including first and excluding last
+	 */
 	public Tour crossover(Tour primary, Tour fillup, Pair<Integer, Integer> bounds) {
 		
 		List<Integer> result = new ArrayList<>();
 		
 		// create a hash set of all mapped values
-		List<Integer> fixed = new ArrayList<>();
-		Set<Integer> hash = new HashSet<>();
-		for (int i = bounds.first; i < bounds.second; i++) {
-			int idx = primary.ith(i);
-			hash.add(idx);
-			fixed.add(idx);
-			result.add(idx);
-		}
-		
-		
+		List<Integer> fixed = primary.decode().subList(bounds.first, bounds.second);
+		Set<Integer> hash = new HashSet<>(fixed);
 		
 		for (int i = 0; i < primary.numOfCities(); i++) {
-			int idx = (i + bounds.second) % primary.numOfCities();
-			int city = fillup.ith(idx);
-			if (!hash.contains(city) && city != 0) result.add(city);
+			int city = fillup.ith(i);
+			if (!hash.contains(city)) result.add(city);
 		}
 		
-		Collections.rotate(result, bounds.first - 1);
-		result.add(0,0);
+		result.addAll(bounds.first, fixed);
 		
 		Tour t = new Tour(result);
 		

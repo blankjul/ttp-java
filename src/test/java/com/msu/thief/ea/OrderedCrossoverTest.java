@@ -17,13 +17,14 @@ public class OrderedCrossoverTest extends Operator{
 		Tour t2 = Tour.createFromString("[0,9,8,7,6,5,4,3,2,1]");
 		
 		Tour result = new ThiefOrderedCrossover().crossover(t1, t2, Pair.create(2,6));
-		assertEquals(Tour.createFromString("[0,6,2,3,4,5,1,9,8,7]"), result);
+		assertEquals(Tour.createFromString("[0,9,2,3,4,5,8,7,6,1]"), result);
 		
-		Tour result2 = new ThiefOrderedCrossover().crossover(t1, t2, Pair.create(1,6));
-		assertEquals(Tour.createFromString("[0,1,2,3,4,5,9,8,7,6]"), result2);
+		Tour result2 = new ThiefOrderedCrossover().crossover(t2, t1, Pair.create(2,6));
+		assertEquals(Tour.createFromString("[0,1,8,7,6,5,2,3,4,9]"), result2);
 		
-		//Tour tmp = new ThiefOrderedCrossover().crossover(t1, t2, Pair.create(0,6));
-		//assertEquals(Tour.createFromString("[0,6,2,3,4,5,1,9,8,7]"), tmp);
+		Tour tmp = new ThiefOrderedCrossover().crossover(t1, t2, Pair.create(0,6));
+		assertEquals(Tour.createFromString("[0,1,2,3,4,5,9,8,7,6]"), tmp);
+		
 	}
 	
 	

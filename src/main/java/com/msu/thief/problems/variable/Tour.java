@@ -164,5 +164,7 @@ public class Tour extends AVariable<List<Integer>> implements IEvolutionaryVaria
 
 	
 	
+	
+	
 
 }
