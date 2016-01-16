@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.msu.interfaces.ICrossover;
-import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.variable.Pack;
 import com.msu.thief.problems.variable.TTPVariable;
 import com.msu.thief.problems.variable.Tour;
@@ -13,8 +12,6 @@ import com.msu.util.MyRandom;
 
 public class ThiefCrossover implements ICrossover<TTPVariable> {
 	
-	//! the thief problem for adding heuristic information
-	protected AbstractThiefProblem thief = null;
 
 	//! crossover for the tour
 	protected ICrossover<Tour> cTour = null;
@@ -24,9 +21,8 @@ public class ThiefCrossover implements ICrossover<TTPVariable> {
 
 	
 	
-	public ThiefCrossover(AbstractThiefProblem thief, ICrossover<Tour>cTour, ICrossover<Pack> cPack) {
+	public ThiefCrossover(ICrossover<Tour>cTour, ICrossover<Pack> cPack) {
 		super();
-		this.thief = thief;
 		this.cTour = cTour;
 		this.cPack = cPack;
 	}

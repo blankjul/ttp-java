@@ -21,7 +21,11 @@ public class OrderedCrossoverTest extends Operator{
 		
 		Tour result2 = new ThiefOrderedCrossover().crossover(t1, t2, Pair.create(1,6));
 		assertEquals(Tour.createFromString("[0,1,2,3,4,5,9,8,7,6]"), result2);
+		
+		//Tour tmp = new ThiefOrderedCrossover().crossover(t1, t2, Pair.create(0,6));
+		//assertEquals(Tour.createFromString("[0,6,2,3,4,5,1,9,8,7]"), tmp);
 	}
+	
 	
 	
 	

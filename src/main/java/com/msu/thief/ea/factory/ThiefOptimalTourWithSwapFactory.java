@@ -1,4 +1,4 @@
-package com.msu.thief.ea.tour.factory;
+package com.msu.thief.ea.factory;
 
 import com.msu.thief.ea.operators.ThiefSwapMutation;
 import com.msu.thief.problems.AbstractThiefProblem;

@@ -1,4 +1,4 @@
-package com.msu.thief.ea.tour.factory;
+package com.msu.thief.ea.factory;
 
 import com.msu.interfaces.IFactory;
 import com.msu.thief.algorithms.impl.subproblems.AlgorithmUtil;

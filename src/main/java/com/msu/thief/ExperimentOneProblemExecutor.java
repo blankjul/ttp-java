@@ -2,13 +2,13 @@ package com.msu.thief;
 
 import org.apache.log4j.BasicConfigurator;
 
-import com.msu.interfaces.ISingleObjectiveAlgorithm;
 import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.Solution;
+import com.msu.thief.algorithms.impl.ThiefEvolutionaryAlgorithm;
+import com.msu.thief.algorithms.interfaces.IThiefAlgorithm;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
 import com.msu.thief.io.thief.reader.ThiefSingleTSPLIBProblemReader;
-import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.problems.variable.TTPVariable;
 import com.msu.util.MyRandom;
@@ -59,7 +59,7 @@ public class ExperimentOneProblemExecutor {
 	*/
 	
 	
-	final public static ISingleObjectiveAlgorithm<TTPVariable, AbstractThiefProblem> ALGORITHM = null;
+	final public static IThiefAlgorithm ALGORITHM = new ThiefEvolutionaryAlgorithm();
 	//final public static  IAlgorithm ALGORITHM = new AlternatingPoolingEvolution();
 	//final public static IAlgorithm ALGORITHM = new BilevelAlgorithmsFixedTour(new OnePlusOneEAFixedTourMutation());
 	//final public static IAlgorithm ALGORITHM = new CoevolutionAlgorithm();

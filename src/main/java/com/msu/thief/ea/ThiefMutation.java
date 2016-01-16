@@ -1,7 +1,6 @@
 package com.msu.thief.ea;
 
 import com.msu.interfaces.IMutation;
-import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.variable.Pack;
 import com.msu.thief.problems.variable.TTPVariable;
 import com.msu.thief.problems.variable.Tour;
@@ -9,8 +8,6 @@ import com.msu.util.MyRandom;
 
 public class ThiefMutation implements IMutation<TTPVariable> {
 
-	//! the thief problem for adding heuristic information
-	protected AbstractThiefProblem thief = null;
 
 	//! crossover for the tour
 	protected IMutation<Tour> mTour = null;
@@ -19,10 +16,8 @@ public class ThiefMutation implements IMutation<TTPVariable> {
 	protected IMutation<Pack> mPack = null;
 
 	
-	
-	public ThiefMutation(AbstractThiefProblem thief, IMutation<Tour> mTour, IMutation<Pack> mPack) {
+	public ThiefMutation(IMutation<Tour> mTour, IMutation<Pack> mPack) {
 		super();
-		this.thief = thief;
 		this.mTour = mTour;
 		this.mPack = mPack;
 	}

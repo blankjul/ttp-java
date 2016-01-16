@@ -15,11 +15,11 @@ import com.msu.util.Pair;
 public class ThiefOrderedCrossover implements ICrossover<Tour> {
 
 
-
 	@Override
 	public List<Tour> crossover(Tour t1, Tour t2, MyRandom rand) {
 		
 		Pair<Integer, Integer> bounds = RecombinationUtil.calcBounds(rand, 1, t1.numOfCities());
+		//Pair<Integer, Integer> bounds =  Pair.create(0, rand.nextInt(t1.numOfCities()));
 		
 		List<Tour> off = new ArrayList<>();
 		off.add(crossover(t1, t2, bounds));
@@ -34,11 +34,16 @@ public class ThiefOrderedCrossover implements ICrossover<Tour> {
 		List<Integer> result = new ArrayList<>();
 		
 		// create a hash set of all mapped values
+		List<Integer> fixed = new ArrayList<>();
 		Set<Integer> hash = new HashSet<>();
 		for (int i = bounds.first; i < bounds.second; i++) {
-			hash.add(primary.ith(i));
-			result.add(primary.ith(i));
+			int idx = primary.ith(i);
+			hash.add(idx);
+			fixed.add(idx);
+			result.add(idx);
 		}
+		
+		
 		
 		for (int i = 0; i < primary.numOfCities(); i++) {
 			int idx = (i + bounds.second) % primary.numOfCities();
@@ -49,7 +54,13 @@ public class ThiefOrderedCrossover implements ICrossover<Tour> {
 		Collections.rotate(result, bounds.first - 1);
 		result.add(0,0);
 		
-		return new Tour(result);
+		Tour t = new Tour(result);
+		
+		if (!t.isPermutation()) {
+			System.out.println();
+		}
+		
+		return t;
 		
 	}
 	

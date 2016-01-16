@@ -2,7 +2,6 @@ package com.msu.thief;
 
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
 
 import org.apache.log4j.BasicConfigurator;
 
@@ -41,12 +40,12 @@ public class ExperimentTourSwap {
 		Tour tour = Tour.createFromString(
 				"0, 48, 31, 44, 18, 40, 7, 8, 9, 42, 32, 50, 10, 51, 13, 12, 46, 25, 26, 27, 11, 24, 3, 5, 14, 4, 23, 47, 37, 36, 39, 38, 35, 34, 33, 43, 45, 15, 28, 49, 19, 22, 29, 1, 6, 41, 20, 16, 2, 17, 30, 21]");
 
-		Pack pack = new Pack(Arrays.asList(0, 1, 2, 3, 42, 15, 16, 48, 17, 49, 18, 50, 19, 20, 29));
 		
+		// Solution<Pack> best = ;
 		
-		// Solution<Pack> best = new FixedTourEvolutionOnRelevantItems().run(new ThiefProblemWithFixedTour(thief, tour), eval, rand);
 		Tour bestTour = tour;
-		Pack bestPack = pack;
+		//Pack bestPack = new Pack(Arrays.asList(0, 1, 2, 3, 42, 15, 16, 48, 17, 49, 18, 50, 19, 20, 29));
+		Pack bestPack = new FixedTourEvolutionOnRelevantItems().run(new ThiefProblemWithFixedTour(thief, tour), eval, rand).getVariable();
 		Solution<Pack> best = eval.evaluate(new ThiefProblemWithFixedTour(thief, bestTour), bestPack);
 		
 		

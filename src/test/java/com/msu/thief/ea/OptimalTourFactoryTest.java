@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.msu.thief.ea.tour.factory.ThiefOptimalTourFactory;
+import com.msu.thief.ea.factory.ThiefOptimalTourFactory;
 import com.msu.thief.problems.variable.Tour;
 
 public class OptimalTourFactoryTest extends Operator {

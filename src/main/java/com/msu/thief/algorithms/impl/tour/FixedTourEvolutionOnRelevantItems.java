@@ -7,7 +7,7 @@ import com.msu.moo.model.solution.SolutionDominator;
 import com.msu.moo.model.solution.SolutionSet;
 import com.msu.soo.SingleObjectiveEvolutionaryAlgorithm;
 import com.msu.thief.algorithms.interfaces.IFixedTourAlgorithm;
-import com.msu.thief.ea.factory.ThiefPackOneItemFactory;
+import com.msu.thief.ea.factory.ThiefPackOptimalFactory;
 import com.msu.thief.ea.operators.ThiefBitflipMutation;
 import com.msu.thief.ea.operators.ThiefUniformCrossover;
 import com.msu.thief.problems.AbstractThiefProblem;
@@ -24,7 +24,8 @@ public class FixedTourEvolutionOnRelevantItems implements IFixedTourAlgorithm {
 	public Solution<Pack> run(ThiefProblemWithFixedTour problem, IEvaluator evaluator, MyRandom rand) {
 		
 		final AbstractThiefProblem thief = problem.getProblem();
-		
+	
+		/*		
 		// create the evolutionary algorithm
 		FixedTourKnapsackWithHeuristic knp = new Builder<FixedTourKnapsackWithHeuristic>(FixedTourKnapsackWithHeuristic.class)
 				.set("postPruneItems", false)
@@ -32,7 +33,7 @@ public class FixedTourEvolutionOnRelevantItems implements IFixedTourAlgorithm {
 		
 		Solution<Pack> s = knp.run(problem, evaluator, rand);
 		Pack p = s.getVariable();
-		
+		*/
 		
 		// create the evolutionary algorithm
 		Builder<SingleObjectiveEvolutionaryAlgorithm<Pack, ThiefProblemWithFixedTour>> b = 
@@ -41,18 +42,13 @@ public class FixedTourEvolutionOnRelevantItems implements IFixedTourAlgorithm {
 		b
 			.set("populationSize", 50)
 			.set("probMutation", 0.3)
+			.set("factory", new ThiefPackOptimalFactory(thief))
 			.set("crossover", new ThiefUniformCrossover(thief))
 			.set("mutation", new ThiefBitflipMutation(thief));
+			
 		SingleObjectiveEvolutionaryAlgorithm<Pack, ThiefProblemWithFixedTour> ea = b.build();
 		
-		
-		// create the initial population
-		ThiefPackOneItemFactory fac =  new ThiefPackOneItemFactory(thief, p.decode());
-		SolutionSet<Pack> population = new SolutionSet<Pack>();
-		while(fac.hasNext()) {
-			population.add(evaluator.evaluate(problem, fac.next(rand)));
-		}
-		
+		SolutionSet<Pack> population = ea.initialize(problem, evaluator, rand);
 		
 		// iterate until converged
 		
@@ -62,6 +58,13 @@ public class FixedTourEvolutionOnRelevantItems implements IFixedTourAlgorithm {
 		do {
 			population = ea.next(problem, evaluator, rand, population);
 			Solution<Pack> next = population.get(0);
+			
+			/*			
+			for (Solution<Pack> solution : population.subList(0, 1)) {
+				System.out.println(solution);
+			}
+			System.out.println();
+			*/
 			
 			// if we found a new solution
 			if (best == null || new SolutionDominator().isDominating(next, best)) {
