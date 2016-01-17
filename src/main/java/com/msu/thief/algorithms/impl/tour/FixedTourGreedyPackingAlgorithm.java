@@ -8,15 +8,15 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.msu.interfaces.IEvaluator;
+import com.msu.moo.interfaces.IEvaluator;
 import com.msu.moo.model.solution.Solution;
+import com.msu.moo.util.MyRandom;
+import com.msu.moo.util.Pair;
+import com.msu.moo.util.Util;
 import com.msu.thief.algorithms.ItemHeuristicUtil;
-import com.msu.thief.algorithms.interfaces.IFixedTourSingleObjectiveAlgorithm;
+import com.msu.thief.algorithms.interfaces.AFixedTourSingleObjectiveAlgorithm;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.problems.variable.Pack;
-import com.msu.util.MyRandom;
-import com.msu.util.Pair;
-import com.msu.util.Util;
 
 /**
  * Greedy algorithms starts with an empty knapsack and starting to add items
@@ -29,7 +29,7 @@ import com.msu.util.Util;
  * feasible).
  * 
  */
-public class FixedTourGreedyPackingAlgorithm implements IFixedTourSingleObjectiveAlgorithm {
+public class FixedTourGreedyPackingAlgorithm extends AFixedTourSingleObjectiveAlgorithm {
 
 	@Override
 	public Solution<Pack> run(ThiefProblemWithFixedTour problem, IEvaluator evaluator, MyRandom rand) {

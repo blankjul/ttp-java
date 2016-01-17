@@ -1,11 +1,11 @@
 package com.msu.thief.ea.operators;
 
-import com.msu.interfaces.IMutation;
+import com.msu.moo.interfaces.IMutation;
+import com.msu.moo.util.MyRandom;
+import com.msu.moo.util.Util;
 import com.msu.thief.ea.AOperator;
 import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.variable.Tour;
-import com.msu.util.MyRandom;
-import com.msu.util.Util;
 
 public class ThiefSimpleSwapMutation extends AOperator implements IMutation<Tour> {
 

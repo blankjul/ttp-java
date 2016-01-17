@@ -1,10 +1,10 @@
 package com.msu.thief.ea.operators;
 
-import com.msu.interfaces.IMutation;
+import com.msu.moo.interfaces.IMutation;
+import com.msu.moo.util.MyRandom;
 import com.msu.thief.ea.AOperator;
 import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.variable.Pack;
-import com.msu.util.MyRandom;
 
 public class ThiefBitflipMutation extends AOperator implements IMutation<Pack> {
 

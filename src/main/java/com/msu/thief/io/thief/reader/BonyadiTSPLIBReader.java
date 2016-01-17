@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.msu.moo.util.io.AReader;
 import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
@@ -13,11 +14,12 @@ import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.util.rounding.RoundingCeil;
 import com.msu.thief.util.rounding.RoundingNearestInt;
-import com.msu.util.io.AReader;
 
 public class BonyadiTSPLIBReader extends AReader<SingleObjectiveThiefProblem> {
 
-	protected SingleObjectiveThiefProblem read_(BufferedReader bufferedReader) throws IOException {
+	protected SingleObjectiveThiefProblem read_(String pathToFile) throws IOException {
+
+		BufferedReader bufferedReader = createBufferedReader(pathToFile);
 
 		SingleObjectiveThiefProblem ttp = new SingleObjectiveThiefProblem();
 		SymmetricMap map = null;
@@ -42,7 +44,8 @@ public class BonyadiTSPLIBReader extends AReader<SingleObjectiveThiefProblem> {
 				for (int i = 0; i < map.getSize(); i++) {
 					line = bufferedReader.readLine();
 					String[] values = line.split("\t");
-					cities.add(new Point2D.Double(Double.valueOf(values[1]).intValue(), Double.valueOf(values[2]).intValue()));
+					cities.add(new Point2D.Double(Double.valueOf(values[1]).intValue(),
+							Double.valueOf(values[2]).intValue()));
 				}
 				map = new CoordinateMap(cities);
 				map.round(new RoundingCeil());
@@ -57,11 +60,11 @@ public class BonyadiTSPLIBReader extends AReader<SingleObjectiveThiefProblem> {
 
 		bufferedReader.close();
 
-		
 		map.round(new RoundingNearestInt());
 		ttp.setMap(map);
 		ttp.setItems(items);
-		
+		ttp.setName(BonyadiReaderUtil.parseName(pathToFile));
+
 		return ttp;
 	}
 

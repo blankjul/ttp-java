@@ -1,7 +1,7 @@
 package com.msu.thief.ea;
 
-import com.msu.util.MyRandom;
-import com.msu.util.Pair;
+import com.msu.moo.util.MyRandom;
+import com.msu.moo.util.Pair;
 
 public class RecombinationUtil {
 

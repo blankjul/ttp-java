@@ -2,9 +2,9 @@ package com.msu.thief.ea;
 
 import org.junit.Before;
 
+import com.msu.moo.util.MyRandom;
 import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.util.MyRandom;
 
 public abstract class Operator {
 	

@@ -1,21 +1,21 @@
 package com.msu.thief.algorithms.impl.tour;
 
-import com.msu.Builder;
-import com.msu.interfaces.IEvaluator;
+import com.msu.moo.algorithms.single.SingleObjectiveEvolutionaryAlgorithm;
+import com.msu.moo.interfaces.IEvaluator;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.model.solution.SolutionDominator;
 import com.msu.moo.model.solution.SolutionSet;
-import com.msu.soo.SingleObjectiveEvolutionaryAlgorithm;
-import com.msu.thief.algorithms.interfaces.IFixedTourSingleObjectiveAlgorithm;
+import com.msu.moo.util.Builder;
+import com.msu.moo.util.MyRandom;
+import com.msu.thief.algorithms.interfaces.AFixedTourSingleObjectiveAlgorithm;
 import com.msu.thief.ea.factory.ThiefPackOptimalFactory;
 import com.msu.thief.ea.operators.ThiefBitflipMutation;
 import com.msu.thief.ea.operators.ThiefUniformCrossover;
 import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.problems.variable.Pack;
-import com.msu.util.MyRandom;
 
-public class FixedTourEvolutionOnRelevantItems implements IFixedTourSingleObjectiveAlgorithm {
+public class FixedTourEvolutionOnRelevantItems extends AFixedTourSingleObjectiveAlgorithm {
 
 	// ! number when it counts as converged - no improvement for n generations
 	public final int CONVERGENCE_GENERATIONS = 30;

@@ -3,13 +3,15 @@ package com.msu.thief;
 import org.apache.log4j.BasicConfigurator;
 
 import com.msu.moo.model.Evaluator;
+import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.util.MyRandom;
-import com.msu.thief.algorithms.impl.ThiefBestOfMultiObjectiveFront;
-import com.msu.thief.algorithms.interfaces.AThiefSingleObjectiveAlgorithm;
+import com.msu.thief.algorithms.impl.moo.ThiefMultiObjectiveAlgorithm;
+import com.msu.thief.algorithms.interfaces.AThiefMultiObjectiveAlgorithm;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
 import com.msu.thief.io.thief.reader.ThiefSingleTSPLIBProblemReader;
+import com.msu.thief.problems.MultiObjectiveThiefProblem;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.problems.variable.TTPVariable;
 
@@ -18,7 +20,7 @@ import com.msu.thief.problems.variable.TTPVariable;
  * This class allows to test an algorithm on one specific problem. 
  *
  */
-public class ExperimentOneProblemExecutor {
+public class ExperimentMultiOneProblemExecutor {
 	
 	
 	final public static int NUM_OF_EVALUATIONS = 500000;
@@ -61,7 +63,7 @@ public class ExperimentOneProblemExecutor {
 	*/
 		
 	
-	final public static AThiefSingleObjectiveAlgorithm ALGORITHM = new ThiefBestOfMultiObjectiveFront();
+	final public static AThiefMultiObjectiveAlgorithm ALGORITHM = new ThiefMultiObjectiveAlgorithm();
 
 	
 	public static void main(String[] args) {
@@ -74,15 +76,21 @@ public class ExperimentOneProblemExecutor {
 		} if (PROBLEM.endsWith(".json")) {
 			thief = (SingleObjectiveThiefProblem) new JsonThiefProblemReader().read(PROBLEM);
 		} if (PROBLEM.endsWith(".ttp")) {
-			thief = new ThiefSingleTSPLIBProblemReader().read(PROBLEM);
+			thief = (SingleObjectiveThiefProblem) new ThiefSingleTSPLIBProblemReader().read(PROBLEM);
 		}
 		
-		Solution<TTPVariable> set = ALGORITHM.run(thief, new Evaluator(NUM_OF_EVALUATIONS), RAND);
+		
+		NonDominatedSolutionSet<TTPVariable> set = ALGORITHM.run(new MultiObjectiveThiefProblem(thief), new Evaluator(NUM_OF_EVALUATIONS), RAND);
 		
 		System.out.println(ALGORITHM);
 		System.out.println(thief);
-		System.out.println(set);
+		//System.out.println(set);
 		
+		System.out.println();
+		
+		for (Solution<TTPVariable> solution : set) {
+			System.out.println(thief.evaluate(solution.getVariable()).getObjective(0));
+		}
 
 
 	}

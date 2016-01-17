@@ -5,14 +5,16 @@ import java.io.IOException;
 
 import org.apache.log4j.Logger;
 
+import com.msu.moo.util.io.AReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.util.io.AReader;
 
 public class BonyadiSingleObjectiveReader extends AReader<SingleObjectiveThiefProblem> {
 
 	static final Logger logger = Logger.getLogger(BonyadiSingleObjectiveReader.class);
 
-	protected SingleObjectiveThiefProblem read_(BufferedReader br) throws IOException {
+	protected SingleObjectiveThiefProblem read_(String pathToFile) throws IOException {
+
+		BufferedReader br = createBufferedReader(pathToFile);
 
 		SingleObjectiveThiefProblem ttp = new SingleObjectiveThiefProblem();
 
@@ -27,7 +29,10 @@ public class BonyadiSingleObjectiveReader extends AReader<SingleObjectiveThiefPr
 		ttp.setMap(BonyadiReaderUtil.parseMap(br, numOfCities));
 		ttp.setItems(BonyadiReaderUtil.parseItems(br, numOfItems, numOfCities));
 
+		ttp.setName(BonyadiReaderUtil.parseName(pathToFile));
+
 		br.close();
+
 		return ttp;
 	}
 

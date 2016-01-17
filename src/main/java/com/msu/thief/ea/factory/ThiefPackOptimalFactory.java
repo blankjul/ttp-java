@@ -1,11 +1,11 @@
 package com.msu.thief.ea.factory;
 
-import com.msu.interfaces.IFactory;
+import com.msu.moo.interfaces.IFactory;
+import com.msu.moo.util.MyRandom;
 import com.msu.thief.algorithms.impl.subproblems.AlgorithmUtil;
 import com.msu.thief.ea.AOperator;
 import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.variable.Pack;
-import com.msu.util.MyRandom;
 
 
 public class ThiefPackOptimalFactory extends AOperator implements IFactory<Pack>  {

@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.msu.interfaces.IEvolutionaryVariable;
+import com.msu.moo.interfaces.IEvolutionaryVariable;
 import com.msu.moo.model.variable.AVariable;
 import com.msu.thief.exceptions.VariableNotValidException;
 import com.msu.thief.util.StringUtil;

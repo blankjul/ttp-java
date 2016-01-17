@@ -1,9 +1,9 @@
 package com.msu.thief.ea.factory;
 
+import com.msu.moo.util.MyRandom;
 import com.msu.thief.ea.operators.ThiefSwapMutation;
 import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.variable.Tour;
-import com.msu.util.MyRandom;
 
 public class ThiefOptimalTourWithSwapFactory extends ThiefOptimalTourFactory {
 

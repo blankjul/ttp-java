@@ -1,12 +1,13 @@
 package com.msu.thief.algorithms.impl;
 
-import com.msu.Builder;
-import com.msu.interfaces.IEvaluator;
-import com.msu.interfaces.ILocalOptimization;
+import com.msu.moo.algorithms.single.SingleObjectiveEvolutionaryAlgorithm;
+import com.msu.moo.interfaces.IEvaluator;
+import com.msu.moo.interfaces.ILocalOptimization;
 import com.msu.moo.model.solution.Solution;
-import com.msu.soo.SingleObjectiveEvolutionaryAlgorithm;
+import com.msu.moo.util.Builder;
+import com.msu.moo.util.MyRandom;
 import com.msu.thief.algorithms.impl.tour.FixedTourOnePlusOneEA;
-import com.msu.thief.algorithms.interfaces.IThiefSingleObjectiveAlgorithm;
+import com.msu.thief.algorithms.interfaces.AThiefSingleObjectiveAlgorithm;
 import com.msu.thief.ea.ThiefCrossover;
 import com.msu.thief.ea.ThiefFactory;
 import com.msu.thief.ea.ThiefMutation;
@@ -21,9 +22,8 @@ import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.problems.variable.Pack;
 import com.msu.thief.problems.variable.TTPVariable;
-import com.msu.util.MyRandom;
 
-public class ThiefEvolutionaryLocalPackAlgorithm implements IThiefSingleObjectiveAlgorithm {
+public class ThiefEvolutionaryLocalPackAlgorithm extends AThiefSingleObjectiveAlgorithm {
 
 	@Override
 	public Solution<TTPVariable> run(SingleObjectiveThiefProblem thief, IEvaluator evaluator, MyRandom rand) {

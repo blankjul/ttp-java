@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.msu.moo.util.io.AReader;
 import com.msu.thief.evaluator.profit.NoDroppingEvaluator;
 import com.msu.thief.evaluator.time.StandardTimeEvaluator;
 import com.msu.thief.model.CoordinateMap;
@@ -16,14 +17,14 @@ import com.msu.thief.model.ItemCollection;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.util.rounding.IRounding;
 import com.msu.thief.util.rounding.RoundingCeil;
-import com.msu.util.io.AReader;
 
 public class ThiefSingleTSPLIBProblemReader extends AReader<SingleObjectiveThiefProblem> {
 
 	static final Logger logger = Logger.getLogger(ThiefSingleTSPLIBProblemReader.class);
 
-	@Override
-	public SingleObjectiveThiefProblem read_(BufferedReader br) throws IOException {
+	protected SingleObjectiveThiefProblem read_(String pathToFile) throws IOException {
+
+		BufferedReader br = createBufferedReader(pathToFile);
 
 		CoordinateMap map = null;
 
@@ -36,20 +37,19 @@ public class ThiefSingleTSPLIBProblemReader extends AReader<SingleObjectiveThief
 
 		int numOfItems = Integer.valueOf(br.readLine().split(":")[1].trim());
 		logger.info(String.format("Num of items: %s", numOfItems));
-		
+
 		int maxWeight = Integer.valueOf(br.readLine().split(":")[1].trim());
 		logger.info(String.format("Maximal weight: %s", maxWeight));
-		
+
 		double minSpeed = Double.valueOf(br.readLine().split(":")[1].trim());
 		logger.info(String.format("Minimal Speed: %s", minSpeed));
-		
+
 		double maxSpeed = Double.valueOf(br.readLine().split(":")[1].trim());
 		logger.info(String.format("Maximal Speed: %s", maxSpeed));
-		
+
 		double R = Double.valueOf(br.readLine().split(":")[1].trim());
 		logger.info(String.format("Renting Ratio: %s", R));
-		
-		
+
 		IRounding mRound = null;
 		String round = br.readLine().split(":")[1].trim();
 		if (round.equals("CEIL_2D")) {
@@ -65,8 +65,9 @@ public class ThiefSingleTSPLIBProblemReader extends AReader<SingleObjectiveThief
 			String line = null;
 			while ((line = br.readLine()) != null) {
 
-				if (line.startsWith("ITEMS")) break;
-				
+				if (line.startsWith("ITEMS"))
+					break;
+
 				String[] values = line.split("\\s+");
 				Point2D point = new Point2D.Double(Double.valueOf(values[1]), Double.valueOf(values[2]));
 				cities.add(point);
@@ -78,20 +79,20 @@ public class ThiefSingleTSPLIBProblemReader extends AReader<SingleObjectiveThief
 		}
 		map = new CoordinateMap(cities);
 		map.round(mRound);
-		
-		
+
 		ItemCollection<Item> items = new ItemCollection<>();
-		
+
 		String line = null;
-		while((line = br.readLine()) != null) {
+		while ((line = br.readLine()) != null) {
 			String[] values = line.split("\\s+");
 			Item item = new Item(Integer.valueOf(values[1]), Integer.valueOf(values[2]));
 			int city = Integer.valueOf(values[3]) - 1;
-			// logger.info(String.format("Insert item %s to city %s", item, city));
+			// logger.info(String.format("Insert item %s to city %s", item,
+			// city));
 			items.add(city, item);
 		}
 		logger.info(String.format("Finshed parsing file.", citiesSection));
-		
+
 		SingleObjectiveThiefProblem p = new SingleObjectiveThiefProblem();
 		p.setMap(map);
 		p.setItems(items);
@@ -102,7 +103,7 @@ public class ThiefSingleTSPLIBProblemReader extends AReader<SingleObjectiveThief
 		p.setProfitEvaluator(new NoDroppingEvaluator());
 		p.setTimeEvaluator(new StandardTimeEvaluator());
 		p.setName(name);
-		
+
 		return p;
 	}
 

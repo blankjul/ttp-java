@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
-import com.msu.interfaces.IEvaluator;
+import com.msu.moo.interfaces.IEvaluator;
 import com.msu.moo.model.solution.Solution;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.problems.variable.Pack;

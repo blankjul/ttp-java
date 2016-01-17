@@ -3,12 +3,12 @@ package com.msu.thief.ea.factory;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import com.msu.interfaces.IFactory;
+import com.msu.moo.interfaces.IFactory;
+import com.msu.moo.util.MyRandom;
+import com.msu.moo.util.Util;
 import com.msu.thief.ea.AOperator;
 import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.variable.Pack;
-import com.msu.util.MyRandom;
-import com.msu.util.Util;
 
 /**
  * Creates a initial population where all items are contained alone as one

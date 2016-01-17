@@ -47,6 +47,21 @@ public abstract class AbstractThiefProblem extends AProblem<TTPVariable>{
 		this.maxWeight = maxWeight;
 		this.items = items;
 	}
+	
+	
+
+	public AbstractThiefProblem(double minSpeed, double maxSpeed, ProfitEvaluator evalProfit, TimeEvaluator evalTime,
+			SymmetricMap map, int maxWeight, ItemCollection<Item> items) {
+		super();
+		this.minSpeed = minSpeed;
+		this.maxSpeed = maxSpeed;
+		this.evalProfit = evalProfit;
+		this.evalTime = evalTime;
+		this.map = map;
+		this.maxWeight = maxWeight;
+		this.items = items;
+	}
+	
 
 	public int numOfCities() {
 		return map.getSize();

@@ -8,6 +8,7 @@ import java.util.List;
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.msu.moo.util.io.AWriter;
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
 import com.msu.thief.evaluator.profit.NoDroppingEvaluator;
 import com.msu.thief.evaluator.time.StandardTimeEvaluator;
@@ -15,7 +16,6 @@ import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.util.io.AWriter;
 
 public class JsonThiefProblemWriter extends AWriter<SingleObjectiveThiefProblem> {
 

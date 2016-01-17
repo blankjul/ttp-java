@@ -2,19 +2,21 @@ package com.msu.thief.algorithms.impl;
 
 import java.util.List;
 
-import com.msu.Builder;
-import com.msu.interfaces.IEvaluator;
-import com.msu.interfaces.IProblem;
 import com.msu.moo.algorithms.nsgaII.NSGAII;
+import com.msu.moo.interfaces.IEvaluator;
+import com.msu.moo.interfaces.IProblem;
 import com.msu.moo.model.AProblem;
+import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
-import com.msu.thief.algorithms.impl.subproblems.AlgorithmUtil;
+import com.msu.moo.util.Builder;
+import com.msu.moo.util.MyRandom;
+import com.msu.thief.algorithms.impl.tour.FixedTourEvolutionOnRelevantItems;
 import com.msu.thief.algorithms.impl.tour.FixedTourKnapsackWithHeuristic;
-import com.msu.thief.algorithms.interfaces.IThiefSingleObjectiveAlgorithm;
-import com.msu.thief.ea.factory.ThiefPackOptimalFactory;
-import com.msu.thief.ea.operators.ThiefBitflipMutation;
-import com.msu.thief.ea.operators.ThiefUniformCrossover;
+import com.msu.thief.algorithms.interfaces.AThiefSingleObjectiveAlgorithm;
+import com.msu.thief.ea.factory.ThiefOptimalTourWithSwapFactory;
+import com.msu.thief.ea.operators.ThiefOrderedCrossover;
+import com.msu.thief.ea.operators.ThiefSwapMutation;
 import com.msu.thief.evaluator.TourInformation;
 import com.msu.thief.evaluator.time.StandardTimeEvaluator;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
@@ -22,15 +24,11 @@ import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.problems.variable.Pack;
 import com.msu.thief.problems.variable.TTPVariable;
 import com.msu.thief.problems.variable.Tour;
-import com.msu.util.MyRandom;
 
-public class ThiefBilevelTourOnHeuristicFront implements IThiefSingleObjectiveAlgorithm {
+public class ThiefBilevelTourOnHeuristicFront extends AThiefSingleObjectiveAlgorithm {
 
 	@Override
 	public Solution<TTPVariable> run(SingleObjectiveThiefProblem problem, IEvaluator evaluator, MyRandom rand) {
-		
-		Tour best = AlgorithmUtil.calcBestTour(problem);
-		
 		
 		IProblem<Tour> thief = new AProblem<Tour>() {
 
@@ -45,9 +43,8 @@ public class ThiefBilevelTourOnHeuristicFront implements IThiefSingleObjectiveAl
 			}
 
 			@Override
-			protected void evaluate_(Tour var, List<Double> objectives, List<Double> constraintViolations) {
+			protected void evaluate_(Tour tour, List<Double> objectives, List<Double> constraintViolations) {
 				
-				Tour tour = best;
 				tour.validate(problem.numOfCities());
 				
 				TourInformation tourInfo = new StandardTimeEvaluator().evaluate_(problem, tour, new Pack());
@@ -55,6 +52,7 @@ public class ThiefBilevelTourOnHeuristicFront implements IThiefSingleObjectiveAl
 				
 				ThiefProblemWithFixedTour tmp = new ThiefProblemWithFixedTour(problem, tour);
 				Solution<Pack> opt = new FixedTourKnapsackWithHeuristic().run(tmp, evaluator, rand);
+				
 				objectives.add(opt.getObjective(0));
 				
 				constraintViolations.addAll(opt.getConstraintViolations());
@@ -67,16 +65,19 @@ public class ThiefBilevelTourOnHeuristicFront implements IThiefSingleObjectiveAl
 			.set("populationSize", 50)
 			.set("probMutation", 0.3)
 			//.set("verbose",	true)
-			.set("factory", new ThiefPackOptimalFactory(problem))
-			.set("crossover", new ThiefUniformCrossover(problem))
-			.set("mutation", new ThiefBitflipMutation(problem));
+			.set("factory", new ThiefOptimalTourWithSwapFactory(problem))
+			.set("crossover", new ThiefOrderedCrossover())
+			.set("mutation", new ThiefSwapMutation());
+		
 		
 		NSGAII<Tour, IProblem<Tour>> a = b.build();
 		NonDominatedSolutionSet<Tour> set = a.run(thief, evaluator, rand);
 		
 		
 		for (Solution<Tour> s : set) {
-			System.out.println(s);
+			ThiefProblemWithFixedTour tpwfp = new ThiefProblemWithFixedTour(problem, s.getVariable());
+			Solution<Pack> opt = new FixedTourEvolutionOnRelevantItems().run(tpwfp, new Evaluator(500000), rand);
+			System.out.println(opt);
 		}
 		System.out.println();
 		

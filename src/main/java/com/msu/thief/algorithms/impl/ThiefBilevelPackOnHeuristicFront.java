@@ -2,15 +2,16 @@ package com.msu.thief.algorithms.impl;
 
 import java.util.List;
 
-import com.msu.Builder;
-import com.msu.interfaces.IEvaluator;
-import com.msu.interfaces.IProblem;
 import com.msu.moo.algorithms.nsgaII.NSGAII;
+import com.msu.moo.interfaces.IEvaluator;
+import com.msu.moo.interfaces.IProblem;
 import com.msu.moo.model.AProblem;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
+import com.msu.moo.util.Builder;
+import com.msu.moo.util.MyRandom;
 import com.msu.thief.algorithms.impl.subproblems.AlgorithmUtil;
-import com.msu.thief.algorithms.interfaces.IThiefSingleObjectiveAlgorithm;
+import com.msu.thief.algorithms.interfaces.AThiefSingleObjectiveAlgorithm;
 import com.msu.thief.ea.factory.ThiefPackOptimalFactory;
 import com.msu.thief.ea.operators.ThiefBitflipMutation;
 import com.msu.thief.ea.operators.ThiefUniformCrossover;
@@ -22,9 +23,8 @@ import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.problems.variable.Pack;
 import com.msu.thief.problems.variable.TTPVariable;
 import com.msu.thief.problems.variable.Tour;
-import com.msu.util.MyRandom;
 
-public class ThiefBilevelPackOnHeuristicFront implements IThiefSingleObjectiveAlgorithm {
+public class ThiefBilevelPackOnHeuristicFront extends AThiefSingleObjectiveAlgorithm {
 
 	@Override
 	public Solution<TTPVariable> run(SingleObjectiveThiefProblem problem, IEvaluator evaluator, MyRandom rand) {
@@ -78,6 +78,7 @@ public class ThiefBilevelPackOnHeuristicFront implements IThiefSingleObjectiveAl
 		
 		
 		for (Solution<Pack> s : set) {
+			
 			System.out.println(s);
 		}
 		System.out.println();

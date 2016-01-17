@@ -3,12 +3,12 @@ package com.msu.thief.ea.operators;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.msu.interfaces.IMutation;
+import com.msu.moo.interfaces.IMutation;
+import com.msu.moo.util.MyRandom;
+import com.msu.moo.util.Pair;
 import com.msu.thief.ea.RecombinationUtil;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.problems.variable.Tour;
-import com.msu.util.MyRandom;
-import com.msu.util.Pair;
 
 public class ThiefSwapMutation implements IMutation<Tour> {
 

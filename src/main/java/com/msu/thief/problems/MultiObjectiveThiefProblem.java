@@ -26,6 +26,10 @@ public class MultiObjectiveThiefProblem extends AbstractThiefProblem {
 		super(map, items, maxWeight);
 	}
 	
+	public MultiObjectiveThiefProblem(AbstractThiefProblem thief) {
+		super(thief.minSpeed, thief.maxSpeed, thief.evalProfit, thief.evalTime, thief.map, thief.maxWeight, thief.items);
+	}
+	
 	
 	@Override
 	public int getNumberOfObjectives() {

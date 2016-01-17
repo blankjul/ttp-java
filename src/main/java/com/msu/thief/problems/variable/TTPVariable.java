@@ -1,6 +1,6 @@
 package com.msu.thief.problems.variable;
 
-import com.msu.interfaces.IVariable;
+import com.msu.moo.interfaces.IVariable;
 
 /**
  * This class represents the TTP variable which is necessary to calculate a

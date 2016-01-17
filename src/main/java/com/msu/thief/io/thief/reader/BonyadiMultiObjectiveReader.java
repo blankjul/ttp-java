@@ -5,17 +5,18 @@ import java.io.IOException;
 
 import org.apache.log4j.Logger;
 
+import com.msu.moo.util.io.AReader;
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
 import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.MultiObjectiveThiefProblem;
-import com.msu.util.io.AReader;
 
 public class BonyadiMultiObjectiveReader extends AReader<AbstractThiefProblem> {
 
 	static final Logger logger = Logger.getLogger(BonyadiMultiObjectiveReader.class);
 
-	@Override
-	protected AbstractThiefProblem read_(BufferedReader br) throws IOException {
+	protected MultiObjectiveThiefProblem read_(String pathToFile) throws IOException {
+
+		BufferedReader br = createBufferedReader(pathToFile);
 
 		MultiObjectiveThiefProblem ttp = new MultiObjectiveThiefProblem();
 
@@ -32,9 +33,8 @@ public class BonyadiMultiObjectiveReader extends AReader<AbstractThiefProblem> {
 
 		ttp.setMap(BonyadiReaderUtil.parseMap(br, numOfCities));
 		ttp.setItems(BonyadiReaderUtil.parseItems(br, numOfItems, numOfCities));
-		
-		//ttp.setName(BonyadiReaderUtil.parseName(pathToFile));
-		
+		ttp.setName(BonyadiReaderUtil.parseName(pathToFile));
+
 		br.close();
 		return ttp;
 	}

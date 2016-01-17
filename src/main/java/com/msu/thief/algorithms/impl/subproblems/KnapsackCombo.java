@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.msu.moo.util.BashExecutor;
+import com.msu.moo.util.Util;
 import com.msu.thief.ThiefConfiguration;
 import com.msu.thief.model.Item;
 import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.variable.Pack;
-import com.msu.util.BashExecutor;
-import com.msu.util.Util;
 
 public class KnapsackCombo  {
 

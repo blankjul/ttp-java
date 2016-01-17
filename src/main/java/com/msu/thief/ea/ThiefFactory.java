@@ -1,10 +1,10 @@
 package com.msu.thief.ea;
 
-import com.msu.interfaces.IFactory;
+import com.msu.moo.interfaces.IFactory;
+import com.msu.moo.util.MyRandom;
 import com.msu.thief.problems.variable.Pack;
 import com.msu.thief.problems.variable.TTPVariable;
 import com.msu.thief.problems.variable.Tour;
-import com.msu.util.MyRandom;
 
 public class ThiefFactory implements IFactory<TTPVariable>{
 

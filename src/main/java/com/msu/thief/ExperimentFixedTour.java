@@ -4,13 +4,13 @@ import org.apache.log4j.BasicConfigurator;
 
 import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.Solution;
+import com.msu.moo.util.MyRandom;
 import com.msu.thief.algorithms.impl.tour.FixedTourEvolutionOnRelevantItems;
 import com.msu.thief.io.thief.reader.ThiefSingleTSPLIBProblemReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.problems.variable.Pack;
 import com.msu.thief.problems.variable.Tour;
-import com.msu.util.MyRandom;
 
 /**
  * This class tests if the algorithm is able to find the optimum given a fixed tour.
@@ -27,7 +27,7 @@ public class ExperimentFixedTour {
 
 		BasicConfigurator.configure();
 
-		SingleObjectiveThiefProblem thief = (SingleObjectiveThiefProblem) new ThiefSingleTSPLIBProblemReader()
+		SingleObjectiveThiefProblem thief = new ThiefSingleTSPLIBProblemReader()
 				.read("../ttp-benchmark/TSPLIB/berlin52-ttp/berlin52_n51_bounded-strongly-corr_01.ttp");
 
 		MyRandom rand = new MyRandom(123456);

@@ -2,11 +2,11 @@ package com.msu.thief;
 
 import org.apache.log4j.BasicConfigurator;
 
-import com.msu.Configuration;
-import com.msu.experiment.ASingleObjectiveExperiment;
-import com.msu.interfaces.IProblem;
-import com.msu.interfaces.IVariable;
-import com.msu.util.ObjectFactory;
+import com.msu.moo.Configuration;
+import com.msu.moo.experiment.ASingleObjectiveExperiment;
+import com.msu.moo.interfaces.IProblem;
+import com.msu.moo.interfaces.IVariable;
+import com.msu.moo.util.ObjectFactory;
 
 /**
  * EXERIMENTS AVAILABLE
@@ -30,7 +30,7 @@ public class ExperimentExecutor {
 	protected final static String PREFIX = "com.msu.thief.experiment.";
 	
 	//! experiment that should be executed
-	protected final static String EXPERIMENT = "IEEE.ProcessExperiment";
+	protected final static String EXPERIMENT = "IEEE.IEEEExperiment";
 	
 	//! number of iterations per experiment
 	protected final static int ITERATIONS = 1;

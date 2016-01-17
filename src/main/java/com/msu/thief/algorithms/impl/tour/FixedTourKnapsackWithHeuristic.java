@@ -6,17 +6,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.msu.interfaces.IEvaluator;
+import com.msu.moo.interfaces.IEvaluator;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.model.solution.SolutionDominatorWithConstraints;
+import com.msu.moo.util.MyRandom;
+import com.msu.moo.util.Pair;
 import com.msu.thief.algorithms.ItemHeuristicUtil;
 import com.msu.thief.algorithms.impl.subproblems.AlgorithmUtil;
-import com.msu.thief.algorithms.interfaces.IFixedTourSingleObjectiveAlgorithm;
+import com.msu.thief.algorithms.interfaces.AFixedTourSingleObjectiveAlgorithm;
 import com.msu.thief.model.Item;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.problems.variable.Pack;
-import com.msu.util.MyRandom;
-import com.msu.util.Pair;
 
 /**
  * This algorithm is also based on a heuristic. In the beginning the gain of
@@ -29,7 +29,7 @@ import com.msu.util.Pair;
  * calcItemGains -> createItemsWithGainAsProfit -> solveKnapsack
  *
  */
-public class FixedTourKnapsackWithHeuristic implements IFixedTourSingleObjectiveAlgorithm  {
+public class FixedTourKnapsackWithHeuristic extends AFixedTourSingleObjectiveAlgorithm  {
 
 	/**
 	 * If this options is set there will be a post greedy post pruning to optimize

@@ -5,11 +5,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.msu.interfaces.ICrossover;
+import com.msu.moo.interfaces.ICrossover;
+import com.msu.moo.util.MyRandom;
+import com.msu.moo.util.Pair;
 import com.msu.thief.ea.RecombinationUtil;
 import com.msu.thief.problems.variable.Tour;
-import com.msu.util.MyRandom;
-import com.msu.util.Pair;
 
 public class ThiefOrderedCrossover implements ICrossover<Tour> {
 

@@ -5,10 +5,11 @@ import java.io.UnsupportedEncodingException;
 
 import org.apache.log4j.BasicConfigurator;
 
-import com.msu.interfaces.IEvaluator;
+import com.msu.moo.interfaces.IEvaluator;
 import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.model.solution.SolutionDominatorWithConstraints;
+import com.msu.moo.util.MyRandom;
 import com.msu.thief.algorithms.impl.tour.FixedTourEvolutionOnRelevantItems;
 import com.msu.thief.ea.operators.ThiefSwapMutation;
 import com.msu.thief.io.thief.reader.ThiefSingleTSPLIBProblemReader;
@@ -16,7 +17,6 @@ import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.problems.variable.Pack;
 import com.msu.thief.problems.variable.Tour;
-import com.msu.util.MyRandom;
 
 /**
  * This class tests if the algorithm is able to find the optimum given a fixed
@@ -53,7 +53,6 @@ public class ExperimentTourSwap {
 		
 		
 		boolean improvement = true;
-		
 		
 		while (improvement) {
 

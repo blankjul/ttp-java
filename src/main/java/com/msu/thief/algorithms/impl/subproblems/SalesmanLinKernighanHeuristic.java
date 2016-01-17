@@ -11,12 +11,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
+import com.msu.moo.util.BashExecutor;
+import com.msu.moo.util.Util;
 import com.msu.thief.ThiefConfiguration;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.variable.Tour;
-import com.msu.util.BashExecutor;
-import com.msu.util.Util;
 
 /**
  * http://www.akira.ruc.dk/~keld/research/LKH/

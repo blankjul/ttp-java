@@ -6,15 +6,16 @@ import java.io.IOException;
 
 import org.apache.log4j.Logger;
 
+import com.msu.moo.util.io.AReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.util.io.AReader;
 
 public class ThiefSingleObjectiveReader extends AReader<SingleObjectiveThiefProblem> {
 
 	static final Logger logger = Logger.getLogger(ThiefSingleObjectiveReader.class);
 
-	@Override
-	public SingleObjectiveThiefProblem read_(BufferedReader br) throws IOException {
+	protected SingleObjectiveThiefProblem read_(String pathToFile) throws IOException {
+
+		BufferedReader br = createBufferedReader(pathToFile);
 
 		SingleObjectiveThiefProblem p = new SingleObjectiveThiefProblem();
 
@@ -28,16 +29,9 @@ public class ThiefSingleObjectiveReader extends AReader<SingleObjectiveThiefProb
 
 		p.setMap(ThiefReaderUtil.parseMap(br, numOfCities));
 		p.setItems(ThiefReaderUtil.parseItems(br, numOfItems, numOfCities));
-		
+		p.setName(new File(pathToFile).getName().split("\\.")[0]);
+
 		return p;
-	}
-	
-	
-	@Override
-	public SingleObjectiveThiefProblem read(String pathToFile) {
-		SingleObjectiveThiefProblem problem = super.read(pathToFile);
-		problem.setName(new File(pathToFile).getName().split("\\.")[0]);
-		return problem;
 	}
 
 }

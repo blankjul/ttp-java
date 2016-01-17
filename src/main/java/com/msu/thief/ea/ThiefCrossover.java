@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.msu.interfaces.ICrossover;
+import com.msu.moo.interfaces.ICrossover;
+import com.msu.moo.util.MyRandom;
 import com.msu.thief.problems.variable.Pack;
 import com.msu.thief.problems.variable.TTPVariable;
 import com.msu.thief.problems.variable.Tour;
-import com.msu.util.MyRandom;
 
 public class ThiefCrossover implements ICrossover<TTPVariable> {
 	

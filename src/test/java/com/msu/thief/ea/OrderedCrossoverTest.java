@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.msu.moo.util.Pair;
 import com.msu.thief.ea.operators.ThiefOrderedCrossover;
 import com.msu.thief.problems.variable.Tour;
-import com.msu.util.Pair;
 
 public class OrderedCrossoverTest extends Operator{
 	

@@ -1,20 +1,20 @@
 package com.msu.thief.algorithms.impl.tour;
 
-import com.msu.interfaces.IEvaluator;
+import com.msu.moo.interfaces.IEvaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
-import com.msu.thief.algorithms.interfaces.IFixedTourSingleObjectiveAlgorithm;
+import com.msu.moo.util.MyRandom;
+import com.msu.thief.algorithms.interfaces.AFixedTourSingleObjectiveAlgorithm;
 import com.msu.thief.ea.operators.ThiefBitflipMutation;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.problems.variable.Pack;
-import com.msu.util.MyRandom;
 
 
 /**
  * Same idea like OnePlusOneEA.
  * But it solves only the problem for a fixed tour. It is used for the bilevel approach.
  */
-public class FixedTourOnePlusOneEA implements IFixedTourSingleObjectiveAlgorithm {
+public class FixedTourOnePlusOneEA extends AFixedTourSingleObjectiveAlgorithm {
 
 	//! best packing list found so far
 	protected Pack best = null;

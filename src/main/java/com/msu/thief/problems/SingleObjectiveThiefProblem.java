@@ -33,6 +33,13 @@ public class SingleObjectiveThiefProblem extends AbstractThiefProblem  {
 		this.R = R;
 	}
 	
+	
+	public SingleObjectiveThiefProblem(AbstractThiefProblem thief, double R) {
+		super(thief.minSpeed, thief.maxSpeed, thief.evalProfit, thief.evalTime, thief.map, thief.maxWeight, thief.items);
+		setR(R);
+	}
+	
+
 	@Override
 	public int getNumberOfObjectives() {
 		return 1;
@@ -79,10 +86,6 @@ public class SingleObjectiveThiefProblem extends AbstractThiefProblem  {
 	}
 	
 	
-
-
-
-
 	
 
 }

@@ -3,11 +3,11 @@ package com.msu.thief.ea.operators;
 import java.util.Arrays;
 import java.util.List;
 
-import com.msu.interfaces.ICrossover;
+import com.msu.moo.interfaces.ICrossover;
+import com.msu.moo.util.MyRandom;
 import com.msu.thief.ea.AOperator;
 import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.variable.Pack;
-import com.msu.util.MyRandom;
 
 public class ThiefUniformCrossover  extends AOperator implements ICrossover<Pack> {
 
