@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.impl;
+package com.msu.thief.algorithms.impl.bilevel;
 
 import java.util.List;
 
