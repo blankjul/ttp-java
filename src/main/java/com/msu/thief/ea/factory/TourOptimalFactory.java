@@ -8,10 +8,10 @@ import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.variable.Tour;
 
 
-public class ThiefOptimalTourFactory extends AOperator implements IFactory<Tour> {
+public class TourOptimalFactory extends AOperator implements IFactory<Tour> {
 
 	
-	public ThiefOptimalTourFactory(AbstractThiefProblem thief) {
+	public TourOptimalFactory(AbstractThiefProblem thief) {
 		super(thief);
 		best = AlgorithmUtil.calcBestTour(thief);
 		sym = best.getSymmetric();

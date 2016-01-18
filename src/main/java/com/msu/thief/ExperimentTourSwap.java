@@ -11,7 +11,7 @@ import com.msu.moo.model.solution.Solution;
 import com.msu.moo.model.solution.SolutionDominatorWithConstraints;
 import com.msu.moo.util.MyRandom;
 import com.msu.thief.algorithms.impl.tour.FixedTourEvolutionOnRelevantItems;
-import com.msu.thief.ea.operators.ThiefSwapMutation;
+import com.msu.thief.ea.operators.TourSwapMutation;
 import com.msu.thief.io.thief.reader.ThiefSingleTSPLIBProblemReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
@@ -66,7 +66,7 @@ public class ExperimentTourSwap {
 
 					Tour next = bestTour.copy();
 					
-					ThiefSwapMutation.swap(next, i, k);
+					TourSwapMutation.swap(next, i, k);
 					//double nextTime = ThiefSwapMutation.swapDeltaTime(next, i, k, time, thief.getMap());
 					//double nextTime = new StandardTimeEvaluator().evaluate(thief, next, Pack.empty());
 					

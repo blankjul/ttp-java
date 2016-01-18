@@ -1,16 +1,20 @@
 package com.msu.thief.ea.factory;
 
 import com.msu.moo.util.MyRandom;
-import com.msu.thief.ea.operators.ThiefSwapMutation;
+import com.msu.thief.ea.operators.TourSwapMutation;
 import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.variable.Tour;
 
-public class ThiefOptimalTourWithSwapFactory extends ThiefOptimalTourFactory {
+public class TourOptimalWithSwapFactory extends TourOptimalFactory {
 
+	
+	protected Tour starting = null;
 
-	public ThiefOptimalTourWithSwapFactory(AbstractThiefProblem thief) {
+	public TourOptimalWithSwapFactory(AbstractThiefProblem thief) {
 		super(thief);
 	}
+	
+	
 
 	@Override
 	public Tour next(MyRandom rand) {
@@ -21,7 +25,7 @@ public class ThiefOptimalTourWithSwapFactory extends ThiefOptimalTourFactory {
 			result = sym.copy();
 
 		if (rand.nextDouble() < 0.9)
-			new ThiefSwapMutation().mutate(result, rand);
+			new TourSwapMutation().mutate(result, rand);
 
 		return result;
 	}

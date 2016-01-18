@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.apache.log4j.BasicConfigurator;
 import org.junit.Test;
 
-import com.msu.thief.ea.operators.ThiefSwapMutation;
+import com.msu.thief.ea.operators.TourSwapMutation;
 import com.msu.thief.evaluator.time.StandardTimeEvaluator;
 import com.msu.thief.io.thief.reader.ThiefSingleTSPLIBProblemReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
@@ -18,21 +18,21 @@ public class SwapMutationTest extends Operator {
 	@Test
 	public void testSwapAll() {
 		Tour t = Tour.createFromString("[0,1,2,3,4,5,6,7,8,9]");
-		ThiefSwapMutation.swap(t, 1, 9);
+		TourSwapMutation.swap(t, 1, 9);
 		assertEquals(Tour.createFromString("[0, 9, 8, 7, 6, 5, 4, 3, 2, 1]"), t);
 	}
 
 	@Test
 	public void testOnlyLastTwo() {
 		Tour t = Tour.createFromString("[0,1,2,3,4,5,6,7,8,9]");
-		ThiefSwapMutation.swap(t, 8, 9);
+		TourSwapMutation.swap(t, 8, 9);
 		assertEquals(Tour.createFromString("[0,1,2,3,4,5,6,7,9,8]"), t);
 	}
 
 	@Test
 	public void test() {
 		Tour t = Tour.createFromString("[0,1,2,3,4,5,6,7,8,9]");
-		ThiefSwapMutation.swap(t, 3, 5);
+		TourSwapMutation.swap(t, 3, 5);
 		System.out.println(t);
 	}
 
@@ -41,7 +41,7 @@ public class SwapMutationTest extends Operator {
 		for (int i = 0; i < 50; i++) {
 			Tour p = Tour.createFromString("[0,1,2,3]");
 			Tour org = p.copy();
-			new ThiefSwapMutation().mutate(p, rand);
+			new TourSwapMutation().mutate(p, rand);
 			assertTrue(!org.equals(p));
 		}
 	}
@@ -53,8 +53,8 @@ public class SwapMutationTest extends Operator {
 				Tour t = Tour.createFromString("[0,1,2,3]");
 				double time = new StandardTimeEvaluator().evaluate(thief, t, Pack.empty());
 				
-				double nextTime = ThiefSwapMutation.swapDeltaTime(t, i, j, time, thief.getMap());
-				ThiefSwapMutation.swap(t, i, j);
+				double nextTime = TourSwapMutation.swapDeltaTime(t, i, j, time, thief.getMap());
+				TourSwapMutation.swap(t, i, j);
 				
 				double expected = new StandardTimeEvaluator().evaluate(thief, t, Pack.empty());
 				assertEquals(expected, nextTime, 0.01);
@@ -77,8 +77,8 @@ public class SwapMutationTest extends Operator {
 				Tour t = tour.copy();
 				double time = new StandardTimeEvaluator().evaluate(thief, t, Pack.empty());
 				
-				double nextTime = ThiefSwapMutation.swapDeltaTime(t, i, j, time, thief.getMap());
-				ThiefSwapMutation.swap(t, i, j);
+				double nextTime = TourSwapMutation.swapDeltaTime(t, i, j, time, thief.getMap());
+				TourSwapMutation.swap(t, i, j);
 				
 				double expected = new StandardTimeEvaluator().evaluate(thief, t, Pack.empty());
 				assertEquals(expected, nextTime, 0.01);

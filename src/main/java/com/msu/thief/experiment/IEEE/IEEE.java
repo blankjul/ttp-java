@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import com.msu.moo.util.FileCollectorParser;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
+import com.msu.thief.io.thief.reader.BonyadiTSPLIBReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 
 public class IEEE {
@@ -54,6 +55,13 @@ public class IEEE {
 		
 	}
 	
+	
+	public static Collection<SingleObjectiveThiefProblem> getTTPLIBProblems() {
+		FileCollectorParser<SingleObjectiveThiefProblem> fcp = new FileCollectorParser<>();
+		fcp.add("../ttp-benchmark/TSPLIB/berlin52-ttp", "*_01.ttp", new BonyadiTSPLIBReader());
+		return fcp.collect();
+	
+}
 
 	
 }

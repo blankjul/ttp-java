@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.msu.thief.ea.factory.ThiefPackOneItemFactory;
+import com.msu.thief.ea.factory.PackOneItemFactory;
 import com.msu.thief.problems.variable.Pack;
 
 public class PackOneItemFactoryTest extends Operator {
@@ -16,7 +16,7 @@ public class PackOneItemFactoryTest extends Operator {
 	
 	@Test
 	public void testFactoryAll() {
-		ThiefPackOneItemFactory fac = new ThiefPackOneItemFactory(thief);
+		PackOneItemFactory fac = new PackOneItemFactory(thief);
 		List<Pack> pool = new ArrayList<>();
 		while(fac.hasNext()) {
 			pool.add(fac.next(rand));
@@ -27,7 +27,7 @@ public class PackOneItemFactoryTest extends Operator {
 	
 	@Test
 	public void testFactoryTwoItems() {
-		ThiefPackOneItemFactory fac = new ThiefPackOneItemFactory(thief, Arrays.asList(1,2));
+		PackOneItemFactory fac = new PackOneItemFactory(thief, Arrays.asList(1,2));
 		List<Pack> pool = new ArrayList<>();
 		while(fac.hasNext()) {
 			pool.add(fac.next(rand));

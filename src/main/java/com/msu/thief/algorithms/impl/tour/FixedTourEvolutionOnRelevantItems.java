@@ -8,9 +8,9 @@ import com.msu.moo.model.solution.SolutionSet;
 import com.msu.moo.util.Builder;
 import com.msu.moo.util.MyRandom;
 import com.msu.thief.algorithms.interfaces.AFixedTourSingleObjectiveAlgorithm;
-import com.msu.thief.ea.factory.ThiefPackOptimalFactory;
-import com.msu.thief.ea.operators.ThiefBitflipMutation;
-import com.msu.thief.ea.operators.ThiefUniformCrossover;
+import com.msu.thief.ea.factory.PackOptimalFactory;
+import com.msu.thief.ea.operators.PackBitflipMutation;
+import com.msu.thief.ea.operators.PackUniformCrossover;
 import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.problems.variable.Pack;
@@ -42,9 +42,9 @@ public class FixedTourEvolutionOnRelevantItems extends AFixedTourSingleObjective
 		b
 			.set("populationSize", 50)
 			.set("probMutation", 0.3)
-			.set("factory", new ThiefPackOptimalFactory(thief))
-			.set("crossover", new ThiefUniformCrossover(thief))
-			.set("mutation", new ThiefBitflipMutation(thief));
+			.set("factory", new PackOptimalFactory(thief))
+			.set("crossover", new PackUniformCrossover(thief))
+			.set("mutation", new PackBitflipMutation(thief));
 			
 		SingleObjectiveEvolutionaryAlgorithm<Pack, ThiefProblemWithFixedTour> ea = b.build();
 		

@@ -5,7 +5,7 @@ import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.util.MyRandom;
 import com.msu.thief.algorithms.interfaces.AFixedTourSingleObjectiveAlgorithm;
-import com.msu.thief.ea.operators.ThiefBitflipMutation;
+import com.msu.thief.ea.operators.PackBitflipMutation;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.problems.variable.Pack;
 
@@ -41,7 +41,7 @@ public class FixedTourOnePlusOneEA extends AFixedTourSingleObjectiveAlgorithm {
 		while (evaluator.hasNext()) {
 			
 			Pack next =  best.copy();
-			new ThiefBitflipMutation(problem.getProblem()).mutate(next, rand);
+			new PackBitflipMutation(problem.getProblem()).mutate(next, rand);
 			
 			// check if this solution is better
 			Solution<Pack> s = evaluator.evaluate(problem, next);

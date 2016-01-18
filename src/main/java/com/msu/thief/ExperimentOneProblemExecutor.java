@@ -5,7 +5,7 @@ import org.apache.log4j.BasicConfigurator;
 import com.msu.moo.model.Evaluator;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.util.MyRandom;
-import com.msu.thief.algorithms.impl.ThiefBestOfMultiObjectiveFront;
+import com.msu.thief.algorithms.impl.ThiefTwoPhaseEvolution;
 import com.msu.thief.algorithms.interfaces.AThiefSingleObjectiveAlgorithm;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
@@ -61,7 +61,7 @@ public class ExperimentOneProblemExecutor {
 	*/
 		
 	
-	final public static AThiefSingleObjectiveAlgorithm ALGORITHM = new ThiefBestOfMultiObjectiveFront();
+	final public static AThiefSingleObjectiveAlgorithm ALGORITHM = new ThiefTwoPhaseEvolution();
 
 	
 	public static void main(String[] args) {

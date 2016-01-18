@@ -6,7 +6,7 @@ import com.msu.moo.model.solution.SolutionDominatorWithConstraints;
 import com.msu.moo.util.MyRandom;
 import com.msu.thief.algorithms.impl.tour.FixedTourEvolutionOnRelevantItems;
 import com.msu.thief.algorithms.interfaces.AThiefSingleObjectiveAlgorithm;
-import com.msu.thief.ea.operators.ThiefSwapMutation;
+import com.msu.thief.ea.operators.TourSwapMutation;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.problems.variable.Pack;
@@ -47,7 +47,7 @@ public class LocalSwapTourAlgorithm extends AThiefSingleObjectiveAlgorithm {
 
 					
 					Tour next = currentTour.copy();
-					ThiefSwapMutation.swap(next, i, k);
+					TourSwapMutation.swap(next, i, k);
 
 					Solution<Pack> opt = new FixedTourEvolutionOnRelevantItems()
 							.run(new ThiefProblemWithFixedTour(thief, next), evaluator, rand);

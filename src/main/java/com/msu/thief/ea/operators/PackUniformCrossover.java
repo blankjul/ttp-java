@@ -9,10 +9,10 @@ import com.msu.thief.ea.AOperator;
 import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.variable.Pack;
 
-public class ThiefUniformCrossover  extends AOperator implements ICrossover<Pack> {
+public class PackUniformCrossover  extends AOperator implements ICrossover<Pack> {
 
 	
-	public ThiefUniformCrossover(AbstractThiefProblem thief) {
+	public PackUniformCrossover(AbstractThiefProblem thief) {
 		super(thief);
 	}
 	

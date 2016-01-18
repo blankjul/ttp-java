@@ -14,9 +14,9 @@ import com.msu.moo.util.MyRandom;
 import com.msu.thief.algorithms.impl.tour.FixedTourEvolutionOnRelevantItems;
 import com.msu.thief.algorithms.impl.tour.FixedTourKnapsackWithHeuristic;
 import com.msu.thief.algorithms.interfaces.AThiefSingleObjectiveAlgorithm;
-import com.msu.thief.ea.factory.ThiefOptimalTourWithSwapFactory;
-import com.msu.thief.ea.operators.ThiefOrderedCrossover;
-import com.msu.thief.ea.operators.ThiefSwapMutation;
+import com.msu.thief.ea.factory.TourOptimalWithSwapFactory;
+import com.msu.thief.ea.operators.TourOrderedCrossover;
+import com.msu.thief.ea.operators.TourSwapMutation;
 import com.msu.thief.evaluator.TourInformation;
 import com.msu.thief.evaluator.time.StandardTimeEvaluator;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
@@ -65,9 +65,9 @@ public class ThiefBilevelTourOnHeuristicFront extends AThiefSingleObjectiveAlgor
 			.set("populationSize", 50)
 			.set("probMutation", 0.3)
 			//.set("verbose",	true)
-			.set("factory", new ThiefOptimalTourWithSwapFactory(problem))
-			.set("crossover", new ThiefOrderedCrossover())
-			.set("mutation", new ThiefSwapMutation());
+			.set("factory", new TourOptimalWithSwapFactory(problem))
+			.set("crossover", new TourOrderedCrossover())
+			.set("mutation", new TourSwapMutation());
 		
 		
 		NSGAII<Tour, IProblem<Tour>> a = b.build();

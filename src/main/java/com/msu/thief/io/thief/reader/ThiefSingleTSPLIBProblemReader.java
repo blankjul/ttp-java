@@ -102,8 +102,10 @@ public class ThiefSingleTSPLIBProblemReader extends AReader<SingleObjectiveThief
 		p.setMaxSpeed(maxSpeed);
 		p.setProfitEvaluator(new NoDroppingEvaluator());
 		p.setTimeEvaluator(new StandardTimeEvaluator());
-		p.setName(name);
+		p.setName(BonyadiReaderUtil.parseName(pathToFile));
 
+		br.close();
+		
 		return p;
 	}
 

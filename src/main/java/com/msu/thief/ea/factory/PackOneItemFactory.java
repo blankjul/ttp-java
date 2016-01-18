@@ -24,7 +24,7 @@ import com.msu.thief.problems.variable.Pack;
  * to pack.
  *
  */
-public class ThiefPackOneItemFactory extends AOperator implements IFactory<Pack> {
+public class PackOneItemFactory extends AOperator implements IFactory<Pack> {
 
 
 	
@@ -32,11 +32,11 @@ public class ThiefPackOneItemFactory extends AOperator implements IFactory<Pack>
 	protected LinkedList<Pack> pool = new LinkedList<>();
 	
 	
-	public ThiefPackOneItemFactory(AbstractThiefProblem thief) {
+	public PackOneItemFactory(AbstractThiefProblem thief) {
 		this(thief, Util.createIndex(thief.numOfItems()));
 	}
 	
-	public ThiefPackOneItemFactory(AbstractThiefProblem thief, Collection<Integer> items) {
+	public PackOneItemFactory(AbstractThiefProblem thief, Collection<Integer> items) {
 		super(thief);
 		
 		for (int i : items) {

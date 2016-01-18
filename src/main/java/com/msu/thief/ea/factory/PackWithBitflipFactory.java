@@ -2,25 +2,28 @@ package com.msu.thief.ea.factory;
 
 import com.msu.moo.interfaces.IFactory;
 import com.msu.moo.util.MyRandom;
-import com.msu.thief.algorithms.impl.subproblems.AlgorithmUtil;
 import com.msu.thief.ea.AOperator;
+import com.msu.thief.ea.operators.PackBitflipMutation;
 import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.variable.Pack;
 
 
-public class ThiefPackOptimalFactory extends AOperator implements IFactory<Pack>  {
+public class PackWithBitflipFactory extends AOperator implements IFactory<Pack>  {
 
-
+	protected Pack starting = null;
 	
-	public ThiefPackOptimalFactory(AbstractThiefProblem thief) {
+
+	public PackWithBitflipFactory(AbstractThiefProblem thief, Pack starting) {
 		super(thief);
+		this.starting = starting;
 	}
 
 
 	@Override
 	public Pack next(MyRandom rand) {
-		final int maxWeight = (int) (rand.nextDouble() * thief.getMaxWeight());
-		return AlgorithmUtil.calcBestPackingPlan(thief.getItems(), maxWeight);
+		Pack next = starting.copy();
+		new PackBitflipMutation(thief).mutate(next, rand);
+		return next;
 	}
 
 	

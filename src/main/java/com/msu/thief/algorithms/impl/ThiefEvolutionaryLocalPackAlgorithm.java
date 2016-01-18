@@ -11,12 +11,12 @@ import com.msu.thief.algorithms.interfaces.AThiefSingleObjectiveAlgorithm;
 import com.msu.thief.ea.ThiefCrossover;
 import com.msu.thief.ea.ThiefFactory;
 import com.msu.thief.ea.ThiefMutation;
-import com.msu.thief.ea.factory.ThiefOptimalTourFactory;
-import com.msu.thief.ea.factory.ThiefPackOptimalFactory;
-import com.msu.thief.ea.operators.ThiefBitflipMutation;
-import com.msu.thief.ea.operators.ThiefOrderedCrossover;
-import com.msu.thief.ea.operators.ThiefSwapMutation;
-import com.msu.thief.ea.operators.ThiefUniformCrossover;
+import com.msu.thief.ea.factory.TourOptimalFactory;
+import com.msu.thief.ea.factory.PackOptimalFactory;
+import com.msu.thief.ea.operators.PackBitflipMutation;
+import com.msu.thief.ea.operators.TourOrderedCrossover;
+import com.msu.thief.ea.operators.TourSwapMutation;
+import com.msu.thief.ea.operators.PackUniformCrossover;
 import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
@@ -35,9 +35,9 @@ public class ThiefEvolutionaryLocalPackAlgorithm extends AThiefSingleObjectiveAl
 			.set("populationSize", 50)
 			.set("probMutation", 0.3)
 			.set("verbose",	true)
-			.set("factory", new ThiefFactory(new ThiefOptimalTourFactory(thief), new ThiefPackOptimalFactory(thief)))
-			.set("crossover", new ThiefCrossover(new ThiefOrderedCrossover(), new ThiefUniformCrossover(thief)))
-			.set("mutation", new ThiefMutation(new ThiefSwapMutation(), new ThiefBitflipMutation(thief)))
+			.set("factory", new ThiefFactory(new TourOptimalFactory(thief), new PackOptimalFactory(thief)))
+			.set("crossover", new ThiefCrossover(new TourOrderedCrossover(), new PackUniformCrossover(thief)))
+			.set("mutation", new ThiefMutation(new TourSwapMutation(), new PackBitflipMutation(thief)))
 			.set("local", new ILocalOptimization<TTPVariable, AbstractThiefProblem>() {
 				@Override
 				public Solution<TTPVariable> run(AbstractThiefProblem problem, IEvaluator evaluator, TTPVariable var) {

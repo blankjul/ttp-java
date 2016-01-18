@@ -12,9 +12,9 @@ import com.msu.moo.util.Builder;
 import com.msu.moo.util.MyRandom;
 import com.msu.thief.algorithms.impl.subproblems.AlgorithmUtil;
 import com.msu.thief.algorithms.interfaces.AThiefSingleObjectiveAlgorithm;
-import com.msu.thief.ea.factory.ThiefPackOptimalFactory;
-import com.msu.thief.ea.operators.ThiefBitflipMutation;
-import com.msu.thief.ea.operators.ThiefUniformCrossover;
+import com.msu.thief.ea.factory.PackOptimalFactory;
+import com.msu.thief.ea.operators.PackBitflipMutation;
+import com.msu.thief.ea.operators.PackUniformCrossover;
 import com.msu.thief.evaluator.PackingInformation;
 import com.msu.thief.evaluator.TourInformation;
 import com.msu.thief.evaluator.profit.NoDroppingEvaluator;
@@ -69,9 +69,9 @@ public class ThiefBilevelPackOnHeuristicFront extends AThiefSingleObjectiveAlgor
 			.set("populationSize", 50)
 			.set("probMutation", 0.3)
 			//.set("verbose",	true)
-			.set("factory", new ThiefPackOptimalFactory(problem))
-			.set("crossover", new ThiefUniformCrossover(problem))
-			.set("mutation", new ThiefBitflipMutation(problem));
+			.set("factory", new PackOptimalFactory(problem))
+			.set("crossover", new PackUniformCrossover(problem))
+			.set("mutation", new PackBitflipMutation(problem));
 		
 		NSGAII<Pack, IProblem<Pack>> a = b.build();
 		NonDominatedSolutionSet<Pack> set = a.run(thief, evaluator, rand);

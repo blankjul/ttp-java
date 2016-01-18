@@ -10,7 +10,7 @@ import com.msu.thief.ea.RecombinationUtil;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.problems.variable.Tour;
 
-public class ThiefSwapMutation implements IMutation<Tour> {
+public class TourSwapMutation implements IMutation<Tour> {
 
 
 	

@@ -1,6 +1,6 @@
 
 dir <- "/home/julesy/workspace/ttp-results/";
-file <- "bilevel.csv";
+file <- "singleobjective.csv";
 
 csv <- read.csv(paste0(dir, file),  sep = ",")
 csv$result <- round(csv$result, 4)

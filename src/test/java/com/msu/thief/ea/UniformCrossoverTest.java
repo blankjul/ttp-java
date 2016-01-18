@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.msu.thief.ea.operators.ThiefUniformCrossover;
+import com.msu.thief.ea.operators.PackUniformCrossover;
 import com.msu.thief.problems.variable.Pack;
 
 public class UniformCrossoverTest extends Operator{
@@ -17,7 +17,7 @@ public class UniformCrossoverTest extends Operator{
 		Pack p1 = Pack.createFromString("0,2");
 		Pack p2 = Pack.createFromString("0,3");
 		
-		List<Pack> result = new ThiefUniformCrossover(thief).crossover(p1, p2, rand);
+		List<Pack> result = new PackUniformCrossover(thief).crossover(p1, p2, rand);
 		
 		for (int i = 0; i < p1.numOfItems(); i++) {
 			if (p1.isPicked(i) && p2.isPicked(i)) {

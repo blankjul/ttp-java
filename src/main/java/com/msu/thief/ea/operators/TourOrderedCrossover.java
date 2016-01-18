@@ -11,7 +11,7 @@ import com.msu.moo.util.Pair;
 import com.msu.thief.ea.RecombinationUtil;
 import com.msu.thief.problems.variable.Tour;
 
-public class ThiefOrderedCrossover implements ICrossover<Tour> {
+public class TourOrderedCrossover implements ICrossover<Tour> {
 
 
 	@Override

@@ -6,11 +6,11 @@ import com.msu.thief.ea.AOperator;
 import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.variable.Pack;
 
-public class ThiefBitflipMutation extends AOperator implements IMutation<Pack> {
+public class PackBitflipMutation extends AOperator implements IMutation<Pack> {
 
 	
 	
-	public ThiefBitflipMutation(AbstractThiefProblem thief) {
+	public PackBitflipMutation(AbstractThiefProblem thief) {
 		super(thief);
 	}
 
