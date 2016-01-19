@@ -2,7 +2,8 @@ package com.msu.thief;
 
 import org.apache.log4j.BasicConfigurator;
 
-import com.msu.moo.model.Evaluator;
+import com.msu.moo.interfaces.IEvaluator;
+import com.msu.moo.model.evaluator.StandardEvaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.util.MyRandom;
@@ -23,7 +24,7 @@ import com.msu.thief.problems.variable.TTPVariable;
 public class ExperimentMultiOneProblemExecutor {
 	
 	
-	final public static int NUM_OF_EVALUATIONS = 500000;
+	final public static IEvaluator EVALUATOR = new StandardEvaluator(500000);
 	
 	final public static MyRandom RAND = new MyRandom(654321);
 	
@@ -80,7 +81,7 @@ public class ExperimentMultiOneProblemExecutor {
 		}
 		
 		
-		NonDominatedSolutionSet<TTPVariable> set = ALGORITHM.run(new MultiObjectiveThiefProblem(thief), new Evaluator(NUM_OF_EVALUATIONS), RAND);
+		NonDominatedSolutionSet<TTPVariable> set = ALGORITHM.run(new MultiObjectiveThiefProblem(thief),EVALUATOR, RAND);
 		
 		System.out.println(ALGORITHM);
 		System.out.println(thief);

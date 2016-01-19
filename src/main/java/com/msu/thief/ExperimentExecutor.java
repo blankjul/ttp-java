@@ -4,8 +4,10 @@ import org.apache.log4j.BasicConfigurator;
 
 import com.msu.moo.Configuration;
 import com.msu.moo.experiment.AExperiment;
+import com.msu.moo.interfaces.IEvaluator;
 import com.msu.moo.interfaces.IProblem;
 import com.msu.moo.interfaces.IVariable;
+import com.msu.moo.model.evaluator.ConvergenceEvaluator;
 import com.msu.moo.util.ObjectFactory;
 
 /**
@@ -33,7 +35,7 @@ public class ExperimentExecutor {
 	protected final static int ITERATIONS = 5;
 
 	// ! max evaluations per run
-	protected final static int MAX_EVALUATIONS = 100000;
+	protected final static IEvaluator EVALUATOR = new ConvergenceEvaluator(20,1);
 
 	// ! random seed for experiment executions
 	protected final static long SEED = 123456;
@@ -42,7 +44,6 @@ public class ExperimentExecutor {
 	protected final static int NUM_OF_THREADS = 8;
 
 	
-	
 	@SuppressWarnings({ "unchecked"})
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
@@ -50,7 +51,7 @@ public class ExperimentExecutor {
 		Configuration.PATH_TO_HYPERVOLUME = "../moo-java/vendor/bin/hv";
 		
 		AExperiment<?, IVariable, IProblem<IVariable>> experiment = ObjectFactory.create(AExperiment.class, PREFIX + EXPERIMENT);
-		experiment.run(MAX_EVALUATIONS, ITERATIONS, SEED, NUM_OF_THREADS);
+		experiment.run(EVALUATOR, ITERATIONS, SEED, NUM_OF_THREADS);
 		
 	}
 	

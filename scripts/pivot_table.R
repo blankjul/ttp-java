@@ -20,15 +20,15 @@ csv$norm <- (csv$result - csv$min) / (csv$max - csv$min)
 
 
 library(reshape)
-pivot <- cast(csv, problem  ~ algorithm, fun.aggregate=median, value="result")
-pivot_norm <- cast(csv, problem  ~ algorithm, fun.aggregate=median, value="norm")
+pivot <- cast(csv, problem  ~ algorithm, fun.aggregate=max, value="result")
+pivot_norm <- cast(csv, problem  ~ algorithm, fun.aggregate=max, value="norm")
 
 write.csv(pivot, file = paste0(dir, substr(file, 1, nchar(file) - 4), "_pivot.csv"))
 write.csv(pivot_norm, file = paste0(dir, substr(file, 1, nchar(file) - 4), "_pivot_norm.csv"))
 
 
 library(ggplot2)
-agg_norm <- aggregate(csv$norm, by=list(csv$problem, csv$algorithm), FUN=median)
+agg_norm <- aggregate(csv$norm, by=list(csv$problem, csv$algorithm), FUN=max)
 colnames(agg_norm) <- c("problem","algorithm", "norm")
 
 p <- ggplot(agg_norm, aes(x=problem, y=norm, shape=algorithm, color=algorithm)) + geom_point(size=3)

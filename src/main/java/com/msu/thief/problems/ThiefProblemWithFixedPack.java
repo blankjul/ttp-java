@@ -49,5 +49,11 @@ public class ThiefProblemWithFixedPack extends AProblem<Tour>  {
 		return problem;
 	}
 
+	public Pack getPack() {
+		return pack;
+	}
+	
+	
+
 	
 }

@@ -2,10 +2,11 @@ package com.msu.thief;
 
 import org.apache.log4j.BasicConfigurator;
 
-import com.msu.moo.model.Evaluator;
+import com.msu.moo.interfaces.IEvaluator;
+import com.msu.moo.model.evaluator.ConvergenceEvaluator;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.util.MyRandom;
-import com.msu.thief.algorithms.impl.ThiefTwoPhaseEvolution;
+import com.msu.thief.algorithms.impl.ThiefEvolutionaryLocalPackAlgorithm;
 import com.msu.thief.algorithms.interfaces.AThiefSingleObjectiveAlgorithm;
 import com.msu.thief.io.thief.reader.BonyadiSingleObjectiveReader;
 import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
@@ -21,9 +22,11 @@ import com.msu.thief.problems.variable.TTPVariable;
 public class ExperimentOneProblemExecutor {
 	
 	
-	final public static int NUM_OF_EVALUATIONS = 500000;
-	
+	final public static IEvaluator EVALUATOR = new ConvergenceEvaluator(100,1);
+
 	final public static MyRandom RAND = new MyRandom(654321);
+	
+	final public static AThiefSingleObjectiveAlgorithm ALGORITHM = new ThiefEvolutionaryLocalPackAlgorithm();
 	
 	/**
 		PROBLEMS
@@ -45,24 +48,9 @@ public class ExperimentOneProblemExecutor {
 	
 	final public static String PROBLEM = "../ttp-benchmark/TSPLIB/berlin52-ttp/berlin52_n51_bounded-strongly-corr_01.ttp";
 	
-	/**
-	 
-		ALGORITHMS
-		
-			bilevel.BiLevelEvoluationaryAlgorithm
-			bilevel.SolveKnapsackWithEmptyHeuristicValues
-			bilevel.AntColonyOptimisation
-			bilevel.GreedyPackingAlgorithm
-			bilevel.apriori.AprioriAlgorithm
-			bilevel.frequent.FrequentPatternMiningAlgorithm
-			bilevel.divide.DivideAndConquerAlgorithm
-			bilevel.topdown.TopDownHeuristicAlgorithm
-		
-	*/
-		
 	
-	final public static AThiefSingleObjectiveAlgorithm ALGORITHM = new ThiefTwoPhaseEvolution();
 
+	
 	
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
@@ -77,7 +65,7 @@ public class ExperimentOneProblemExecutor {
 			thief = new ThiefSingleTSPLIBProblemReader().read(PROBLEM);
 		}
 		
-		Solution<TTPVariable> set = ALGORITHM.run(thief, new Evaluator(NUM_OF_EVALUATIONS), RAND);
+		Solution<TTPVariable> set = ALGORITHM.run(thief, EVALUATOR, RAND);
 		
 		System.out.println(ALGORITHM);
 		System.out.println(thief);

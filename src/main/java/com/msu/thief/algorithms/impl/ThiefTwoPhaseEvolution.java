@@ -2,6 +2,7 @@ package com.msu.thief.algorithms.impl;
 
 import com.msu.moo.algorithms.single.SingleObjectiveEvolutionaryAlgorithm;
 import com.msu.moo.interfaces.IEvaluator;
+import com.msu.moo.model.evaluator.StandardEvaluator;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.model.solution.SolutionDominatorWithConstraints;
 import com.msu.moo.operators.crossover.NoCrossover;
@@ -34,9 +35,11 @@ public class ThiefTwoPhaseEvolution extends AThiefSingleObjectiveAlgorithm {
 		
 		SolutionDominatorWithConstraints dominator = new SolutionDominatorWithConstraints();
 		
+		
 		// calculate a non dominated solution set for the starting
-		Solution<TTPVariable> best = new ThiefBestOfMultiObjectiveFront().run(thief, evaluator.createChildEvaluator((int) (maxEvaluations * initialPoolingFactor))
-				, rand);
+		IEvaluator multi = new StandardEvaluator((int) (maxEvaluations * initialPoolingFactor));
+		multi.setFather(evaluator);
+		Solution<TTPVariable> best = new ThiefBestOfMultiObjectiveFront().run(thief, multi, rand);
 		
 		while (evaluator.hasNext()) {
 
@@ -53,7 +56,9 @@ public class ThiefTwoPhaseEvolution extends AThiefSingleObjectiveAlgorithm {
 					.set("mutation", new PackBitflipMutation(thief))
 				.build();
 			
-			nextPack = algorithmPack.run(new ThiefProblemWithFixedTour(thief, nextTour), evaluator.createChildEvaluator((int) (maxEvaluations * poolingEvaluationsFactor)), rand).getVariable();
+			IEvaluator evalPack = new StandardEvaluator((int) (maxEvaluations * poolingEvaluationsFactor));
+			evalPack.setFather(evaluator);
+			nextPack = algorithmPack.run(new ThiefProblemWithFixedTour(thief, nextTour), evalPack, rand).getVariable();
 			
 
 			SingleObjectiveEvolutionaryAlgorithm<Tour, ThiefProblemWithFixedPack> algorithmTour = 
@@ -66,7 +71,11 @@ public class ThiefTwoPhaseEvolution extends AThiefSingleObjectiveAlgorithm {
 				.build();
 			
 			
-			nextTour = algorithmTour.run(new ThiefProblemWithFixedPack(thief, nextPack), evaluator.createChildEvaluator((int) (maxEvaluations * poolingEvaluationsFactor)), rand).getVariable();
+			
+			IEvaluator evalTour = new StandardEvaluator((int) (maxEvaluations * poolingEvaluationsFactor));
+			evalTour.setFather(evaluator);
+			
+			nextTour = algorithmTour.run(new ThiefProblemWithFixedPack(thief, nextPack), evalTour, rand).getVariable();
 			
 			Solution<TTPVariable> next = thief.evaluate(TTPVariable.create(nextTour, nextPack));
 			if (dominator.isDominating(next, best)){

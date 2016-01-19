@@ -4,7 +4,7 @@ import com.msu.moo.interfaces.IEvaluator;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.model.solution.SolutionDominatorWithConstraints;
 import com.msu.moo.util.MyRandom;
-import com.msu.thief.algorithms.impl.tour.FixedTourEvolutionOnRelevantItems;
+import com.msu.thief.algorithms.impl.bilevel.tour.FixedTourEvolutionOnRelevantItems;
 import com.msu.thief.algorithms.interfaces.AThiefSingleObjectiveAlgorithm;
 import com.msu.thief.ea.operators.TourSwapMutation;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;

@@ -6,7 +6,7 @@ import com.msu.moo.experiment.AExperiment;
 import com.msu.moo.experiment.callback.ICallback;
 import com.msu.moo.interfaces.algorithms.IAlgorithm;
 import com.msu.moo.model.solution.Solution;
-import com.msu.thief.algorithms.impl.ThiefRandomSearch;
+import com.msu.thief.algorithms.impl.ThiefEvolutionaryLocalPackAlgorithm;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.problems.variable.TTPVariable;
 
@@ -18,7 +18,7 @@ public class IEEEExperiment extends AExperiment<Solution<TTPVariable>, TTPVariab
 	protected void setAlgorithms(SingleObjectiveThiefProblem problem,
 			List<IAlgorithm<Solution<TTPVariable>, TTPVariable, SingleObjectiveThiefProblem>> algorithms) {
 		//algorithms.add(new ThiefTwoPhaseEvolution());
-		algorithms.add(new ThiefRandomSearch());
+		algorithms.add(new ThiefEvolutionaryLocalPackAlgorithm());
 		//algorithms.add(new ThiefOnePlusOneEA());
 		//algorithms.add(new ThiefEvolutionaryAlgorithm());
 		

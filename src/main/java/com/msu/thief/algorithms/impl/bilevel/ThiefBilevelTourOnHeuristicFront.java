@@ -6,13 +6,13 @@ import com.msu.moo.algorithms.nsgaII.NSGAII;
 import com.msu.moo.interfaces.IEvaluator;
 import com.msu.moo.interfaces.IProblem;
 import com.msu.moo.model.AProblem;
-import com.msu.moo.model.Evaluator;
+import com.msu.moo.model.evaluator.StandardEvaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.util.Builder;
 import com.msu.moo.util.MyRandom;
-import com.msu.thief.algorithms.impl.tour.FixedTourEvolutionOnRelevantItems;
-import com.msu.thief.algorithms.impl.tour.FixedTourKnapsackWithHeuristic;
+import com.msu.thief.algorithms.impl.bilevel.tour.FixedTourEvolutionOnRelevantItems;
+import com.msu.thief.algorithms.impl.bilevel.tour.FixedTourKnapsackWithHeuristic;
 import com.msu.thief.algorithms.interfaces.AThiefSingleObjectiveAlgorithm;
 import com.msu.thief.ea.factory.TourOptimalWithSwapFactory;
 import com.msu.thief.ea.operators.TourOrderedCrossover;
@@ -76,7 +76,7 @@ public class ThiefBilevelTourOnHeuristicFront extends AThiefSingleObjectiveAlgor
 		
 		for (Solution<Tour> s : set) {
 			ThiefProblemWithFixedTour tpwfp = new ThiefProblemWithFixedTour(problem, s.getVariable());
-			Solution<Pack> opt = new FixedTourEvolutionOnRelevantItems().run(tpwfp, new Evaluator(500000), rand);
+			Solution<Pack> opt = new FixedTourEvolutionOnRelevantItems().run(tpwfp, new StandardEvaluator(500000), rand);
 			System.out.println(opt);
 		}
 		System.out.println();

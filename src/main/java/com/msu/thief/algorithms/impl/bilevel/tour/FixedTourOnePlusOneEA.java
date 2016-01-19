@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.impl.tour;
+package com.msu.thief.algorithms.impl.bilevel.tour;
 
 import com.msu.moo.interfaces.IEvaluator;
 import com.msu.moo.model.solution.NonDominatedSolutionSet;

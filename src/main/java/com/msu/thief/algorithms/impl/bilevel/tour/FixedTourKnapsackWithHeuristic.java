@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.impl.tour;
+package com.msu.thief.algorithms.impl.bilevel.tour;
 
 import java.util.ArrayList;
 import java.util.Collection;
