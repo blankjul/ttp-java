@@ -3,60 +3,58 @@ package com.msu.thief;
 import org.apache.log4j.BasicConfigurator;
 
 import com.msu.moo.Configuration;
-import com.msu.moo.experiment.ASingleObjectiveExperiment;
+import com.msu.moo.experiment.AExperiment;
 import com.msu.moo.interfaces.IProblem;
 import com.msu.moo.interfaces.IVariable;
 import com.msu.moo.util.ObjectFactory;
 
 /**
- * EXERIMENTS AVAILABLE
- * GreedyMapExperiment, TSPOperatorExperiment, NSGAIIOperatorExperiment, PublicationExperiment
- * BonyadiExperiment, NSGAIIOperatorExperiment, OneScenarioExperiment
+ * EXERIMENTS AVAILABLE GreedyMapExperiment, TSPOperatorExperiment,
+ * NSGAIIOperatorExperiment, PublicationExperiment BonyadiExperiment,
+ * NSGAIIOperatorExperiment, OneScenarioExperiment
  * 
- * TSP
- * TSPExperiment
+ * TSP TSPExperiment
  * 
- * KNP
- * KNPExperiment
+ * KNP KNPExperiment
  * 
- * Bonyadi
- * BonyadiTSPLIBExperiment, BonyadiSingleExperiment, BonyadiMultiExperiment
+ * Bonyadi BonyadiTSPLIBExperiment, BonyadiSingleExperiment,
+ * BonyadiMultiExperiment
  * 
  */
 public class ExperimentExecutor {
 
-	
-	//! experiment that should be executed
+	// ! experiment that should be executed
 	protected final static String PREFIX = "com.msu.thief.experiment.";
-	
-	//! experiment that should be executed
+
+	// ! experiment that should be executed
 	protected final static String EXPERIMENT = "IEEE.IEEEExperiment";
+
+	// ! number of iterations per experiment
+	protected final static int ITERATIONS = 5;
+
+	// ! max evaluations per run
+	protected final static int MAX_EVALUATIONS = 100000;
+
+	// ! random seed for experiment executions
+	protected final static long SEED = 123456;
+
+	// ! number of threads
+	protected final static int NUM_OF_THREADS = 8;
+
 	
-	//! number of iterations per experiment
-	protected final static int ITERATIONS = 1;
 	
-	//! number of threads
-	protected final static int NUM_OF_THREADS = 1;
-	
-	//! max evaluations per run
-	protected final static int MAX_EVALUATIONS = 500000;
-	
-	//! random seed for experiment executions
-	protected final static long SEED = 123456;		
-	
-	
+	@SuppressWarnings({ "unchecked"})
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
-		
 		Configuration.PATH_TO_EAF = "../moo-java/vendor/bin/eaf";
 		Configuration.PATH_TO_HYPERVOLUME = "../moo-java/vendor/bin/hv";
-		Configuration.NUM_OF_THREADS = NUM_OF_THREADS;
 		
-		@SuppressWarnings("unchecked")
-		ASingleObjectiveExperiment<IVariable, IProblem<IVariable>> experiment = ObjectFactory.create(ASingleObjectiveExperiment.class,  PREFIX + EXPERIMENT);
-		experiment.run(MAX_EVALUATIONS, ITERATIONS, SEED);
+		AExperiment<?, IVariable, IProblem<IVariable>> experiment = ObjectFactory.create(AExperiment.class, PREFIX + EXPERIMENT);
+		experiment.run(MAX_EVALUATIONS, ITERATIONS, SEED, NUM_OF_THREADS);
 		
 	}
 	
+
+
 
 }

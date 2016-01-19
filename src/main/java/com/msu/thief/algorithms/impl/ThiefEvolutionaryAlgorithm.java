@@ -9,12 +9,12 @@ import com.msu.thief.algorithms.interfaces.AThiefSingleObjectiveAlgorithm;
 import com.msu.thief.ea.ThiefCrossover;
 import com.msu.thief.ea.ThiefFactory;
 import com.msu.thief.ea.ThiefMutation;
-import com.msu.thief.ea.factory.TourOptimalFactory;
 import com.msu.thief.ea.factory.PackOptimalFactory;
+import com.msu.thief.ea.factory.TourOptimalFactory;
 import com.msu.thief.ea.operators.PackBitflipMutation;
 import com.msu.thief.ea.operators.PackUniformCrossover;
 import com.msu.thief.ea.operators.TourOrderedCrossover;
-import com.msu.thief.ea.operators.TourOrderedMutation;
+import com.msu.thief.ea.operators.TourSwapMutation;
 import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.problems.variable.TTPVariable;
@@ -35,7 +35,7 @@ public class ThiefEvolutionaryAlgorithm extends AThiefSingleObjectiveAlgorithm {
 			.set("verbose",	false)
 			.set("factory", new ThiefFactory(new TourOptimalFactory(thief), new PackOptimalFactory(thief)))
 			.set("crossover", new ThiefCrossover(new TourOrderedCrossover(), new PackUniformCrossover(thief)))
-			.set("mutation", new ThiefMutation(new TourOrderedMutation(), new PackBitflipMutation(thief)));
+			.set("mutation", new ThiefMutation(new TourSwapMutation(), new PackBitflipMutation(thief)));
 		
 		SingleObjectiveEvolutionaryAlgorithm<TTPVariable, AbstractThiefProblem> a = b.build();
 		Solution<TTPVariable> s = a.run(thief, evaluator, rand);
