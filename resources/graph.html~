@@ -1,0 +1,120 @@
+<html>
+<head>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
+	<script src="https://dl.dropboxusercontent.com/u/16676685/sigma.min.js"></script>
+	<script src="https://dl.dropboxusercontent.com/u/16676685/sigma.parsers.json.min.js"></script>
+
+
+	<style type="text/css">
+		#container {
+		    height: 400;
+		    margin: auto;
+		    width: 60%;
+		 }
+		#info {
+		    height: 100;
+		 }
+	</style>
+
+</head>
+
+
+<body>
+
+
+
+
+<div id="scatter"></div>
+<div id="info"></div>
+<div id="container"></div>
+
+<script>
+
+
+
+function plot(s, graph) {
+	
+	var cNormal = "#708090";
+	var cFirst = "#F00";
+	var cPick = "#000";
+	
+
+	var startingCity = true;
+
+	for (var node of graph.nodes) {
+		s.graph.addNode({
+					id:node.id,
+					label:node.label,
+					x:node.x, 
+					y:node.y,
+					size:1,
+					color: cNormal
+				});
+	}
+
+
+
+	for (var e of graph.edges) {
+		s.graph.addEdge({
+				id:e.id,
+				source:e.source,
+				target:e.target, 
+				type:"arrow"
+				});
+	}
+
+	for (i = 0; i < graph.picks.length; i++) { 
+	   if (graph.picks[i] == true) s.graph.nodes()[i].color = cPick;
+	}
+	
+
+	var firstNode = s.graph.nodes(graph.edges[0].source);
+	if (firstNode.color == cNormal) firstNode.color = cFirst;
+	else firstNode.color = "#FF8C00";
+
+
+	s.refresh();
+}
+
+
+
+
+
+$(document).ready(function() {
+
+	var objThief = JSON.parse(document.getElementById('dThief').text);
+
+	var s = new sigma({
+	    settings: {},
+	    renderers:  [
+				{                                        
+					container: container,    
+					type: "canvas",
+		    		}
+			]
+	});
+
+
+	plot(s, objThief);
+	document.getElementById('info').innerHTML = objThief.variable;
+
+ });
+
+
+
+</script>
+
+
+
+<script id="dThief" type="application/json">
+{{{ data }}}
+</script>
+
+
+
+
+
+</body>
+</html>

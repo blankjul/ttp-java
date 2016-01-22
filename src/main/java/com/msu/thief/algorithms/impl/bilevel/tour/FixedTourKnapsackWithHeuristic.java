@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 
 import com.msu.moo.interfaces.IEvaluator;
 import com.msu.moo.model.solution.Solution;
-import com.msu.moo.model.solution.SolutionDominatorWithConstraints;
+import com.msu.moo.model.solution.SolutionDominator;
 import com.msu.moo.util.MyRandom;
 import com.msu.moo.util.Pair;
 import com.msu.thief.algorithms.ItemHeuristicUtil;
@@ -38,6 +38,18 @@ public class FixedTourKnapsackWithHeuristic extends AFixedTourSingleObjectiveAlg
 	protected boolean postPruneItems = true;
 	
 
+	public FixedTourKnapsackWithHeuristic() {
+		super();
+	}
+
+
+	public FixedTourKnapsackWithHeuristic(boolean postPruneItems) {
+		super();
+		this.postPruneItems = postPruneItems;
+	}
+
+
+
 
 	@Override
 	public Solution<Pack> run(ThiefProblemWithFixedTour problem, IEvaluator eval, MyRandom rand) {
@@ -48,17 +60,14 @@ public class FixedTourKnapsackWithHeuristic extends AFixedTourSingleObjectiveAlg
 		
 		final int numOfItems = problem.getProblem().numOfItems();
 		
-		// calculate all objectives values when one item is added
-		Collection<Integer> possibleNextItems = pack.getNotPickedItems(numOfItems);
-		Map<Integer, Solution<Pack>> next = ItemHeuristicUtil.calcObjectiveWhenAdded(problem, eval, pack,
-				possibleNextItems);
-
-		
 		// create a list of items with heuristic values as profit
 		List<Item> items = new ArrayList<>();
 		for (int i = 0; i < numOfItems; i++) {
 			
-			double heuristic = empty - next.get(i).getObjective(0);
+			Pack tmp = Pack.empty();
+			tmp.add(i);
+			double withItem = eval.evaluate(problem, tmp).getObjective(0);
+			double heuristic = empty - withItem;
 			
 			// do eliminate if upper bound is lower than zero
 			if (heuristic < 0) heuristic = 0;
@@ -70,7 +79,7 @@ public class FixedTourKnapsackWithHeuristic extends AFixedTourSingleObjectiveAlg
 		}
 		
 		// solve this problem optimally
-		pack = AlgorithmUtil.calcBestPackingPlan(problem.getProblem().getItems(), problem.getProblem().getMaxWeight());
+		pack = AlgorithmUtil.calcBestPackingPlan(items, problem.getProblem().getMaxWeight());
 		
 		Solution<Pack> best = eval.evaluate(problem,pack);
 		
@@ -84,7 +93,7 @@ public class FixedTourKnapsackWithHeuristic extends AFixedTourSingleObjectiveAlg
 				
 				List<Pair<Integer, Solution<Pack>>> nextIndices = new ArrayList<>();
 				for (Entry<Integer, Solution<Pack>> entry : mRemove.entrySet()) {
-					if (new SolutionDominatorWithConstraints().isDominating(entry.getValue(), best)) {
+					if (SolutionDominator.isDominating(entry.getValue(), best)) {
 						nextIndices.add(Pair.create(entry.getKey(), entry.getValue()));
 					}
 				}

@@ -22,8 +22,11 @@ public class ThiefBestOfMultiObjectiveFront extends AThiefSingleObjectiveAlgorit
 		// find best solution according single objective
 		NonDominatedSolutionSet<TTPVariable> singleObjectiveSet = new NonDominatedSolutionSet<>();
 		for (Solution<TTPVariable> solution : set) {
-			singleObjectiveSet.add(thief.evaluate(solution.getVariable()));
+			Solution<TTPVariable> single = thief.evaluate(solution.getVariable());
+			//System.out.println(single);
+			singleObjectiveSet.add(single);
 		}
+		//System.out.println();
 		Solution<TTPVariable> best = singleObjectiveSet.get(0);
 		
 		

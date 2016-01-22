@@ -4,7 +4,7 @@ import com.msu.moo.algorithms.single.SingleObjectiveEvolutionaryAlgorithm;
 import com.msu.moo.interfaces.IEvaluator;
 import com.msu.moo.model.evaluator.StandardEvaluator;
 import com.msu.moo.model.solution.Solution;
-import com.msu.moo.model.solution.SolutionDominatorWithConstraints;
+import com.msu.moo.model.solution.SolutionDominator;
 import com.msu.moo.operators.crossover.NoCrossover;
 import com.msu.moo.util.Builder;
 import com.msu.moo.util.MyRandom;
@@ -32,8 +32,6 @@ public class ThiefTwoPhaseEvolution extends AThiefSingleObjectiveAlgorithm {
 		final int maxEvaluations = evaluator.getMaxEvaluations();
 		final double initialPoolingFactor = 0.3;
 		final double poolingEvaluationsFactor = 0.05;
-		
-		SolutionDominatorWithConstraints dominator = new SolutionDominatorWithConstraints();
 		
 		
 		// calculate a non dominated solution set for the starting
@@ -78,7 +76,7 @@ public class ThiefTwoPhaseEvolution extends AThiefSingleObjectiveAlgorithm {
 			nextTour = algorithmTour.run(new ThiefProblemWithFixedPack(thief, nextPack), evalTour, rand).getVariable();
 			
 			Solution<TTPVariable> next = thief.evaluate(TTPVariable.create(nextTour, nextPack));
-			if (dominator.isDominating(next, best)){
+			if (SolutionDominator.isDominating(next, best)){
 				best = next;
 			}
 			

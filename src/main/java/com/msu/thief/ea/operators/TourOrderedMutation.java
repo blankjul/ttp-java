@@ -19,11 +19,11 @@ public class TourOrderedMutation implements IMutation<Tour> {
 		final int span = bounds.second - bounds.first;
 		final int position = rand.nextInt(1, a.numOfCities() - span);
 
-		swap(a, bounds.first, bounds.second, position);
+		TourOrderedMutation.swap(a, bounds.first, bounds.second, position);
 
 	}
 
-	public void swap(Tour t, int begin, int end, int position) {
+	public static void swap(Tour t, int begin, int end, int position) {
 		List<Integer> l = t.decode();
 		List<Integer> section = new ArrayList<>(l.subList(begin, end));
 		l.removeAll(section);

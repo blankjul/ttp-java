@@ -3,13 +3,14 @@ package com.msu.thief.algorithms.impl;
 import com.msu.moo.algorithms.single.SingleObjectiveEvolutionaryAlgorithm;
 import com.msu.moo.interfaces.IEvaluator;
 import com.msu.moo.interfaces.ILocalOptimization;
-import com.msu.moo.model.evaluator.StandardEvaluator;
+import com.msu.moo.model.evaluator.ConvergenceEvaluator;
 import com.msu.moo.model.evaluator.UnlimitedEvaluator;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.util.Builder;
 import com.msu.moo.util.MyRandom;
 import com.msu.thief.algorithms.impl.bilevel.pack.FixedPackSwapTour;
-import com.msu.thief.algorithms.impl.bilevel.tour.FixedTourEvolutionOnRelevantItems;
+import com.msu.thief.algorithms.impl.bilevel.tour.FixedTourKnapsackWithHeuristic;
+import com.msu.thief.algorithms.impl.bilevel.tour.FixedTourOnePlusOneEA;
 import com.msu.thief.algorithms.interfaces.AThiefSingleObjectiveAlgorithm;
 import com.msu.thief.ea.ThiefCrossover;
 import com.msu.thief.ea.ThiefFactory;
@@ -39,8 +40,10 @@ public class ThiefEvolutionaryLocalPackAlgorithm extends AThiefSingleObjectiveAl
 			public Solution<TTPVariable> run(AbstractThiefProblem problem, IEvaluator l, TTPVariable var) {
 				if (new MyRandom().nextDouble() < 1 / (double) 50) {
 						Solution<Tour> localTour = new FixedPackSwapTour(var.getTour()).run(new ThiefProblemWithFixedPack(thief, var.getPack()), new UnlimitedEvaluator(), rand);
-						Solution<Pack> localPack = new FixedTourEvolutionOnRelevantItems().run(new ThiefProblemWithFixedTour(problem, localTour.getVariable()), new StandardEvaluator(50000), rand);
-					return problem.evaluate(TTPVariable.create(localTour.getVariable(), localPack.getVariable()));
+						ThiefProblemWithFixedTour fixedTour = new ThiefProblemWithFixedTour(problem, localTour.getVariable());
+						Solution<Pack> pack = new FixedTourKnapsackWithHeuristic(false).run(fixedTour, evaluator, rand);
+						Solution<Pack> localPack = new FixedTourOnePlusOneEA(pack.getVariable()).run(fixedTour, new ConvergenceEvaluator(100), rand);
+						return problem.evaluate(TTPVariable.create(localTour.getVariable(), localPack.getVariable()));
 				} else {
 					return problem.evaluate(var);
 				}

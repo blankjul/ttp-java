@@ -8,7 +8,6 @@ import java.util.Set;
 import com.msu.moo.interfaces.ICrossover;
 import com.msu.moo.util.MyRandom;
 import com.msu.moo.util.Pair;
-import com.msu.thief.ea.RecombinationUtil;
 import com.msu.thief.problems.variable.Tour;
 
 public class TourOrderedCrossover implements ICrossover<Tour> {
@@ -17,8 +16,8 @@ public class TourOrderedCrossover implements ICrossover<Tour> {
 	@Override
 	public List<Tour> crossover(Tour t1, Tour t2, MyRandom rand) {
 		
-		Pair<Integer, Integer> bounds = RecombinationUtil.calcBounds(rand, 1, t1.numOfCities());
-		//Pair<Integer, Integer> bounds =  Pair.create(0, rand.nextInt(t1.numOfCities()));
+		//Pair<Integer, Integer> bounds = RecombinationUtil.calcBounds(rand, 1, t1.numOfCities());
+		Pair<Integer, Integer> bounds =  Pair.create(0, rand.nextInt(t1.numOfCities()));
 		
 		List<Tour> off = new ArrayList<>();
 		off.add(crossover(t1, t2, bounds));

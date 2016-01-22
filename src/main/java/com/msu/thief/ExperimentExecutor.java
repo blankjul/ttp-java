@@ -7,7 +7,7 @@ import com.msu.moo.experiment.AExperiment;
 import com.msu.moo.interfaces.IEvaluator;
 import com.msu.moo.interfaces.IProblem;
 import com.msu.moo.interfaces.IVariable;
-import com.msu.moo.model.evaluator.ConvergenceEvaluator;
+import com.msu.moo.model.evaluator.StandardEvaluator;
 import com.msu.moo.util.ObjectFactory;
 
 /**
@@ -35,7 +35,7 @@ public class ExperimentExecutor {
 	protected final static int ITERATIONS = 5;
 
 	// ! max evaluations per run
-	protected final static IEvaluator EVALUATOR = new ConvergenceEvaluator(20,1);
+	protected final static IEvaluator EVALUATOR = new StandardEvaluator(500000);
 
 	// ! random seed for experiment executions
 	protected final static long SEED = 123456;

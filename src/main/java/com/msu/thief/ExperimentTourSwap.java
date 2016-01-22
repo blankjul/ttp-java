@@ -6,17 +6,17 @@ import java.io.UnsupportedEncodingException;
 import org.apache.log4j.BasicConfigurator;
 
 import com.msu.moo.interfaces.IEvaluator;
+import com.msu.moo.model.evaluator.ConvergenceEvaluator;
 import com.msu.moo.model.evaluator.StandardEvaluator;
 import com.msu.moo.model.solution.Solution;
-import com.msu.moo.model.solution.SolutionDominatorWithConstraints;
+import com.msu.moo.model.solution.SolutionDominator;
 import com.msu.moo.util.MyRandom;
-import com.msu.thief.algorithms.impl.bilevel.pack.FixedPackSwapTour;
-import com.msu.thief.algorithms.impl.bilevel.tour.FixedTourEvolutionOnRelevantItems;
+import com.msu.thief.algorithms.impl.bilevel.tour.FixedTourOnePlusOneEAHeuristicItems;
+import com.msu.thief.algorithms.impl.subproblems.AlgorithmUtil;
 import com.msu.thief.ea.factory.TourRandomFactory;
 import com.msu.thief.ea.operators.TourSwapMutation;
 import com.msu.thief.io.thief.reader.ThiefSingleTSPLIBProblemReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.thief.problems.ThiefProblemWithFixedPack;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.problems.variable.Pack;
 import com.msu.thief.problems.variable.Tour;
@@ -43,60 +43,86 @@ public class ExperimentTourSwap {
 		Tour tour = Tour.createFromString(
 				"0, 48, 31, 44, 18, 40, 7, 8, 9, 42, 32, 50, 10, 51, 13, 12, 46, 25, 26, 27, 11, 24, 3, 5, 14, 4, 23, 47, 37, 36, 39, 38, 35, 34, 33, 43, 45, 15, 28, 49, 19, 22, 29, 1, 6, 41, 20, 16, 2, 17, 30, 21]");
 
-		tour = new TourRandomFactory(thief).next(rand);
-		
-		
-		// Solution<Pack> best = ;
-		
-		Tour bestTour = tour;
-		//Pack bestPack = new Pack(Arrays.asList(0, 1, 2, 3, 42, 15, 16, 48, 17, 49, 18, 50, 19, 20, 29));
-		Pack bestPack = new FixedTourEvolutionOnRelevantItems().run(new ThiefProblemWithFixedTour(thief, tour), eval, rand).getVariable();
-		Solution<Pack> best = eval.evaluate(new ThiefProblemWithFixedTour(thief, bestTour), bestPack);
-		
-		
-		System.out.println(String.format("%s %s %s", best.getObjectives(), bestPack, bestTour));
-		
-		new FixedPackSwapTour(tour).run(new ThiefProblemWithFixedPack(thief, best.getVariable()), eval, rand);
-		
-		
-		boolean improvement = true;
-		
-		while (improvement) {
+		// tour = new TourRandomFactory(thief).next(rand);
 
-			improvement = false;
-			
-			outer: 
-				for (int i = thief.numOfCities() - 1; i > 0; i--) {
+		for (int x = 0; x < 100; x++) {
 
-				for (int k = i - 1; k > 0; k--) {
-					
-					if (i - k > 10) break;
+			Tour bestTour = new TourRandomFactory(thief).next(rand);
+			Pack bestPack = new FixedTourOnePlusOneEAHeuristicItems()
+					.run(new ThiefProblemWithFixedTour(thief, bestTour), new ConvergenceEvaluator(100), rand)
+					.getVariable();
+			Solution<Pack> best = eval.evaluate(new ThiefProblemWithFixedTour(thief, bestTour), bestPack);
 
-					Tour next = bestTour.copy();
-					
-					TourSwapMutation.swap(next, i, k);
-					//double nextTime = ThiefSwapMutation.swapDeltaTime(next, i, k, time, thief.getMap());
-					//double nextTime = new StandardTimeEvaluator().evaluate(thief, next, Pack.empty());
-					
-					Solution<Pack> opt = new ThiefProblemWithFixedTour(thief, next).evaluate(best.getVariable());
-					
-					//Solution<Pack> opt = new FixedTourEvolutionOnRelevantItems().run(new ThiefProblemWithFixedTour(thief, next), eval, rand);
+			// System.out.println(String.format("%s", best));
 
-					
-					if (new SolutionDominatorWithConstraints().isDominating(opt, best)) {
-						best = opt;
-						bestTour = next;
-						bestPack = opt.getVariable();
-						System.out.println(String.format("%s %s %s", best.getObjectives(), i, k));
-						improvement = true;
-						break outer;
+			boolean improvement = true;
+
+			while (improvement) {
+
+				improvement = false;
+
+				outer: for (int i = thief.numOfCities() - 1; i > 0; i--) {
+
+					for (int k = i - 1; k > 0; k--) {
+
+						if (i - k > 20)
+							break;
+						Tour next = bestTour.copy();
+						TourSwapMutation.swap(next, i, k);
+
+						Solution<Pack> opt = new ThiefProblemWithFixedTour(thief, next).evaluate(best.getVariable());
+						// Solution<Pack> opt = new
+						// FixedTourOnePlusOneEAHeuristicItems()
+						// .run(new ThiefProblemWithFixedTour(thief, next), new
+						// ConvergenceEvaluator(100), rand);
+
+						if (SolutionDominator.isDominating(opt, best)) {
+							best = opt;
+							bestTour = next;
+							// System.out.println(String.format("%s %s %s", i,
+							// k, best));
+							improvement = true;
+							break outer;
+						}
+
 					}
-
 				}
-			}
-			
-		}
 
-		System.out.println(String.format("%s %s %s", best.getObjectives(), bestPack, bestTour));
+			}
+
+			improvement = true;
+
+			while (improvement) {
+
+				improvement = false;
+
+				outer: for (int i = thief.numOfCities() - 1; i > 0; i--) {
+
+					for (int k = i - 1; k > 0; k--) {
+
+						if (i - k > 20)
+							break;
+						Tour next = bestTour.copy();
+						TourSwapMutation.swap(next, i, k);
+
+						Solution<Pack> opt = new FixedTourOnePlusOneEAHeuristicItems()
+								.run(new ThiefProblemWithFixedTour(thief, next), new ConvergenceEvaluator(100), rand);
+
+						if (SolutionDominator.isDominating(opt, best)) {
+							best = opt;
+							bestTour = next;
+							// System.out.println(String.format("%s %s %s", i,
+							// k, best));
+							improvement = true;
+							break outer;
+						}
+
+					}
+				}
+
+			}
+
+			System.out.println(String.format("%s %s %s", best.getObjectives(), bestPack, bestTour));
+		}
 	}
 }

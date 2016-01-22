@@ -78,7 +78,7 @@ public class TTPVariable implements IVariable {
 
 	public static TTPVariable createFromString(String s) {
 		String[] values = s.split(";");
-		return new TTPVariable(Tour.createFromString(values[0]), Pack.createFromBooleanString(values[1]));
+		return new TTPVariable(Tour.createFromString(values[0]), Pack.createFromString(values[1]));
 	}
 
 	
