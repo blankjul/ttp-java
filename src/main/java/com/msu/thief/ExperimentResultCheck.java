@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.log4j.BasicConfigurator;
 
 import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
+import com.msu.thief.io.writer.TSPLIBThiefProblemWriter;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.util.visualization.VariableAsHtml;
 
@@ -37,19 +38,24 @@ public class ExperimentResultCheck {
 	*/
 		
 		
-		final String folder = "../thief-benchmark/";
+		final String folder = "../thief-benchmark/json/";
 		
 		List<String> problems = new ArrayList<>();
-		problems.add("thief-5-1-l.json");
-		problems.add("thief-10-1-l.json");
-		problems.add("thief-20-1-l.json");
-		problems.add("thief-50-1-l.json");
-		problems.add("thief-100-1-l.json");
+		problems.add("cluster-3.json");
+		problems.add("cluster-5.json");
+		problems.add("cluster-10.json");
+		
+//		problems.add("thief-5-1-l.json");
+//		problems.add("thief-10-1-l.json");
+//		problems.add("thief-20-1-l.json");
+//		problems.add("thief-50-1-l.json");
+//		problems.add("thief-100-1-l.json");
 		
 		
 		for (String p : problems) {
 			SingleObjectiveThiefProblem thief = (SingleObjectiveThiefProblem) new JsonThiefProblemReader().read(folder + p);
-			VariableAsHtml.write(thief, null, String.format("html-"+ p, NAME));
+			new TSPLIBThiefProblemWriter().write((SingleObjectiveThiefProblem) thief, String.format("%s/tsplib-cluster-%s.ttp", folder, p));
+			VariableAsHtml.write(thief, null, String.format(folder + "html-"+ p, NAME));
 		}
 		//System.out.println(writer.getResult());
 		
