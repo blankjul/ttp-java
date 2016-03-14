@@ -1,15 +1,13 @@
 package com.msu.thief;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
 
-import com.msu.moo.model.solution.Solution;
-import com.msu.thief.io.thief.reader.ThiefSingleTSPLIBProblemReader;
+import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
-import com.msu.thief.problems.variable.TTPVariable;
 import com.msu.thief.util.visualization.VariableAsHtml;
 
 
@@ -23,6 +21,7 @@ public class ExperimentResultCheck {
 
 		BasicConfigurator.configure();
 
+		/*
 		SingleObjectiveThiefProblem thief = (SingleObjectiveThiefProblem) new ThiefSingleTSPLIBProblemReader()
 				.read("../ttp-benchmark/TSPLIB/berlin52-ttp/berlin52_n51_bounded-strongly-corr_01.ttp");
 
@@ -35,9 +34,23 @@ public class ExperimentResultCheck {
 		
 		Solution<TTPVariable> s = thief.evaluate(m.get(NAME));
 		System.out.println(s);
-
+	*/
 		
-		VariableAsHtml.write(thief, s, String.format("../ttp-results/berlin_%s.html", NAME));
+		
+		final String folder = "../thief-benchmark/";
+		
+		List<String> problems = new ArrayList<>();
+		problems.add("thief-5-1-l.json");
+		problems.add("thief-10-1-l.json");
+		problems.add("thief-20-1-l.json");
+		problems.add("thief-50-1-l.json");
+		problems.add("thief-100-1-l.json");
+		
+		
+		for (String p : problems) {
+			SingleObjectiveThiefProblem thief = (SingleObjectiveThiefProblem) new JsonThiefProblemReader().read(folder + p);
+			VariableAsHtml.write(thief, null, String.format("html-"+ p, NAME));
+		}
 		//System.out.println(writer.getResult());
 		
 	}

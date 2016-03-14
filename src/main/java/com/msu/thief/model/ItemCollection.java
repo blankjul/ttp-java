@@ -1,12 +1,13 @@
 package com.msu.thief.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
-import com.google.common.collect.HashMultimap;
+import com.google.common.collect.LinkedListMultimap;
+import com.google.common.collect.ListMultimap;
 
 /**
  * This class represents a ItemCollection that maps each item to a 
@@ -19,7 +20,7 @@ public class ItemCollection<T extends Item> implements Iterable<T> {
 	protected ArrayList<T> items;
 
 	// ! map for assign each city all the item indices
-	protected HashMultimap<Integer, Integer> mapFromCityToItem;
+	protected ListMultimap<Integer, Integer> mapFromCityToItem;
 
 	// ! map for assign each item the city
 	protected HashMap<Integer, Integer> mapFromItemToCity;
@@ -28,7 +29,7 @@ public class ItemCollection<T extends Item> implements Iterable<T> {
 	public ItemCollection() {
 		super();
 		items = new ArrayList<T>();
-		mapFromCityToItem = HashMultimap.create();
+		mapFromCityToItem = LinkedListMultimap.create();
 		mapFromItemToCity = new HashMap<Integer, Integer>();
 	}
 
@@ -86,7 +87,7 @@ public class ItemCollection<T extends Item> implements Iterable<T> {
 	/**
 	 * @return all items that are at the specific city by index
 	 */
-	public Set<Integer> getItemsFromCityByIndex(int city) {
+	public Collection<Integer> getItemsFromCityByIndex(int city) {
 		return mapFromCityToItem.get(city);
 	}
 	

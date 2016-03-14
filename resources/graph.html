@@ -9,9 +9,10 @@
 
 	<style type="text/css">
 		#container {
-		    height: 80%;
+		    height: 60%;
+		    width: 60%;
 		    margin: auto;
-		    width: 80%;
+
 		 }
 		#info {
 		    height: 100;
@@ -70,7 +71,8 @@ function plot(s, graph) {
 	}
 	
 
-	var firstNode = s.graph.nodes(graph.edges[0].source);
+	//var firstNode = s.graph.nodes(graph.edges[0].source);
+	var firstNode = s.graph.nodes()[0];
 	if (firstNode.color == cNormal) firstNode.color = cFirst;
 	else firstNode.color = "#FF8C00";
 

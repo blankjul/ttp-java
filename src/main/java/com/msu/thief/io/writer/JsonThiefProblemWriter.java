@@ -8,6 +8,8 @@ import java.util.List;
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.util.DefaultIndenter;
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.msu.moo.util.io.AWriter;
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
 import com.msu.thief.evaluator.profit.NoDroppingEvaluator;
@@ -15,14 +17,20 @@ import com.msu.thief.evaluator.time.StandardTimeEvaluator;
 import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.SymmetricMap;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 
-public class JsonThiefProblemWriter extends AWriter<SingleObjectiveThiefProblem> {
+public class JsonThiefProblemWriter extends AWriter<AbstractThiefProblem> {
 
-
+	
 	@Override
-	protected void write_(SingleObjectiveThiefProblem p, OutputStream os) throws IOException {
-		JsonGenerator json = new JsonFactory().createGenerator(os, JsonEncoding.UTF8).useDefaultPrettyPrinter();
+	protected void write_(AbstractThiefProblem p, OutputStream os) throws IOException {
+		JsonGenerator json = new JsonFactory().createGenerator(os, JsonEncoding.UTF8);
+		
+		DefaultPrettyPrinter pp = new DefaultPrettyPrinter();
+		pp.indentArraysWith(DefaultIndenter.SYSTEM_LINEFEED_INSTANCE);
+		json.setPrettyPrinter(pp);
+		
 		
 		boolean isSingleObjective = p instanceof SingleObjectiveThiefProblem;
 		
@@ -32,14 +40,12 @@ public class JsonThiefProblemWriter extends AWriter<SingleObjectiveThiefProblem>
 		String type = (isSingleObjective) ? "SingleObjective" : "MultiObjective";
 		json.writeObjectField("problemType", type);
 		
-		json.writeObjectField("numOfCities", p.numOfCities());
-		json.writeObjectField("numOfItems", p.numOfItems());
-		
+		//json.writeObjectField("numOfCities", p.numOfCities());
+		//json.writeObjectField("numOfItems", p.numOfItems());
+		json.writeObjectField("maxWeight", p.getMaxWeight());
+		if (isSingleObjective) json.writeObjectField("R", ((SingleObjectiveThiefProblem)p).getR());
 		json.writeObjectField("minSpeed", p.getMinSpeed());
 		json.writeObjectField("maxSpeed", p.getMaxSpeed());
-		json.writeObjectField("maxWeight", p.getMaxWeight());
-		
-		if (isSingleObjective) json.writeObjectField("R", ((SingleObjectiveThiefProblem)p).getR());
 		
 		json.writeObjectFieldStart("profitEvaluator");
 		if (p.getProfitEvaluator() instanceof NoDroppingEvaluator) {
@@ -108,6 +114,8 @@ public class JsonThiefProblemWriter extends AWriter<SingleObjectiveThiefProblem>
 		
 		json.writeEndObject();
 		json.close();
+		
+		os.close();
 	}
 	
 

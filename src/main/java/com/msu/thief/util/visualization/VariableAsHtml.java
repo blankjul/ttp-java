@@ -25,7 +25,7 @@ public class VariableAsHtml {
 	public static void write(AbstractThiefProblem problem, Solution<TTPVariable> s, String pathToHtml) {
 
 		StringWriter sw = new StringWriter();
-		
+
 		JsonGenerator json;
 		try {
 			json = new JsonFactory().createGenerator(sw).useDefaultPrettyPrinter();
@@ -48,72 +48,75 @@ public class VariableAsHtml {
 			}
 			json.writeEndArray();
 
-			// write the edges
-			json.writeArrayFieldStart("edges");
 
-			TTPVariable var = s.getVariable();
+			if (s != null) {
 
-			if (problem.getMap() instanceof CoordinateMap) {
-				List<Point2D> cities = ((CoordinateMap) problem.getMap()).getCities();
-				List<Integer> tour = var.getTour().decode();
-				for (int i = 0; i < tour.size(); i++) {
-					json.writeStartObject();
-					json.writeObjectField("id", String.format("e%s", i));
-					json.writeObjectField("source", String.format("n%s", tour.get(i)));
-					json.writeObjectField("target", String.format("n%s", tour.get((i + 1) % cities.size())));
-					json.writeObjectField("type", "arrow");
-					json.writeObjectField("size", 2);
+				// write the edges
+				json.writeArrayFieldStart("edges");
+				TTPVariable var = s.getVariable();
 
-					json.writeEndObject();
-				}
-				json.writeEndArray();
+				if (problem.getMap() instanceof CoordinateMap) {
+					List<Point2D> cities = ((CoordinateMap) problem.getMap()).getCities();
+					List<Integer> tour = var.getTour().decode();
+					for (int i = 0; i < tour.size(); i++) {
+						json.writeStartObject();
+						json.writeObjectField("id", String.format("e%s", i));
+						json.writeObjectField("source", String.format("n%s", tour.get(i)));
+						json.writeObjectField("target", String.format("n%s", tour.get((i + 1) % cities.size())));
+						json.writeObjectField("type", "arrow");
+						json.writeObjectField("size", 2);
 
-				// check if item is picked at city or not
-				json.writeArrayFieldStart("picks");
-				ItemCollection<Item> collection = problem.getItemCollection();
-
-				Pack packing = var.getPack();
-
-				for (int i = 0; i < problem.numOfCities(); i++) {
-					boolean pickItem = false;
-					for (Integer index : collection.getItemsFromCityByIndex(i)) {
-						if (packing.isPicked(index)) {
-							pickItem = true;
-							break;
-						}
+						json.writeEndObject();
 					}
-					json.writeObject(pickItem);
+					json.writeEndArray();
 
+					// check if item is picked at city or not
+					json.writeArrayFieldStart("picks");
+					ItemCollection<Item> collection = problem.getItemCollection();
+
+					Pack packing = var.getPack();
+
+					for (int i = 0; i < problem.numOfCities(); i++) {
+						boolean pickItem = false;
+						for (Integer index : collection.getItemsFromCityByIndex(i)) {
+							if (packing.isPicked(index)) {
+								pickItem = true;
+								break;
+							}
+						}
+						json.writeObject(pickItem);
+
+					}
 				}
+
+				json.writeEndArray();
+				json.writeObjectField("variable", s.toString());
+			} else {
+				json.writeArrayFieldStart("edges");
+				json.writeEndArray();
+				json.writeArrayFieldStart("picks");
+				json.writeEndArray();
+				json.writeObjectField("variable", "");
+				
 			}
 
-			json.writeEndArray();
-
-			// write the variable
-			json.writeObjectField("variable", s.toString());
-			
 			json.writeEndObject();
 			json.close();
-			
+
 			PrintWriter writer = new PrintWriter(pathToHtml, "UTF-8");
-			
+
 			HashMap<String, Object> scopes = new HashMap<String, Object>();
 			scopes.put("data", sw.toString());
-			
+
 			MustacheFactory mf = new DefaultMustacheFactory();
 			Mustache mustache = mf.compile("resources/graph.html");
 			mustache.execute(writer, scopes);
 			writer.flush();
 			writer.close();
-			
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
-		
 
 	}
 

@@ -13,7 +13,7 @@ public class OrderedMutationTest extends Operator{
 	@Test
 	public void testSwap() {
 		Tour t = Tour.createFromString("0,1,2,3,4,5,6,7,8,9");
-		new TourOrderedMutation().swap(t, 5, 8, 1);
+		TourOrderedMutation.swap(t, 5, 8, 1);
 		assertEquals(Tour.createFromString("0,5,6,7,1,2,3,4,8,9"), t);
 	}
 	

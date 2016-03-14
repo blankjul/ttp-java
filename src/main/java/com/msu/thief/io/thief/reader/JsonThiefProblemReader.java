@@ -6,9 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.ObjectMapper;
-
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.msu.moo.util.io.AReader;
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
 import com.msu.thief.evaluator.profit.IndividualProfitEvaluator;
@@ -40,9 +39,9 @@ public class JsonThiefProblemReader extends AReader<AbstractThiefProblem> {
 			p = new MultiObjectiveThiefProblem();
 		}
 
-		final int numOfCities = root.findValue("numOfCities").asInt();
+		//final int numOfCities = root.findValue("numOfCities").asInt();
 
-		p.setName(root.findValue("name").asText());
+		//p.setName(root.findValue("name").asText());
 		p.setMinSpeed(root.findValue("minSpeed").asDouble());
 		p.setMaxSpeed(root.findValue("maxSpeed").asDouble());
 		p.setMaxWeight(root.findValue("maxWeight").asInt());
@@ -80,6 +79,7 @@ public class JsonThiefProblemReader extends AReader<AbstractThiefProblem> {
 			}
 			map = new CoordinateMap(cities);
 		} else if (cityType.equals("FULL_MATRIX")) {
+			final int numOfCities = citiesNode.size();
 			map = new SymmetricMap(numOfCities);
 			for (int i = 0; i < numOfCities; i++) {
 				for (int j = 0; j < numOfCities; j++) {
