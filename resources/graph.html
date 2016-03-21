@@ -1,10 +1,8 @@
 <html>
 <head>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
 	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-	<script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
-	<script src="https://dl.dropboxusercontent.com/u/16676685/sigma.min.js"></script>
-	<script src="https://dl.dropboxusercontent.com/u/16676685/sigma.parsers.json.min.js"></script>
+	<script src="https://dl.dropboxusercontent.com/u/16676685/sigmajs/sigma.min.js"></script>
+	<script src="https://dl.dropboxusercontent.com/u/16676685/sigmajs/plugins/sigma.exporters.svg.min.js"></script>
 
 
 	<style type="text/css">
@@ -30,6 +28,7 @@
 <div id="scatter"></div>
 <div id="info"></div>
 <div id="container"></div>
+<button id="export" type="export">Export</button>
 
 <script>
 
@@ -101,6 +100,10 @@ $(document).ready(function() {
 
 	plot(s, objThief);
 	document.getElementById('info').innerHTML = objThief.variable;
+
+	document.getElementById('export').onclick = function() {
+		  var output = s.toSVG({download: true, filename: 'mygraph.svg', size: 1000});
+	};
 
  });
 

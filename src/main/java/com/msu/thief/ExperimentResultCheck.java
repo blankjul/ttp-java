@@ -1,28 +1,30 @@
 package com.msu.thief;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.log4j.BasicConfigurator;
 
-import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
-import com.msu.thief.io.writer.TSPLIBThiefProblemWriter;
+import com.msu.moo.model.solution.Solution;
+import com.msu.moo.model.variable.Variable;
+import com.msu.thief.io.thief.reader.ThiefSingleTSPLIBProblemReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
+import com.msu.thief.problems.variable.TTPVariable;
 import com.msu.thief.util.visualization.VariableAsHtml;
 
 
 public class ExperimentResultCheck {
 	
 	
-	final public static String NAME = "tsma";
+	final public static String NAME = "best";
 	
 
 	public static void main(String[] args) throws IOException  {
 
 		BasicConfigurator.configure();
 
-		/*
+		
 		SingleObjectiveThiefProblem thief = (SingleObjectiveThiefProblem) new ThiefSingleTSPLIBProblemReader()
 				.read("../ttp-benchmark/TSPLIB/berlin52-ttp/berlin52_n51_bounded-strongly-corr_01.ttp");
 
@@ -35,29 +37,26 @@ public class ExperimentResultCheck {
 		
 		Solution<TTPVariable> s = thief.evaluate(m.get(NAME));
 		System.out.println(s);
-	*/
 		
+		VariableAsHtml.write(thief, s, String.format("../%s.html", NAME));
+	
 		
-		final String folder = "../thief-benchmark/json/";
-		
-		List<String> problems = new ArrayList<>();
-		problems.add("cluster-3.json");
-		problems.add("cluster-5.json");
-		problems.add("cluster-10.json");
-		
-//		problems.add("thief-5-1-l.json");
-//		problems.add("thief-10-1-l.json");
-//		problems.add("thief-20-1-l.json");
-//		problems.add("thief-50-1-l.json");
-//		problems.add("thief-100-1-l.json");
-		
-		
-		for (String p : problems) {
-			SingleObjectiveThiefProblem thief = (SingleObjectiveThiefProblem) new JsonThiefProblemReader().read(folder + p);
-			new TSPLIBThiefProblemWriter().write((SingleObjectiveThiefProblem) thief, String.format("%s/tsplib-cluster-%s.ttp", folder, p));
-			VariableAsHtml.write(thief, null, String.format(folder + "html-"+ p, NAME));
-		}
-		//System.out.println(writer.getResult());
-		
+//		
+//		final String folder = "../thief-benchmark/json/";
+//		
+//		List<String> problems = new ArrayList<>();
+//		problems.add("cluster-3.json");
+//		problems.add("cluster-5.json");
+//		problems.add("cluster-10.json");
+//
+//		
+//		
+//		for (String p : problems) {
+//			SingleObjectiveThiefProblem thief = (SingleObjectiveThiefProblem) new JsonThiefProblemReader().read(folder + p);
+//			new TSPLIBThiefProblemWriter().write((SingleObjectiveThiefProblem) thief, String.format("%s/tsplib-cluster-%s.ttp", folder, p));
+//			VariableAsHtml.write(thief, null, String.format(folder + "html-"+ p, NAME));
+//		}
+//		//System.out.println(writer.getResult());
+//		
 	}
 }

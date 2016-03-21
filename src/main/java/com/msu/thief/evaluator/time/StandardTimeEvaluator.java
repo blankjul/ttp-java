@@ -60,14 +60,16 @@ public class StandardTimeEvaluator extends TimeEvaluator {
 
 			}
 
+			// increase time - do not forget the way from the last city to the
+			// first!
+			time += (problem.getMap().get(pi.get(i), pi.get((i + 1) % pi.size())) / speed);
+			
+			
 			// add all the properties for the analysis
 			speedAtCities.add(speed);
 			weightAtCities.add(weight);
 			timeAtCities.add(time);
 
-			// increase time - do not forget the way from the last city to the
-			// first!
-			time += (problem.getMap().get(pi.get(i), pi.get((i + 1) % pi.size())) / speed);
 
 		}
 

@@ -23,7 +23,7 @@ import com.msu.thief.problems.variable.Pack;
 import com.msu.thief.problems.variable.TTPVariable;
 import com.msu.thief.problems.variable.Tour;
 
-public class BenchmarkBuilder {
+public class BenchmarkBuilderCluster {
 
 	static final private int SEED = 47845364;
 
@@ -36,39 +36,43 @@ public class BenchmarkBuilder {
 		// for (int numOfCities : Arrays.asList(5,10,20,50,100)) {
 		for (int numOfCities : Arrays.asList(100)) {
 
-			r = new MyRandom(SEED + numOfCities);
-			CoordinateMap m = buildMap(numOfCities, 0, 1000, r);
+			// used seed 123789456 for 3 clusters
+			for (int numOfClusters : Arrays.asList(10)) {
 
-			// for (int itemsPerCity : Arrays.asList(1,5,10)) {
-			for (int itemsPerCity : Arrays.asList(1, 5, 10)) {
+				r = new MyRandom(SEED + numOfCities);
+				CoordinateMap m = buildMapCluster(numOfClusters, 50, numOfCities, 0, 1000, r);
 
-				r = new MyRandom(SEED + 10000 + numOfCities);
-				ItemCollection<Item> c = buildItems(numOfCities, itemsPerCity, 1000, r);
+				// for (int itemsPerCity : Arrays.asList(1,5,10)) {
+				for (int itemsPerCity : Arrays.asList(1)) {
 
-				for (double fillingRate : Arrays.asList(0.2, 0.5, 0.8)) {
-					// for (double fillingRate : Arrays.asList(0.8)) {
+					r = new MyRandom(SEED + 10000 + numOfCities);
+					ItemCollection<Item> c = buildItems(numOfCities, itemsPerCity, 1000, r);
 
-					int maxWeight = calcMaxWeight(fillingRate, c, numOfCities);
-					double R = calcR(m, c, maxWeight);
+					// for (double fillingRate : Arrays.asList(0.2,0.5,0.8)) {
+					for (double fillingRate : Arrays.asList(0.8)) {
 
-					AbstractThiefProblem thief = new SingleObjectiveThiefProblem(m, c, maxWeight, R);
+						int maxWeight = calcMaxWeight(fillingRate, c, numOfCities);
+						double R = calcR(m, c, maxWeight);
 
-					String packSize = "";
-					if (fillingRate == 0.2) {
-						packSize = "s";
-					} else if (fillingRate == 0.5) {
-						packSize = "m";
-					} else if (fillingRate == 0.8) {
-						packSize = "l";
-					} else {
-						throw new RuntimeException("Unknown max knapsack rate: only s, m, l are allowed.");
+						AbstractThiefProblem thief = new SingleObjectiveThiefProblem(m, c, maxWeight, R);
+
+						String packSize = "";
+						if (fillingRate == 0.2) {
+							packSize = "s";
+						} else if (fillingRate == 0.5) {
+							packSize = "m";
+						} else if (fillingRate == 0.8) {
+							packSize = "l";
+						} else {
+							throw new RuntimeException("Unknown max knapsack rate: only s, m, l are allowed.");
+						}
+
+						String folder = "../thief-benchmark";
+						String file = String.format("%s", numOfClusters);
+						new JsonThiefProblemWriter().write(thief, String.format("%s/cluster-%s.json", folder, file));
+						new TSPLIBThiefProblemWriter().write((SingleObjectiveThiefProblem) thief, String.format("%s/tsplib-cluster-%s.ttp", folder, file));
+
 					}
-
-					String folder = "../new";
-					String file = String.format("%s-%s-%s", numOfCities, numOfCities, packSize);
-					new JsonThiefProblemWriter().write(thief, String.format("%s/thief-%s.json", folder, file));
-					new TSPLIBThiefProblemWriter().write((SingleObjectiveThiefProblem) thief, String.format("%s/tsplib-cluster-%s.ttp", folder, file));
-
 				}
 			}
 		}
@@ -145,7 +149,7 @@ public class BenchmarkBuilder {
 		clusters.add(new Point(600, 600));
 
 		List<Point2D> cities = new ArrayList<Point2D>();
-		cities.add(new Point(500, 500));
+		cities.add(new Point(500,500));
 
 		for (int i = 0; i < numOfCities - 1; i++) {
 			Point2D cluster = r.select(clusters);
