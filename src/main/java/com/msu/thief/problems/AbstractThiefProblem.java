@@ -50,9 +50,9 @@ public abstract class AbstractThiefProblem extends AProblem<TTPVariable>{
 	
 	
 
-	public AbstractThiefProblem(double minSpeed, double maxSpeed, ProfitEvaluator evalProfit, TimeEvaluator evalTime,
+	public AbstractThiefProblem(String name, double minSpeed, double maxSpeed, ProfitEvaluator evalProfit, TimeEvaluator evalTime,
 			SymmetricMap map, int maxWeight, ItemCollection<Item> items) {
-		super();
+		this.name = name;
 		this.minSpeed = minSpeed;
 		this.maxSpeed = maxSpeed;
 		this.evalProfit = evalProfit;

@@ -19,6 +19,7 @@ import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.MultiObjectiveThiefProblem;
+import com.msu.thief.problems.ProfitConstraintThiefProblem;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 
 public class JsonThiefProblemReader extends AReader<AbstractThiefProblem> {
@@ -37,11 +38,14 @@ public class JsonThiefProblemReader extends AReader<AbstractThiefProblem> {
 			((SingleObjectiveThiefProblem) p).setR(root.findValue("R").asDouble());
 		} else if (type.equals("MultiObjective")) {
 			p = new MultiObjectiveThiefProblem();
+		} else if (type.equals("ProfitConstraint")) {
+			p = new ProfitConstraintThiefProblem();
+			((ProfitConstraintThiefProblem) p).setMinProfitConstraint(root.findValue("minProfitConstraint").asDouble());
 		}
 
-		//final int numOfCities = root.findValue("numOfCities").asInt();
-
-		//p.setName(root.findValue("name").asText());
+		// safe the name according to the filename
+		p.setName(root.findValue("name").asText());
+		
 		p.setMinSpeed(root.findValue("minSpeed").asDouble());
 		p.setMaxSpeed(root.findValue("maxSpeed").asDouble());
 		p.setMaxWeight(root.findValue("maxWeight").asInt());

@@ -9,8 +9,11 @@ import java.util.List;
 import org.apache.log4j.BasicConfigurator;
 
 import com.msu.moo.model.solution.Solution;
+import com.msu.moo.util.FileCollectorParser;
 import com.msu.moo.util.MyRandom;
 import com.msu.thief.algorithms.impl.subproblems.AlgorithmUtil;
+import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
+import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
 import com.msu.thief.io.writer.JsonThiefProblemWriter;
 import com.msu.thief.io.writer.TSPLIBThiefProblemWriter;
 import com.msu.thief.model.CoordinateMap;
@@ -18,6 +21,7 @@ import com.msu.thief.model.Item;
 import com.msu.thief.model.ItemCollection;
 import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.MultiObjectiveThiefProblem;
+import com.msu.thief.problems.ProfitConstraintThiefProblem;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.problems.variable.Pack;
 import com.msu.thief.problems.variable.TTPVariable;
@@ -25,50 +29,61 @@ import com.msu.thief.problems.variable.Tour;
 
 public class BenchmarkBuilder {
 
-	static final private int SEED = 47845364;
+	static final private int SEED = 123456;
+
+	static final String folder = "../new";
 
 	public static void main(String[] args) {
 
 		BasicConfigurator.configure();
-
 		MyRandom r = new MyRandom(SEED);
 
-		// for (int numOfCities : Arrays.asList(5,10,20,50,100)) {
-		for (int numOfCities : Arrays.asList(100)) {
+		List<SingleObjectiveThiefProblem> problems = new ArrayList<>();
+
+		for (int numOfCities : Arrays.asList(5, 10, 20, 50, 100)) {
 
 			r = new MyRandom(SEED + numOfCities);
 			CoordinateMap m = buildMap(numOfCities, 0, 1000, r);
 
-			// for (int itemsPerCity : Arrays.asList(1,5,10)) {
 			for (int itemsPerCity : Arrays.asList(1, 5, 10)) {
 
 				r = new MyRandom(SEED + 10000 + numOfCities);
 				ItemCollection<Item> c = buildItems(numOfCities, itemsPerCity, 1000, r);
 
 				for (double fillingRate : Arrays.asList(0.2, 0.5, 0.8)) {
-					// for (double fillingRate : Arrays.asList(0.8)) {
 
 					int maxWeight = calcMaxWeight(fillingRate, c, numOfCities);
 					double R = calcR(m, c, maxWeight);
+					String name = String.format("%04d-%02d-%s", numOfCities, itemsPerCity, getSizeString(fillingRate));
 
-					AbstractThiefProblem thief = new SingleObjectiveThiefProblem(m, c, maxWeight, R);
+					SingleObjectiveThiefProblem single = new SingleObjectiveThiefProblem(m, c, maxWeight, R);
+					single.setName("single-" + name);
 
-					String packSize = "";
-					if (fillingRate == 0.2) {
-						packSize = "s";
-					} else if (fillingRate == 0.5) {
-						packSize = "m";
-					} else if (fillingRate == 0.8) {
-						packSize = "l";
-					} else {
-						throw new RuntimeException("Unknown max knapsack rate: only s, m, l are allowed.");
-					}
+					problems.add(single);
 
-					String folder = "../new";
-					String file = String.format("%s-%s-%s", numOfCities, numOfCities, packSize);
-					new JsonThiefProblemWriter().write(thief, String.format("%s/thief-%s.json", folder, file));
-					new TSPLIBThiefProblemWriter().write((SingleObjectiveThiefProblem) thief, String.format("%s/tsplib-cluster-%s.ttp", folder, file));
+				}
+			}
+		}
+		
+		FileCollectorParser<AbstractThiefProblem> fcp = new FileCollectorParser<>();
+		fcp.add("resources/", "single-cluster*", new JsonThiefProblemReader());
+		for(AbstractThiefProblem p : fcp.collect()) problems.add((SingleObjectiveThiefProblem) p);
+		
 
+		for (SingleObjectiveThiefProblem single : problems) {
+
+			final String name = single.getName().replace("single-", "");
+			
+			new JsonThiefProblemWriter().write(single, String.format("%s/%s.json", folder, single.getName()));
+			new TSPLIBThiefProblemWriter().write(single, String.format("%s/tsplib-%s.ttp", folder, single.getName()));
+
+			MultiObjectiveThiefProblem multi = calcMultiObjectiveThiefProblem(single, name);
+			new JsonThiefProblemWriter().write(multi, String.format("%s/%s.json", folder, multi.getName()));
+
+			if (name.endsWith("l")) {
+				List<ProfitConstraintThiefProblem> profit = calcProfitConstraintThiefProblems(single, name);
+				for (ProfitConstraintThiefProblem p : profit) {
+					new JsonThiefProblemWriter().write(p, String.format("%s/%s.json", folder, p.getName()));
 				}
 			}
 		}
@@ -77,19 +92,82 @@ public class BenchmarkBuilder {
 
 	}
 
+	public static MultiObjectiveThiefProblem calcMultiObjectiveThiefProblem(AbstractThiefProblem p, String name) {
+
+		final double deprRate = 0.95;
+
+		Tour pi = AlgorithmUtil.calcBestTour(p);
+		Solution<TTPVariable> bestPi = p.evaluate(new TTPVariable(pi, Pack.empty()));
+
+		// multi-objective with depreciation
+
+		// worth 10% of value when on the optimal tour
+		double C = bestPi.getObjective(0) * Math.log(deprRate) / Math.log(0.3);
+		C = (int) C;
+
+		MultiObjectiveThiefProblem thief = new MultiObjectiveThiefProblem(p);
+		thief.setProfitEvaluator(new ExponentialProfitEvaluator(deprRate, C));
+		thief.setName("multi-" + name);
+
+		return thief;
+
+	}
+
+	public static List<ProfitConstraintThiefProblem> calcProfitConstraintThiefProblems(AbstractThiefProblem p, String name) {
+
+		final int instances = 5;
+
+		List<ProfitConstraintThiefProblem> problems = new ArrayList<>();
+
+		double interval = 0;
+		interval = p.getMaxWeight() / instances + 1;
+
+		for (int i = 0; i < instances; i++) {
+
+			Pack forWeight = AlgorithmUtil.calcBestPackingPlan(p.getItems(), (int) (interval * (i + 1)));
+			double profit = 0;
+			for (int idx : forWeight.decode()) {
+				profit += p.getItem(idx).getProfit();
+			}
+
+			ProfitConstraintThiefProblem timeConstraint = new ProfitConstraintThiefProblem(p, profit);
+			timeConstraint.setName(String.format("profit-%s-%s", name, i + 1));
+			problems.add(timeConstraint);
+
+		}
+
+		return problems;
+
+	}
+
+	public static String getSizeString(double fillingRate) {
+		if (fillingRate == 0.2) {
+			return "s";
+		} else if (fillingRate == 0.5) {
+			return "m";
+		} else if (fillingRate == 0.8) {
+			return "l";
+		} else {
+			throw new RuntimeException("Unknown max knapsack rate: only s, m, l are allowed.");
+		}
+	}
+
 	public static double calcR(CoordinateMap m, ItemCollection<Item> c, int maxWeight) {
 
 		MultiObjectiveThiefProblem thief = new MultiObjectiveThiefProblem(m, c, maxWeight);
 		Tour pi = AlgorithmUtil.calcBestTour(thief);
-		Pack z = AlgorithmUtil.calcBestPackingPlan(c.asList(), maxWeight);
+		Pack z = AlgorithmUtil.calcBestPackingPlan(thief.getItems(), maxWeight);
 
 		Solution<TTPVariable> bestPi = thief.evaluate(new TTPVariable(pi, Pack.empty()));
 		Solution<TTPVariable> bestPiBestZ = thief.evaluate(new TTPVariable(pi, z));
 
 		// delta y / delta x = delta profit / delta time
+		// double slope = (-bestPiBestZ.getObjective(1)) /
+		// (bestPiBestZ.getObjective(0));
 		double slope = (-bestPiBestZ.getObjective(1)) / (bestPiBestZ.getObjective(0) - bestPi.getObjective(0));
+		slope = (double) Math.round(slope * 1000d) / 1000d;
 
-		return (double) Math.round(slope * 1000d) / 1000d;
+		return slope;
 
 	}
 
@@ -123,34 +201,6 @@ public class BenchmarkBuilder {
 		List<Point2D> cities = new ArrayList<Point2D>();
 		for (int i = 0; i < numOfCities; i++) {
 			Point2D p = new Point(r.nextInt(lowerBound, upperBound), r.nextInt(lowerBound, upperBound));
-			cities.add(p);
-		}
-
-		CoordinateMap m = new CoordinateMap(cities);
-		return m;
-	}
-
-	public static CoordinateMap buildMapCluster(int numOfClusters, int variance, int numOfCities, int lowerBound, int upperBound, MyRandom r) {
-
-		List<Point2D> clusters = new ArrayList<Point2D>();
-		clusters.add(new Point(891, 411));
-		clusters.add(new Point(398, 994));
-		clusters.add(new Point(229, 299));
-		clusters.add(new Point(814, 794));
-		clusters.add(new Point(901, 188));
-		clusters.add(new Point(406, 247));
-		clusters.add(new Point(182, 950));
-		clusters.add(new Point(50, 600));
-		clusters.add(new Point(700, 100));
-		clusters.add(new Point(600, 600));
-
-		List<Point2D> cities = new ArrayList<Point2D>();
-		cities.add(new Point(500, 500));
-
-		for (int i = 0; i < numOfCities - 1; i++) {
-			Point2D cluster = r.select(clusters);
-			Point2D p = new Point(r.nextInt((int) cluster.getX() - variance, (int) cluster.getX() + variance),
-					r.nextInt((int) cluster.getY() - variance, (int) cluster.getY() + variance));
 			cities.add(p);
 		}
 

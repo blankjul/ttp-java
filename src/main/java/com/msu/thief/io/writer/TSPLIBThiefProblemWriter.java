@@ -18,7 +18,7 @@ public class TSPLIBThiefProblemWriter extends AWriter<SingleObjectiveThiefProble
 	protected void write_(SingleObjectiveThiefProblem p, OutputStream os) throws IOException {
 		
 		final PrintStream s = new PrintStream(os);
-		s.println("PROBLEM NAME: 	TTP-Benchmark");
+		s.println(String.format("PROBLEM NAME: 	%s", p.getName()));
 		s.println("KNAPSACK DATA TYPE: uncorrelated");
 		s.println(String.format("DIMENSION:	%s", p.numOfCities()));
 		s.println(String.format("NUMBER OF ITEMS: 	%s", p.numOfItems()));

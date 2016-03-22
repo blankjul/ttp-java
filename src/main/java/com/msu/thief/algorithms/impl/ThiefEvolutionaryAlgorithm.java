@@ -2,10 +2,10 @@ package com.msu.thief.algorithms.impl;
 
 import com.msu.moo.algorithms.single.SingleObjectiveEvolutionaryAlgorithm;
 import com.msu.moo.interfaces.IEvaluator;
+import com.msu.moo.model.ASingleObjectiveAlgorithm;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.util.Builder;
 import com.msu.moo.util.MyRandom;
-import com.msu.thief.algorithms.interfaces.AThiefSingleObjectiveAlgorithm;
 import com.msu.thief.ea.ThiefCrossover;
 import com.msu.thief.ea.ThiefFactory;
 import com.msu.thief.ea.ThiefMutation;
@@ -16,15 +16,12 @@ import com.msu.thief.ea.operators.PackUniformCrossover;
 import com.msu.thief.ea.operators.TourOrderedCrossover;
 import com.msu.thief.ea.operators.TourSwapMutation;
 import com.msu.thief.problems.AbstractThiefProblem;
-import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.problems.variable.TTPVariable;
 
-public class ThiefEvolutionaryAlgorithm extends AThiefSingleObjectiveAlgorithm {
+public class ThiefEvolutionaryAlgorithm extends ASingleObjectiveAlgorithm<TTPVariable, AbstractThiefProblem> {
 
 	@Override
-	public Solution<TTPVariable> run(SingleObjectiveThiefProblem thief, IEvaluator evaluator, MyRandom rand) {
-		
-		
+	public Solution<TTPVariable> run(AbstractThiefProblem thief, IEvaluator evaluator, MyRandom rand) {
 		
 		Builder<SingleObjectiveEvolutionaryAlgorithm<TTPVariable, AbstractThiefProblem>> b = 
 				new Builder<>(SingleObjectiveEvolutionaryAlgorithm.class);

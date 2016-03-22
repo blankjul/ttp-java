@@ -18,6 +18,8 @@ import com.msu.thief.model.CoordinateMap;
 import com.msu.thief.model.Item;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.problems.AbstractThiefProblem;
+import com.msu.thief.problems.MultiObjectiveThiefProblem;
+import com.msu.thief.problems.ProfitConstraintThiefProblem;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 
 public class JsonThiefProblemWriter extends AWriter<AbstractThiefProblem> {
@@ -31,19 +33,28 @@ public class JsonThiefProblemWriter extends AWriter<AbstractThiefProblem> {
 		pp.indentArraysWith(DefaultIndenter.SYSTEM_LINEFEED_INSTANCE);
 		json.setPrettyPrinter(pp);
 		
-		
-		boolean isSingleObjective = p instanceof SingleObjectiveThiefProblem;
-		
 		json.writeStartObject();
-		//json.writeObjectField("name", p.getName());
+		json.writeObjectField("name", p.getName());
 		
-		String type = (isSingleObjective) ? "SingleObjective" : "MultiObjective";
-		json.writeObjectField("problemType", type);
+		int model = -1;
+		if (p instanceof SingleObjectiveThiefProblem) {
+			model = 1;
+			json.writeObjectField("problemType", "SingleObjective");
+		} else if (p instanceof MultiObjectiveThiefProblem) {
+			model = 2;
+			json.writeObjectField("problemType", "MultiObjective");
+		} else if (p instanceof ProfitConstraintThiefProblem) {
+			model = 3;
+			json.writeObjectField("problemType", "ProfitConstraint");
+		}  else {
+			throw new RuntimeException("Thief Problem not known!");
+		}
 		
 		//json.writeObjectField("numOfCities", p.numOfCities());
 		//json.writeObjectField("numOfItems", p.numOfItems());
 		json.writeObjectField("maxWeight", p.getMaxWeight());
-		if (isSingleObjective) json.writeObjectField("R", ((SingleObjectiveThiefProblem)p).getR());
+		if (model == 1) json.writeObjectField("R", ((SingleObjectiveThiefProblem)p).getR());
+		else if (model == 3) json.writeObjectField("minProfitConstraint", ((ProfitConstraintThiefProblem)p).getMinProfitConstraint());
 		json.writeObjectField("minSpeed", p.getMinSpeed());
 		json.writeObjectField("maxSpeed", p.getMaxSpeed());
 		

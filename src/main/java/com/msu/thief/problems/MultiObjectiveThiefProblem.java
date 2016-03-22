@@ -27,7 +27,7 @@ public class MultiObjectiveThiefProblem extends AbstractThiefProblem {
 	}
 	
 	public MultiObjectiveThiefProblem(AbstractThiefProblem thief) {
-		super(thief.minSpeed, thief.maxSpeed, thief.evalProfit, thief.evalTime, thief.map, thief.maxWeight, thief.items);
+		super(thief.getName(), thief.minSpeed, thief.maxSpeed, thief.evalProfit, thief.evalTime, thief.map, thief.maxWeight, thief.items);
 	}
 	
 	

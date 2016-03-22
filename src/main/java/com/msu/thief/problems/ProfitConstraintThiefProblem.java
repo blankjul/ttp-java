@@ -12,31 +12,23 @@ import com.msu.thief.problems.variable.TTPVariable;
 import com.msu.thief.problems.variable.Tour;
 
 
-public class SingleObjectiveThiefProblem extends AbstractThiefProblem  {
+public class ProfitConstraintThiefProblem extends AbstractThiefProblem  {
 
 	
-	//! weight vector for composing to single objective
-	protected double R = 1;
+	private double minProfitConstraint;
 	
-	
-	
-	public SingleObjectiveThiefProblem() {
+	public ProfitConstraintThiefProblem() {
 		super();
 	}
 
-	public SingleObjectiveThiefProblem(SymmetricMap map, ItemCollection<Item> items, int maxWeight) {
+	public ProfitConstraintThiefProblem(SymmetricMap map, ItemCollection<Item> items, int maxWeight) {
 		super(map, items, maxWeight);
 	}
 	
-	public SingleObjectiveThiefProblem(SymmetricMap map, ItemCollection<Item> items, int maxWeight, double R) {
-		this(map, items, maxWeight);
-		this.R = R;
-	}
 	
-	
-	public SingleObjectiveThiefProblem(AbstractThiefProblem thief, double R) {
+	public ProfitConstraintThiefProblem(AbstractThiefProblem thief, double minProfitConstraint) {
 		super(thief.getName(),thief.minSpeed, thief.maxSpeed, thief.evalProfit, thief.evalTime, thief.map, thief.maxWeight, thief.items);
-		setR(R);
+		setMinProfitConstraint(minProfitConstraint);
 	}
 	
 
@@ -48,7 +40,7 @@ public class SingleObjectiveThiefProblem extends AbstractThiefProblem  {
 
 	@Override
 	public int getNumberOfConstraints() {
-		return 1;
+		return 2;
 	}
 	
 
@@ -63,26 +55,27 @@ public class SingleObjectiveThiefProblem extends AbstractThiefProblem  {
 		
 		TourInformation tourInfo = evalTime.evaluate_(this, t, p);
 		final double time = tourInfo.getTime();
+		objectives.add(time);
 		
+
 		PackingInformation packInfo = evalProfit.evaluate_(this, t, p, tourInfo);
 		final double profit = packInfo.getProfit();
-
-		final double value = profit - R * time;
-		objectives.add(- value);
 
 		final double violation = Math.max(0, packInfo.getWeight() - getMaxWeight());
 		constraintViolations.add(violation);
 		
+		final double profitViolation = Math.max(0, minProfitConstraint - profit);
+		constraintViolations.add(profitViolation);
+		
 		
 	}
-	
 
-	public double getR() {
-		return R;
+	public double getMinProfitConstraint() {
+		return minProfitConstraint;
 	}
 
-	public void setR(double r) {
-		R = r;
+	public void setMinProfitConstraint(double profitConstraint) {
+		this.minProfitConstraint = profitConstraint;
 	}
 	
 	

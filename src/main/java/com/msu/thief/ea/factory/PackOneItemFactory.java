@@ -45,7 +45,6 @@ public class PackOneItemFactory extends AOperator implements IFactory<Pack> {
 		}
 		
 	}
-
 	
 
 

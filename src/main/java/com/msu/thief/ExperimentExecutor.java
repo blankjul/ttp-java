@@ -29,13 +29,13 @@ public class ExperimentExecutor {
 	protected final static String PREFIX = "com.msu.thief.experiment.";
 
 	// ! experiment that should be executed
-	protected final static String EXPERIMENT = "IEEE.IEEEExperiment";
+	protected final static String EXPERIMENT = "IEEE.BenchmarkExperimentProfit";
 
 	// ! number of iterations per experiment
-	protected final static int ITERATIONS = 5;
+	protected final static int ITERATIONS = 1;
 
 	// ! max evaluations per run
-	protected final static IEvaluator EVALUATOR = new StandardEvaluator(500000);
+	protected final static IEvaluator EVALUATOR = new StandardEvaluator(100000);
 
 	// ! random seed for experiment executions
 	protected final static long SEED = 123456;

@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import javax.swing.plaf.synth.SynthSpinnerUI;
-
 import com.msu.moo.algorithms.single.SingleObjectiveEvolutionaryAlgorithm;
 import com.msu.moo.model.evaluator.StandardEvaluator;
 import com.msu.moo.model.solution.Solution;
@@ -17,7 +15,6 @@ import com.msu.thief.ea.factory.TourRandomFactory;
 import com.msu.thief.ea.operators.PackBitflipMutation;
 import com.msu.thief.ea.operators.PackUniformCrossover;
 import com.msu.thief.evaluator.TourInformation;
-import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
 import com.msu.thief.evaluator.time.StandardTimeEvaluator;
 import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
 import com.msu.thief.problems.MultiObjectiveThiefProblem;
@@ -33,19 +30,24 @@ public class PickItemsInTheEnd {
 
 		final int runs = 3;
 		final MyRandom r = new MyRandom(123456);
-		final String file = "../thief-benchmark/json/thief-100-1-s.json";
+		final String file = "../new/thief-10-1-s.json";
 
 		// SingleObjectiveThiefProblem thief = (SingleObjectiveThiefProblem) new
 		// ThiefSingleTSPLIBProblemReader().read("../ttp-benchmark/TSPLIB/berlin52-ttp/berlin52_n51_bounded-strongly-corr_01.ttp");
 
 		SingleObjectiveThiefProblem thief = (SingleObjectiveThiefProblem) new JsonThiefProblemReader().read(file);
-		thief.setProfitEvaluator(new ExponentialProfitEvaluator(0.95, 1000));
 		
 		Tour pi = AlgorithmUtil.calcBestTour(thief);
 		Pack z = AlgorithmUtil.calcBestPackingPlan(thief.getItems(), thief.getMaxWeight());
 		
+		
+		MultiObjectiveThiefProblem multi = new MultiObjectiveThiefProblem(thief);
+		
+		System.out.println(thief.getR());
+		System.out.println(thief.getItems());
 
-		System.out.println(thief.evaluate(TTPVariable.create(pi.getSymmetric(), z)));
+		System.out.println(thief.evaluate(TTPVariable.create(pi, z)));
+		System.out.println(multi.evaluate(TTPVariable.create(pi, z)));
 		
 		if (true) return;
 		

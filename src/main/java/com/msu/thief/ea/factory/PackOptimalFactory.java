@@ -17,6 +17,7 @@ public class PackOptimalFactory extends AOperator implements IFactory<Pack>  {
 
 	@Override
 	public Pack next(MyRandom rand) {
+		//final int maxWeight = (int) (thief.getMaxWeight());
 		final int maxWeight = (int) (rand.nextDouble() * thief.getMaxWeight());
 		return AlgorithmUtil.calcBestPackingPlan(thief.getItems(), maxWeight);
 	}
