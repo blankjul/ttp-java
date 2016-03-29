@@ -5,7 +5,8 @@ import java.util.List;
 
 import com.msu.thief.util.distances.ADistanceCalculator;
 import com.msu.thief.util.distances.EuclideanDistance;
-import com.msu.thief.util.rounding.RoundingNearestInt;
+import com.msu.thief.util.rounding.IRounding;
+import com.msu.thief.util.rounding.RoundingCeil;
 
 public class CoordinateMap extends SymmetricMap {
 
@@ -13,7 +14,7 @@ public class CoordinateMap extends SymmetricMap {
 	protected List<Point2D> cities = null;
 	
 	public CoordinateMap(List<Point2D> cities) {
-		this(cities, new EuclideanDistance());
+		this(cities, new EuclideanDistance(), new RoundingCeil());
 	}
 	
 	/**
@@ -21,7 +22,7 @@ public class CoordinateMap extends SymmetricMap {
 	 * @param cities list with points
 	 * @param calcDistance distance calculator method
 	 */
-	public CoordinateMap(List<Point2D> cities, ADistanceCalculator calcDistance) {
+	public CoordinateMap(List<Point2D> cities, ADistanceCalculator calcDistance, IRounding rounding) {
 		super(cities.size());
 		this.cities = cities;
 		for (int i = 0; i < cities.size(); i++) {
@@ -30,7 +31,7 @@ public class CoordinateMap extends SymmetricMap {
 				set(i, j, distance);
 			}
 		}
-		round(new RoundingNearestInt());
+		round(rounding);
 	}
 
 	public List<Point2D> getCities() {

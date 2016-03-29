@@ -26,14 +26,14 @@ public class TSPLIBThiefProblemWriter extends AWriter<SingleObjectiveThiefProble
 		s.println(String.format("MIN SPEED: 	%s", p.getMinSpeed()));
 		s.println(String.format("MAX SPEED: 	%s", p.getMaxSpeed()));
 		s.println(String.format("RENTING RATIO: 	%s", p.getR()));
-		s.println(String.format("EDGE_WEIGHT_TYPE:	EUCL_2D"));
+		s.println(String.format("EDGE_WEIGHT_TYPE:	CEIL_2D"));
 		s.println(String.format("NODE_COORD_SECTION	(INDEX, X, Y):"));
 		
 		CoordinateMap m = (CoordinateMap) p.getMap();
 		
 		for (int i = 0; i < p.numOfCities(); i++) {
 			Point2D point = m.getCities().get(i);
-			s.println(String.format("%s	%s	%s", i + 1, point.getX(), point.getY()));
+			s.println(String.format("%s	%s	%s", i + 1, (int) point.getX(), (int) point.getY()));
 		}
 		
 		
@@ -43,7 +43,7 @@ public class TSPLIBThiefProblemWriter extends AWriter<SingleObjectiveThiefProble
 		int counter = 1;
 		for (int i = 0; i < p.numOfCities(); i++) {
 			for (Item item : c.getItemsFromCity(i)) {
-				s.println(String.format("%s	%s	%s	%s", counter++, item.getProfit(), item.getWeight(), i + 1));
+				s.println(String.format("%s	%s	%s	%s", counter++, (int) item.getProfit(), (int) item.getWeight(), i + 1));
 				
 			}
 				

@@ -1,6 +1,6 @@
 {
   "problemType" : "SingleObjective",
-  "name" : "single-cluster-5",
+  "name" : "single-cluster-05",
   "maxWeight" : 41447,
   "R" : 6.036,
   "minSpeed" : 0.1,

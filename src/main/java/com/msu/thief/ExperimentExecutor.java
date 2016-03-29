@@ -29,7 +29,7 @@ public class ExperimentExecutor {
 	protected final static String PREFIX = "com.msu.thief.experiment.";
 
 	// ! experiment that should be executed
-	protected final static String EXPERIMENT = "IEEE.BenchmarkExperimentProfit";
+	protected final static String EXPERIMENT = "IEEE.BenchmarkExperimentSingle";
 
 	// ! number of iterations per experiment
 	protected final static int ITERATIONS = 1;

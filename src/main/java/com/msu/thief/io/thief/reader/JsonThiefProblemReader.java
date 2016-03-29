@@ -45,7 +45,6 @@ public class JsonThiefProblemReader extends AReader<AbstractThiefProblem> {
 
 		// safe the name according to the filename
 		p.setName(root.findValue("name").asText());
-		
 		p.setMinSpeed(root.findValue("minSpeed").asDouble());
 		p.setMaxSpeed(root.findValue("maxSpeed").asDouble());
 		p.setMaxWeight(root.findValue("maxWeight").asInt());
@@ -73,6 +72,7 @@ public class JsonThiefProblemReader extends AReader<AbstractThiefProblem> {
 		}
 
 		SymmetricMap map = null;
+		
 		String cityType = root.findValue("cityType").asText();
 		JsonNode citiesNode = root.findValue("cities");
 		if (cityType.equals("XY_COORDINATES")) {

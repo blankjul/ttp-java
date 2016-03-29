@@ -46,15 +46,8 @@ public class BenchmarkExperimentSingle extends AExperiment<Solution<TTPVariable>
 					IAlgorithm<Solution<TTPVariable>, TTPVariable, AbstractThiefProblem> algorithm, int run,
 					Solution<TTPVariable> result) {
 				
-				MultiObjectiveThiefProblem thief = new MultiObjectiveThiefProblem(problem);
-				Tour pi = AlgorithmUtil.calcBestTour(thief);
-				Pack z = AlgorithmUtil.calcBestPackingPlan(thief.getItems(), thief.getMaxWeight());
-
-				Solution<TTPVariable> bestPi = thief.evaluate(new TTPVariable(pi, Pack.empty()));
-				Solution<TTPVariable> bestPiBestZ = thief.evaluate(new TTPVariable(pi, z));
-				double deltaTime = bestPiBestZ.getObjective(0) - bestPi.getObjective(0);
-				
-				System.out.println(String.format("%s,%s,%s,%s", problem, algorithm, - result.getObjective(0), result.getObjective(0) + bestPi.getObjective(0)));
+				System.out.println(String.format("%s,\"%s\"", problem, result.getVariable()));
+				//System.out.println(String.format("%s,%s,%s,%s", problem, algorithm, - result.getObjective(0), result.getObjective(0) + bestPi.getObjective(0)));
 			}
 		};
 	}
