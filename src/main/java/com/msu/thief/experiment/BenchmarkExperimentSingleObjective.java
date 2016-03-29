@@ -1,4 +1,4 @@
-package com.msu.thief.experiment.IEEE;
+package com.msu.thief.experiment;
 
 import java.util.List;
 
@@ -6,33 +6,28 @@ import com.msu.moo.experiment.AExperiment;
 import com.msu.moo.experiment.callback.ICallback;
 import com.msu.moo.interfaces.algorithms.IAlgorithm;
 import com.msu.moo.model.solution.Solution;
-import com.msu.thief.algorithms.impl.ThiefBankToBankHillClimbing;
-import com.msu.thief.io.thief.reader.ThiefSingleTSPLIBProblemReader;
+import com.msu.moo.util.FileCollectorParser;
+import com.msu.thief.algorithms.ThiefRandomLocalSearch;
+import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
+import com.msu.thief.problems.AbstractThiefProblem;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.problems.variable.TTPVariable;
 
-public class IEEEExperiment extends AExperiment<Solution<TTPVariable>, TTPVariable, SingleObjectiveThiefProblem> {
-
+public class BenchmarkExperimentSingleObjective extends AExperiment<Solution<TTPVariable>, TTPVariable, SingleObjectiveThiefProblem> {
 
 
 	@Override
 	protected void setAlgorithms(SingleObjectiveThiefProblem problem,
 			List<IAlgorithm<Solution<TTPVariable>, TTPVariable, SingleObjectiveThiefProblem>> algorithms) {
-		//algorithms.add(new ThiefTwoPhaseEvolution());
-		algorithms.add(new ThiefBankToBankHillClimbing());
-		//algorithms.add(new ThiefOnePlusOneEA());
-		//algorithms.add(new ThiefEvolutionaryAlgorithm());
-		
+		algorithms.add(new ThiefRandomLocalSearch());
 	}
-
 
 
 	@Override
 	protected void setProblems(List<SingleObjectiveThiefProblem> problems) {
-		//problems.addAll(IEEE.getProblems());
-		//problems.addAll(IEEE.getTTPLIBProblems());
-		problems.add(new ThiefSingleTSPLIBProblemReader().read("../ttp-benchmark/TSPLIB/berlin52-ttp/berlin52_n255_bounded-strongly-corr_01.ttp"));
-		//problems.add(new ThiefSingleTSPLIBProblemReader().read("../ttp-benchmark/TSPLIB/berlin52-ttp/berlin52_n51_bounded-strongly-corr_01.ttp"));
+		FileCollectorParser<AbstractThiefProblem> fcp = new FileCollectorParser<>();
+		fcp.add("../json-single-objective/", "*", new JsonThiefProblemReader());
+		fcp.collect().forEach(p -> problems.add((SingleObjectiveThiefProblem)p));
 	}
 
 

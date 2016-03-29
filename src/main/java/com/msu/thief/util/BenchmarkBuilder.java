@@ -1,4 +1,4 @@
-package com.msu.thief;
+package com.msu.thief.util;
 
 import java.awt.Point;
 import java.awt.geom.Point2D;
@@ -11,7 +11,7 @@ import org.apache.log4j.BasicConfigurator;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.util.FileCollectorParser;
 import com.msu.moo.util.MyRandom;
-import com.msu.thief.algorithms.impl.subproblems.AlgorithmUtil;
+import com.msu.thief.algorithms.subproblems.AlgorithmUtil;
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
 import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
 import com.msu.thief.io.writer.JsonThiefProblemWriter;

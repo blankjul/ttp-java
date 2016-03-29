@@ -1,4 +1,4 @@
-package com.msu.thief;
+package com.msu.thief.util;
 
 import java.io.BufferedReader;
 import java.io.File;

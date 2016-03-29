@@ -10,26 +10,15 @@ import com.msu.moo.interfaces.IVariable;
 import com.msu.moo.model.evaluator.StandardEvaluator;
 import com.msu.moo.util.ObjectFactory;
 
-/**
- * EXERIMENTS AVAILABLE GreedyMapExperiment, TSPOperatorExperiment,
- * NSGAIIOperatorExperiment, PublicationExperiment BonyadiExperiment,
- * NSGAIIOperatorExperiment, OneScenarioExperiment
- * 
- * TSP TSPExperiment
- * 
- * KNP KNPExperiment
- * 
- * Bonyadi BonyadiTSPLIBExperiment, BonyadiSingleExperiment,
- * BonyadiMultiExperiment
- * 
- */
+
+
 public class ExperimentExecutor {
 
 	// ! experiment that should be executed
 	protected final static String PREFIX = "com.msu.thief.experiment.";
 
 	// ! experiment that should be executed
-	protected final static String EXPERIMENT = "IEEE.BenchmarkExperimentSingle";
+	protected final static String EXPERIMENT = "BenchmarkExperimentSingleObjective";
 
 	// ! number of iterations per experiment
 	protected final static int ITERATIONS = 1;

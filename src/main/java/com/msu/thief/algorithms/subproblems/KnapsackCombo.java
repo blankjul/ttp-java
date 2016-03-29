@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.impl.subproblems;
+package com.msu.thief.algorithms.subproblems;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

@@ -1,17 +1,13 @@
 package com.msu.thief;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.log4j.BasicConfigurator;
 
 import com.msu.moo.model.solution.Solution;
-import com.msu.moo.model.variable.Variable;
 import com.msu.thief.io.thief.reader.ThiefSingleTSPLIBProblemReader;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.problems.variable.TTPVariable;
-import com.msu.thief.util.visualization.VariableAsHtml;
 
 
 public class ExperimentResultCheck {

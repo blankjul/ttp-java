@@ -1,8 +1,12 @@
-package com.msu.thief.algorithms.impl.exhaustive;
+package com.msu.thief.algorithms;
 
 import java.util.List;
 
+import com.msu.moo.interfaces.IEvaluator;
+import com.msu.moo.model.ASingleObjectiveAlgorithm;
 import com.msu.moo.model.solution.Solution;
+import com.msu.moo.model.solution.SolutionDominator;
+import com.msu.moo.util.MyRandom;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.problems.variable.Pack;
 import com.msu.thief.problems.variable.TTPVariable;
@@ -10,16 +14,19 @@ import com.msu.thief.problems.variable.Tour;
 import com.msu.thief.util.Combination;
 import com.msu.thief.util.CombinatorialUtil;
 
-public class ThiefExhaustive {
+public class ThiefExhaustive extends ASingleObjectiveAlgorithm<TTPVariable, SingleObjectiveThiefProblem> {
 
-	public static void run(SingleObjectiveThiefProblem problem) {
+	@Override
+	public Solution<TTPVariable> run(SingleObjectiveThiefProblem problem, IEvaluator evaluator, MyRandom rand) {
+
+		Solution<TTPVariable> best = null;
+		
 		final int numItems = problem.numOfItems();
 		final int numCities = problem.numOfCities();
 
 		// create the first tour
 		// if starting city is should be zero start to permute at one
 		List<Integer> index = CombinatorialUtil.getIndexVector(1, numCities);
-
 
 		// over all possible tours
 		for (List<Integer> l : CombinatorialUtil.permute(index)) {
@@ -36,10 +43,15 @@ public class ThiefExhaustive {
 
 					Pack p = new Pack(combination.next());
 					Solution<TTPVariable> s = problem.evaluate(TTPVariable.create(t, p));
-					if (!s.hasConstrainViolations()) System.out.println(s);
+					
+					if (best == null || SolutionDominator.isDominating(s, best)) best = s;
+					
+					//if (!s.hasConstrainViolations()) System.out.println(s);
 				}
 			}
 		}
+		
+		return best;
 	}
 
 	public static int factorial(int n) {

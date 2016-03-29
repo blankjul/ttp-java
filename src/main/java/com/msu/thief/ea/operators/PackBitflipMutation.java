@@ -32,9 +32,7 @@ public class PackBitflipMutation extends AOperator implements IMutation<Pack> {
 
 	@Override
 	public void mutate(Pack p, MyRandom rand) {
-		
 		boolean isMutated = false;
-		
 		final int n = thief.numOfItems();
 		final double prob = 1 / (double) n;
 		

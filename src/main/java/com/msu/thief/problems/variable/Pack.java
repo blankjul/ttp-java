@@ -156,6 +156,7 @@ public class Pack extends AVariable<Set<Integer>> implements IEvolutionaryVariab
 		return obj.size();
 	}
 	
+
 	
 	public static Pack createFromString(String s) {
 		return new Pack(new HashSet<>(StringUtil.parseAsIntegerList(s)));
@@ -175,6 +176,8 @@ public class Pack extends AVariable<Set<Integer>> implements IEvolutionaryVariab
 		return new Pack(obj);
 	}
 
+	
+	
 
 
 	

@@ -1,4 +1,4 @@
-package com.msu.thief.algorithms.impl.subproblems;
+package com.msu.thief.algorithms.subproblems;
 
 import com.msu.thief.ea.operators.TourSwapMutation;
 import com.msu.thief.evaluator.time.StandardTimeEvaluator;
