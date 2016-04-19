@@ -2,8 +2,8 @@ package com.msu.thief.algorithms;
 
 import java.util.List;
 
+import com.msu.moo.algorithms.ASingleObjectiveAlgorithm;
 import com.msu.moo.interfaces.IEvaluator;
-import com.msu.moo.model.ASingleObjectiveAlgorithm;
 import com.msu.moo.model.solution.Solution;
 import com.msu.moo.model.solution.SolutionDominator;
 import com.msu.moo.util.MyRandom;

@@ -15,7 +15,7 @@ import com.msu.thief.util.StringUtil;
  * The Tour provides an implementation of a tour that saves directly the
  * permutation array.
  */
-public class Tour extends AVariable<List<Integer>> implements IEvolutionaryVariable<List<Integer>, Tour>{
+public class Tour extends AVariable<List<Integer>> implements IEvolutionaryVariable<List<Integer>>{
 
 
 	/**

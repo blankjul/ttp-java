@@ -25,10 +25,4 @@ public class TourWithSwapFactory implements IFactory<Tour>{
 	}
 
 
-
-	@Override
-	public boolean hasNext() {
-		return true;
-	}
-
 }

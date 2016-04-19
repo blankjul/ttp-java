@@ -42,13 +42,6 @@ public class PackRandomFactory extends AOperator implements IFactory<Pack> {
 	}
 
 	
-	@Override
-	public boolean hasNext() {
-		return true;
-	}
-
-	
-
 
 
 }

@@ -31,11 +31,6 @@ public class TourOptimalFactory extends AOperator implements IFactory<Tour> {
 	}
 
 	
-	@Override
-	public boolean hasNext() {
-		return true;
-	}
-
 
 
 

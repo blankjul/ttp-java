@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Map;
 
 import com.msu.moo.interfaces.IEvaluator;
-import com.msu.moo.model.solution.Solution;
+import com.msu.moo.interfaces.ISolution;
 import com.msu.thief.problems.ThiefProblemWithFixedTour;
 import com.msu.thief.problems.variable.Pack;
 
@@ -22,9 +22,9 @@ public class ItemHeuristicUtil {
 	 * @return the objective value when one item is removed from the pack
 	 */
 	public static 
-		Map<Integer, Solution<Pack>> calcObjectiveRemoved(ThiefProblemWithFixedTour problem, IEvaluator eval,
+		Map<Integer, ISolution<Pack>> calcObjectiveRemoved(ThiefProblemWithFixedTour problem, IEvaluator eval,
 			Pack pack) {
-		Map<Integer, Solution<Pack>> hash = new HashMap<>();
+		Map<Integer, ISolution<Pack>> hash = new HashMap<>();
 		for (Integer idx : new HashSet<>(pack.decode())) {
 			hash.put(idx, evaluateWhenBitfipped(problem, eval, pack, idx));
 		}
@@ -35,10 +35,10 @@ public class ItemHeuristicUtil {
 	 * @param itemsToAdd all items that should be considered to add
 	 * @return the heuristic value of all items when they are added.
 	 */
-	public static Map<Integer, Solution<Pack>> calcObjectiveWhenAdded(ThiefProblemWithFixedTour problem, IEvaluator eval,
+	public static Map<Integer, ISolution<Pack>> calcObjectiveWhenAdded(ThiefProblemWithFixedTour problem, IEvaluator eval,
 			Pack pack, Collection<Integer> itemsToAdd) {
 
-		Map<Integer, Solution<Pack>> hash = new HashMap<>();
+		Map<Integer, ISolution<Pack>> hash = new HashMap<>();
 		for (Integer idx : itemsToAdd) {
 			if (pack.isPicked(idx))
 				throw new RuntimeException(
@@ -52,10 +52,10 @@ public class ItemHeuristicUtil {
 	 * @return the solution if the bit is fliped. If item is picked, it is
 	 *         removed. If it is not present it is added.
 	 */
-	public static Solution<Pack> evaluateWhenBitfipped(ThiefProblemWithFixedTour problem, IEvaluator eval, Pack p,
+	public static ISolution<Pack> evaluateWhenBitfipped(ThiefProblemWithFixedTour problem, IEvaluator eval, Pack p,
 			int idx) {
 
-		Solution<Pack> s = null;
+		ISolution<Pack> s = null;
 		
 		Pack pack = p.copy();
 

@@ -54,13 +54,6 @@ public class PackOneItemFactory extends AOperator implements IFactory<Pack> {
 		return pool.poll();
 	}
 
-	
-	@Override
-	public boolean hasNext() {
-		return !pool.isEmpty();
-	}
-
-	
 
 
 

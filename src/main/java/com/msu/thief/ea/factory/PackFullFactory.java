@@ -45,9 +45,5 @@ public class PackFullFactory extends AOperator implements IFactory<Pack> {
 		return z;
 	}
 
-	@Override
-	public boolean hasNext() {
-		return true;
-	}
 
 }

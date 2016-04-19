@@ -22,12 +22,5 @@ public class PackOptimalFactory extends AOperator implements IFactory<Pack>  {
 		return AlgorithmUtil.calcBestPackingPlan(thief.getItems(), maxWeight);
 	}
 
-	
-	@Override
-	public boolean hasNext() {
-		return true;
-	}
-
-
 
 }

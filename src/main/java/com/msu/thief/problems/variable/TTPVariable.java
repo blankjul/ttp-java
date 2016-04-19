@@ -1,20 +1,21 @@
 package com.msu.thief.problems.variable;
 
-import com.msu.moo.interfaces.IVariable;
+import com.msu.moo.interfaces.IEvolutionaryVariable;
+import com.msu.moo.util.Pair;
 
 /**
  * This class represents the TTP variable which is necessary to calculate a
  * given solution according to a problem instance.
  *
  */
-public class TTPVariable implements IVariable {
+public class TTPVariable implements IEvolutionaryVariable<Pair<Tour,Pack>> {
 
 	//! tour of the thief
 	protected Tour tour;
 	
 	//! packing plan
 	protected Pack pack;
-	
+
 	
 	public TTPVariable(Tour tour, Pack pack) {
 		super();
@@ -29,7 +30,7 @@ public class TTPVariable implements IVariable {
 	}
 
 	@Override
-	public IVariable copy() {
+	public IEvolutionaryVariable<Pair<Tour,Pack>> copy() {
 		return new TTPVariable(getTour().copy(), getPack().copy());
 	}
 
@@ -84,5 +85,17 @@ public class TTPVariable implements IVariable {
 	
 	public static TTPVariable create(Tour t, Pack b) {
 		return new TTPVariable(t, b);
+	}
+
+
+	@Override
+	public Pair<Tour, Pack> decode() {
+		return new Pair<Tour, Pack>(tour,pack);
+	}
+
+
+	@Override
+	public IEvolutionaryVariable<Pair<Tour, Pack>> build(Pair<Tour, Pack> obj) {
+		return new TTPVariable(obj.first, obj.second);
 	}
 }

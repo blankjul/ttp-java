@@ -30,11 +30,6 @@ public class TourRandomFactory extends AOperator implements IFactory<Tour> {
 	}
 
 	
-	@Override
-	public boolean hasNext() {
-		return true;
-	}
-
 
 
 

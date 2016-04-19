@@ -33,12 +33,6 @@ public class ProfitConstraintThiefProblem extends AbstractThiefProblem  {
 	
 
 	@Override
-	public int getNumberOfObjectives() {
-		return 1;
-	}
-
-
-	@Override
 	public int getNumberOfConstraints() {
 		return 2;
 	}

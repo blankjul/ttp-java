@@ -2,10 +2,10 @@ package com.msu.thief;
 
 import org.apache.log4j.BasicConfigurator;
 
+import com.msu.moo.algorithms.ASingleObjectiveAlgorithm;
 import com.msu.moo.interfaces.IEvaluator;
-import com.msu.moo.model.ASingleObjectiveAlgorithm;
+import com.msu.moo.interfaces.ISolution;
 import com.msu.moo.model.evaluator.StandardEvaluator;
-import com.msu.moo.model.solution.Solution;
 import com.msu.moo.util.MyRandom;
 import com.msu.moo.util.Util;
 import com.msu.thief.algorithms.ThiefOnePlusOneEA;
@@ -47,7 +47,7 @@ public class ExperimentOneProblemExecutor {
 
 		System.out.println(ALGORITHM);
 		System.out.println(thief);
-		Solution<TTPVariable> s = ALGORITHM.run(thief, Util.cloneObject(EVALUATOR), RAND);
+		ISolution<TTPVariable> s = ALGORITHM.run(thief, Util.cloneObject(EVALUATOR), RAND);
 		System.out.println(s);
 
 	}

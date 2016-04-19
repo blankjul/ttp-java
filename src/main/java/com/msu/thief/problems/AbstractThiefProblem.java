@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.msu.moo.model.AProblem;
+import com.msu.moo.model.ASingleObjectiveProblem;
 import com.msu.thief.evaluator.profit.NoDroppingEvaluator;
 import com.msu.thief.evaluator.profit.ProfitEvaluator;
 import com.msu.thief.evaluator.time.StandardTimeEvaluator;
@@ -14,7 +14,7 @@ import com.msu.thief.model.ItemCollection;
 import com.msu.thief.model.SymmetricMap;
 import com.msu.thief.problems.variable.TTPVariable;
 
-public abstract class AbstractThiefProblem extends AProblem<TTPVariable>{
+public abstract class AbstractThiefProblem extends ASingleObjectiveProblem<TTPVariable> {
 	
 	static final Logger logger = Logger.getLogger(AbstractThiefProblem.class);
 	

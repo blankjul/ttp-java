@@ -27,13 +27,5 @@ public class ThiefFactory implements IFactory<TTPVariable>{
 	}
 
 
-
-	@Override
-	public boolean hasNext() {
-		return fTour.hasNext() && fPack.hasNext();
-	}
-
-	
-
 	
 }

@@ -21,7 +21,7 @@ public class ExperimentExecutor {
 	protected final static String EXPERIMENT = "BenchmarkExperimentSingleObjective";
 
 	// ! number of iterations per experiment
-	protected final static int ITERATIONS = 1;
+	protected final static int ITERATIONS = 10;
 
 	// ! max evaluations per run
 	protected final static IEvaluator EVALUATOR = new StandardEvaluator(100000);

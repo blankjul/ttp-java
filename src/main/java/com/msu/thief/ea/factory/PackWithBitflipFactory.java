@@ -27,11 +27,6 @@ public class PackWithBitflipFactory extends AOperator implements IFactory<Pack> 
 	}
 
 	
-	@Override
-	public boolean hasNext() {
-		return true;
-	}
-
 
 
 

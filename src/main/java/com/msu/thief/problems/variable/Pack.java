@@ -19,7 +19,7 @@ import com.msu.thief.util.StringUtil;
  * in comparison to a boolean vector.
  * 
  */
-public class Pack extends AVariable<Set<Integer>> implements IEvolutionaryVariable<Set<Integer>, Pack> {
+public class Pack extends AVariable<Set<Integer>> implements IEvolutionaryVariable<Set<Integer>> {
 
 	
 	
