@@ -31,10 +31,12 @@ public class MultiObjectiveThiefProblem extends AbstractThiefProblem {
 	}
 	
 	
+	/*
 	@Override
 	public int getNumberOfObjectives() {
 		return 2;
 	}
+	*/
 	
 	
 	@Override
