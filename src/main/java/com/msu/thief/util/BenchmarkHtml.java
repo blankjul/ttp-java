@@ -30,7 +30,7 @@ public class BenchmarkHtml {
 
 		// create a map with all problem instances
 		FileCollectorParser<AbstractThiefProblem> fcp = new FileCollectorParser<>();
-		fcp.add("../new/", "single-*.json", new JsonThiefProblemReader());
+		fcp.add("../ttp-benchmark/", "single-*.json", new JsonThiefProblemReader());
 		for (AbstractThiefProblem p : fcp.collect()) {
 			System.out.println(p.getName());
 			mProblem.put(p.getName(), (SingleObjectiveThiefProblem) p);

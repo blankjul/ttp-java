@@ -6,6 +6,7 @@ import com.msu.moo.interfaces.ISolution;
 import com.msu.moo.model.solution.SolutionDominator;
 import com.msu.moo.util.MyRandom;
 import com.msu.thief.algorithms.subproblems.AlgorithmUtil;
+import com.msu.thief.ea.factory.PackEmptyFactory;
 import com.msu.thief.ea.factory.PackFullFactory;
 import com.msu.thief.problems.SingleObjectiveThiefProblem;
 import com.msu.thief.problems.variable.Pack;
@@ -68,7 +69,7 @@ public abstract class AbstractThiefHillClimbing extends ASingleObjectiveAlgorith
 		if (rand.nextDouble() < 0.5) tour = tour.getSymmetric();
 			
 		// full packing plan
-		Pack z = new PackFullFactory(problem).next(rand);
+		Pack z = new PackEmptyFactory(problem).next(rand);
 		//Pack z = new Pack();
 		
 		return evaluator.evaluate(problem, TTPVariable.create(tour, z));

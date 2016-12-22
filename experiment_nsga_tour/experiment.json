@@ -1,0 +1,14 @@
+{
+  "algorithms" : [
+    "Greedy",
+    "NSGAII-OPT-FIXED",
+    "NSGAII-OPT-EDGE",
+    "NSGAII-2OPT-EDGE"
+  ],
+  "problems" : [
+    "multi-0100-01-l",
+    "multi-0100-01-m",
+    "multi-0100-01-s"
+  ],
+  "iterations" : 30
+}

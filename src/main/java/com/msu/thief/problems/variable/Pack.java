@@ -97,6 +97,16 @@ public class Pack extends AVariable<Set<Integer>> implements IEvolutionaryVariab
 		return Arrays.toString(obj.toArray());
 	}
 
+	
+	public String toBinaryString() {
+		int[] binary = new int[obj.size()];
+		for (int i = 0; i < obj.size(); i++) {
+			if (this.isPicked(i)) binary[i] = 1;
+		}
+		return Arrays.toString(binary);
+	}
+	
+	
 	/**
 	 * @param idx of item
 	 * @return if item is picked or not

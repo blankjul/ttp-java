@@ -12,6 +12,8 @@ import com.msu.moo.model.solution.Solution;
 import com.msu.moo.util.FileCollectorParser;
 import com.msu.moo.util.MyRandom;
 import com.msu.thief.algorithms.subproblems.AlgorithmUtil;
+import com.msu.thief.ea.factory.PackRandomFactory;
+import com.msu.thief.ea.factory.TourRandomFactory;
 import com.msu.thief.evaluator.profit.ExponentialProfitEvaluator;
 import com.msu.thief.io.thief.reader.JsonThiefProblemReader;
 import com.msu.thief.io.writer.JsonThiefProblemWriter;
@@ -34,6 +36,44 @@ public class BenchmarkBuilder {
 	static final String folder = "../new";
 
 	public static void main(String[] args) {
+		
+		BasicConfigurator.configure();
+		MyRandom r = new MyRandom(SEED);
+		
+		final int numOfCities = 10000;
+		final int itemsPerCity = 3;
+		final double fillingRate = 0.5;
+		
+		r = new MyRandom(SEED);
+		CoordinateMap m = buildMap(numOfCities, 0, 1000, r);
+		
+		ItemCollection<Item> c = buildItems(numOfCities, itemsPerCity, 1000, r);
+
+		int maxWeight = calcMaxWeight(fillingRate, c, numOfCities);
+		//double R = calcR(m, c, maxWeight);
+		double R = 5;
+		
+		SingleObjectiveThiefProblem p = new SingleObjectiveThiefProblem(m, c, maxWeight, R);
+		String name = String.format("%04d-%02d-%s", numOfCities, itemsPerCity, getSizeString(fillingRate));
+
+		new JsonThiefProblemWriter().write(p, String.format("/home/julesy/ttp%s.json", name));
+		
+		
+		Pack pack = new PackRandomFactory(p).next(r);
+		Tour tour = new TourRandomFactory(p).next(r);
+		
+		System.out.println(pack.toBinaryString());
+		//System.out.println(tour);
+		
+		
+		System.out.println("DONE");
+		
+	}
+	
+	
+	
+	
+	public static void main2(String[] args) {
 
 		BasicConfigurator.configure();
 		MyRandom r = new MyRandom(SEED);

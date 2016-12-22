@@ -29,8 +29,9 @@ public class PackOneItemFactory extends AOperator implements IFactory<Pack> {
 
 	
 	//! pool with all the items
-	protected LinkedList<Pack> pool = new LinkedList<>();
+	protected LinkedList<Pack> pool;
 	
+	Collection<Integer> items = new LinkedList<>();
 	
 	public PackOneItemFactory(AbstractThiefProblem thief) {
 		this(thief, Util.createIndex(thief.numOfItems()));
@@ -38,19 +39,24 @@ public class PackOneItemFactory extends AOperator implements IFactory<Pack> {
 	
 	public PackOneItemFactory(AbstractThiefProblem thief, Collection<Integer> items) {
 		super(thief);
-		
+		this.items = items;
+		init();
+	}
+	
+	private void init()
+	{
+		pool = new LinkedList<>();
 		for (int i : items) {
 			Pack p = new Pack(i);
 			pool.add(p);
 		}
-		
 	}
 	
 
 
 	@Override
 	public Pack next(MyRandom rand) {
-		if (pool.isEmpty()) throw new RuntimeException("Factory can not provide more entries.");
+		if (pool.isEmpty()) init();
 		return pool.poll();
 	}
 

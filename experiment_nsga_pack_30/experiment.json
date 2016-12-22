@@ -1,0 +1,14 @@
+{
+  "algorithms" : [
+    "Greedy",
+    "NSGAII-PACK-RANDOM",
+    "NSGAII-PACK-ONE",
+    "NSGAII-PACK-OPTIMAL"
+  ],
+  "problems" : [
+    "multi-0100-01-l",
+    "multi-0100-01-m",
+    "multi-0100-01-s"
+  ],
+  "iterations" : 30
+}

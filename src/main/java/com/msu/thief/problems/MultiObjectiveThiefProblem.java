@@ -31,19 +31,16 @@ public class MultiObjectiveThiefProblem extends AbstractThiefProblem {
 	}
 	
 	
-	/*
 	@Override
 	public int getNumberOfObjectives() {
 		return 2;
 	}
-	*/
 	
 	
 	@Override
 	public int getNumberOfConstraints() {
 		return 1;
 	}
-
 
 	
 	@Override
